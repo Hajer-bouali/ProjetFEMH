@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Evenement
+{% endblock %}
+
+{% block body %}
+	<h1>Create new Evenement</h1>
+	<div class="row">
+		<div class="col-md-6">
+			{{form_row(form)}}
+		</div>
+	</div>
+
+	<a href="{{ path('evenement_index') }}">back to list</a>
+{% endblock %}

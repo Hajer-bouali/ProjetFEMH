@@ -1,0 +1,390 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Adherent
+{% endblock %}
+
+
+{% block body %}
+
+
+	<!-- Main content -->
+	<div
+		class="content-wrapper">
+
+		<!-- Page header -->
+		<div class="page-header page-header-light">
+			<div class="page-header-content header-elements-md-inline">
+				<div class="breadcrumb">
+					<a href="{{path('adherent_index')}}" class="breadcrumb-item">
+						<i class="icon-home2 mr-2"></i>
+						Liste des dossiers</a>
+					<a href="{{path('adherent_new')}}" class="breadcrumb-item">Créer un nouveau dossiers</a>
+
+				</div>
+
+
+			</div>
+
+
+		</div>
+		<!-- /page header -->
+		<div class="grix xs4 container">
+			<div class="col-xs4">
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<div class="col-12">
+					<div class="col-xs4">
+						<div class="content-wrapper">
+
+							<div
+								class="content">
+
+								<!-- Inner container -->
+								<div
+									class="d-flex align-items-start flex-column flex-md-row">
+									<!-- Left content -->
+									<div class="tab-content w-100 overflow-auto order-2 order-md-1">
+										<div class="tab-pane fade active show" id="settings">
+											<div
+												class="content">
+
+												<!-- Wizard with validation -->
+												<div class="card">
+													<div class="card-header bg-white header-elements-inline">
+														<h6 class="card-title">Créer un nouveau dossiers</h6>
+														<div class="header-elements">
+															<div class="list-icons">
+																<a class="list-icons-item" data-action="collapse"></a>
+																<a class="list-icons-item" data-action="reload"></a>
+																<a class="list-icons-item" data-action="remove"></a>
+															</div>
+														</div>
+													</div>
+													{{ form_start(form , {attr:{'class':'wizard-form steps-validation'}}) }}
+
+													<h6>information personnelle</h6>
+													<fieldset>
+														<div class="row">
+															<div class="row">
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<label>Numero
+																			<span class="text-danger">*</span>
+																		</label>
+																		{{ form_widget(form.numero , {attr:{'class':'form-control'}}) }}
+																	</div>
+																</div>
+															</div>
+
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Nom et Prénom
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.nom , {attr:{'class':'form-control'}}) }}
+																</div>
+															</div>
+
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Numéro de carte d'identité
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.cin , {attr:{'class':'form-control'}}) }}
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Nom et Prénom conjoint
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.nomconjoint , {attr:{'class':'form-control'}}) }}
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Numéro de carte d'identité conjoint
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.cinconjoint , {attr:{'class':'form-control'}}) }}
+																</div>
+															</div>
+														</div>
+
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Numéro de téléphone<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.telephone , {attr:{'class':'form-control'}}) }}
+
+																</div>
+															</div>
+
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>L'état civil
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.etatcivil , {attr:{'class':'form-control form-control-select2'}}) }}
+
+																</div>
+
+
+															</div>
+														</div>
+
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Adresse</label>
+																	<span class="text-danger">*</span>
+																	{{ form_widget(form.adresse , {attr:{'class':' form-control'}}) }}
+																</div>
+															</div>
+
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Nombre de membres de la famille
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.nombrefamille , {attr:{'class':'form-control form-control'}}) }}
+
+
+																</div>
+
+
+															</div>
+
+														</div>
+													</fieldset>
+
+													<h6>statut résidentiel et état de santé</h6>
+													<fieldset>
+														<div class="row">
+															<div class="col-md-6">
+
+																<label>propriété de logement
+																	<span class="text-danger">*</span>
+																</label>
+																{{ form_widget(form.logement , {attr:{'class':'form-control form-control-select2'}}) }}
+
+															</div>
+															<div class="col-md-6">
+
+																<label>Prix location maison
+																	<span class="text-danger">*</span>
+																</label>
+																{{ form_widget(form.prixlocation , {attr:{'class':'form-control '}}) }}
+
+															</div>
+
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+
+																<label>Disponibilité d'eau
+																	<span class="text-danger">*</span>
+																</label>
+																{{ form_widget(form.eau , {attr:{'class':'form-control form-control-select2'}}) }}
+
+															</div>
+															<div class="col-md-6">
+
+																<div class="form-group">
+																	<label>Disponibilité d'électricité
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.electricite , {attr:{'class':'form-control form-control-select2'}}) }}
+
+
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<div
+																	class="form-group">
+																	<!--Prixlocation-->
+
+																	<div class="form-group">
+																		<label>Nombre de chambres
+																			<span class="text-danger">*</span>
+																		</label>
+																		{{ form_widget(form.nombrechambre , {attr:{'class':'form-control form-control'}}) }}
+																	</div>
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Installations non disponibles</label>
+																	{{ form_widget(form.installationnondisponible , {attr:{'class':'form-control form-control'}}) }}
+																</div>
+															</div>
+														</div>
+
+
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>A-t-il un handicap ?
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.handicap , {attr:{'class':'form-control form-control'}}) }}
+
+
+																</div>
+
+															</div>
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Type d'handicap
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.typehandicap , {attr:{'class':'form-control form-control'}}) }}
+																</div>
+															</div>
+
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Quelqu'un dans la famille a-t-il un handicap?
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.famillehandicap , {attr:{'class':'form-control form-control'}}) }}
+
+
+																</div>
+
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Quelqu'un dans la famille souffre-t-il d'une maladie chronique ?
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.maladiechronique , {attr:{'class':'form-control form-control'}}) }}
+
+
+																</div>
+
+															</div>
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Type maladie chronique ?
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.typemaladiechronique , {attr:{'class':'form-control form-control'}}) }}
+																</div>
+															</div>
+
+														</div>
+
+
+													</fieldset>
+
+													<h6>Revenu familial et Résumé de la situation sociale</h6>
+													<fieldset>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Montant du revenu
+																		<span class="text-danger">*</span>
+																		{{ form_widget(form.montantrevenu , {attr:{'class':'form-control form-control'}}) }}
+
+																	</label>
+																</div>
+															</div>
+
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>source revenu
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.source , {attr:{'class':'form-control form-control'}}) }}
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Resumé
+																		<span class="text-danger">*</span>
+																		{{ form_widget(form.resume , {attr:{'class':'form-control '}}) }}
+
+																	</label>
+																</div>
+															</div>
+
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>La Demande
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.demande , {attr:{'class':'form-control form-control'}}) }}
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>la personne qui enregistre ce fichier
+																		<span class="text-danger">*</span>
+																		{{ form_widget(form.quienregistrefichier , {attr:{'class':'form-control '}}) }}
+
+																	</label>
+																</div>
+															</div>
+
+															
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Telecharger les pieces jointes:
+																		<span class="text-danger">*</span>
+																		{{ form_widget(form.piecesjointes , {attr:{'class':'form-input-styled'}}) }}
+
+																	</label>
+																</div>
+															</div>
+															
+														</div>
+
+
+														<div class="text-right">
+															{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+															{{ form_end(form) }}
+														</div>
+													</fieldset>
+
+
+												</div>
+												<!-- /wizard with validation -->
+
+											</div>
+											<!-- /content area -->
+
+
+										</div>
+									</div>
+									<!-- /left content -->
+								</div>
+								<!-- /inner container -->
+							</div>
+							<!-- Content area -->
+							<div class="content"></div>
+							<!-- /content area -->
+						</div>
+
+
+					</div>
+
+				</div>
+			</div>
+		{% endblock %}

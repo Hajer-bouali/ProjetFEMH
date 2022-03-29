@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block body %}
+    <h1>Evenement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Quantite</th>
+                <th>Montent</th>
+                <th>Bondachat</th>
+                <th>Quantiteviande</th>
+                <th>Quantitelaine</th>
+                <th>Numerodossier</th>
+                <th>Beneficiairecouche</th>
+                <th>Quantitecouche</th>
+                <th>Taillecouche</th>
+                <th>Telbeneficiairecouche</th>
+                <th>Cinbeneficiairecouche</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.id }}</td>
+                <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.quantite }}</td>
+                <td>{{ evenement.montent }}</td>
+                <td>{{ evenement.bondachat }}</td>
+                <td>{{ evenement.quantiteviande }}</td>
+                <td>{{ evenement.quantitelaine }}</td>
+                <td>{{ evenement.numerodossier }}</td>
+                <td>{{ evenement.beneficiairecouche }}</td>
+                <td>{{ evenement.quantitecouche }}</td>
+                <td>{{ evenement.taillecouche }}</td>
+                <td>{{ evenement.telbeneficiairecouche }}</td>
+                <td>{{ evenement.cinbeneficiairecouche }}</td>
+                <td>
+                    <a href="{{ path('evenement_show', {'id': evenement.id}) }}">show</a>
+                    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('evenement_new') }}">Create new</a>
+{% endblock %}

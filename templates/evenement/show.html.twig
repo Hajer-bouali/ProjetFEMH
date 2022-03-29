@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement{% endblock %}
+
+{% block body %}
+    <h1>Evenement</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ evenement.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Quantite</th>
+                <td>{{ evenement.quantite }}</td>
+            </tr>
+            <tr>
+                <th>Montent</th>
+                <td>{{ evenement.montent }}</td>
+            </tr>
+            <tr>
+                <th>Bondachat</th>
+                <td>{{ evenement.bondachat }}</td>
+            </tr>
+            <tr>
+                <th>Quantiteviande</th>
+                <td>{{ evenement.quantiteviande }}</td>
+            </tr>
+            <tr>
+                <th>Quantitelaine</th>
+                <td>{{ evenement.quantitelaine }}</td>
+            </tr>
+            <tr>
+                <th>Numerodossier</th>
+                <td>{{ evenement.numerodossier }}</td>
+            </tr>
+            <tr>
+                <th>Beneficiairecouche</th>
+                <td>{{ evenement.beneficiairecouche }}</td>
+            </tr>
+            <tr>
+                <th>Quantitecouche</th>
+                <td>{{ evenement.quantitecouche }}</td>
+            </tr>
+            <tr>
+                <th>Taillecouche</th>
+                <td>{{ evenement.taillecouche }}</td>
+            </tr>
+            <tr>
+                <th>Telbeneficiairecouche</th>
+                <td>{{ evenement.telbeneficiairecouche }}</td>
+            </tr>
+            <tr>
+                <th>Cinbeneficiairecouche</th>
+                <td>{{ evenement.cinbeneficiairecouche }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('evenement_index') }}">back to list</a>
+
+    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
+
+    {{ include('evenement/_delete_form.html.twig') }}
+{% endblock %}

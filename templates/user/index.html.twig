@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<!-- Main content -->
+	<div
+		class="content-wrapper">
+		<!-- Page header -->
+		<div class="page-header page-header-light">
+			<div class="page-header-content header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{path('user_index')}}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des utilisateurs</a>
+					</div>
+					<a href="#" class="header-elements-toggle text-default d-md-none">
+						<i class="icon-more"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- /page header -->
+
+
+		<!-- Content area -->
+		<div
+			class="content">
+			<!-- Basic datatable -->
+			<div class="card">
+				<div class="card-header header-elements-inline">
+					<h5 class="card-title">Liste des utilisateurs</h5>
+					<div class="card-title-left">
+						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('user_create')}}">
+							<b>
+								<i class="icon-reading"></i>
+							</b>
+							Ajouter un nouveau utilisateur</a>
+					</div>
+				</div>
+				<table class="table datatable-basic">
+
+					<thead>
+						<tr>
+
+							<th>Nom</th>
+							<th>Prénom</th>
+							<th>Role</th>
+							<th>Email</th>
+							<th>Actions</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr>
+
+								<td>{{ user.name }}</td>
+								<td>{{ user.firstname }}</td>
+								<td>
+									{% for role in user.roles %}
+										{% if role == 'ROLE_ADMIN' %}
+											Administrateur
+										{% endif %}
+										{% if role == 'ROLE_USER' %}
+											utilisateur
+										{% endif %}
+										{% if role == 'ROLE_EDITOR' %}
+											Editeur
+										{% endif %}
+										<br>
+									{% endfor %}
+								</td>
+								<td>{{ user.email }}</td>
+								<td>
+									<div class="list-icons">
+										<a class="list-icons-item text-primary-600" class="btn bg-green" href="{{path("user_edit" , {user: user.id})}}">
+											<i class="icon-pencil7"></i>
+										</a>
+										<a href="#" data-target="#modal_delete{{user.id}}" data-toggle="modal" data-id={{user.id}} class="list-icons-item text-danger-600">
+											<i class="icon-trash"></i>
+										</a>
+									</div>
+								</td>
+								<td class="text-center"></td>
+							</tr>
+							<div id="modal_delete{{user.id}}" class="modal fade" tabindex="-1">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header bg-danger">
+											<h6 class="modal-title">Supprimer l'utilisateur {{user.name}}</h6>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<div class="modal-body">
+											<p>Êtes-vous sûr de vouloir supprimer ?</p>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+											<a type="button" class="btn bg-danger" href="{{path("user_delete" , {user: user.id})}}">Valider</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- /basic datatable -->
+{% endblock %}
