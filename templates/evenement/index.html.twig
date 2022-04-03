@@ -1,57 +1,107 @@
+
 {% extends 'base.html.twig' %}
-
-{% block title %}Evenement index{% endblock %}
-
 {% block body %}
-    <h1>Evenement index</h1>
+	<!-- Main content -->
+	<div
+		class="content-wrapper">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Quantite</th>
-                <th>Montent</th>
-                <th>Bondachat</th>
-                <th>Quantiteviande</th>
-                <th>Quantitelaine</th>
-                <th>Numerodossier</th>
-                <th>Beneficiairecouche</th>
-                <th>Quantitecouche</th>
-                <th>Taillecouche</th>
-                <th>Telbeneficiairecouche</th>
-                <th>Cinbeneficiairecouche</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for evenement in evenements %}
-            <tr>
-                <td>{{ evenement.id }}</td>
-                <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
-                <td>{{ evenement.quantite }}</td>
-                <td>{{ evenement.montent }}</td>
-                <td>{{ evenement.bondachat }}</td>
-                <td>{{ evenement.quantiteviande }}</td>
-                <td>{{ evenement.quantitelaine }}</td>
-                <td>{{ evenement.numerodossier }}</td>
-                <td>{{ evenement.beneficiairecouche }}</td>
-                <td>{{ evenement.quantitecouche }}</td>
-                <td>{{ evenement.taillecouche }}</td>
-                <td>{{ evenement.telbeneficiairecouche }}</td>
-                <td>{{ evenement.cinbeneficiairecouche }}</td>
-                <td>
-                    <a href="{{ path('evenement_show', {'id': evenement.id}) }}">show</a>
-                    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="14">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+		<!-- Page header -->
+		<div class="page-header page-header-light">
+			<div class="page-header-content header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{path('evenement_index')}}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des evenement</a>
 
-    <a href="{{ path('evenement_new') }}">Create new</a>
-{% endblock %}
+					</div>
+
+					<a href="#" class="header-elements-toggle text-default d-md-none">
+						<i class="icon-more"></i>
+					</a>
+				</div>
+
+
+			</div>
+		</div>
+		<!-- /page header -->
+
+
+		<!-- Content area -->
+		<div
+			class="content">
+
+			<!-- Basic datatable -->
+			<div class="card">
+				<div class="card-header header-elements-inline">
+					<h5 class="card-title">Liste des evenement</h5>
+					<div class="card-title-left">
+						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('evenement_new')}}">
+							<b>
+								<i class="icon-reading"></i>
+							</b>
+							Ajouter un nouveau evenement</a>
+					</div>
+
+				</div>
+
+				<table class="table datatable-basic">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Date</th>
+                        <th>Quantite</th>
+                        <th>Montent</th>
+                        <th>Bondachat</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for evenement in evenements %}
+                    <tr>
+                        <td>{{ evenement.id }}</td>
+                        <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
+                        <td>{{ evenement.quantite }}</td>
+                        <td>{{ evenement.montent }}</td>
+                        <td>{{ evenement.bondachat }}</td>
+                        <td>
+
+								<a class="list-icons-item text-primary-600" href="{{ path('evenement_edit', {'id': evenement.id}) }}">
+									<i class="icon-pencil7"></i>
+								</a>
+								<a href="#" data-target="#modal_delete{{evenement.id}}" data-toggle="modal" data-id={{evenement.id}} class="list-icons-item text-danger-600">
+									<i class="icon-trash"></i>
+								</a>
+								<a href="{{ path('evenement_show', {'id': evenement.id}) }}" class="list-icons-item text-teal-600">
+									<i class="icon-reading"></i>
+								</a>
+								<div id="modal_delete{{evenement.id}}" class="modal fade" tabindex="-1">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header bg-danger">
+												<h6 class="modal-title">Supprimer l'evenement {{evenement.id}}</h6>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+
+											<div class="modal-body">
+												<p>Êtes-vous sûr de vouloir supprimer ?</p>
+											</div>
+
+											<div class="modal-footer">
+												<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+												<a type="button" class="btn bg-danger" href="{{path("evenement_delete" , {id: evenement.id})}}">Valider</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>	
+						</tr>
+
+					{% endfor %}
+				</tbody>
+			</table>
+			<!-- /basic datatable -->
+		</div>
+
+	</div>
+</div>{% endblock %}
