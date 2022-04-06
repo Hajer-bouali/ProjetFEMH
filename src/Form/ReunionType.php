@@ -2,24 +2,21 @@
 
 namespace App\Form;
 
-use App\Entity\Produit;
+use App\Entity\Reunion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProduitType extends AbstractType
+class ReunionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('quantite')
-            ->add('intitule')
-            ->add('ref')
-            ->add('unite')
-            ->add('dateExpiration',null, [ 
+            ->add('date',null, [ 
                 'widget' => 'single_text',
-            ])
+            ] )
+            ->add('listemembre')
             ->add('Enregistrer', SubmitType::class)
         ;
     }
@@ -27,7 +24,7 @@ class ProduitType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Produit::class,
+            'data_class' => Reunion::class,
         ]);
     }
 }

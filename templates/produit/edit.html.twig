@@ -46,67 +46,67 @@
 												</div>
 
 												<div class="card-body"> {{ form_start(form) }}
-													
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Quantité
-																	</label> {{ form_widget(form.quantite , {attr:{'class':'form-control'}}) }}
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Catégorie
-																	</label> {{ form_widget(form.categorie , {attr:{'class':'form-control'}}) }}
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Référence
-																	</label> {{ form_widget(form.ref , {attr:{'class':'form-control'}}) }}
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Date d'expiration
-																	</label> {{ form_widget(form.dateExpiration , {attr:{'class':'form-control'}}) }}
-																</div>
-															</div>
-														</div>
-														<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>
-																	les type de produit<span class="text-danger">*</span>
-																</label>
-																<select name="listeTypeProduit[]" class="form-control">
-																	{% for typeProduit in typeProduits %}
-																		<option value="{{ typeProduit.id }}"> {{ typeProduit.nom }}
-																		</option>
-																	{% endfor %}
-																</select>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>
-																	le stock<span class="text-danger">*</span>
-																</label>
-																<select name="listeStock[]" class="form-control">
-																	{% for stock in stocks %}
-																		<option value="{{ stock.id }}"> {{ stock.nom }}
-																		</option>
-																	{% endfor %}
-																</select>
-															</div>
+
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>intitulé
+																<span class="text-danger">*</span>
+															</label> {{ form_widget(form.intitule, {attr:{'class':'form-control'}}) }}
 														</div>
 													</div>
-													<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} {{ form_end(form) }}
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>
+																le type de produit<span class="text-danger">*</span>
+															</label>
+															<select name="listeTypeProduit[]" class="form-control">
+																{% for typeProduit in typeProduits %}
+																	<option value="{{ typeProduit.id }}"> {{ typeProduit.nom }}
+																	</option>
+																{% endfor %}
+															</select>
+														</div>
 													</div>
 
 												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>Quantité
+																<span class="text-danger">*</span>
+															</label> {{ form_widget(form.quantite  , {attr:{'class':'form-control'}}) }}
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>Unité
+																<span class="text-danger">*</span>
+															</label> {{ form_widget(form.unite  , {attr:{'class':'form-control'}}) }}
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>Référence
+																<span class="text-danger">*</span>
+															</label> {{ form_widget(form.ref , {attr:{'class':'form-control'}}) }}
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label>Date d'expiration
+																<span class="text-danger">*</span>
+															</label> {{ form_widget(form.dateExpiration , {attr:{'class':'form-control'}}) }}
+														</div>
+													</div>
+												</div>
+
+												<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} {{ form_end(form) }}
+												</div>
+
+											</div>
 											</div>
 											<!-- /profile info -->
 
