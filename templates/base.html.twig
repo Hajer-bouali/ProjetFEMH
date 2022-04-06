@@ -48,10 +48,10 @@
 
 	</head>
 	<body>
-		<div class="navbar navbar-expand-md navbar-light">
+		<div class="navbar navbar-expand-md navbar-dark">
 			<div class="navbar-brand">
 				<a href="index.html" class="d-inline-block-center">
-					<img src="{{ asset('templateAdmin/global_assets/images/navbar.png') }}" alt="">
+					<img src="{{ asset('templateAdmin/global_assets/images/navbarr.png') }}" alt="">
 				</a>
 			</div>
 			<div class="d-md-none">
@@ -117,26 +117,6 @@
 							</div>
 							<i class="icon-menu" title="Main"></i>
 						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-people"></i>
-								<span>
-									Gestion des utilisateurs
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								<li class="nav-item">
-									<a href="{{ path('user_index') }}" class="nav-link">
-										Liste des utilisateurs
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('user_create') }}" class="nav-link">
-										Ajouter utilisateur
-									</a>
-								</li>
-							</ul>
-						</li>
 
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link">
@@ -175,19 +155,9 @@
 										Ajouter produit
 									</a>
 								</li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-basket"></i>
-								<span>
-									Gestion de type de produit
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 								<li class="nav-item">
 									<a href="{{ path('type_produit_index') }}" class="nav-link">
-										Liste de type de produit
+										Liste  type de produit
 									</a>
 								</li>
 								<li class="nav-item">
@@ -218,26 +188,7 @@
 							</ul>
 						</li>
 
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-database2"></i>
-								<span>
-									Gestion de stock
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								<li class="nav-item">
-									<a href="{{ path('stock_index') }}" class="nav-link">
-										Liste des stocks
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('stock_new') }}" class="nav-link">
-										Ajouter un stock
-									</a>
-								</li>
-							</ul>
-						</li>
+						
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link">
 								<i class="icon-cash"></i>
@@ -256,16 +207,6 @@
 										Ajouter une caisse
 									</a>
 								</li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-cash3"></i>
-								<span>
-									Gestion de type caisse
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 								<li class="nav-item">
 									<a href="{{ path('type_caisse_index') }}" class="nav-link">
 										Liste des type caisses
@@ -296,16 +237,6 @@
 										Ajouter un evenement
 									</a>
 								</li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-calendar52"></i>
-								<span>
-									Gestion de type d'evenement
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 								<li class="nav-item">
 									<a href="{{ path('type_evenement_index') }}" class="nav-link">
 										Liste des type des evenements
@@ -328,8 +259,22 @@
 							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 								<li class="nav-item">
 									<a href="#" class="nav-link">
-										Liste des operation Financier
+
+										Liste des operation financière
+
 									</a>
+									<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+										<li class="nav-item">
+											<a href="#" class="nav-link">
+												Liste des operation Don
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="#" class="nav-link">
+												Liste des operation Aide
+											</a>
+										</li>
+									</ul>
 								</li>
 								<li class="nav-item">
 									<a href="#" class="nav-link">
@@ -347,6 +292,26 @@
 											</a>
 										</li>
 									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link">
+								<i class="icon-people"></i>
+								<span>
+									Gestion des utilisateurs
+								</span>
+							</a>
+							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+								<li class="nav-item">
+									<a href="{{ path('user_index') }}" class="nav-link">
+										Liste des utilisateurs
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="{{ path('user_create') }}" class="nav-link">
+										Ajouter utilisateur
+									</a>
 								</li>
 							</ul>
 						</li>

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,7 +27,7 @@ class Produit
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $categorie;
+    private $intitule;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -43,9 +45,10 @@ class Produit
     private $typeProduit;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Stock::class, inversedBy="produit")
+     * @ORM\Column(type="string", length=255)
      */
-    private $stock;
+    private $unite;
+
 
     public function getId(): ?int
     {
@@ -64,14 +67,14 @@ class Produit
         return $this;
     }
 
-    public function getCategorie(): ?string
+    public function getIntitule(): ?string
     {
-        return $this->categorie;
+        return $this->intitule;
     }
 
-    public function setCategorie(string $categorie): self
+    public function setIntitule(string $intitule): self
     {
-        $this->categorie = $categorie;
+        $this->intitule = $intitule;
 
         return $this;
     }
@@ -112,15 +115,18 @@ class Produit
         return $this;
     }
 
-    public function getStock(): ?Stock
+
+    public function getUnite(): ?string
     {
-        return $this->stock;
+        return $this->unite;
     }
 
-    public function setStock(?Stock $stock): self
+    public function setUnite(string $unite): self
     {
-        $this->stock = $stock;
+        $this->unite = $unite;
 
         return $this;
     }
+
+    
 }

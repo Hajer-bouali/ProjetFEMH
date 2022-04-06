@@ -48,8 +48,8 @@
 					<thead>
 						<tr>
 							<th>Id</th>
+							<th>Intitulé</th>
 							<th>Quantité</th>
-							<th>Catégorie</th>
 							<th>Référence</th>
 							<th>Date d'expiration</th>
 							<th>Actions</th>
@@ -59,10 +59,10 @@
 						{% for produit in produits %}
 							<tr>
 								<td>{{ produit.id }}</td>
+								<td>{{ produit.intitule }}</td>
 								<td>{{ produit.quantite }}</td>
-								<td>{{ produit.categorie }}</td>
 								<td>{{ produit.ref }}</td>
-								<td>{{ produit.dateExpiration ? produit.dateExpiration|date('Y-m-d') : '' }}</td>
+								<td>{{ produit.dateExpiration ? produit.dateExpiration|date('Y-m-d'):'' }}</td>
 								<td>
 									<div class="list-icons">
 										<a class="list-icons-item text-primary-600" href="{{ path('produit_edit', {'id': produit.id}) }}">
@@ -81,7 +81,7 @@
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header bg-danger">
-										<h6 class="modal-title">Supprimer l'utilisateur {{produit.categorie}}</h6>
+										<h6 class="modal-title">Supprimer l'utilisateur {{produit.intitule}}</h6>
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 									</div>
 
