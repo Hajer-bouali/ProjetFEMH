@@ -146,9 +146,15 @@ class Adherent
     private $evenements;
 
     /**
+
+     * @ORM\Column(type="string", length=255)
+     */
+    private $etatreunion;
+
      * @ORM\OneToMany(targetEntity=Benificiaire::class, mappedBy="adherent")
      */
     private $benificiaires;
+
 
     public function __construct()
     {
@@ -497,6 +503,16 @@ class Adherent
         return $this->getNom() ? : 'Adherent';
     }
 
+
+    public function getEtatreunion(): ?string
+    {
+        return $this->etatreunion;
+    }
+
+    public function setEtatreunion(string $etatreunion): self
+    {
+        $this->etatreunion = $etatreunion;
+
     /**
      * @return Collection<int, Benificiaire>
      */
@@ -523,6 +539,7 @@ class Adherent
                 $benificiaire->setAdherent(null);
             }
         }
+
 
         return $this;
     }

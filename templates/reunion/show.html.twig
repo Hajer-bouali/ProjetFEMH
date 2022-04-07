@@ -228,10 +228,10 @@
 					<select name="listeadherents[]" class="form_control form-control-select2" multiple>
 
 						{% for adherent in adherents %}
-							{% for  idadherent in listeadherents %}
-								<option {% if idadherent != adherent %} value="{{adherent.id}}" {% endif %}> {{ adherent.nom }}
+						
+								<option  value="{{adherent.id}}"> {{ adherent.nom }}
 								</option>
-							{% endfor %}
+
 						{% endfor %}
 					</select>
 

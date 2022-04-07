@@ -33,10 +33,9 @@ class ProduitController extends AbstractController
     /**
      * @Route("/new", name="produit_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, TypeProduitRepository $TypeProduitRepository,StockRepository $StockRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TypeProduitRepository $TypeProduitRepository): Response
     {
         $typeProduits=$TypeProduitRepository->findAll();
-        $stocks=$StockRepository->findAll();
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
@@ -50,12 +49,6 @@ class ProduitController extends AbstractController
                 $typeProduit=$TypeProduitRepository->find($typeProduit_id);
                 $produit->setTypeProduit($typeProduit);   
              }
-             $listeStock=$request->request->get("listeStock");
-             foreach($listeStock as $stock_id){
-                 $stock = new Stock();
-                 $stock=$StockRepository->find($stock_id);
-                 $produit->setStock($stock);
-             }
              $entityManager->flush();
             return $this->redirectToRoute('produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -63,7 +56,6 @@ class ProduitController extends AbstractController
         return $this->renderForm('produit/new.html.twig', [
             'produit' => $produit,
             'typeProduits' => $typeProduits,
-            'stocks'=>$stocks,
             'form' => $form,
         ]);
     }
