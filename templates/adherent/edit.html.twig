@@ -19,7 +19,8 @@
 					<a href="{{path('adherent_index')}}" class="breadcrumb-item">
 						<i class="icon-home2 mr-2"></i>
 						Liste des dossiers</a>
-					<a href="{{path('adherent_new')}}" class="breadcrumb-item">Créer un nouveau dossiers</a>
+					<a href="{{path('adherent_new')}}" class="breadcrumb-item">Modifier un dossier
+					</a>
 
 				</div>
 
@@ -50,33 +51,25 @@
 
 												<!-- Wizard with validation -->
 												<div class="card">
-													<div class="card-header bg-white header-elements-inline">
-														<h6 class="card-title">Créer un nouveau dossiers</h6>
-														<div class="header-elements">
-															<div class="list-icons">
-																<a class="list-icons-item" data-action="collapse"></a>
-																<a class="list-icons-item" data-action="reload"></a>
-																<a class="list-icons-item" data-action="remove"></a>
-															</div>
-														</div>
+													<div class="card-title-left">
+												
+														<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="#" data-target="#modal_ajout_benificiaire{{adherent.id}}" data-toggle="modal">
+															<b>
+																<i class="icon-reading"></i>
+															</b>
+															Ajouter un nouveau membre famille</a>
 													</div>
+													<div class="card-header bg-white header-elements-inline">
+														<h6 class="card-title">Modifier le dossier de
+															{{adherent.nom}}</h6>
+
+													</div>
+
 													{{ form_start(form , {attr:{'class':'wizard-form steps-validation'}}) }}
 
 													<h6>information personnelle</h6>
 													<fieldset>
-														<div class="row">
-															<div class="row">
-																<div class="col-md-6">
-																	<div class="form-group">
-																		<label>Numero
-																			<span class="text-danger">*</span>
-																		</label>
-																		{{ form_widget(form.numero , {attr:{'class':'form-control'}}) }}
-																	</div>
-																</div>
-															</div>
 
-														</div>
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
@@ -93,24 +86,6 @@
 																		<span class="text-danger">*</span>
 																	</label>
 																	{{ form_widget(form.cin , {attr:{'class':'form-control'}}) }}
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Nom et Prénom conjoint
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.nomconjoint , {attr:{'class':'form-control'}}) }}
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Numéro de carte d'identité conjoint
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.cinconjoint , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														</div>
@@ -152,7 +127,7 @@
 																	<label>Nombre de membres de la famille
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.nombrefamille , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.nombrefamille , {attr:{'class':' form-control'}}) }}
 
 
 																</div>
@@ -163,7 +138,7 @@
 														</div>
 													</fieldset>
 
-													<h6>statut résidentiel et état de santé</h6>
+													<h6>statut résidentiel</h6>
 													<fieldset>
 														<div class="row">
 															<div class="col-md-6">
@@ -215,19 +190,22 @@
 																		<label>Nombre de chambres
 																			<span class="text-danger">*</span>
 																		</label>
-																		{{ form_widget(form.nombrechambre , {attr:{'class':'form-control form-control'}}) }}
+																		{{ form_widget(form.nombrechambre , {attr:{'class':' form-control'}}) }}
 																	</div>
 																</div>
 															</div>
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Installations non disponibles</label>
-																	{{ form_widget(form.installationnondisponible , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.installationnondisponible , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 														</div>
 
+													</fieldset>
 
+													<h6>Etat de santé</h6>
+													<fieldset>
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
@@ -245,7 +223,7 @@
 																	<label>Type d'handicap
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.typehandicap , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.typehandicap , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 
@@ -280,13 +258,11 @@
 																	<label>Type maladie chronique ?
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.typemaladiechronique , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.typemaladiechronique , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 
 														</div>
-
-
 													</fieldset>
 
 													<h6>Revenu familial et Résumé de la situation sociale</h6>
@@ -296,7 +272,7 @@
 																<div class="form-group">
 																	<label>Montant du revenu
 																		<span class="text-danger">*</span>
-																		{{ form_widget(form.montantrevenu , {attr:{'class':'form-control form-control'}}) }}
+																		{{ form_widget(form.montantrevenu , {attr:{'class':'form-control'}}) }}
 
 																	</label>
 																</div>
@@ -307,7 +283,7 @@
 																	<label>source revenu
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.source , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.source , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														</div>
@@ -317,7 +293,7 @@
 																	<label>Resumé
 																		<span class="text-danger">*</span>
 																		{{ form_widget(form.resume , {attr:{'class':'form-control  '}}) }}
-																		
+
 
 																	</label>
 																</div>
@@ -328,21 +304,11 @@
 																	<label>La Demande
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.demande , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.demande , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>la personne qui enregistre ce fichier
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.quienregistrefichier , {attr:{'class':'form-control '}}) }}
 
-																	</label>
-																</div>
-															</div>
-														</div>
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
@@ -354,36 +320,132 @@
 																	</label>
 																</div>
 															</div>
-															
+
 														</div>
 														<div class="text-right">
 															{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
 															{{ form_end(form) }}
 														</div>
 													</fieldset>
-
-
 												</div>
 												<!-- /wizard with validation -->
+												<table class="table datatable-basic">
 
-											</div>
-											<!-- /content area -->
+													<thead>
+														<tr>
+
+															<th>id</th>
+															<th>Relation familiale</th>
+															<th>Nom et prénom</th>
+															<th>date de naissance</th>
+															<th>niveau d'etude</th>
+															<th>mitier</th>
+															<th>action</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for benificiaire in benificiaires %}
+															<tr>
+																<td>{{ benificiaire.id }}</td>
+																<td>{{ benificiaire.relationfamiliale }}</td>
+																<td>{{ benificiaire.nom }}</td>
+																<td>{{ benificiaire.datenaissance ? benificiaire.datenaissance|date('Y-m-d') : '' }}</td>
+																<td>{{ benificiaire.niveauetude }}</td>
+																<td>{{ benificiaire.metier }}</td>
+
+																<td>
+																	<div class="list-icons">
+																		<a href="{{ path('adherent_edit', {'id': adherent.id}) }}" class="list-icons-item text-primary-600">
+																			<i class="icon-pencil7"></i>
+																		</a>
+																		<!--bouton trach-->
+																		<!--<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{adherent.id}}" data-toggle="modal">
+																																																																																													<i class="icon-trash"></i>
+																																																																																												</a>-->
+																		<!--/bouton trach-->
+
+																			<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600"> <i class="icon-reading"></i>
+																		</a>
+																	</div>
 
 
-										</div>
+																</td>
+																<td class="text-center"></td>
+
+															</tr>
+															<!--modal archive-->
+															<div id="modal_ajout_benificiaire{{adherent.id}}" class="modal fade" tabindex="-1">
+																<div class="modal-dialog">
+																	<div class="modal-content">
+																		<div class="modal-header bg-danger">
+																			<h4 class="modal-title">Confirmez-vous l'archivage ?
+																			</h4>
+																			<button type="button" class="close" data-dismiss="modal">&times;</button>
+																		</div>
+																		{{ form_start(formBen) }}
+
+																		<div class="modal-body">
+
+																			<div class="text-right"></div>
+																		</div>
+
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+																			<!--<a type="button" class="btn bg-danger" href="">Valider</a>-->
+
+																			
+																		</div>
+																		{{ form_end(formBen) }}
+																	</div>
+																</div>
+															</div>
+															<!--/modal archiver-->
+
+															<!--modal supression-->
+															<div id="modal_delete{{adherent.id}}" class="modal fade" tabindex="-1">
+																<div class="modal-dialog">
+																	<div class="modal-content">
+																		<div class="modal-header bg-danger">
+																			<h4 class="modal-title">Confirmez-vous la suppression ?
+																			</h4>
+																			<button type="button" class="close" data-dismiss="modal">&times;</button>
+																		</div>
+
+																		<div class="modal-body">
+																			<p>
+																				<h5>Voulez vous supprimer le dossier de
+																					{{adherent.nom}}?</h5>
+																			</p><br><h6>si vous confirmez, votre dossier sera effacé</h6>
+																		</div>
+
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+																			<a type="button" class="btn bg-danger" href="{{path("adherent_delete" , {id: adherent.id})}}">Valider</a>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<!--/modal supression-->
+
+														</div>
+													</tbody>
+												{% endfor %}
+
+											</tbody>
+										</table>
 									</div>
-									<!-- /left content -->
+									<!-- /content area -->
 								</div>
-								<!-- /inner container -->
 							</div>
-							<!-- Content area -->
-							<div class="content"></div>
-							<!-- /content area -->
+							<!-- /left content -->
 						</div>
-
-
+						<!-- /inner container -->
 					</div>
-
 				</div>
+
+
 			</div>
-		{% endblock %}
+
+		</div>
+	</div>
+</div></div>{% endblock %}
