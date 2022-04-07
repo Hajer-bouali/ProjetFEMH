@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Entity;
+//use App\Entity\Benificiaire;
 use App\Repository\AdherentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,11 +19,7 @@ class Adherent
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=0)
-     */
-    private $numero;
-
+   
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -33,15 +30,6 @@ class Adherent
      */
     private $cin;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nomconjoint;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $cinconjoint;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -138,10 +126,6 @@ class Adherent
      */
     private $demande;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $quienregistrefichier;
 
 
 
@@ -162,14 +146,21 @@ class Adherent
     private $evenements;
 
     /**
+
      * @ORM\Column(type="string", length=255)
      */
     private $etatreunion;
+
+     * @ORM\OneToMany(targetEntity=Benificiaire::class, mappedBy="adherent")
+     */
+    private $benificiaires;
+
 
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
         $this->evenements = new ArrayCollection();
+        $this->benificiaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,17 +168,7 @@ class Adherent
         return $this->id;
     }
 
-    public function getNumero(): ?string
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(string $numero): self
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
+ 
 
     public function getNom(): ?string
     {
@@ -213,29 +194,7 @@ class Adherent
         return $this;
     }
 
-    public function getNomconjoint(): ?string
-    {
-        return $this->nomconjoint;
-    }
 
-    public function setNomconjoint(string $nomconjoint): self
-    {
-        $this->nomconjoint = $nomconjoint;
-
-        return $this;
-    }
-
-    public function getCinconjoint(): ?string
-    {
-        return $this->cinconjoint;
-    }
-
-    public function setCinconjoint(string $cinconjoint): self
-    {
-        $this->cinconjoint = $cinconjoint;
-
-        return $this;
-    }
 
     public function getAdresse(): ?string
     {
@@ -465,17 +424,7 @@ class Adherent
         return $this;
     }
 
-    public function getQuienregistrefichier(): ?string
-    {
-        return $this->quienregistrefichier;
-    }
-
-    public function setQuienregistrefichier(string $quienregistrefichier): self
-    {
-        $this->quienregistrefichier = $quienregistrefichier;
-
-        return $this;
-    }
+ 
 
    
 
@@ -554,6 +503,7 @@ class Adherent
         return $this->getNom() ? : 'Adherent';
     }
 
+
     public function getEtatreunion(): ?string
     {
         return $this->etatreunion;
@@ -562,6 +512,34 @@ class Adherent
     public function setEtatreunion(string $etatreunion): self
     {
         $this->etatreunion = $etatreunion;
+
+    /**
+     * @return Collection<int, Benificiaire>
+     */
+    public function getBenificiaires(): Collection
+    {
+        return $this->benificiaires;
+    }
+
+    public function addBenificiaire(Benificiaire $benificiaire): self
+    {
+        if (!$this->benificiaires->contains($benificiaire)) {
+            $this->benificiaires[] = $benificiaire;
+            $benificiaire->setAdherent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBenificiaire(Benificiaire $benificiaire): self
+    {
+        if ($this->benificiaires->removeElement($benificiaire)) {
+            // set the owning side to null (unless already changed)
+            if ($benificiaire->getAdherent() === $this) {
+                $benificiaire->setAdherent(null);
+            }
+        }
+
 
         return $this;
     }

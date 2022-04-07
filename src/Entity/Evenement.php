@@ -29,69 +29,27 @@ class Evenement
      */
     private $adherent;
 
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $quantite;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $montent;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $bondachat;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $quantiteviande;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $quantitelaine;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $numerodossier;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $beneficiairecouche;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $quantitecouche;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $taillecouche;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $telbeneficiairecouche;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $cinbeneficiairecouche;
+   
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeEvenement::class, inversedBy="evenement")
      */
     private $typeEvenement;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="evenements")
+     */
+    private $produit;
+
     public function __construct()
     {
         $this->adherent = new ArrayCollection();
+        $this->produit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,149 +93,6 @@ class Evenement
         return $this;
     }
 
-    public function getQuantite(): ?float
-    {
-        return $this->quantite;
-    }
-
-    public function setQuantite(float $quantite): self
-    {
-        $this->quantite = $quantite;
-
-        return $this;
-    }
-
-    public function getMontent(): ?float
-    {
-        return $this->montent;
-    }
-
-    public function setMontent(float $montent): self
-    {
-        $this->montent = $montent;
-
-        return $this;
-    }
-
-    public function getBondachat(): ?float
-    {
-        return $this->bondachat;
-    }
-
-    public function setBondachat(float $bondachat): self
-    {
-        $this->bondachat = $bondachat;
-
-        return $this;
-    }
-
-    public function getQuantiteviande(): ?float
-    {
-        return $this->quantiteviande;
-    }
-
-    public function setQuantiteviande(float $quantiteviande): self
-    {
-        $this->quantiteviande = $quantiteviande;
-
-        return $this;
-    }
-
-    public function getQuantitelaine(): ?float
-    {
-        return $this->quantitelaine;
-    }
-
-    public function setQuantitelaine(float $quantitelaine): self
-    {
-        $this->quantitelaine = $quantitelaine;
-
-        return $this;
-    }
-
-    public function getBondereception(): ?string
-    {
-        return $this->bondereception;
-    }
-
-    public function setBondereception(string $bondereception): self
-    {
-        $this->bondereception = $bondereception;
-
-        return $this;
-    }
-
-    public function getNumerodossier(): ?int
-    {
-        return $this->numerodossier;
-    }
-
-    public function setNumerodossier(int $numerodossier): self
-    {
-        $this->numerodossier = $numerodossier;
-
-        return $this;
-    }
-
-    public function getBeneficiairecouche(): ?string
-    {
-        return $this->beneficiairecouche;
-    }
-
-    public function setBeneficiairecouche(string $beneficiairecouche): self
-    {
-        $this->beneficiairecouche = $beneficiairecouche;
-
-        return $this;
-    }
-
-    public function getQuantitecouche(): ?float
-    {
-        return $this->quantitecouche;
-    }
-
-    public function setQuantitecouche(float $quantitecouche): self
-    {
-        $this->quantitecouche = $quantitecouche;
-
-        return $this;
-    }
-
-    public function getTaillecouche(): ?float
-    {
-        return $this->taillecouche;
-    }
-
-    public function setTaillecouche(float $taillecouche): self
-    {
-        $this->taillecouche = $taillecouche;
-
-        return $this;
-    }
-
-    public function getTelbeneficiairecouche(): ?float
-    {
-        return $this->telbeneficiairecouche;
-    }
-
-    public function setTelbeneficiairecouche(float $telbeneficiairecouche): self
-    {
-        $this->telbeneficiairecouche = $telbeneficiairecouche;
-
-        return $this;
-    }
-
-    public function getCinbeneficiairecouche(): ?float
-    {
-        return $this->cinbeneficiairecouche;
-    }
-
-    public function setCinbeneficiairecouche(float $cinbeneficiairecouche): self
-    {
-        $this->cinbeneficiairecouche = $cinbeneficiairecouche;
-
-        return $this;
-    }
 
     public function getTypeEvenement(): ?TypeEvenement
     {
@@ -287,6 +102,42 @@ class Evenement
     public function setTypeEvenement(?TypeEvenement $typeEvenement): self
     {
         $this->typeEvenement = $typeEvenement;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Produit>
+     */
+    public function getProduit(): Collection
+    {
+        return $this->produit;
+    }
+
+    public function addProduit(Produit $produit): self
+    {
+        if (!$this->produit->contains($produit)) {
+            $this->produit[] = $produit;
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): self
+    {
+        $this->produit->removeElement($produit);
 
         return $this;
     }

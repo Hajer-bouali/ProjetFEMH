@@ -50,6 +50,16 @@ class Produit
     private $unite;
 
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Evenement::class, mappedBy="produit")
+     */
+    private $evenements;
+
+    public function __construct()
+    {
+        $this->evenements = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -128,5 +138,5 @@ class Produit
         return $this;
     }
 
-    
+
 }

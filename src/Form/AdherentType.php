@@ -30,11 +30,9 @@ class AdherentType extends AbstractType
             'required'=>false,
             'attr' =>['class'=>'form-input-styled']
         ])
-            ->add('numero')
+            
             ->add('nom')
             ->add('cin')
-            ->add('nomconjoint')
-            ->add('cinconjoint')
             ->add('adresse')
             ->add('telephone')
             ->add('etatcivil', ChoiceType::class, [
@@ -61,6 +59,7 @@ class AdherentType extends AbstractType
                 'label' => 'etat reunion' 
             ])
             ->add('nombrefamille')
+            ->add('benificiaires')
             ->add('logement', ChoiceType::class, [
                 'choices' => [
                     'Louer une maison'=>'Louer',
@@ -127,7 +126,6 @@ class AdherentType extends AbstractType
                 'label' => 'resume' 
             ])
             ->add('demande')
-            ->add('quienregistrefichier')
             
             
 
