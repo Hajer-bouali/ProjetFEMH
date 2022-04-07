@@ -70,9 +70,9 @@
 																<label>
 																	les type de caisse<span class="text-danger">*</span>
 																</label>
-																<select name="listeTypeCaisse[]" class="form-control">
+																<select name="listeTypeCaisse[]" class="form-control-select2">
 																	{% for typeCaisse in typeCaisses %}
-																		<option value="{{ typeCaisse.id }}"> {{ typeCaisse.nom }}
+																		<option value="{{ typeCaisse.id }}" > {{ typeCaisse.nom }}
 																		</option>
 																	{% endfor %}
 																</select>

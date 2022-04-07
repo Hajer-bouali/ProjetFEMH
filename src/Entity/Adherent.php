@@ -161,6 +161,11 @@ class Adherent
      */
     private $evenements;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $etatreunion;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
@@ -547,5 +552,17 @@ class Adherent
 
     public function __toString() {
         return $this->getNom() ? : 'Adherent';
+    }
+
+    public function getEtatreunion(): ?string
+    {
+        return $this->etatreunion;
+    }
+
+    public function setEtatreunion(string $etatreunion): self
+    {
+        $this->etatreunion = $etatreunion;
+
+        return $this;
     }
 }

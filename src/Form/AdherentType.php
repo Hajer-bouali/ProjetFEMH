@@ -10,14 +10,20 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 
 class AdherentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-        ->add('piecesjointes', FileType::class,[
+        // On modifie le formulaire avant de définir les datas
+    $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        //On récupère l'entité lié au formulaire
+        $entity = $event->getData();
+        $form = $event->getForm();
+        $form->add('piecesjointes', FileType::class,[
             'label'=>false,
             'multiple'=>true,
             'mapped'=>false,
@@ -41,6 +47,18 @@ class AdherentType extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
                 'label' => 'etat civil' 
+            ])
+            ->add('etatreunion', ChoiceType::class, [
+                'choices' => [
+                    'Non tritée'=>0,
+                    'En cours'=> 1,
+                    'Tritée'=>2,
+                    
+                ],
+                'expanded' => false,
+                'multiple' => false,
+                'data' => $entity->getEtatreunion() ? $entity->getEtatreunion() :0,
+                'label' => 'etat reunion' 
             ])
             ->add('nombrefamille')
             ->add('logement', ChoiceType::class, [
@@ -116,6 +134,7 @@ class AdherentType extends AbstractType
             ->add('Enregistrer', SubmitType::class)
 
         ;
+    });
     }
 
     public function configureOptions(OptionsResolver $resolver): void
