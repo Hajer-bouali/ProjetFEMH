@@ -151,6 +151,7 @@ class Adherent
      */
     private $etatreunion;
 
+    /**
      * @ORM\OneToMany(targetEntity=Benificiaire::class, mappedBy="adherent")
      */
     private $benificiaires;
@@ -512,10 +513,12 @@ class Adherent
     public function setEtatreunion(string $etatreunion): self
     {
         $this->etatreunion = $etatreunion;
-
+        return $this;
+    }
     /**
      * @return Collection<int, Benificiaire>
      */
+
     public function getBenificiaires(): Collection
     {
         return $this->benificiaires;
