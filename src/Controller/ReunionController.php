@@ -88,6 +88,8 @@ class ReunionController extends AbstractController
         return $this->render('reunion/show.html.twig', [
             'reunion' => $reunion,
             'decisions' => $decisions,
+            'listeadherents'=>$listeadherents,
+
             'adherents' => $adherents,
         ]);
     }
@@ -142,7 +144,6 @@ class ReunionController extends AbstractController
         $idreunion = $decision->getReunion()->getId();
         $detail = $request->request->get("detail");
         $statut = $request->request->get("statut");
-        dd($statut);
                 $decision->setStatut($statut);
                 $decision->setDetail($detail);
                 $entityManager->persist($decision);

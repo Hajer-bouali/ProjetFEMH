@@ -27,7 +27,7 @@ class Produit
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $categorie;
+    private $intitule;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -45,9 +45,10 @@ class Produit
     private $typeProduit;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Stock::class, inversedBy="produit")
+     * @ORM\Column(type="string", length=255)
      */
-    private $stock;
+    private $unite;
+
 
     /**
      * @ORM\ManyToMany(targetEntity=Evenement::class, mappedBy="produit")
@@ -76,14 +77,14 @@ class Produit
         return $this;
     }
 
-    public function getCategorie(): ?string
+    public function getIntitule(): ?string
     {
-        return $this->categorie;
+        return $this->intitule;
     }
 
-    public function setCategorie(string $categorie): self
+    public function setIntitule(string $intitule): self
     {
-        $this->categorie = $categorie;
+        $this->intitule = $intitule;
 
         return $this;
     }
@@ -124,42 +125,18 @@ class Produit
         return $this;
     }
 
-    public function getStock(): ?Stock
+
+    public function getUnite(): ?string
     {
-        return $this->stock;
+        return $this->unite;
     }
 
-    public function setStock(?Stock $stock): self
+    public function setUnite(string $unite): self
     {
-        $this->stock = $stock;
+        $this->unite = $unite;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Evenement>
-     */
-    public function getEvenements(): Collection
-    {
-        return $this->evenements;
-    }
 
-    public function addEvenement(Evenement $evenement): self
-    {
-        if (!$this->evenements->contains($evenement)) {
-            $this->evenements[] = $evenement;
-            $evenement->addProduit($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvenement(Evenement $evenement): self
-    {
-        if ($this->evenements->removeElement($evenement)) {
-            $evenement->removeProduit($this);
-        }
-
-        return $this;
-    }
 }
