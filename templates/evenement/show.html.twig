@@ -1,70 +1,115 @@
 {% extends 'base.html.twig' %}
+{% block style %}
+	<!-- Core JS files -->
+	<script src="{{asset('templateAdmin/global_assets/js/main/jquery.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/ui/ripple.min.js') }}"></script>
+	<!-- /core JS files -->
 
-{% block title %}Evenement{% endblock %}
+	<!-- Theme JS files -->
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/styling/switch.min.js') }}"></script>
 
-{% block body %}
-    <h1>Evenement</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ evenement.id }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Quantite</th>
-                <td>{{ evenement.quantite }}</td>
-            </tr>
-            <tr>
-                <th>Montent</th>
-                <td>{{ evenement.montent }}</td>
-            </tr>
-            <tr>
-                <th>Bondachat</th>
-                <td>{{ evenement.bondachat }}</td>
-            </tr>
-            <tr>
-                <th>Quantiteviande</th>
-                <td>{{ evenement.quantiteviande }}</td>
-            </tr>
-            <tr>
-                <th>Quantitelaine</th>
-                <td>{{ evenement.quantitelaine }}</td>
-            </tr>
-            <tr>
-                <th>Numerodossier</th>
-                <td>{{ evenement.numerodossier }}</td>
-            </tr>
-            <tr>
-                <th>Beneficiairecouche</th>
-                <td>{{ evenement.beneficiairecouche }}</td>
-            </tr>
-            <tr>
-                <th>Quantitecouche</th>
-                <td>{{ evenement.quantitecouche }}</td>
-            </tr>
-            <tr>
-                <th>Taillecouche</th>
-                <td>{{ evenement.taillecouche }}</td>
-            </tr>
-            <tr>
-                <th>Telbeneficiairecouche</th>
-                <td>{{ evenement.telbeneficiairecouche }}</td>
-            </tr>
-            <tr>
-                <th>Cinbeneficiairecouche</th>
-                <td>{{ evenement.cinbeneficiairecouche }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('evenement_index') }}">back to list</a>
-
-    <a href="{{ path('evenement_edit', {'id': evenement.id}) }}">edit</a>
-
-    {{ include('evenement/_delete_form.html.twig') }}
+	<script src="{{asset('templateAdmin/global_assets/js/demo_pages/form_checkboxes_radios.js') }}"></script>
+	<!-- /theme JS files -->
 {% endblock %}
+{% block body %}
+<!-- Main content -->
+<div
+	class="content-wrapper">
+
+	<!-- Page header -->
+	<div class="page-header page-header-light">
+		<div class="page-header-content header-elements-md-inline">
+			<div class="d-flex">
+				<div class="breadcrumb"></div>
+
+				<a href="#" class="header-elements-toggle text-default d-md-none">
+					<i class="icon-more"></i>
+				</a>
+			</div>
+
+		</div>
+	</div>
+	<!-- /page header -->
+
+	<!-- Content area -->
+	<div
+		class="content">
+
+		<!-- Basic datatable -->
+		<div class="card">
+			<div class="card-header header-elements-inline">
+				<h4 class="card-title">
+					l'evenement {{ evenement.nom }}
+				</h4>
+				<div class="card-title-left">
+					<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" data-target="#modal_create{{ evenement.id }}" data-toggle="modal" data-id={{evenement.id}}>
+						<b>
+							<i class="icon-reading"></i>
+						</b>
+						ajouter une nouvelle operation {{ evenement.nom }}
+					</a>
+				</div>
+
+			</div>
+			<div class="card-header header-elements-inline">
+				<h6>
+					<i class="icon-table2"></i>
+					Date debut d'operation: 
+				</br>
+			</br>
+			<i class="icon-people"></i>
+			Liste des adherents : 
+		</h6>
+	</div>
+
+	<table class="table datatable-basic">
+
+		<thead>
+			<tr>
+				<th>
+					Id
+				</th>
+				<th>
+					nom operation
+				</th>
+				<th>
+					montant
+				</th>
+				<th>
+					list produit
+				</th>
+				<th>
+					Actions
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+				<tr>
+					<td> 5
+
+					</td>
+					<td> ims operation
+
+					</td>
+                    <td> 1000dt
+
+					</td>
+                    <td> tomate
+
+					</td>
+                    <td> suprimer 
+
+					</td>
+
+				</tr>
+
+		</tbody>
+	</div>
+</div>
+</tbody></table></div>{% endblock %}

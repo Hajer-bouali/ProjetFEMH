@@ -59,11 +59,11 @@ class AdherentType extends AbstractType
                 'label' => 'etat reunion' 
             ])
             ->add('nombrefamille')
-            ->add('benificiaires')
+           // ->add('benificiaires')
             ->add('logement', ChoiceType::class, [
                 'choices' => [
-                    'Louer une maison'=>'Louer',
-                    'posseder une maison'=>'posseder' 
+                    'Locataire '=>'Louer',
+                    'Propriétaire'=>'posseder' 
                 ],
                 'expanded' => false,
                 'multiple' => false,
@@ -89,7 +89,7 @@ class AdherentType extends AbstractType
                 'multiple' => false,
                 'label' => 'eau' 
             ])
-            ->add('installationnondisponible')
+           // ->add('installationnondisponible')
             ->add('handicap', ChoiceType::class, [
                 'choices' => [
                     'Oui'=>0,
@@ -100,7 +100,7 @@ class AdherentType extends AbstractType
                 'label' => 'handicap' 
             ])
             ->add('typehandicap')
-            ->add('famillehandicap', ChoiceType::class, [
+           /* ->add('famillehandicap', ChoiceType::class, [
                 'choices' => [
                     'Oui'=>0,
                     'Non'=>1 
@@ -108,7 +108,7 @@ class AdherentType extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
                 'label' => 'famillehandicap' 
-            ])
+            ])*/
             ->add('maladiechronique', ChoiceType::class, [
                 'choices' => [
                     'Oui'=>0,
@@ -126,7 +126,7 @@ class AdherentType extends AbstractType
                 'label' => 'resume' 
             ])
             ->add('demande')
-            
+            ->add('typeadherent')
             
 
             ->add('Enregistrer', SubmitType::class)
