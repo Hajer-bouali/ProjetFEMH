@@ -19,11 +19,7 @@ class Evenement
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date;
-
+    
     /**
      * @ORM\ManyToMany(targetEntity=Adherent::class, inversedBy="evenements")
      */
@@ -46,6 +42,14 @@ class Evenement
      */
     private $produit;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $datedebut;
+
+   
+  
+ 
     public function __construct()
     {
         $this->adherent = new ArrayCollection();
@@ -57,17 +61,6 @@ class Evenement
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Adherent[]
@@ -141,4 +134,26 @@ class Evenement
 
         return $this;
     }
+
+    public function getDatedebut(): ?\DateTimeInterface
+    {
+        return $this->datedebut;
+    }
+
+    public function setDatedebut(\DateTimeInterface $datedebut): self
+    {
+        $this->datedebut = $datedebut;
+
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->getDatedebut() ? : 'evenement';
+    }
+
+    
+   
+
 }

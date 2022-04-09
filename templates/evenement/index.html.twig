@@ -49,10 +49,9 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Date</th>
-                        <th>Quantite</th>
-                        <th>Montent</th>
-                        <th>Bondachat</th>
+                        <th>Nom</th>
+                        <th>Type evenement</th>
+                        <th>date debut</th>
                         <th>actions</th>
                     </tr>
                 </thead>
@@ -60,10 +59,10 @@
                 {% for evenement in evenements %}
                     <tr>
                         <td>{{ evenement.id }}</td>
-                        <td>{{ evenement.date ? evenement.date|date('Y-m-d') : '' }}</td>
-                        <td>{{ evenement.quantite }}</td>
-                        <td>{{ evenement.montent }}</td>
-                        <td>{{ evenement.bondachat }}</td>
+						<td>{{ evenement.nom }}</td>
+						<td>{{ evenement.typeEvenement }}</td>
+                        <td>{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</td>
+                        
                         <td>
 
 								<a class="list-icons-item text-primary-600" href="{{ path('evenement_edit', {'id': evenement.id}) }}">

@@ -72,7 +72,7 @@
 																	<label>Numéro de carte d'identité
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.cin , {attr:{'class':'form-control'}}) }}
+																	{{ form_widget(form.cin , {attr:{'class':'form-control ','placeholder':'Numéro de 8 chifre','data-mask':'99999999'}}) }}
 																</div>
 															</div>
 														</div>
@@ -81,7 +81,7 @@
 																<div class="form-group">
 																	<label>Numéro de téléphone<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.telephone , {attr:{'class':'form-control'}}) }}
+																	{{ form_widget(form.telephone , {attr:{'class':'form-control','placeholder':'+216  - - - - - - - -','data-mask':'99999999'}}) }}
 
 																</div>
 															</div>
@@ -141,7 +141,7 @@
 															<div class="col-md-6">
 
 																<label>Prix location maison
-																	<span class="text-danger">*</span>
+																	
 																</label>
 																{{ form_widget(form.prixlocation , {attr:{'class':'form-control '}}) }}
 
@@ -183,12 +183,11 @@
 																	</div>
 																</div>
 															</div>
-															<div class="col-md-6">
+															<!--<div class="col-md-6">
 																<div class="form-group">
-																	<label>Installations non disponibles</label>
-																	{{ form_widget(form.installationnondisponible , {attr:{'class':' form-control'}}) }}
+																	<label>Equipement  non disponibles</label>
 																</div>
-															</div>
+															</div>-->
 														</div>
 														
 
@@ -200,7 +199,7 @@
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label>A-t-il un handicap ?
+																	<label>A-t-il un handicap ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
 																	</label>
 																	{{ form_widget(form.handicap , {attr:{'class':' form-control'}}) }}
@@ -212,30 +211,17 @@
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Type d'handicap
-																		<span class="text-danger">*</span>
 																	</label>
 																	{{ form_widget(form.typehandicap , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 
 														</div>
+														
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label>Quelqu'un dans la famille a-t-il un handicap?
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.famillehandicap , {attr:{'class':' form-control'}}) }}
-
-
-																</div>
-
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Quelqu'un dans la famille souffre-t-il d'une maladie chronique ?
+																	<label>maladie chronique ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
 																	</label>
 																	{{ form_widget(form.maladiechronique , {attr:{'class':' form-control'}}) }}
@@ -247,7 +233,6 @@
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Type maladie chronique ?
-																		<span class="text-danger">*</span>
 																	</label>
 																	{{ form_widget(form.typemaladiechronique , {attr:{'class':' form-control'}}) }}
 																</div>
@@ -319,10 +304,17 @@
 																	</label>
 																</div>
 															</div>
-											
+														</div>
+														<div class="row">
+														<div class="col-md-6">
+														<div class="form-group">
+																	<label>Type de dossier:
+																		<span class="text-danger">*</span>
+																		{{ form_widget(form.typeadherent , {attr:{'class':'form_control form-control-select2'}}) }}
 
-
-
+																	</label>
+																</div>
+														</div>
 														</div>
 
 
