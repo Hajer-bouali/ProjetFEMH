@@ -46,10 +46,16 @@ class Evenement
      */
     private $produit;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OperationFinanciereAide::class, mappedBy="evenement")
+     */
+    private $operationFinanciereAides;
+
     public function __construct()
     {
         $this->adherent = new ArrayCollection();
         $this->produit = new ArrayCollection();
+        $this->operationFinanciereAides = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,5 +146,38 @@ class Evenement
         $this->produit->removeElement($produit);
 
         return $this;
+    }
+
+    /**
+     * @return Collection|OperationFinanciereAide[]
+     */
+    public function getOperationFinanciereAides(): Collection
+    {
+        return $this->operationFinanciereAides;
+    }
+
+    public function addOperationFinanciereAide(OperationFinanciereAide $operationFinanciereAide): self
+    {
+        if (!$this->operationFinanciereAides->contains($operationFinanciereAide)) {
+            $this->operationFinanciereAides[] = $operationFinanciereAide;
+            $operationFinanciereAide->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOperationFinanciereAide(OperationFinanciereAide $operationFinanciereAide): self
+    {
+        if ($this->operationFinanciereAides->removeElement($operationFinanciereAide)) {
+            // set the owning side to null (unless already changed)
+            if ($operationFinanciereAide->getEvenement() === $this) {
+                $operationFinanciereAide->setEvenement(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString() {
+        return $this->nom;
     }
 }

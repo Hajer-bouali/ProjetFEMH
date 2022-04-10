@@ -32,6 +32,7 @@
 		<!-- Theme JS files -->
 		<script src="{{ asset('templateAdmin/global_assets/js/plugins/notifications/bootbox.min.js') }}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_modals.js') }}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js') }}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/form_select2.js') }}"></script>
 		<!-- /theme JS files -->
 
@@ -268,12 +269,12 @@
 									</a>
 									<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 										<li class="nav-item">
-											<a href="#" class="nav-link">
+											<a href="{{ path('operation_financiere_don_index')}}" class="nav-link">
 												Liste des operation Don
 											</a>
 										</li>
 										<li class="nav-item">
-											<a href="#" class="nav-link">
+											<a href="{{ path('operation_financiere_aide_index')}}" class="nav-link">
 												Liste des operation Aide
 											</a>
 										</li>
