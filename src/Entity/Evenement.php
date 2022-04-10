@@ -19,11 +19,7 @@ class Evenement
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date;
-
+    
     /**
      * @ORM\ManyToMany(targetEntity=Adherent::class, inversedBy="evenements")
      */
@@ -47,9 +43,19 @@ class Evenement
     private $produit;
 
     /**
+
      * @ORM\OneToMany(targetEntity=OperationFinanciereAide::class, mappedBy="evenement")
      */
     private $operationFinanciereAides;
+
+/**
+     * @ORM\Column(type="date")
+     */
+    private $datedebut;
+
+   
+  
+ 
 
     public function __construct()
     {
@@ -63,17 +69,6 @@ class Evenement
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Adherent[]
@@ -148,6 +143,7 @@ class Evenement
         return $this;
     }
 
+
     /**
      * @return Collection|OperationFinanciereAide[]
      */
@@ -163,8 +159,18 @@ class Evenement
             $operationFinanciereAide->setEvenement($this);
         }
 
+    public function getDatedebut(): ?\DateTimeInterface
+    {
+        return $this->datedebut;
+    }
+
+    public function setDatedebut(\DateTimeInterface $datedebut): self
+    {
+        $this->datedebut = $datedebut;
+
         return $this;
     }
+
 
     public function removeOperationFinanciereAide(OperationFinanciereAide $operationFinanciereAide): self
     {
@@ -180,4 +186,15 @@ class Evenement
     public function __toString() {
         return $this->nom;
     }
+
+
+    public function __toString()
+    {
+        return $this->getDatedebut() ? : 'evenement';
+    }
+
+    
+   
+
+
 }

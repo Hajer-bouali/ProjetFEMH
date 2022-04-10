@@ -156,12 +156,18 @@ class Adherent
      */
     private $benificiaires;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Typeadherent::class, inversedBy="adherents")
+     */
+    private $typeadherent;
+
 
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
         $this->evenements = new ArrayCollection();
         $this->benificiaires = new ArrayCollection();
+        $this->typeadherent = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -517,7 +523,7 @@ class Adherent
     }
     /**
      * @return Collection<int, Benificiaire>
-     */
+     **/
 
     public function getBenificiaires(): Collection
     {
@@ -546,4 +552,29 @@ class Adherent
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Typeadherent>
+     */
+    public function getTypeadherent(): Collection
+    {
+        return $this->typeadherent;
+    }
+
+    public function addTypeadherent(Typeadherent $typeadherent): self
+    {
+        if (!$this->typeadherent->contains($typeadherent)) {
+            $this->typeadherent[] = $typeadherent;
+        }
+
+        return $this;
+    }
+
+    public function removeTypeadherent(Typeadherent $typeadherent): self
+    {
+        $this->typeadherent->removeElement($typeadherent);
+
+        return $this;
+    }
+   
 }
