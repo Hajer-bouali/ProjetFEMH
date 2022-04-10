@@ -49,6 +49,7 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+
                         <th>Nom</th>
                         <th>Type evenement</th>
                         <th>date debut</th>
@@ -63,6 +64,7 @@
 						<td>{{ evenement.typeEvenement }}</td>
                         <td>{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</td>
                         
+
                         <td>
 
 								<a class="list-icons-item text-primary-600" href="{{ path('evenement_edit', {'id': evenement.id}) }}">
