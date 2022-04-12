@@ -57,7 +57,7 @@ class BenificiaireController extends AbstractController
     public function edit(Request $request, Benificiaire $benificiaire, BenificiaireRepository $benificiaireRepository): Response
     {
         $form = $this->createForm(BenificiaireType::class, $benificiaire);
-    $form->handleRequest($request);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $benificiaireRepository->add($benificiaire);
