@@ -110,15 +110,9 @@ class AdherentController extends AbstractController
     /**
      * @Route("/{id}/edit/", name="adherent_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request,Benificiaire $benificiaire ,Adherent $adherent,BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request,Adherent $adherent,BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
     {
-        $id=$adherent->getId();
-        $benificiaires=$benificiaireRepository->findAll();
-        
- $benificiaires= $benificiaireRepository->findById($id);
-       /* foreach($benificiaire as $benificiaires){
-           
-        }*/
+        $benificiaires= $benificiaireRepository->findByAdherent($adherent);
         $benificiaire = new Benificiaire();
         $benificiaire->setAdherent($adherent);
         $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
