@@ -103,6 +103,7 @@ class AdherentController extends AbstractController
      */
     public function show(Adherent $adherent): Response
     {
+        $adherent->getReunion();
         return $this->render('adherent/show.html.twig', [
             'adherent' => $adherent,
         ]);
@@ -110,7 +111,7 @@ class AdherentController extends AbstractController
     /**
      * @Route("/{id}/edit/", name="adherent_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request,Benificiaire $benificiaire ,Adherent $adherent,BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request,Adherent $adherent,BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
     {
         $id=$adherent->getId();
         $benificiaires=$benificiaireRepository->findAll();

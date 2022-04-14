@@ -33,10 +33,19 @@ class OperationFinanciereAideController extends AbstractController
     {
         $operationFinanciereAide = new OperationFinanciereAide();
         $form = $this->createForm(OperationFinanciereAideType::class, $operationFinanciereAide);
+        if (!$this->isGranted('ROLE_FINANCIERE')) {
+            $form->get('operation')->remove('etat');
+        }
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $operationFinanciereAide->setEtat("Demande");
+            $operationFinanciereAide->getOperation()->setDate(new \DateTime('now'));
+            if (!$this->isGranted('ROLE_FINANCIERE')) {
+                $operationFinanciereAide->getOperation()->setEtat('Demande');
+            }
+            
+            $operationFinanciereAide->getOperation()->setResponsable($this->getUser()->getName());
             $entityManager->persist($operationFinanciereAide);
             $entityManager->flush();
 
@@ -65,7 +74,11 @@ class OperationFinanciereAideController extends AbstractController
     public function edit(Request $request, OperationFinanciereAide $operationFinanciereAide, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(OperationFinanciereAideType::class, $operationFinanciereAide);
+        if (!$this->isGranted('ROLE_FINANCIEUR')) {
+            $form->get('operation')->remove('etat');
+        }
         $form->handleRequest($request);
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();

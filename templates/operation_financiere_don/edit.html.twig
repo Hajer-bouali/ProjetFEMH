@@ -1,4 +1,3 @@
-
 {% extends 'base.html.twig' %}
 {% block body %}
 	<!-- Main content -->
@@ -42,7 +41,7 @@
 											<div class="card">
 												<div class="card-header header-elements-inline">
 													<h5 class="card-title">
-													Modification d'opération opération Financière Don
+														Créer une nouvelle opération Financière de don
 													</h5>
 													<div class="header-elements"></div>
 												</div>
@@ -57,78 +56,74 @@
 																</label> {{ form_widget(form.nomdonataire , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
-                                                        <div class="col-md-6">
+														<div class="col-md-6">
 															<div class="form-group">
 																<label>Montant
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.montant , {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(form.operation.montant , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 													</div>
-                                                    <div class="row">
+													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Mode de paiement
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
+																</label> {{ form_widget(form.operation.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
-                                                        <div class="col-md-6">
-															<div class="form-group">
-																<label>Date
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.date , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
+
 													</div>
-                                                    <div class="row">
+													<div class="row">
+
 														<div class="col-md-6">
-															<div class="form-group">
-																<label>responsable 
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.responsable , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-                                                        <div class="col-md-6">
 															<div class="form-group">
 																<label>type de caisse
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.caisse , {attr:{'class':'form_control form-control-select2'}}) }}
+																</label> {{ form_widget(form.caisse , {attr:{'class':'form_control'}}) }}
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>evenement
+																	<span class="text-danger"></span>
+																</label> {{ form_widget(form.operation.evenement, {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 													</div>
-                                                    <div class="row">
+													<div class="row">
+
 														<div class="col-md-6">
-															<div class="form-group">
-																<label>Bénéficaire
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.typeadherent , {attr:{'class':'form_control form-control-select2'}}) }}
-															</div>
-														</div>
-                                                        <div class="col-md-6">
 															<div class="form-group">
 																<label>Stipulation
 																	<span class="text-danger">*</span>
 																</label> {{ form_widget(form.stipulation , {attr:{'class':'form_control form-control-select2'}}) }}
 															</div>
 														</div>
-													</div>
-                                                    <div class="row">
-														<div class="col-md-6">
+														<div class="col-md-6 d-none" id="champ_date">
 															<div class="form-group">
-																<label>Etat
-																	<span class="text-danger">(juste pour clarification)</span>
-																</label> {{ form_widget(form.etat , {attr:{'class':'form-control ','disabled':'disabled'}}) }}
+																<label>Date Zakat
+																	<span class="text-danger">*</span>
+																</label> {{ form_widget(form.datelimitezakat , {attr:{'class':'form_control'}}) }}
 															</div>
 														</div>
 													</div>
-														<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} 
+													<div class="row">
+													{% if is_granted('ROLE_FINANCIERE') %}
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Etat
+																	<span class="text-danger"></span>
+																</label> {{ form_widget(form.operation.etat , {attr:{'class':'form-control '}}) }}
+															</div>
 														</div>
-                                                    {{ form_end(form) }}
+													{% endif %}
+														
+													</div>
+													<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+													</div> {{ form_end(form) }}
 												</div>
-												<!-- /profile info -->
-
-											</div>
+										</div>
 										</div>
 										<!-- /left content -->
 									</div>
@@ -147,3 +142,17 @@
 			</div>
 		</div>
 	{% endblock %}
+	{% block javascript %}
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+$('#operation_financiere_don_stipulation').on('select2:select', function (e) {
+if ($(this).val() === 'Zakat') {
+$('#champ_date').removeClass('d-none');
+} else {
+$('#champ_date').addClass('d-none');
+}
+});
+});
+	</script>
+{% endblock %}

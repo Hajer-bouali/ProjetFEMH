@@ -61,7 +61,7 @@
 																<label>
 																	le type de produit<span class="text-danger">*</span>
 																</label>
-																<select name="listeTypeProduit[]" class="form-control">
+																<select name="listeTypeProduit[]" class="form-control form-control-select2">
 																	{% for typeProduit in typeProduits %}
 																		<option value="{{ typeProduit.id }}"> {{ typeProduit.nom }}
 																		</option>
@@ -83,7 +83,7 @@
 															<div class="form-group">
 																<label>Unité
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.unite  , {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(form.unite  , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
 													</div>

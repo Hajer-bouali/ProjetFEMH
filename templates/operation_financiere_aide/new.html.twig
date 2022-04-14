@@ -1,4 +1,3 @@
-
 {% extends 'base.html.twig' %}
 {% block body %}
 	<!-- Main content -->
@@ -50,58 +49,41 @@
 												<div class="card-body"> {{ form_start(form) }}
 
 													<div class="row">
-                                                        <div class="col-md-6">
+														<div class="col-md-6">
 															<div class="form-group">
 																<label>Montant
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.montant , {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(form.operation.montant , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
-                                                        <div class="col-md-6">
+														<div class="col-md-6">
 															<div class="form-group">
 																<label>Mode de paiement
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
+																</label> {{ form_widget(form.operation.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
 													</div>
-                                                    <div class="row">		
-                                                        <div class="col-md-6">
-															<div class="form-group">
-																<label>Date
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.date , {attr:{'class':'form-control '}}) }}
+													<div class="row">
+														{% if is_granted('ROLE_FINANCIERE') %}
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Etat
+																		<span class="text-danger">(juste pour clarification)</span>
+																	</label> {{ form_widget(form.operation.etat , {attr:{'class':'form-control '}}) }}
+																</div>
 															</div>
-														</div>
-                                                        <div class="col-md-6">
-															<div class="form-group">
-																<label>responsable 
-																	{% if app.user %}
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.responsable , {attr:{'class':'form-control'}}) }}
-															 	{% endif %}
-															</div>
-														</div>
-													</div>
-                                                    <div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Etat
-																	<span class="text-danger">(juste pour clarification)</span>
-																</label> {{ form_widget(form.etat , {attr:{'class':'form-control ','disabled':'disabled'}}) }}
-															</div>
-														</div>
+														{% endif %}
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Evénement
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.evenement , {attr:{'class':'form-control form-control-select2'}}) }}
+																</label> {{ form_widget(form.operation.evenement , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
 													</div>
-														<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} 
-														</div>
-                                                    {{ form_end(form) }}
+													<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+													</div> {{ form_end(form) }}
 												</div>
 												<!-- /profile info -->
 

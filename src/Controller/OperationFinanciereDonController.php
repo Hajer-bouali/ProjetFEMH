@@ -33,10 +33,15 @@ class OperationFinanciereDonController extends AbstractController
     {
         $operationFinanciereDon = new OperationFinanciereDon();
         $form = $this->createForm(OperationFinanciereDonType::class, $operationFinanciereDon);
+        if (!$this->isGranted('ROLE_FINANCIERE')) {
+            $form->get('operation')->remove('etat');
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $operationFinanciereDon->setEtat("Demande");
+            $operationFinanciereDon->getOperation()->setEtat('Demande');
+            $operationFinanciereDon->getOperation()->setDate(new \DateTime('now'));
+            $operationFinanciereDon->getOperation()->setResponsable($this->getUser()->getName());
             $entityManager->persist($operationFinanciereDon);
             $entityManager->flush();
 
@@ -65,9 +70,13 @@ class OperationFinanciereDonController extends AbstractController
     public function edit(Request $request, OperationFinanciereDon $operationFinanciereDon, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(OperationFinanciereDonType::class, $operationFinanciereDon);
+        if (!$this->isGranted('ROLE_FINANCIERE')) {
+            $form->get('operation')->remove('etat');
+        }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('operation_financiere_don_index', [], Response::HTTP_SEE_OTHER);

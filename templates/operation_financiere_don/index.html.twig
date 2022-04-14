@@ -50,7 +50,8 @@
 							<th>Id</th>
 							<th>Donataire</th>
 							<th>Montant</th>
-							<th>Type adherent</th>
+							<th>Evénement</th>
+							<th>Responsable</th>	
 							<th>Etat</th>
 							<th>actions</th>
 						</tr>
@@ -60,9 +61,10 @@
 							<tr>
 								<td>{{ operation_financiere_don.id }}</td>
 								<td>{{ operation_financiere_don.nomdonataire }}</td>
-								<td>{{ operation_financiere_don.montant }}</td>
-								<td>{{ operation_financiere_don.typeadherent }}</td>
-								<td>{{ operation_financiere_don.etat }}</td>
+								<td>{{ operation_financiere_don.operation.montant }}</td>
+								<td>{{ operation_financiere_don.operation.evenement }}</td>
+								<td>{{ operation_financiere_don.operation.Responsable }}</td>
+								<td>{{ operation_financiere_don.operation.etat }}</td>
 								<td>
 									<a class="list-icons-item text-primary-600" href="{{ path('operation_financiere_don_edit', {'id': operation_financiere_don.id}) }}">
 										<i class="icon-pencil7"></i>
