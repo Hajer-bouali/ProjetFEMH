@@ -5,308 +5,434 @@
 {% endblock %}
 
 {% block body %}
-<!--commantaire-->
+	<!--commantaire-->
 	<div class="grix xs4 container">
 		<div class="col-xs4">
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 			<div class="col-12">
 				<div class="col-xs4">
-					<div class="content-wrapper">
-
+					<div class="page-content">
 						<div
-							class="content">
+							class="content-wrapper">
 
-							<!-- Inner container -->
-							<div
-								class="d-flex align-items-start flex-column flex-md-row">
-								<!-- Left content -->
-								<div class="tab-content w-100 overflow-auto order-2 order-md-1">
-									<div
-										class="tab-pane fade active show" id="settings">
-										<!-- Profile info -->
-										<div class="card">
-											<div class="card-header header-elements-inline">
-												<h5 class=" text-teal text-center ">Le dossier de
-													{{ adherent.nom }}</h5>
-											</div>
+							<!-- Page header -->
+							<div class="page-header page-header-light">
+								<div class="page-header-content header-elements-md-inline">
+									<div class="breadcrumb">
+										<a href="{{path('adherent_index')}}" class="breadcrumb-item">
+											<i class="icon-home2 mr-2"></i>
+											Liste des dossiers</a>
+										<a href="{{path('adherent_show', {'id': adherent.id})}}" class="breadcrumb-item">Affichage de dossier {{adherent.id}}
+										</a>
 
-											<div class="card-body">
-												<div class="card-header header-elements-inline">
-													<h5 class=" text-teal  ">INFORMATION PERSONNEL</h5>
-												</div>
-												<div class="form-group">
-													<div class="row">
-													
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-user mr-3 icon-2x"></i>
-																<div class="font-weight-black">Nom et Prenom :</div>
-																<samp class="font-size-lg">{{ adherent.nom }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-vcard mr-3 icon-2x"></i>
-																<div class="font-weight-black">Numero de carte d'identité :</div>
-																<samp class="font-size-lg">{{ adherent.cin }}</samp>
-
-															</div>
-														</div>
-													</div>
-
-												</div>
-										
-												<div class="form-group">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-phone mr-3 icon-2x"></i>
-																<div class="font-weight-black">Numero de telephone :</div>
-																<samp class="font-size-lg">{{ adherent.telephone }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-address-book2 mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	L'etat civil:</div>
-																<samp class="font-size-lg">{{ adherent.etatcivil }}</samp>
-
-															</div>
-														</div>
-													</div>
-
-												</div>
-												<div class="form-group">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-pin mr-3 icon-2x"></i>
-																<div class="font-weight-black">Adresse :</div>
-																<samp class="font-size-lg">{{ adherent.adresse }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-users4 mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	Nombre membre famille:</div>
-																<samp class="font-size-lg">{{ adherent.nombrefamille }}</samp>
-
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="card-header header-elements-inline">
-													<h5 class=" text-teal  ">STATUT RESIDENTIEL</h5>
-												</div>
-												<div class="form-group">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-home2 mr-3 icon-2x"></i>
-																<div class="font-weight-black">propriété de logement :</div>
-																<samp class="font-size-lg">{{ adherent.logement }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-cash2 mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	Prix location maison :</div>
-																<samp class="font-size-lg">{{ adherent.prixlocation }}
-																	DT</samp>
-
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-droplets mr-3 icon-2x"></i>
-																<div class="font-weight-black">Disponibilité d'eau :</div>
-																<samp class="font-size-lg">{{ adherent.eau }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-power-cord mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	Disponibilité d'électricité :</div>
-																<samp class="font-size-lg">{{ adherent.electricite }}
-																</samp>
-
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-office mr-3 icon-2x"></i>
-																<div class="font-weight-black">Nombre de chambres :</div>
-																<samp class="font-size-lg">{{ adherent.nombrechambre }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-thumbs-down3 mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	Installations non disponibles :</div>
-																<samp class="font-size-lg">{{ adherent.installationnondisponible }}
-																</samp>
-
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="card-header header-elements-inline">
-													<h5 class=" text-teal  ">ÉTAT DE SANTÉ
-													</h5>
-												</div>
-												<div class="form-group">
-													<div class="row">
-														<div class="col-md-4">
-															<div class="d-flex align-items-center">
-																<i class="icon-accessibility2 mr-3 icon-2x"></i>
-																<div class="font-weight-black">A-t-il un handicap ?  :</div>
-																<samp class="font-size-lg">{{ adherent.handicap }}</samp>
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="d-flex align-items-center">
-																<i class="icon-question4 mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	Type d'handicap  :</div>
-																<samp class="font-size-lg">{{ adherent.typehandicap }}
-																</samp>
-
-															</div>
-														</div>
-														<div class="col-md-4">
-															<div class="d-flex align-items-center">
-																<i class="icon-question4 mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	Quelqu'un dans la famille a-t-il un handicap?   :</div>
-																<samp class="font-size-lg">{{ adherent.famillehandicap }}
-																</samp>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-collaboration mr-3 icon-2x"></i>
-																<div class="font-weight-black">Quelqu'un dans la famille souffre-t-il d'une maladie chronique ?  :</div>
-																<samp class="font-size-lg">{{ adherent.maladiechronique }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-question3 mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	Type maladie chronique ?  :</div>
-																<samp class="font-size-lg">{{ adherent.typemaladiechronique }}
-																</samp>
-
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="card-header header-elements-inline">
-													<h5 class=" text-teal  ">REVENU FAMILIAL 									</h5>
-												</div>
-												<div class="form-group">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-cash3 mr-3 icon-2x"></i>
-																<div class="font-weight-black">Montant du revenu :</div>
-																<samp class="font-size-lg">{{ adherent.montantrevenu }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-question6 mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	Source revenu ?  :</div>
-																<samp class="font-size-lg">{{ adherent.source }}
-																</samp>
-
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="card-header header-elements-inline">
-													<h5 class=" text-teal  ">RESUME DE LA SITUATION SOCIALE
-													</h5>
-												</div>
-												<div class="form-group">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-clipboard3 mr-3 icon-2x"></i>
-																<div class="font-weight-black">Resumé :</div>
-																<samp class="font-size-lg">{{ adherent.resume }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-clippy mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	la demande  :</div>
-																<samp class="font-size-lg">{{ adherent.demande }}
-																</samp>
-
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="row">
-														
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-watch2 mr-3 icon-2x"></i>
-																<div class="font-weight-black">
-																	Date :</div>
-																<samp class="font-size-lg">{{ adherent.demande }}
-																</samp>
-
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<!-- /profile info -->
-										</div>
 									</div>
-									<!-- /left content -->
 
 
-									<!-- Right sidebar component -->
-									<div
-										class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-300 border-0 shadow-0 order-1 order-md-2 sidebar-expand-md">
-
-										<!-- Sidebar content -->
-										<div class="sidebar-content"></div>
-										<!-- /sidebar content -->
-									</div>
-									<!-- /right sidebar component -->
 								</div>
-								<!-- /inner container -->
+
+
 							</div>
+							<!-- /page header -->
 							<!-- Content area -->
-							<div class="content"></div>
+							<div
+								class="content">
+								<!-- Accordion and collapsible -->
+								<div class="row">
+									<div
+										class="col-lg-12">
+
+
+										<!-- Accordion with different card styling -->
+										<div class="mb-3 pt-2">
+											<h6 class=" text-teal text-center font-weight-black">
+												Le dossier de
+												{{adherent.nom}}
+											</h6>
+
+											<span class="font-weight-semibold">
+												<a href="">
+													<i class="icon-file-pdf mr-3 icon-2x"></i>
+												</a>
+												Convertir le dossier de
+												{{adherent.nom}}
+												en PDF
+											</span>
+										</div>
+
+
+										<div id="accordion-styled">
+											<div class="row">
+												<div class="col-md-4">
+													<div class="card">
+														<div class="card-header bg-info">
+															<h6 class="card-title">
+																<a data-toggle="collapse" class="text-white" href="#accordion-styled-group1">
+																	<i class="icon-person mr-3 icon-2x"></i>INFORMATION PERSONNEL
+																</a>
+															</h6>
+														</div>
+
+														<div id="accordion-styled-group1" class="collapse show" data-parent="#accordion-styled">
+															<div class="card-body">
+																<div class="form-group">
+
+
+																	<div class="d-flex align-items-center">
+																		<i class="icon-user mr-3 icon-4x"></i>
+																		<div class="font-weight-black ">Nom et Prenom :</div>
+																		<samp class="font-size-lg">{{ adherent.nom }}</samp>
+																	</div>
+
+																	<br>
+																	<div class="d-flex align-items-center">
+																		<i class="icon-vcard mr-3 icon-4x"></i>
+																		<div class="font-weight-black">Numero de carte d'identité :
+																		</div>
+																		<samp class="font-size-lg">{{ adherent.cin }}</samp>
+
+																	</div>
+
+
+																</div>
+
+																<div class="form-group">
+
+																	<div class="d-flex align-items-center">
+																		<i class="icon-phone mr-3 icon-4x"></i>
+																		<div class="font-weight-black">Numero de telephone :</div>
+																		<samp class="font-size-lg">{{ adherent.telephone }}</samp>
+																	</div><br>
+
+
+																	<div class="d-flex align-items-center">
+																		<i class="icon-address-book2 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">
+																			L'etat civil:</div>
+																		<samp class="font-size-lg">{{ adherent.etatcivil }}</samp>
+
+																	</div>
+
+
+																</div>
+																<div class="form-group">
+
+																	<div class="d-flex align-items-center">
+																		<i class="icon-pin mr-3 icon-4x"></i>
+																		<div class="font-weight-black">Adresse :</div>
+																		<samp class="font-size-lg">{{ adherent.adresse }}</samp>
+																	</div><br>
+
+																	<div class="d-flex align-items-center">
+																		<i class="icon-users4 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">
+																			Nombre membre famille:</div>
+																		<samp class="font-size-lg">{{ adherent.nombrefamille}}</samp>
+
+																	</div>
+
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="card">
+														<div class="card-header bg-blue-400">
+															<h6 class="card-title">
+																<a class="collapsed text-white" data-toggle="collapse" href="#accordion-styled-group2">
+																	<i class="icon-home8 mr-3 icon-2x"></i>STATUT RESIDENTIEL
+																</a>
+															</h6>
+														</div>
+
+														<div id="accordion-styled-group2" class="collapse" data-parent="#accordion-styled">
+															<div class="card-body">
+																<div class="form-group">
+																	<div class="d-flex align-items-center">
+																		<i class="icon-home2 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">propriété de logement :</div>
+																		<samp class="font-size-lg">{{ adherent.logement }}</samp>
+																	</div><br>
+
+																	<div class="d-flex align-items-center">
+																		<i class="icon-cash2 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">
+																			Prix location maison :</div>
+																		<samp class="font-size-lg">{{ adherent.prixlocation }}
+																			DT</samp>
+
+																	</div>
+																</div>
+																<div class="form-group">
+																	<div class="d-flex align-items-center">
+																		<i class="icon-droplets mr-3 icon-4x"></i>
+																		<div class="font-weight-black">Disponibilité d'eau :</div>
+																		<samp class="font-size-lg">{{ adherent.eau }}</samp>
+																	</div><br>
+																	<div class="d-flex align-items-center">
+																		<i class="icon-power-cord mr-3 icon-4x"></i>
+																		<div class="font-weight-black">
+																			Disponibilité d'électricité :</div>
+																		<samp class="font-size-lg">{{ adherent.electricite }}
+																		</samp>
+
+																	</div>
+																</div>
+																<div class="form-group">
+																	<div class="d-flex align-items-center">
+																		<i class="icon-office mr-3 icon-4x"></i>
+																		<div class="font-weight-black">Nombre de chambres :</div>
+																		<samp class="font-size-lg">{{ adherent.nombrechambre}}</samp>
+																	</div>
+
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="card">
+														<div class="card-header bg-primary">
+															<h6 class="card-title">
+																<a class="collapsed text-white" data-toggle="collapse" href="#accordion-styled-group3">
+																	<i class="icon-accessibility mr-3 icon-2x"></i>ÉTAT DE SANTÉ
+																</a>
+															</h6>
+														</div>
+
+														<div id="accordion-styled-group3" class="collapse" data-parent="#accordion-styled">
+															<div class="card-body">
+																<div class="form-group">
+																	<div class="d-flex align-items-center">
+																		<i class="icon-accessibility2 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">A-t-il un handicap ? :</div>
+																		<samp class="font-size-lg">{{ adherent.handicap }}</samp>
+																	</div><br>
+																	<div class="d-flex align-items-center">
+																		<i class="icon-question4 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">
+																			Type d'handicap :</div>
+																		<samp class="font-size-lg">{{ adherent.typehandicap }}
+																		</samp>
+
+																	</div>
+
+																</div>
+																<div class="form-group">
+																	<div class="d-flex align-items-center">
+																		<i class="icon-collaboration mr-3 icon-4x"></i>
+																		<div class="font-weight-black">maladie chronique ?(lui ou
+																																																																																																																																																																																																																																																																																																																																																																																																								membre
+																																																																																																																																																																																																																																																																																																																																																																																																								de famille) :</div>
+																		<samp class="font-size-lg">{{ adherent.maladiechronique
+																}}</samp>
+																	</div><br>
+																	<div class="d-flex align-items-center">
+																		<i class="icon-question3 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">
+																			Type maladie chronique ? :</div>
+																		<samp class="font-size-lg">{{ adherent.typemaladiechronique
+																}}
+																		</samp>
+
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-8">
+													<div class="card">
+
+														<div class="card-header bg-slate">
+															<h6 class="card-title">
+																<a class="collapsed text-white" data-toggle="collapse" href="#accordion-styled-group4">
+																	<i class="icon-wallet mr-3 icon-2x"></i>REVENU FAMILIAL
+
+																</a>
+															</h6>
+														</div>
+
+														<div id="accordion-styled-group4" class="collapse" data-parent="#accordion-styled">
+															<div class="card-body">
+																<div class="form-group">
+																	<div class="d-flex align-items-center">
+																		<i class="icon-cash3 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">Montant du revenu :</div>
+																		<samp class="font-size-lg">{{ adherent.montantrevenu
+																}}</samp>
+																	</div><br>
+
+																	<div class="d-flex align-items-center">
+																		<i class="icon-question6 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">
+																			Source revenu ? :</div>
+																		<samp class="font-size-lg">{{ adherent.source }}
+																		</samp>
+
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="card">
+														<div class="card-header bg-info">
+															<h6 class="card-title">
+																<a class="collapsed text-white" data-toggle="collapse" href="#accordion-styled-group5">
+																	<i class="icon-clipboard3 mr-3 icon-2x"></i>RESUME DE LA SITUATION SOCIALE
+
+
+																</a>
+															</h6>
+														</div>
+
+														<div id="accordion-styled-group5" class="collapse" data-parent="#accordion-styled">
+															<div class="card-body">
+																<div class="form-group">
+																	<div class="d-flex align-items-center">
+																		<i class="icon-clipboard3 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">Resumé :</div>
+																		<samp class="font-size-lg">{{ adherent.resume }}</samp>
+																	</div>
+																	<br>
+																	<div class="d-flex align-items-center">
+																		<i class="icon-clippy mr-3 icon-4x"></i>
+																		<div class="font-weight-black">
+																			la demande :</div>
+																		<samp class="font-size-lg">{{ adherent.demande }}
+																		</samp>
+
+																	</div>
+																</div>
+																<div class="form-group">
+
+																	<div class="d-flex align-items-center">
+																		<i class="icon-watch2 mr-3 icon-4x"></i>
+																		<div class="font-weight-black">
+																			Date :</div>
+																		<samp class="font-size-lg">{{ adherent.demande }}
+																		</samp>
+
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="card">
+
+														<div class="card-header bg-teal">
+															<h6 class="card-title">
+																<a class="collapsed text-white" data-toggle="collapse" href="#accordion-styled-group6">
+																	<i class="icon-users4 mr-3 icon-2x"></i>MEMBRE FAMILLE
+
+																</a>
+															</h6>
+														</div>
+
+														<div id="accordion-styled-group6" class="collapse" data-parent="#accordion-styled">
+															<div class="card-body">
+																<div class="card-title-left">
+
+																	<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="#" data-target="#modal_ajout_benificiaire" data-toggle="modal">
+																		<b>
+																			<i class="icon-reading"></i>
+																		</b>
+																		Ajouter un nouveau membre famille</a>
+																</div><br>
+																<table class="table datatable-basic">
+
+																	<thead>
+																		<tr>
+
+																			<th>id</th>
+																			<th>Relation familiale</th>
+																			<th>Nom et prénom</th>
+																			<th>date de naissance</th>
+																			<th>niveau d'etude</th>
+																			<th>metier</th>
+																			<th>action</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		{% for benificiaire in benificiaires %}
+																			<tr>
+																				<td>{{ benificiaire.id }}</td>
+																				<td>{{ benificiaire.relationfamiliale }}</td>
+																				<td>{{ benificiaire.nom }}</td>
+																				<td>{{ benificiaire.datenaissance ? benificiaire.datenaissance|date('Y-m-d') : '' }}</td>
+																				<td>{{ benificiaire.niveauetude }}</td>
+																				<td>{{ benificiaire.metier }}</td>
+
+																				<td>
+																					<div class="list-icons">
+																						<a href="{{ path('app_benificiaire_edit', {'id': benificiaire.id}) }}" class="list-icons-item text-primary-600">
+																							<i class="icon-pencil7"></i>
+																						</a>
+																						<!--bouton trach-->
+																						<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{adherent.id}}" data-toggle="modal">
+																							<i class="icon-trash"></i>
+																						</a>
+																						<!--/bouton trach-->
+
+																					</div>
+
+
+																				</td>
+																				<td class="text-center"></td>
+
+																			</tr>
+
+
+																			<!--modal_ajout_benificiaire-->
+																			<div id="modal_ajout_benificiaire" class="modal fade" tabindex="-1">
+																				<div class="modal-dialog">
+																					<div class="modal-content">
+																						<div class="modal-header bg-danger">
+																							<h4 class="modal-title">Vous allez ajouter un membre famille au
+																								{{adherent.nom}}
+																							</h4>
+
+																							<button type="button" class="close" data-dismiss="modal">&times;</button>
+																						</div>
+																						{{ form_start(formBen) }}
+
+																						<div class="modal-body">
+
+																							<div class="text-right"></div>
+																						</div>
+																						{{ form_end(formBen) }}
+																						<div class="modal-footer">
+																							<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+																						</div>
+
+
+																					</div>
+																				</div>
+																			</div>
+																			<!--/modal_ajout_benificiaire-->
+
+
+																		{% endfor %}
+
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+										</div>
+										<!-- /accordion with different card styling -->
+
+									</div>
+
+								</div>
+								<!-- /accordion and collapsible -->
+
+
+							</div>
 							<!-- /content area -->
+
+
 						</div>
-
-
 					</div>
 
 				</div>

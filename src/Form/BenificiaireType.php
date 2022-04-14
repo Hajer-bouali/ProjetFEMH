@@ -48,10 +48,11 @@ class BenificiaireType extends AbstractType
                     '2 er année secondaire'=>'2er année secondaire',
                     '3 er année secondaire'=>'3er année secondaire',
                     '4 er année secondaire'=>'4er année secondaire',
+                    'Faculté'=>'Faculté',
                     'N étudie pas actuellement'=>'N étudie pas actuellement'                ],
                 'expanded' => false,
                 'multiple' => false,
-                'label' => 'relation familiale' 
+                'label' => 'Niveau d etude' 
             ])
             ->add('metier')
             //->add('adherent')

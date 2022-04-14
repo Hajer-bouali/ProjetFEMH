@@ -19,13 +19,13 @@ class Evenement
      */
     private $id;
 
-    
+
     /**
      * @ORM\ManyToMany(targetEntity=Adherent::class, inversedBy="evenements")
      */
     private $adherent;
 
-   
+
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeEvenement::class, inversedBy="evenement")
@@ -48,14 +48,14 @@ class Evenement
      */
     private $operationFinanciereAides;
 
-/**
+    /**
      * @ORM\Column(type="date")
      */
     private $datedebut;
 
-   
-  
- 
+
+
+
 
     public function __construct()
     {
@@ -158,6 +158,7 @@ class Evenement
             $this->operationFinanciereAides[] = $operationFinanciereAide;
             $operationFinanciereAide->setEvenement($this);
         }
+    }
 
     public function getDatedebut(): ?\DateTimeInterface
     {
@@ -183,18 +184,8 @@ class Evenement
 
         return $this;
     }
-    public function __toString() {
-        return $this->nom;
-    }
-
-
     public function __toString()
     {
-        return $this->getDatedebut() ? : 'evenement';
+        return $this->nom;
     }
-
-    
-   
-
-
 }

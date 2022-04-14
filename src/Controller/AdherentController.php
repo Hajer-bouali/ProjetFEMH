@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Adherent;
 use App\Entity\Benificiaire;
 use App\Entity\PiecesJointes;
@@ -44,7 +46,7 @@ class AdherentController extends AbstractController
     /**
      * @Route("/new", name="adherent_new",  methods={"GET", "POST"})
      */
-    public function new(Request $request, BenificiaireRepository $benificiaireRepository,EntityManagerInterface $entityManager): Response
+    public function new(Request $request, BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
     {
         $adherent = new Adherent();
         $form = $this->createForm(AdherentType::class, $adherent);
@@ -90,45 +92,47 @@ class AdherentController extends AbstractController
             'benificiaire' => $benificiaire,
             'formBen' => $formBen,
         ]);
-       
     }
-    
+
 
 
 
 
 
     /**
-     * @Route("/{id}", name="adherent_show", methods={"GET"})
+     * @Route("/{id}", name="adherent_show", methods={"GET", "POST"})
      */
-    public function show(Adherent $adherent): Response
+    public function show(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
     {
+        
+        $benificiaires = $benificiaireRepository->findByAdherent($adherent);
+        $benificiaire = new Benificiaire();
+        
+        $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
+        $formBen->handleRequest($request);
+
+        if ($formBen->isSubmitted() && $formBen->isValid()) {
+            $benificiaire->setAdherent($adherent);
+            $entityManager->persist($benificiaire);
+        }
+
+
+        $entityManager->flush();
+
+
         return $this->render('adherent/show.html.twig', [
             'adherent' => $adherent,
+            'formBen' => $formBen->createView(),
+            'benificiaires' => $benificiaires,
         ]);
     }
     /**
      * @Route("/{id}/edit/", name="adherent_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request,Adherent $adherent,BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Adherent $adherent, EntityManagerInterface $entityManager): Response
     {
-        $benificiaires= $benificiaireRepository->findByAdherent($adherent);
-        $benificiaire = new Benificiaire();
-        $benificiaire->setAdherent($adherent);
-        $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
-        $formBen->handleRequest($request);
-
-        if ($formBen->isSubmitted() && $formBen->isValid()) {
-            $benificiaireRepository->add($benificiaire);
-            return $this->redirectToRoute('app_benificiaire_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-
-
-
         $form = $this->createForm(AdherentType::class, $adherent);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             //on recupere les fichiers
             $piecesjointes = $form->get('piecesjointes')->getData();
@@ -146,7 +150,6 @@ class AdherentController extends AbstractController
                 $file->setNom($fichier);
                 $adherent->addPiecesJointe($file);
             }
-            $adherent->addBenificiaire($benificiaire);
             $entityManager->flush();
 
             return $this->redirectToRoute('adherent_index', [], Response::HTTP_SEE_OTHER);
@@ -155,8 +158,6 @@ class AdherentController extends AbstractController
         return $this->renderForm('adherent/edit.html.twig', [
             'adherent' => $adherent,
             'form' => $form,
-            'formBen'=>$formBen,
-            'benificiaires'=>$benificiaires,
         ]);
     }
 
