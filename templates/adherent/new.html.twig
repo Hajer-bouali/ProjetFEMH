@@ -129,6 +129,7 @@
 
 													<h6>statut résidentiel</h6>
 													<fieldset>
+													
 														<div class="row">
 															<div class="col-md-6">
 
@@ -138,13 +139,10 @@
 																{{ form_widget(form.logement , {attr:{'class':'form-control form-control-select2'}}) }}
 
 															</div>
-															<div class="col-md-6">
-
+															<div id ="prix_location"  class="col-md-6">
 																<label>Prix location maison
-																	
 																</label>
 																{{ form_widget(form.prixlocation , {attr:{'class':'form-control '}}) }}
-
 															</div>
 
 														</div>
@@ -348,4 +346,18 @@
 
 				</div>
 			</div>
+
+			<script>
+
+        $(document).ready(function() {
+            $("#adherent_logement").change(function() {
+				value=$("#adherent_logement").val();
+				if(value=='Locataire'){
+					$("#prix_location").show();
+				}else{
+					$("#prix_location").hide();
+				}
+            });
+        });
+    </script>
 		{% endblock %}

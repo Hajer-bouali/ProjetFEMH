@@ -51,14 +51,7 @@
 
 												<!-- Wizard with validation -->
 												<div class="card">
-													<div class="card-title-left">
-												
-														<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="#" data-target="#modal_ajout_benificiaire" data-toggle="modal">
-															<b>
-																<i class="icon-reading"></i>
-															</b>
-															Ajouter un nouveau membre famille</a>
-													</div>
+													
 													<div class="card-header bg-white header-elements-inline">
 														<h6 class="card-title">Modifier le dossier de
 															{{adherent.nom}}</h6>
@@ -194,7 +187,7 @@
 																	</div>
 																</div>
 															</div>
-															
+
 														</div>
 
 													</fieldset>
@@ -223,11 +216,11 @@
 															</div>
 
 														</div>
-														
+
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label>maladie chronique ?(lui ou membre de famille) 
+																	<label>maladie chronique ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
 																	</label>
 																	{{ form_widget(form.maladiechronique , {attr:{'class':'form-control form-control-select2'}}) }}
@@ -312,125 +305,23 @@
 													</fieldset>
 												</div>
 												<!-- /wizard with validation -->
-												{{ form_start(formBen) }}
 
-																		<div class="modal-body">
-
-																			<div class="text-right"></div>
-																		</div>
-
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-
-																			
-																		</div>
-																		{{ form_end(formBen) }}
-												<table class="table datatable-basic">
-
-													<thead>
-														<tr>
-
-															<th>id</th>
-															<th>Relation familiale</th>
-															<th>Nom et prénom</th>
-															<th>date de naissance</th>
-															<th>niveau d'etude</th>
-															<th>metier</th>
-															<th>action</th>
-														</tr>
-													</thead>
-													<tbody>
-														{% for benificiaire in benificiaires %}
-															<tr>
-																<td>{{ benificiaire.id }}</td>
-																<td>{{ benificiaire.relationfamiliale }}</td>
-																<td>{{ benificiaire.nom }}</td>
-																<td>{{ benificiaire.datenaissance ? benificiaire.datenaissance|date('Y-m-d') : '' }}</td>
-																<td>{{ benificiaire.niveauetude }}</td>
-																<td>{{ benificiaire.metier }}</td>
-
-																<td>
-																	<div class="list-icons">
-																		<a href="{{ path('adherent_edit', {'id': adherent.id}) }}" class="list-icons-item text-primary-600">
-																			<i class="icon-pencil7"></i>
-																		</a>
-																		<!--bouton trach-->
-																		<!--<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{adherent.id}}" data-toggle="modal">
-																																																																																													<i class="icon-trash"></i>
-																																																																																												</a>-->
-																		<!--/bouton trach-->
-
-																			<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600"> <i class="icon-reading"></i>
-																		</a>
-																	</div>
-
-
-																</td>
-																<td class="text-center"></td>
-
-															</tr>
-
-
-															<!--modal_ajout_benificiaire-->
-															<div id="modal_ajout_benificiaire" class="modal fade" tabindex="-1">
-																<div class="modal-dialog">
-																	<div class="modal-content">
-																		<div class="modal-header bg-danger">
-																			<h4 class="modal-title">Vous allez ajouter un membre famille au {{adherent.nom}}
-																			</h4>
-																			<button type="button" class="close" data-dismiss="modal">&times;</button>
-																		</div>
-																		
-																	</div>
-																</div>
-															</div>
-															<!--/modal_ajout_benificiaire-->
-
-															<!--modal supression-->
-															<div id="modal_delete{{adherent.id}}" class="modal fade" tabindex="-1">
-																<div class="modal-dialog">
-																	<div class="modal-content">
-																		<div class="modal-header bg-danger">
-																			<h4 class="modal-title">Confirmez-vous la suppression ?
-																			</h4>
-																			<button type="button" class="close" data-dismiss="modal">&times;</button>
-																		</div>
-
-																		<div class="modal-body">
-																			<p>
-																				<h5>Voulez vous supprimer le dossier de
-																					{{adherent.nom}}?</h5>
-																			</p><br><h6>si vous confirmez, votre dossier sera effacé</h6>
-																		</div>
-
-																		<div class="modal-footer">
-																			<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-																			<a type="button" class="btn bg-danger" href="{{path("adherent_delete" , {id: adherent.id})}}">Valider</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-															<!--/modal supression-->
-
-														</div>
-													</tbody>
-												{% endfor %}
-
-											</tbody>
-										</table>
+												
+											</div>
+											<!-- /content area -->
+										</div>
 									</div>
-									<!-- /content area -->
+									<!-- /left content -->
 								</div>
+								<!-- /inner container -->
 							</div>
-							<!-- /left content -->
 						</div>
-						<!-- /inner container -->
+
+
 					</div>
+
 				</div>
-
-
 			</div>
-
 		</div>
 	</div>
-</div></div>{% endblock %}
+{% endblock %}

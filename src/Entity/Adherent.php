@@ -67,7 +67,7 @@ class Adherent
     private $nombrechambre;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255)
      */
     private $electricite;
 
@@ -76,10 +76,7 @@ class Adherent
      */
     private $eau;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $installationnondisponible;
+   
 
     /**
      * @ORM\Column(type="boolean")
@@ -91,11 +88,7 @@ class Adherent
      */
     private $typehandicap;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $famillehandicap;
-
+    
     /**
      * @ORM\Column(type="boolean")
      */
@@ -287,12 +280,12 @@ class Adherent
         return $this;
     }
 
-    public function getElectricite(): ?bool
+    public function getElectricite(): ?string
     {
         return $this->electricite;
     }
 
-    public function setElectricite(bool $electricite): self
+    public function setElectricite(string $electricite): self
     {
         $this->electricite = $electricite;
 
@@ -311,17 +304,7 @@ class Adherent
         return $this;
     }
 
-    public function getInstallationnondisponible(): ?string
-    {
-        return $this->installationnondisponible;
-    }
-
-    public function setInstallationnondisponible(string $installationnondisponible): self
-    {
-        $this->installationnondisponible = $installationnondisponible;
-
-        return $this;
-    }
+  
 
     public function getHandicap(): ?bool
     {
@@ -347,17 +330,7 @@ class Adherent
         return $this;
     }
 
-    public function getFamillehandicap(): ?bool
-    {
-        return $this->famillehandicap;
-    }
-
-    public function setFamillehandicap(bool $famillehandicap): self
-    {
-        $this->famillehandicap = $famillehandicap;
-
-        return $this;
-    }
+   
 
     public function getMaladiechronique(): ?bool
     {
