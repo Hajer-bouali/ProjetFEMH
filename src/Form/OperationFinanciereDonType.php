@@ -33,40 +33,10 @@ class OperationFinanciereDonType extends AbstractType
                 'label' => 'etat',
             ])
                 ->add('nomdonataire')
-                ->add('montant')
-                ->add('modepaiement', ChoiceType::class, [
-                    'choices' => [
-                        'Espèce' => 'espece',
-                        'Chèque' => 'cheque',
-                        'Virement bancaire' => 'virementbancaire',
-                        'Prélèvement bancaire' => 'virementbancaire',
-                    ],
-                    'expanded' => false,
-                    'multiple' => false,
-                    'label' => 'typeadherent',
-                ])
-                ->add('date', null, [
-                    'widget' => 'single_text',
-                ])
-                ->add('responsable')
-                ->add('typeadherent', ChoiceType::class, [
-                    'choices' => [
-                        'Orpholin' => 'Orpholin',
-                        'Sociale' => 'Sociale',
-                        'santé' => 'sante',
-                        'Etudiant' => 'etudiant',
-                        'Veuves' => 'veuves',
-                        'Autre' => 'autre',
-                    ],
-                    'expanded' => false,
-                    'multiple' => false,
-                    'label' => 'typeadherent',
-                ])
                 ->add('stipulation', ChoiceType::class, [
                     'choices' => [
                         'sadaka' => 'Sadaka',
                         'zakat' => 'Zakat',
-                        'abonnement' => 'Abonnement',
                     ],
                     'expanded' => false,
                     'multiple' => false,
