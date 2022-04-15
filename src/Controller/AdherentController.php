@@ -94,15 +94,11 @@ class AdherentController extends AbstractController
         ]);
     }
 
-
-
-
-
-
     /**
      * @Route("/{id}", name="adherent_show", methods={"GET", "POST"})
      */
     public function show(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
+
     {
         
         $benificiaires = $benificiaireRepository->findByAdherent($adherent);

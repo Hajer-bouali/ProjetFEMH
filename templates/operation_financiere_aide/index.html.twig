@@ -37,7 +37,7 @@
 					<div class="card-title-left">
 						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('operation_financiere_aide_new')}}">
 							<b>
-								<i class="icon-diff-added"></i>
+								<i class="icon-diff-removed"></i>
 							</b>
 							Ajouter une nouvelle opération Financière d'aide</a>
 					</div>
@@ -59,10 +59,10 @@
                 {% for operation_financiere_aide in operation_financiere_aides %}
                     <tr>
                         <td>{{ operation_financiere_aide.id }}</td>
-                        <td>{{ operation_financiere_aide.montant }}</td>
-                        <td>{{ operation_financiere_aide.modepaiement }}</td>
-                        <td>{{ operation_financiere_aide.responsable }}</td>
-                        <td>{{ operation_financiere_aide.etat }}</td>
+                        <td>{{ operation_financiere_aide.operation.montant }}</td>
+                        <td>{{ operation_financiere_aide.operation.modepaiement }}</td>
+                        <td>{{ operation_financiere_aide.operation.responsable }}</td>
+                        <td>{{ operation_financiere_aide.operation.etat }}</td>
                         <td>
 									<a class="list-icons-item text-primary-600" href="{{ path('operation_financiere_aide_edit', {'id': operation_financiere_aide.id}) }}">
 										<i class="icon-pencil7"></i>

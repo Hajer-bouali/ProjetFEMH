@@ -42,6 +42,7 @@ class Evenement
      */
     private $produit;
 
+
     /**
 
      * @ORM\OneToMany(targetEntity=OperationFinanciereAide::class, mappedBy="evenement")
@@ -54,14 +55,16 @@ class Evenement
     private $datedebut;
 
 
-
-
+    /**
+     * @ORM\OneToMany(targetEntity=OperationFinanciere::class, mappedBy="evenement")
+     */
+    private $operationFinancieres;
 
     public function __construct()
     {
         $this->adherent = new ArrayCollection();
         $this->produit = new ArrayCollection();
-        $this->operationFinanciereAides = new ArrayCollection();
+        $this->operationFinancieres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,12 +162,12 @@ class Evenement
             $operationFinanciereAide->setEvenement($this);
         }
     }
-
+  
     public function getDatedebut(): ?\DateTimeInterface
     {
         return $this->datedebut;
     }
-
+    
     public function setDatedebut(\DateTimeInterface $datedebut): self
     {
         $this->datedebut = $datedebut;
@@ -173,19 +176,43 @@ class Evenement
     }
 
 
-    public function removeOperationFinanciereAide(OperationFinanciereAide $operationFinanciereAide): self
+    public function __toString() {
+        return $this->nom;
+    }
+
+    /**
+     * @return Collection|OperationFinanciere[]
+     */
+    public function getOperationFinancieres(): Collection
     {
-        if ($this->operationFinanciereAides->removeElement($operationFinanciereAide)) {
+        return $this->operationFinancieres;
+    }
+
+    public function addOperationFinanciere(OperationFinanciere $operationFinanciere): self
+    {
+        if (!$this->operationFinancieres->contains($operationFinanciere)) {
+            $this->operationFinancieres[] = $operationFinanciere;
+            $operationFinanciere->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOperationFinanciere(OperationFinanciere $operationFinanciere): self
+    {
+        if ($this->operationFinancieres->removeElement($operationFinanciere)) {
             // set the owning side to null (unless already changed)
-            if ($operationFinanciereAide->getEvenement() === $this) {
-                $operationFinanciereAide->setEvenement(null);
+            if ($operationFinanciere->getEvenement() === $this) {
+                $operationFinanciere->setEvenement(null);
             }
         }
 
         return $this;
     }
+
     public function __toString()
     {
         return $this->nom;
     }
+
 }

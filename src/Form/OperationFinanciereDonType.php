@@ -20,18 +20,7 @@ class OperationFinanciereDonType extends AbstractType
             //On récupère l'entité lié au formulaire
             $entity = $event->getData();
             $form = $event->getForm();
-            $form->add('etat', ChoiceType::class, [
-                'choices' => [
-                    'Demande' => 'demande',
-                    'Valide' => 'valide',
-                    'Refuse' => 'refuse',
-                ],
-                'expanded' => false,
-                'multiple' => false,
-                'label' => 'etat',
-                'data' => $entity->getEtat() ? $entity->getEtat() : 'Demande',
-                'label' => 'etat',
-            ])
+            $form->add('operation', OperationFinanciereType::class)
                 ->add('nomdonataire')
                 ->add('stipulation', ChoiceType::class, [
                     'choices' => [
@@ -43,6 +32,9 @@ class OperationFinanciereDonType extends AbstractType
                     'label' => 'stipulation',
                 ])
                 ->add('caisse')
+                ->add('datelimitezakat',null, [ 
+                    'widget' => 'single_text',
+                ] )
                 ->add('Enregistrer', SubmitType::class)
             ;
         });

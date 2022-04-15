@@ -7,6 +7,7 @@ use App\Entity\TypeCaisse;
 use App\Form\CaisseType;
 use App\Repository\CaisseRepository;
 use App\Repository\TypeCaisseRepository;
+use App\Repository\OperationFinanciereDonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +40,7 @@ class CaisseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $caisse->setMontant('0');
             $entityManager->persist($caisse);
             $listeTypeCaisse=$request->request->get("listeTypeCaisse");
             foreach ($listeTypeCaisse as $typeCaisse_id) {
@@ -61,17 +63,19 @@ class CaisseController extends AbstractController
     /**
      * @Route("/{id}", name="caisse_show", methods={"GET"})
      */
-    public function show(Caisse $caisse): Response
+    public function show(Caisse $caisse,OperationFinanciereDonRepository $OperationFinanciereDonRepository): Response
     {
+        $operations = $OperationFinanciereDonRepository->findBycaisse($caisse);
         return $this->render('caisse/show.html.twig', [
             'caisse' => $caisse,
+            'operations'=>$operations,
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="caisse_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Caisse $caisse, EntityManagerInterface $entityManager,TypeCaisseRepository $TypeCaisseRepository): Response
+    public function edit(Request $request, Caisse $caisse, EntityManagerInterface $entityManager,TypeCaisseRepository $TypeCaisseRepository ): Response
     {
         $typeCaisses= $TypeCaisseRepository->findAll();
         $form = $this->createForm(CaisseType::class, $caisse);
@@ -88,10 +92,10 @@ class CaisseController extends AbstractController
 
             return $this->redirectToRoute('caisse_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('caisse/edit.html.twig', [
             'caisse' => $caisse,
             'typeCaisses'=>$typeCaisses,
+            
             'form' => $form,
         ]);
     }

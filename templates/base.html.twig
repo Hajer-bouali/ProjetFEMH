@@ -44,6 +44,7 @@
 		<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/selects/select2.min.js')}}"></script>
 		<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/wizards/steps.min.js')}}"></script>
 
+
 	<!-- Theme JS files type adherent-->
 	<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
 	<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/selects/select2.min.js')}}"></script>
@@ -66,6 +67,7 @@
 	<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
 	<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
 	<!-- /theme JS files show_adherent-->
+
 
 	</head>
 	<body>
@@ -290,12 +292,18 @@
 									<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 										<li class="nav-item">
 											<a href="{{ path('operation_financiere_don_index')}}" class="nav-link">
-												Liste des operation Don
+												<i class="icon-diff-added"></i>
+												<span>
+													Liste des operation Don
+												</span>
 											</a>
 										</li>
 										<li class="nav-item">
 											<a href="{{ path('operation_financiere_aide_index')}}" class="nav-link">
-												Liste des operation Aide
+												<i class="icon-diff-removed"></i>
+												<span>
+													Liste des operation Aide
+												</span>
 											</a>
 										</li>
 									</ul>
@@ -306,13 +314,19 @@
 									</a>
 									<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 										<li class="nav-item">
-											<a href="#" class="nav-link">
-												Liste des operation Don
+											<a href="{{ path('operation_financiere_don_index')}}" class="nav-link">
+												<i class="icon-diff-added"></i>
+												<span>
+													Liste des operation Don
+												</span>
 											</a>
 										</li>
 										<li class="nav-item">
-											<a href="#" class="nav-link">
-												Liste des operation Aide
+											<a href="{{ path('operation_financiere_aide_index')}}" class="nav-link">
+												<i class="icon-diff-removed"></i>
+												<span>
+													Liste des operation Aide
+												</span>
 											</a>
 										</li>
 									</ul>
@@ -348,5 +362,6 @@
 			<!-- /main content -->
 		</div>
 		<!-- /page content -->
+		{% block javascript %}{% endblock %}
 	</body>
 </html>

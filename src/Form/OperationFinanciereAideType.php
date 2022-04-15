@@ -16,42 +16,10 @@ class OperationFinanciereAideType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
       // On modifie le formulaire avant de définir les datas
-      $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-        //On récupère l'entité lié au formulaire
-        $entity = $event->getData();
-        $form = $event->getForm();
-        $form->add('montant')
-            ->add('modepaiement', ChoiceType::class, [
-                'choices' => [
-                    'Espèce' => 'espece',
-                    'Chèque' => 'cheque',
-                    'Virement bancaire' => 'virementbancaire',
-                    'Prélèvement bancaire' => 'virementbancaire',
-                ],
-                'expanded' => false,
-                'multiple' => false,
-                'label' => 'typeadherent',
-            ])
-            ->add('date', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('responsable')
-            ->add('etat', ChoiceType::class, [
-                'choices' => [
-                    'Demande' => 'demande',
-                    'Valide' => 'valide',
-                    'Refuse' => 'refuse',
-                ],
-                'expanded' => false,
-                'multiple' => false,
-                'label' => 'etat',
-                'data' => $entity->getEtat() ? $entity->getEtat() : 'Demande',
-
-            ])
-            ->add('evenement')
+      $builder->add('operation', OperationFinanciereType::class)
             ->add('Enregistrer', SubmitType::class)
         ;
-            });
+         
     }
 
     public function configureOptions(OptionsResolver $resolver): void
