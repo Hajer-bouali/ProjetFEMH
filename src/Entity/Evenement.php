@@ -19,13 +19,13 @@ class Evenement
      */
     private $id;
 
-    
+
     /**
      * @ORM\ManyToMany(targetEntity=Adherent::class, inversedBy="evenements")
      */
     private $adherent;
 
-   
+
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeEvenement::class, inversedBy="evenement")
@@ -42,20 +42,23 @@ class Evenement
      */
     private $produit;
 
-   
-/**
+
+    /**
+
+     * @ORM\OneToMany(targetEntity=OperationFinanciereAide::class, mappedBy="evenement")
+     */
+    private $operationFinanciereAides;
+
+    /**
      * @ORM\Column(type="date")
      */
     private $datedebut;
+
 
     /**
      * @ORM\OneToMany(targetEntity=OperationFinanciere::class, mappedBy="evenement")
      */
     private $operationFinancieres;
-
-   
-  
- 
 
     public function __construct()
     {
@@ -144,9 +147,22 @@ class Evenement
     }
 
 
-   
+    /**
+     * @return Collection|OperationFinanciereAide[]
+     */
+    public function getOperationFinanciereAides(): Collection
+    {
+        return $this->operationFinanciereAides;
+    }
 
-   
+    public function addOperationFinanciereAide(OperationFinanciereAide $operationFinanciereAide): self
+    {
+        if (!$this->operationFinanciereAides->contains($operationFinanciereAide)) {
+            $this->operationFinanciereAides[] = $operationFinanciereAide;
+            $operationFinanciereAide->setEvenement($this);
+        }
+    }
+  
     public function getDatedebut(): ?\DateTimeInterface
     {
         return $this->datedebut;
@@ -194,10 +210,9 @@ class Evenement
         return $this;
     }
 
-
-
-    
-   
-
+    public function __toString()
+    {
+        return $this->nom;
+    }
 
 }

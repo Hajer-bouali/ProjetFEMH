@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormEvent;
@@ -62,19 +63,20 @@ class AdherentType extends AbstractType
            // ->add('benificiaires')
             ->add('logement', ChoiceType::class, [
                 'choices' => [
-                    'Locataire '=>'Louer',
-                    'Propriétaire'=>'posseder' 
+                    'Locataire '=>'Locataire',
+                    'Propriétaire'=>'Propriétaire' 
                 ],
                 'expanded' => false,
                 'multiple' => false,
                 'label' => 'logement' 
             ])
-            ->add('prixlocation')
+            ->add('prixlocation', TextType::class, [
+                'required' => false])
             ->add('nombrechambre')
             ->add('electricite', ChoiceType::class, [
                 'choices' => [
-                    'Oui'=>0,
-                    'Non'=>1
+                    'Oui'=>'oui',
+                    'Non'=>'non'
                 ],
                 'expanded' => false,
                 'multiple' => false,
@@ -82,8 +84,8 @@ class AdherentType extends AbstractType
             ])
             ->add('eau', ChoiceType::class, [
                 'choices' => [
-                    'Oui'=>0,
-                    'Non'=>1 
+                    'Oui'=>'oui',
+                    'Non'=>'non'
                 ],
                 'expanded' => false,
                 'multiple' => false,
@@ -99,7 +101,8 @@ class AdherentType extends AbstractType
                 'multiple' => false,
                 'label' => 'handicap' 
             ])
-            ->add('typehandicap')
+            ->add('typehandicap', TextType::class, [
+                'required' => false])
            /* ->add('famillehandicap', ChoiceType::class, [
                 'choices' => [
                     'Oui'=>0,
@@ -118,7 +121,8 @@ class AdherentType extends AbstractType
                 'multiple' => false,
                 'label' => 'maladiechronique' 
             ])
-            ->add('typemaladiechronique')
+            ->add('typemaladiechronique', TextType::class, [
+                'required' => false])
             ->add('montantrevenu')
             ->add('source')
             ->add('resume', TextareaType::class,[

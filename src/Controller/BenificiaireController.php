@@ -57,11 +57,11 @@ class BenificiaireController extends AbstractController
     public function edit(Request $request, Benificiaire $benificiaire, BenificiaireRepository $benificiaireRepository): Response
     {
         $form = $this->createForm(BenificiaireType::class, $benificiaire);
-    $form->handleRequest($request);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $benificiaireRepository->add($benificiaire);
-            return $this->redirectToRoute('app_benificiaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('adherent_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('benificiaire/edit.html.twig', [

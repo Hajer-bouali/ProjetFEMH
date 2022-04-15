@@ -42,7 +42,7 @@ class Benificiaire
     private $metier;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adherent::class, inversedBy="benificiaires")
+     * @ORM\ManyToOne(targetEntity=Adherent::class, inversedBy="benificiaires",cascade={"persist"})
      */
     private $adherent;
 
