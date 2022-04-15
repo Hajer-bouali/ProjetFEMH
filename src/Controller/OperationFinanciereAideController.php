@@ -85,7 +85,6 @@ class OperationFinanciereAideController extends AbstractController
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('operation_financiere_aide/edit.html.twig', [
             'operation_financiere_aide' => $operationFinanciereAide,
             'form' => $form,
