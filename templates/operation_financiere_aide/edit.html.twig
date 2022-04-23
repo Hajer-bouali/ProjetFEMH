@@ -1,4 +1,3 @@
-
 {% extends 'base.html.twig' %}
 {% block body %}
 	<!-- Main content -->
@@ -11,10 +10,10 @@
 				<div class="breadcrumb">
 					<a href="{{ path('operation_financiere_aide_index') }}" class="breadcrumb-item">
 						<i class="icon-home2 mr-2"></i>
-						Liste des opérations Financière d'aide
+						Liste des opérations Financière aide
 					</a>
 					<a href="#" class="breadcrumb-item">
-						Modification d'opération Financière d'aide
+						Modification d'opération Financière aide
 					</a>
 
 				</div>
@@ -42,53 +41,77 @@
 											<div class="card">
 												<div class="card-header header-elements-inline">
 													<h5 class="card-title">
-														Modification d'opération Financière d'aide
+														Créer une nouvelle opération Financière d'aide
 													</h5>
 													<div class="header-elements"></div>
 												</div>
 
-												<div class="card-body"> {{ form_start(form) }}
+												<div class="card-body"> {{ form_start(formAide)) }}
 
 													<div class="row">
-                                                        <div class="col-md-6">
+
+														<div class="col-md-6">
 															<div class="form-group">
 																<label>Montant
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.operation.montant , {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(formAide).montant , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
-                                                        <div class="col-md-6">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>evenement
+																	<span class="text-danger"></span>
+																</label> {{ form_widget(formAide).evenement, {attr:{'class':'form-control'}}) }}
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-6">
 															<div class="form-group">
 																<label>Mode de paiement
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.operation.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
+																</label> {{ form_widget(formAide).modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
-													</div>
-                                                    <div class="row">
-													{% if is_granted('ROLE_FINANCIERE') %}
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Etat
-																	<span class="text-danger">(juste pour clarification)</span>
-																</label> {{ form_widget(form.operation.etat , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-													{% endif %}
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Evénement
+																<label>Pièce jointe
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.operation.evenement , {attr:{'class':'form-control form-control-select2'}}) }}
+																</label> {{ form_widget(formDon.pieceJointeOperations , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
+														{% if app.request.attributes.get('_route') == 'operation_financiere_aide_edit' %}
+														   {% for piecejointe in piecejointes %}
+														  <img src="{{asset('/uploads/' ~ piecejointe.nom)}}"
+													      {% endfor %}
+														{% endif %}
 													</div>
-														<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} 
-														</div>
-														{{ form_end(form) }} 
-												</div>
-												<!-- /profile info -->
+													<div class="row">
 
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>type de caisse
+																	<span class="text-danger">*</span>
+																</label> {{ form_widget(formAide).caisse , {attr:{'class':'form_control'}}) }}
+															</div>
+														</div>
+
+													</div>
+													<div class="row">
+														{% if is_granted('ROLE_FINANCIERE') %}
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Etat
+																		<span class="text-danger"></span>
+																	</label> {{ form_widget(formAide).etat , {attr:{'class':'form-control '}}) }}
+																</div>
+															</div>
+														{% endif %}
+
+													</div>
+													<div class="text-right"> {{ form_row(formAide).Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+													</div> {{ form_end(formAide)) }}
+												</div>
 											</div>
 										</div>
 										<!-- /left content -->

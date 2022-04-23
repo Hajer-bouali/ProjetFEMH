@@ -55,9 +55,15 @@ class Produit
      */
     private $evenements;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="idproduit")
+     */
+    private $stocks;
+
     public function __construct()
     {
         $this->evenements = new ArrayCollection();
+        $this->stocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,6 +146,36 @@ class Produit
     public function __toString() {
         return $this->intitule;
         ;
+    }
+
+    /**
+     * @return Collection|Stock[]
+     */
+    public function getStocks(): Collection
+    {
+        return $this->stocks;
+    }
+
+    public function addStock(Stock $stock): self
+    {
+        if (!$this->stocks->contains($stock)) {
+            $this->stocks[] = $stock;
+            $stock->setproduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(Stock $stock): self
+    {
+        if ($this->stocks->removeElement($stock)) {
+            // set the owning side to null (unless already changed)
+            if ($stock->getproduit() === $this) {
+                $stock->setproduit(null);
+            }
+        }
+
+        return $this;
     }
 
 

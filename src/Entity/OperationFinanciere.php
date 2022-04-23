@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OperationFinanciereRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,6 +20,11 @@ class OperationFinanciere
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nomdonataire;
+
+    /**
      * @ORM\Column(type="float")
      */
     private $montant;
@@ -27,10 +34,7 @@ class OperationFinanciere
      */
     private $modepaiement;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -42,25 +46,61 @@ class OperationFinanciere
      */
     private $etat;
 
-   
     /**
-     * @ORM\OneToOne(targetEntity=OperationFinanciereAide::class, mappedBy="operation", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $operationFinanciereAide;
+    private $stipulation;
 
     /**
-     * @ORM\OneToOne(targetEntity=OperationFinanciereDon::class, mappedBy="operation", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255)
      */
-    private $operationFinanciereDon;
+    private $typeoperation;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Caisse::class, inversedBy="operationFinancieres")
+     */
+    private $caisse;
 
     /**
      * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="operationFinancieres")
      */
     private $evenement;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $datelimitezakat;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PieceJointeOperation::class, mappedBy="operationfinanciere", cascade={"persist"})
+     */
+    private $pieceJointeOperations;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $date;
+
+    public function __construct()
+    {
+        $this->pieceJointeOperations = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNomdonataire(): ?string
+    {
+        return $this->nomdonataire;
+    }
+
+    public function setNomdonataire(string $nomdonataire): self
+    {
+        $this->nomdonataire = $nomdonataire;
+
+        return $this;
     }
 
     public function getMontant(): ?float
@@ -87,17 +127,6 @@ class OperationFinanciere
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
 
     public function getResponsable(): ?string
     {
@@ -123,49 +152,38 @@ class OperationFinanciere
         return $this;
     }
 
-   
-    
-
-    public function getOperationFinanciereAide(): ?OperationFinanciereAide
+    public function getStipulation(): ?string
     {
-        return $this->operationFinanciereAide;
+        return $this->stipulation;
     }
 
-    public function setOperationFinanciereAide(?OperationFinanciereAide $operationFinanciereAide): self
+    public function setStipulation(string $stipulation): self
     {
-        // unset the owning side of the relation if necessary
-        if ($operationFinanciereAide === null && $this->operationFinanciereAide !== null) {
-            $this->operationFinanciereAide->setOperation(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($operationFinanciereAide !== null && $operationFinanciereAide->getOperation() !== $this) {
-            $operationFinanciereAide->setOperation($this);
-        }
-
-        $this->operationFinanciereAide = $operationFinanciereAide;
+        $this->stipulation = $stipulation;
 
         return $this;
     }
 
-    public function getOperationFinanciereDon(): ?OperationFinanciereDon
+    public function getTypeoperation(): ?string
     {
-        return $this->operationFinanciereDon;
+        return $this->typeoperation;
     }
 
-    public function setOperationFinanciereDon(?OperationFinanciereDon $operationFinanciereDon): self
+    public function setTypeoperation(string $typeoperation): self
     {
-        // unset the owning side of the relation if necessary
-        if ($operationFinanciereDon === null && $this->operationFinanciereDon !== null) {
-            $this->operationFinanciereDon->setOperation(null);
-        }
+        $this->typeoperation = $typeoperation;
 
-        // set the owning side of the relation if necessary
-        if ($operationFinanciereDon !== null && $operationFinanciereDon->getOperation() !== $this) {
-            $operationFinanciereDon->setOperation($this);
-        }
+        return $this;
+    }
 
-        $this->operationFinanciereDon = $operationFinanciereDon;
+    public function getCaisse(): ?Caisse
+    {
+        return $this->caisse;
+    }
+
+    public function setCaisse(?Caisse $caisse): self
+    {
+        $this->caisse = $caisse;
 
         return $this;
     }
@@ -181,4 +199,60 @@ class OperationFinanciere
 
         return $this;
     }
+
+    public function getDatelimitezakat(): ?\DateTimeInterface
+    {
+        return $this->datelimitezakat;
+    }
+
+    public function setDatelimitezakat(\DateTimeInterface $datelimitezakat): self
+    {
+        $this->datelimitezakat = $datelimitezakat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PieceJointeOperation[]
+     */
+    public function getPieceJointeOperations(): Collection
+    {
+        return $this->pieceJointeOperations;
+    }
+
+    public function addPieceJointeOperation(PieceJointeOperation $pieceJointeOperation): self
+    {
+        if (!$this->pieceJointeOperations->contains($pieceJointeOperation)) {
+            $this->pieceJointeOperations[] = $pieceJointeOperation;
+            $pieceJointeOperation->setOperationfinanciere($this);
+        }
+
+        return $this;
+    }
+
+    public function removePieceJointeOperation(PieceJointeOperation $pieceJointeOperation): self
+    {
+        if ($this->pieceJointeOperations->removeElement($pieceJointeOperation)) {
+            // set the owning side to null (unless already changed)
+            if ($pieceJointeOperation->getOperationfinanciere() === $this) {
+                $pieceJointeOperation->setOperationfinanciere(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+
 }

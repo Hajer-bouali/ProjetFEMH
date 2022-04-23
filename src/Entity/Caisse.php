@@ -35,14 +35,17 @@ class Caisse
     private $typeCaisse;
 
     /**
-     * @ORM\OneToMany(targetEntity=OperationFinanciereDon::class, mappedBy="caisse")
+     * @ORM\OneToMany(targetEntity=OperationFinanciere::class, mappedBy="caisse")
      */
-    private $operationFinanciereDons;
+    private $operationFinancieres;
 
     public function __construct()
     {
-        $this->operationFinanciereDons = new ArrayCollection();
+        $this->operationFinancieres = new ArrayCollection();
     }
+
+    
+   
 
     public function getId(): ?int
     {
@@ -85,36 +88,37 @@ class Caisse
         return $this;
     }
 
-    /**
-     * @return Collection|OperationFinanciereDon[]
-     */
-    public function getOperationFinanciereDons(): Collection
-    {
-        return $this->operationFinanciereDons;
+    public function __toString() {
+        return $this->intitule;
     }
 
-    public function addOperationFinanciereDon(OperationFinanciereDon $operationFinanciereDon): self
+    /**
+     * @return Collection|OperationFinanciere[]
+     */
+    public function getOperationFinancieres(): Collection
     {
-        if (!$this->operationFinanciereDons->contains($operationFinanciereDon)) {
-            $this->operationFinanciereDons[] = $operationFinanciereDon;
-            $operationFinanciereDon->setCaisse($this);
+        return $this->operationFinancieres;
+    }
+
+    public function addOperationFinanciere(OperationFinanciere $operationFinanciere): self
+    {
+        if (!$this->operationFinancieres->contains($operationFinanciere)) {
+            $this->operationFinancieres[] = $operationFinanciere;
+            $operationFinanciere->setCaisse($this);
         }
 
         return $this;
     }
 
-    public function removeOperationFinanciereDon(OperationFinanciereDon $operationFinanciereDon): self
+    public function removeOperationFinanciere(OperationFinanciere $operationFinanciere): self
     {
-        if ($this->operationFinanciereDons->removeElement($operationFinanciereDon)) {
+        if ($this->operationFinancieres->removeElement($operationFinanciere)) {
             // set the owning side to null (unless already changed)
-            if ($operationFinanciereDon->getCaisse() === $this) {
-                $operationFinanciereDon->setCaisse(null);
+            if ($operationFinanciere->getCaisse() === $this) {
+                $operationFinanciere->setCaisse(null);
             }
         }
 
         return $this;
-    }
-    public function __toString() {
-        return $this->intitule;
     }
 }

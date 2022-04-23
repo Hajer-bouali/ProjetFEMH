@@ -46,21 +46,21 @@
 													<div class="header-elements"></div>
 												</div>
 
-												<div class="card-body"> {{ form_start(form) }}
+												<div class="card-body"> {{ form_start(formDon) }}
 
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Nom Donataire
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.nomdonataire , {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(formDon.nomdonataire , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Montant
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.operation.montant , {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(formDon.montant , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 													</div>
@@ -69,10 +69,16 @@
 															<div class="form-group">
 																<label>Mode de paiement
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.operation.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
+																</label> {{ form_widget(formDon.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
-
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Pièce jointe
+																	<span class="text-danger">*</span>
+																</label> {{ form_widget(formDon.pieceJointeOperations , {attr:{'class':'form-control form-control-select2'}}) }}
+															</div>
+														</div>
 													</div>
 													<div class="row">
 
@@ -80,14 +86,14 @@
 															<div class="form-group">
 																<label>type de caisse
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.caisse , {attr:{'class':'form_control'}}) }}
+																</label> {{ form_widget(formDon.caisse , {attr:{'class':'form_control'}}) }}
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>evenement
 																	<span class="text-danger"></span>
-																</label> {{ form_widget(form.operation.evenement, {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(formDon.evenement, {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 													</div>
@@ -97,33 +103,33 @@
 															<div class="form-group">
 																<label>Stipulation
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.stipulation , {attr:{'class':'form_control form-control-select2'}}) }}
+																</label> {{ form_widget(formDon.stipulation , {attr:{'class':'form_control form-control-select2'}}) }}
 															</div>
 														</div>
 														<div class="col-md-6 d-none" id="champ_date">
 															<div class="form-group">
 																<label>Date Zakat
 																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.datelimitezakat , {attr:{'class':'form_control'}}) }}
+																</label> {{ form_widget(formDon.datelimitezakat , {attr:{'class':'form_control'}}) }}
 															</div>
 														</div>
 													</div>
 													<div class="row">
-													{% if is_granted('ROLE_FINANCIERE') %}
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Etat
-																	<span class="text-danger"></span>
-																</label> {{ form_widget(form.operation.etat , {attr:{'class':'form-control '}}) }}
+														{% if is_granted('ROLE_FINANCIERE') %}
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Etat
+																		<span class="text-danger"></span>
+																	</label> {{ form_widget(formDon.etat , {attr:{'class':'form-control '}}) }}
+																</div>
 															</div>
-														</div>
-													{% endif %}
-														
+														{% endif %}
+
 													</div>
-													<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
-													</div> {{ form_end(form) }}
+													<div class="text-right"> {{ form_row(formDon.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+													</div> {{ form_end(formDon) }}
 												</div>
-										</div>
+											</div>
 										</div>
 										<!-- /left content -->
 									</div>
@@ -143,8 +149,8 @@
 		</div>
 	{% endblock %}
 	{% block javascript %}
-	<script type="text/javascript">
-		$(document).ready(function () {
+		<script type="text/javascript">
+			$(document).ready(function () {
 
 $('#operation_financiere_don_stipulation').on('select2:select', function (e) {
 if ($(this).val() === 'Zakat') {
@@ -154,5 +160,5 @@ $('#champ_date').addClass('d-none');
 }
 });
 });
-	</script>
-{% endblock %}
+		</script>
+	{% endblock %}
