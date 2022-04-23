@@ -42,29 +42,28 @@ class Evenement
      */
     private $produit;
 
-
-    /**
-
-     * @ORM\OneToMany(targetEntity=OperationFinanciereAide::class, mappedBy="evenement")
-     */
-    private $operationFinanciereAides;
-
     /**
      * @ORM\Column(type="date")
      */
     private $datedebut;
-
 
     /**
      * @ORM\OneToMany(targetEntity=OperationFinanciere::class, mappedBy="evenement")
      */
     private $operationFinancieres;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=OperationStock::class, mappedBy="evenement")
+     */
+    private $operationStocks;
+
+
     public function __construct()
     {
         $this->adherent = new ArrayCollection();
         $this->produit = new ArrayCollection();
         $this->operationFinancieres = new ArrayCollection();
+        $this->operationStocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,21 +146,8 @@ class Evenement
     }
 
 
-    /**
-     * @return Collection|OperationFinanciereAide[]
-     */
-    public function getOperationFinanciereAides(): Collection
-    {
-        return $this->operationFinanciereAides;
-    }
+   
 
-    public function addOperationFinanciereAide(OperationFinanciereAide $operationFinanciereAide): self
-    {
-        if (!$this->operationFinanciereAides->contains($operationFinanciereAide)) {
-            $this->operationFinanciereAides[] = $operationFinanciereAide;
-            $operationFinanciereAide->setEvenement($this);
-        }
-    }
   
     public function getDatedebut(): ?\DateTimeInterface
     {
@@ -210,9 +196,31 @@ class Evenement
         return $this;
     }
 
-    public function __toString()
+    /**
+     * @return Collection|OperationStock[]
+     */
+    public function getOperationStocks(): Collection
     {
-        return $this->nom;
+        return $this->operationStocks;
+    }
+
+    public function addOperationStock(OperationStock $operationStock): self
+    {
+        if (!$this->operationStocks->contains($operationStock)) {
+            $this->operationStocks[] = $operationStock;
+            $operationStock->addEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOperationStock(OperationStock $operationStock): self
+    {
+        if ($this->operationStocks->removeElement($operationStock)) {
+            $operationStock->removeEvenement($this);
+        }
+
+        return $this;
     }
 
 }

@@ -1,0 +1,176 @@
+{% extends 'base.html.twig' %}
+{% block style %}
+	<!-- Core JS files -->
+	<script src="{{asset('templateAdmin/global_assets/js/main/jquery.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/ui/ripple.min.js') }}"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/styling/switch.min.js') }}"></script>
+
+
+	<script src="{{asset('templateAdmin/global_assets/js/demo_pages/form_checkboxes_radios.js') }}"></script>
+	<!-- /theme JS files -->
+{% endblock %}
+{% block body %}
+<!-- Main content -->
+<div
+	class="content-wrapper">
+
+	<!-- Page header -->
+	<div class="page-header page-header-light">
+		<div class="page-header-content header-elements-md-inline">
+			<div class="d-flex">
+				<div class="breadcrumb"></div>
+
+				<a href="#" class="header-elements-toggle text-default d-md-none">
+					<i class="icon-more"></i>
+				</a>
+			</div>
+
+		</div>
+	</div>
+	<!-- /page header -->
+
+	<!-- Content area -->
+	<div
+		class="content">
+
+		<!-- Basic datatable -->
+		<div class="card">
+			<div class="card-header header-elements-inline">
+				<h4 class="card-title">
+					Liste des produits de l'operation de don 
+				</h4>
+				<div class="card-title-left">
+					<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" data-target="#modal_ajout_produit" data-toggle="modal">
+						<b>
+							<i class="icon-reading"></i>
+						</b>
+						Ajouter un nouveau produit 
+					</a>
+				</div>
+
+			</div>
+			<div class="card-header header-elements-inline">
+				<h6>
+					<i class="icon-table2"></i>
+					Date de l'operation: {{ operation_stock.date ? operation_stock.date|date('Y-m-d') : '' }}
+				</br>
+			</br>
+			<i class="icon-people"></i>
+			nom de donataire: {{ operation_stock.nomdonataire }}
+		</h6>
+	</div>
+
+	<table class="table datatable-basic">
+
+		<thead>
+			<tr>
+				<th>
+					Id
+				</th>
+				<th>
+					Operation
+				</th>
+				<th>
+					produit
+				</th>
+				<th>
+					Quantité
+				</th>
+				<th>
+					Actions
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for stock in stocks %}
+				<tr >
+					<td > {{ stock.operation_stock.id }}
+					</td>
+					<td> {{ stock.produit.nom }}
+					</td>
+
+					<td>
+                        {{ stock.quantite }}
+					</td>
+					<td>
+						<div class="list-icons">
+							<!--bouton trach-->
+							<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{operation_stock.id}}" data-toggle="modal">
+								<i class="icon-trash"></i>
+							</a>
+							<!--/bouton trach-->
+
+						</div>
+					</td>
+					<td class="text-center"></td>
+				</tr>
+			</tbody>
+		</tbody>
+	</div>
+</div>
+<div id="modal_delete{{ stock.id }}" class="modal fade" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h6 class="modal-title">
+					Supprimer le produit {{ stock.id }}
+					de l'operation' {{ operation_stock.id }}
+				</h6>
+				<button type="button" class="close" data-dismiss="modal">
+					&times;
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<p>
+					Êtes-vous sûr de vouloir supprimer ?
+				</p>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-link" data-dismiss="modal">
+					Fermer
+				</button>
+				<a type="button" class="btn bg-danger" href="{{ path("dossier_delete" , {id: stock.id}) }}">
+					Valider
+				</a>
+			</div>
+		</div>
+	</div>
+</div>{% endfor %}
+	<!--modal_ajout_produit-->
+	<div id="modal_ajout_produit" class="modal fade" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h4 class="modal-title">Vous allez ajouter un produit 
+					{{operation_stock.id}}
+				</h4>
+
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			{{ form_start(formstock) }}
+
+			<div class="modal-body">
+
+				<div class="text-right"></div>
+			</div>
+			{{ form_end(formstock) }}
+			<div class="modal-footer">
+				<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+			</div>
+
+
+		</div>
+	</div>
+</div>
+<!--/modal_ajout_benificiaire-->
+
+</tbody></table></div>{% endblock %}

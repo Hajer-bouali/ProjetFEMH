@@ -7,12 +7,13 @@ use App\Entity\TypeCaisse;
 use App\Form\CaisseType;
 use App\Repository\CaisseRepository;
 use App\Repository\TypeCaisseRepository;
-use App\Repository\OperationFinanciereDonRepository;
+use App\Repository\OperationFinanciereRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Flex\Unpack\Operation;
 
 /**
  * @Route("/caisse")
@@ -22,10 +23,25 @@ class CaisseController extends AbstractController
     /**
      * @Route("/", name="caisse_index", methods={"GET"})
      */
-    public function index(CaisseRepository $caisseRepository): Response
+    public function index(CaisseRepository $caisseRepository,OperationFinanciereRepository $OperationFinanciereRepository): Response
     {
+        $caisse = new Caisse();
+        $operations = $OperationFinanciereRepository->findByCaisse($caisse);
+        foreach($operations as $operation){
+            if($operation->getTypeoperation()==='don'&& $operation->getEtat()==='valide'){
+                $operationmontant=$operation->getMontant();
+               $caissemontant=$caisse->getMontant();
+                $caisse->setMontant($caissemontant+$operationmontant);
+            }
+            if($operation->getTypeoperation()==='aide'&& $operation->getEtat()==='valide'){
+                $operationmontant=$operation->getMontant();
+               $caissemontant=$caisse->getMontant();
+                $caisse->setMontant($caissemontant-$operationmontant);
+            }
+        }
         return $this->render('caisse/index.html.twig', [
             'caisses' => $caisseRepository->findAll(),
+            'operations'=>$operations,
         ]);
     }
 
@@ -63,9 +79,21 @@ class CaisseController extends AbstractController
     /**
      * @Route("/{id}", name="caisse_show", methods={"GET"})
      */
-    public function show(Caisse $caisse,OperationFinanciereDonRepository $OperationFinanciereDonRepository): Response
+    public function show(Caisse $caisse,OperationFinanciereRepository $OperationFinanciereRepository): Response
     {
-        $operations = $OperationFinanciereDonRepository->findBycaisse($caisse);
+        $operations = $OperationFinanciereRepository->findByCaisse($caisse);
+        foreach($operations as $operation){
+            if($operation->getTypeoperation()==='don'&& $operation->getEtat()==='valide'){
+                $operationmontant=$operation->getMontant();
+               $caissemontant=$caisse->getMontant();
+                $caisse->setMontant($caissemontant+$operationmontant);
+            }
+            if($operation->getTypeoperation()==='aide'&& $operation->getEtat()==='valide'){
+                $operationmontant=$operation->getMontant();
+               $caissemontant=$caisse->getMontant();
+                $caisse->setMontant($caissemontant-$operationmontant);
+            }
+        }
         return $this->render('caisse/show.html.twig', [
             'caisse' => $caisse,
             'operations'=>$operations,

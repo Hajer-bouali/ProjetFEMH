@@ -76,26 +76,41 @@
 				<th>
 					Etat
 				</th>
+				<th>
+					Type
+				</th>
+
 			</tr>
 		</thead>
 		<tbody>
-			{% for op in operations %}
-				<tr >
-					<td > {{ op.operation.id }}
+			{% for operation in operations %}
+				<tr>
+					<td> {{ operation.id }}
 					</td>
-                    <td > {{ op.operation.montant }}
-                </td>
-                    <td> {{ op.operation.Responsable }}
+					<td> {{ operation.montant }}
 					</td>
-                    <td> {{ op.operation.etat }}
+					<td> {{ operation.Responsable }}
+					</td>
+					<td> {{ operation.etat }}
+					</td>
+					<td>
+						{% if operation.typeoperation =='don'%}
+
+							<span class="badge badge-success">
+								<i class="icon-diff-added"></i>  Don
+							</span>
+						{% endif %}
+						{% if operation.typeoperation =='aide'%}
+						<span class="badge badge-danger">
+							<i class="icon-diff-removed"></i>  aide
+						</span>
+						{% endif %}
 					</td>
 					<td class="text-center"></td>
 				</tr>
 
-				
+
 			</tbody>
 		</tbody>
 	</div>
-</div>
-{% endfor %}
-</div></tbody></table></div>{% endblock %}
+</div>{% endfor %}</div></tbody></table></div>{% endblock %}
