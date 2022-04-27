@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Adherent archif
+{% block title %}dossiers acceptés
 {% endblock %}
 
 
@@ -14,9 +14,9 @@
 			<div class="page-header-content header-elements-md-inline">
 				<div class="d-flex">
 					<div class="breadcrumb">
-						<a href="{{path('adherent_archif')}}" class="breadcrumb-item">
+						<a href="{{path('adherent_accept')}}" class="breadcrumb-item">
 							<i class="icon-home2 mr-2"></i>
-							Liste des dossiers archivés</a>
+							Liste des dossiers acceptés</a>
 
 					</div>
 
@@ -38,15 +38,7 @@
 			<!-- Basic datatable -->
 			<div class="card">
 				<div class="card-header header-elements-inline">
-					<h5 class="card-title">Liste des dossiers archivés</h5>
-					<div class="card-title-left">
-						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('adherent_new')}}">
-							<b>
-								<i class="icon-reading"></i>
-							</b>
-							Ajouter un nouveau Adherent</a>
-					</div>
-
+					<h5 class="card-title">Liste des dossiers</h5>
 				</div>
 
 				<table class="table datatable-basic">
@@ -56,7 +48,7 @@
 
 							<th>id</th>
 							<th>Nom et prénom</th>
-							<th>Nom de conjoint</th>
+							<th>Adresse</th>
 							<th>Telephone</th>
 							<th>Actions</th>
 						</tr>
@@ -66,7 +58,7 @@
 							<tr>
 								<td>{{ adherent.id }}</td>
 								<td>{{ adherent.nom }}</td>
-								<td>{{ adherent.nomconjoint }}</td>
+								<td>{{ adherent.adresse }}</td>
 								<td>{{ adherent.telephone }}</td>
 
 								<td>

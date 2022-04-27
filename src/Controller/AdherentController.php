@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Adherent;
 use App\Entity\Benificiaire;
+use App\Entity\Decision;
 use App\Entity\PiecesJointes;
 use App\Form\PiecesJointesType;
 use App\Form\AdherentType;
 use App\Form\BenificiaireType;
 use App\Repository\AdherentRepository;
+use App\Repository\DecisionRepository;
 use App\Repository\BenificiaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,8 +43,26 @@ class AdherentController extends AbstractController
             'adherents' => $adherentRepository->findByStatut('desactivé'),
         ]);
     }
-
-
+    /**
+     * @Route("/valide", name="adherent_accept")
+     */
+    public function listaccepted( AdherentRepository $adherentRepository): Response
+    {
+        
+        return $this->render('adherent/accepted.html.twig', [
+            'adherents' => $adherentRepository->findByStatut('valide'),
+        ]);
+    }
+    
+    /**
+     * @Route("/refuse", name="adherent_refuse", methods={"GET"})
+     */
+    public function listrefuse(AdherentRepository $adherentRepository): Response
+    {
+        return $this->render('adherent/accepted.html.twig', [
+            'adherents' => $adherentRepository->findByStatut('refuse'),
+        ]);
+    }
     /**
      * @Route("/new", name="adherent_new",  methods={"GET", "POST"})
      */
@@ -57,6 +77,7 @@ class AdherentController extends AbstractController
 
         if ($formBen->isSubmitted() && $formBen->isValid()) {
             $benificiaireRepository->add($benificiaire);
+
             return $this->redirectToRoute('adherent_new', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -76,6 +97,11 @@ class AdherentController extends AbstractController
                 $file->setNom($fichier);
                 $adherent->addPiecesJointe($file);
             }
+            $adherent->setPrixlocation('0');
+            $adherent->setTypehandicap('0');
+            $adherent->setTypemaladiechronique('0');
+            $adherent->setResponsable($this->getUser()->getName());
+
             $entityManager->persist($adherent);
             $entityManager->flush();
 
@@ -190,17 +216,9 @@ class AdherentController extends AbstractController
             $this->addFlash('success', "Desrchive effectué avec succès!");
         }
 
-        /* if (
-            $adherent->getDatearchivage() == null) {
-            $adherent->setDatearchivage(new \DateTime()); 
-            $em->persist($adherent);
-            $em->flush();
-            $this->addFlash('success', "Archive effectué avec succès!");
-        }else {
-            $this->addFlash('success', "Deja archivé !");
-        }*/
         return $this->redirectToRoute('adherent_index', ['id' => $adherent]);
     }
+    
 
     /**
      * @Route("/supprimer/piecesJointes/{id}", name="adherent_piecesJointes_delete", methods={"DELETE"})

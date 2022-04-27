@@ -47,20 +47,10 @@ class AdherentType extends AbstractType
                 'multiple' => false,
                 'label' => 'etat civil' 
             ])
-            ->add('etatreunion', ChoiceType::class, [
-                'choices' => [
-                    'Non tritée'=>0,
-                    'En cours'=> 1,
-                    'Tritée'=>2,
-                    
-                ],
-                'expanded' => false,
-                'multiple' => false,
-                'data' => $entity->getEtatreunion() ? $entity->getEtatreunion() :0,
-                'label' => 'etat reunion' 
-            ])
+            
             ->add('nombrefamille')
            // ->add('benificiaires')
+           ->add('etatreunion')
             ->add('logement', ChoiceType::class, [
                 'choices' => [
                     'Locataire '=>'Locataire',
