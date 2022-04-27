@@ -19,7 +19,7 @@ class BenificiaireType extends AbstractType
             ->add('relationfamiliale', ChoiceType::class, [
                 'choices' => [
                     'Conjoint'=> 'Conjoint',
-                    'Pére'=>'Mére' ,
+                    'Pére'=>'Pére' ,
                     'Mére'=>'Mére' ,
                     'Fils'=>'Fils' ,
                     'Fille'=>'Fille'

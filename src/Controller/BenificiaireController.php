@@ -70,13 +70,11 @@ class BenificiaireController extends AbstractController
         ]);
     }
     /**
-     * @Route("/delete/{id}", name="app_benificiaire_delete", methods={"GET"})
+     * @Route("/delete/{id}", name="app_benificiaire_delete")
      */
     public function delete(Request $request, Benificiaire $benificiaire, BenificiaireRepository $benificiaireRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $benificiaire->getId(), $request->request->get('_token'))) {
             $benificiaireRepository->remove($benificiaire);
-        }
 
         return $this->redirectToRoute('app_benificiaire_index', [], Response::HTTP_SEE_OTHER);
     }

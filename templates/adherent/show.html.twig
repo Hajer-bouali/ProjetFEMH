@@ -22,7 +22,8 @@
 										<a href="{{path('adherent_index')}}" class="breadcrumb-item">
 											<i class="icon-home2 mr-2"></i>
 											Liste des dossiers</a>
-										<a href="{{path('adherent_show', {'id': adherent.id})}}" class="breadcrumb-item">Affichage de dossier {{adherent.id}}
+										<a href="{{path('adherent_show', {'id': adherent.id})}}" class="breadcrumb-item">Affichage de dossier
+											{{adherent.id}}
 										</a>
 
 									</div>
@@ -53,9 +54,8 @@
 												<a href="">
 													<i class="icon-file-pdf mr-3 icon-2x"></i>
 												</a>
-												Convertir le dossier de
-												{{adherent.nom}}
-												en PDF
+												Telecharger le dossier
+												
 											</span>
 										</div>
 
@@ -218,8 +218,8 @@
 																	<div class="d-flex align-items-center">
 																		<i class="icon-collaboration mr-3 icon-4x"></i>
 																		<div class="font-weight-black">maladie chronique ?(lui ou
-																																																																																																																																																																																																																																																																																																																																																																																																								membre
-																																																																																																																																																																																																																																																																																																																																																																																																								de famille) :</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																											membre
+																																																																																																																																																																																																																																																																																																																																																																																																																											de famille) :</div>
 																		<samp class="font-size-lg">{{ adherent.maladiechronique
 																}}</samp>
 																	</div><br>
@@ -262,7 +262,7 @@
 																	<div class="d-flex align-items-center">
 																		<i class="icon-question6 mr-3 icon-4x"></i>
 																		<div class="font-weight-black">
-																			Source revenu ? :</div>
+																			Source revenu  :</div>
 																		<samp class="font-size-lg">{{ adherent.source }}
 																		</samp>
 
@@ -357,7 +357,7 @@
 																				<td>{{ benificiaire.nom }}</td>
 																				<td>{{ benificiaire.datenaissance ? benificiaire.datenaissance|date('Y-m-d') : '' }}</td>
 																				<td>{{ benificiaire.niveauetude }}</td>
-																				<td>{{ benificiaire.metier }}</td>
+																				<td>{{ benificiaire.Metier }}</td>
 
 																				<td>
 																					<div class="list-icons">
@@ -365,7 +365,7 @@
 																							<i class="icon-pencil7"></i>
 																						</a>
 																						<!--bouton trach-->
-																						<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{adherent.id}}" data-toggle="modal">
+																						<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{benificiaire.id}}" data-toggle="modal">
 																							<i class="icon-trash"></i>
 																						</a>
 																						<!--/bouton trach-->
@@ -375,7 +375,34 @@
 																				<td class="text-center"></td>
 
 																			</tr>
+																			<!--modal supression-->
+																			<div id="modal_delete{{benificiaire.id}}" class="modal fade" tabindex="-1">
+																				<div class="modal-dialog">
+																					<div class="modal-content">
+																						<div class="modal-header bg-danger">
+																							<h4 class="modal-title">Confirmez-vous la suppression ?
+																							</h4>
+																							<button type="button" class="close" data-dismiss="modal">&times;</button>
+																						</div>
 
+																						<div class="modal-body">
+																							<p>
+																								<h5>Voulez vous supprimer
+																									{{benificiaire.nom}}?</h5>
+																							</p><br><h6>si vous confirmez, votre membre sera effacé</h6>
+																						</div>
+
+																						<div class="modal-footer">
+																							<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+																							<a type="button" class="btn bg-danger" href="{{ path('app_benificiaire_delete', {'id': benificiaire.id}) }}" >Valider</a>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<!--/modal supression-->
+
+
+																		{% endfor %}
 
 																			<!--modal_ajout_benificiaire-->
 																			<div id="modal_ajout_benificiaire" class="modal fade" tabindex="-1">
@@ -404,9 +431,6 @@
 																				</div>
 																			</div>
 																			<!--/modal_ajout_benificiaire-->
-
-
-																		{% endfor %}
 
 																	</tbody>
 																</table>

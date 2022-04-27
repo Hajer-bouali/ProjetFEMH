@@ -207,7 +207,7 @@
 
 															</div>
 															<div class="col-md-6">
-																<div class="form-group">
+																<div id="adherent_typehandicap" class="form-group">
 																	<label>Type d'handicap
 																	</label>
 																	{{ form_widget(form.typehandicap , {attr:{'class':' form-control'}}) }}
@@ -218,7 +218,7 @@
 														
 														<div class="row">
 															<div class="col-md-6">
-																<div class="form-group">
+																<div  class="form-group">
 																	<label>maladie chronique ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
 																	</label>
@@ -229,7 +229,7 @@
 
 															</div>
 															<div class="col-md-6">
-																<div class="form-group">
+																<div id="adherent_typemaladiechronique" class="form-group">
 																	<label>Type maladie chronique ?
 																	</label>
 																	{{ form_widget(form.typemaladiechronique , {attr:{'class':' form-control'}}) }}
@@ -293,15 +293,7 @@
 																</div>
 															</div>
 
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>l'etat de dossier:
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.etatreunion , {attr:{'class':'form_control'}}) }}
-
-																	</label>
-																</div>
-															</div>
+															
 														</div>
 														<div class="row">
 														<div class="col-md-6">
@@ -358,6 +350,26 @@
 					$("#prix_location").hide();
 				}
             });
-        });
+			 $("#adherent_handicap").change(function() {
+					value2=$("#adherent_handicap").val();
+				if(value2=='oui'){
+					$("#adherent_typehandicap").show();
+				}else{
+					$("#adherent_typehandicap").hide();
+				}
+            });
+			$("#adherent_maladiechronique").change(function() {
+					value2=$("#adherent_maladiechronique").val();
+				if(value2=='oui'){
+					$("#adherent_typemaladiechronique").show();
+				}else{
+					$("#adherent_typemaladiechronique").hide();
+				}
+            });
+        }
+		
+		);
+
+
     </script>
 		{% endblock %}

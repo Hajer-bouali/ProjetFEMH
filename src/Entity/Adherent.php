@@ -154,6 +154,11 @@ class Adherent
      */
     private $typeadherent;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $responsable;
+
 
     public function __construct()
     {
@@ -546,6 +551,18 @@ class Adherent
     public function removeTypeadherent(Typeadherent $typeadherent): self
     {
         $this->typeadherent->removeElement($typeadherent);
+
+        return $this;
+    }
+
+    public function getResponsable(): ?string
+    {
+        return $this->responsable;
+    }
+
+    public function setResponsable(string $responsable): self
+    {
+        $this->responsable = $responsable;
 
         return $this;
     }
