@@ -14,7 +14,8 @@ class StockType extends AbstractType
     {
         $builder
             ->add('quantite')
-            ->add('nom')
+            ->add('produit')
+            ->add('operationStock')
             ->add('Enregistrer', SubmitType::class)
 
         ;

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\OperationFinanciereDon;
+use App\Entity\OperationFinanciere;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method OperationFinanciereDon|null find($id, $lockMode = null, $lockVersion = null)
- * @method OperationFinanciereDon|null findOneBy(array $criteria, array $orderBy = null)
- * @method OperationFinanciereDon[]    findAll()
- * @method OperationFinanciereDon[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method OperationFinanciere|null find($id, $lockMode = null, $lockVersion = null)
+ * @method OperationFinanciere|null findOneBy(array $criteria, array $orderBy = null)
+ * @method OperationFinanciere[]    findAll()
+ * @method OperationFinanciere[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OperationFinanciereDonRepository extends ServiceEntityRepository
+class OperationFinanciereRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, OperationFinanciereDon::class);
+        parent::__construct($registry, OperationFinanciere::class);
     }
 
     // /**
-    //  * @return OperationFinanciereDon[] Returns an array of OperationFinanciereDon objects
+    //  * @return OperationFinanciere[] Returns an array of OperationFinanciere objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class OperationFinanciereDonRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?OperationFinanciereDon
+    public function findOneBySomeField($value): ?OperationFinanciere
     {
         return $this->createQueryBuilder('o')
             ->andWhere('o.exampleField = :val')

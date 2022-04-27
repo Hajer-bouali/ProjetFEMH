@@ -43,25 +43,27 @@ class Evenement
     private $produit;
 
     /**
-
-     * @ORM\OneToMany(targetEntity=OperationFinanciereAide::class, mappedBy="evenement")
-     */
-    private $operationFinanciereAides;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $datedebut;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OperationFinanciere::class, mappedBy="evenement")
+     */
+    private $operationFinancieres;
 
-
+    /**
+     * @ORM\ManyToMany(targetEntity=OperationStock::class, mappedBy="evenement")
+     */
+    private $operationStocks;
 
 
     public function __construct()
     {
         $this->adherent = new ArrayCollection();
         $this->produit = new ArrayCollection();
-        $this->operationFinanciereAides = new ArrayCollection();
+        $this->operationFinancieres = new ArrayCollection();
+        $this->operationStocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,27 +146,14 @@ class Evenement
     }
 
 
-    /**
-     * @return Collection|OperationFinanciereAide[]
-     */
-    public function getOperationFinanciereAides(): Collection
-    {
-        return $this->operationFinanciereAides;
-    }
+   
 
-    public function addOperationFinanciereAide(OperationFinanciereAide $operationFinanciereAide): self
-    {
-        if (!$this->operationFinanciereAides->contains($operationFinanciereAide)) {
-            $this->operationFinanciereAides[] = $operationFinanciereAide;
-            $operationFinanciereAide->setEvenement($this);
-        }
-    }
-
+  
     public function getDatedebut(): ?\DateTimeInterface
     {
         return $this->datedebut;
     }
-
+    
     public function setDatedebut(\DateTimeInterface $datedebut): self
     {
         $this->datedebut = $datedebut;
@@ -173,19 +162,65 @@ class Evenement
     }
 
 
-    public function removeOperationFinanciereAide(OperationFinanciereAide $operationFinanciereAide): self
+    public function __toString() {
+        return $this->nom;
+    }
+
+    /**
+     * @return Collection|OperationFinanciere[]
+     */
+    public function getOperationFinancieres(): Collection
     {
-        if ($this->operationFinanciereAides->removeElement($operationFinanciereAide)) {
+        return $this->operationFinancieres;
+    }
+
+    public function addOperationFinanciere(OperationFinanciere $operationFinanciere): self
+    {
+        if (!$this->operationFinancieres->contains($operationFinanciere)) {
+            $this->operationFinancieres[] = $operationFinanciere;
+            $operationFinanciere->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOperationFinanciere(OperationFinanciere $operationFinanciere): self
+    {
+        if ($this->operationFinancieres->removeElement($operationFinanciere)) {
             // set the owning side to null (unless already changed)
-            if ($operationFinanciereAide->getEvenement() === $this) {
-                $operationFinanciereAide->setEvenement(null);
+            if ($operationFinanciere->getEvenement() === $this) {
+                $operationFinanciere->setEvenement(null);
             }
         }
 
         return $this;
     }
-    public function __toString()
+
+    /**
+     * @return Collection|OperationStock[]
+     */
+    public function getOperationStocks(): Collection
     {
-        return $this->nom;
+        return $this->operationStocks;
     }
+
+    public function addOperationStock(OperationStock $operationStock): self
+    {
+        if (!$this->operationStocks->contains($operationStock)) {
+            $this->operationStocks[] = $operationStock;
+            $operationStock->addEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOperationStock(OperationStock $operationStock): self
+    {
+        if ($this->operationStocks->removeElement($operationStock)) {
+            $operationStock->removeEvenement($this);
+        }
+
+        return $this;
+    }
+
 }

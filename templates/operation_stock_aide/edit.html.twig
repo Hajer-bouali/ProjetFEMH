@@ -8,12 +8,12 @@
 		<div class="page-header page-header-light">
 			<div class="page-header-content header-elements-md-inline">
 				<div class="breadcrumb">
-					<a href="{{ path('operation_financiere_aide_index') }}" class="breadcrumb-item">
+					<a href="{{ path('operation_stock_aide_index') }}" class="breadcrumb-item">
 						<i class="icon-home2 mr-2"></i>
-						Liste des opérations Financière de aide
+						Liste des opérations Stock d'aide
 					</a>
-					<a href="{{ path('operation_financiere_aide_new') }}" class="breadcrumb-item">
-						Créer une nouvelle opération Financière de aide
+					<a href="#" class="breadcrumb-item">
+						Modification d'opération Stock d'aide
 					</a>
 
 				</div>
@@ -35,11 +35,13 @@
 									class="d-flex align-items-start flex-column flex-md-row">
 									<!-- Left content -->
 									<div class="tab-content w-100 overflow-auto order-2 order-md-1">
-										<div class="tab-pane fade active show" id="settings">
+										<div
+											class="tab-pane fade active show" id="settings">
+											<!-- Profile info -->
 											<div class="card">
 												<div class="card-header header-elements-inline">
 													<h5 class="card-title">
-														Créer une nouvelle opération Financière d'aide
+														Créer une nouvelle opération Stock d'aide
 													</h5>
 													<div class="header-elements"></div>
 												</div>
@@ -50,45 +52,18 @@
 
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Montant
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(formAide.montant , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
 																<label>evenement
 																	<span class="text-danger"></span>
-																</label> {{ form_widget(formAide.evenement, {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Mode de paiement
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(formAide.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
+																</label> {{ form_widget(formAide.evenement, {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Pièce jointe
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(formAide.pieceJointeOperations , {attr:{'class':'form-control form-control-select2'}}) }}
+																<label>Unite
+																	<span class="text-danger"></span>
+																</label> {{ form_widget(formAide.unite, {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
-													</div>
-													<div class="row">
-
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>type de caisse
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(formAide.caisse , {attr:{'class':'form_control'}}) }}
-															</div>
-														</div>
-
 													</div>
 													<div class="row">
 														{% if is_granted('ROLE_FINANCIERE') %}
@@ -96,7 +71,7 @@
 																<div class="form-group">
 																	<label>Etat
 																		<span class="text-danger"></span>
-																	</label> {{ form_widget(formAide.etat , {attr:{'class':'form-control '}}) }}
+																	</label> {{ form_widget(formAide.etat , {attr:{'class':'form-control ','disabled':'disabled'}}) }}
 																</div>
 															</div>
 														{% endif %}
@@ -106,11 +81,7 @@
 													</div> {{ form_end(formAide) }}
 												</div>
 											</div>
-											<!-- /profile info -->
-
 										</div>
-										<!-- Profile info -->
-
 										<!-- /left content -->
 									</div>
 									<!-- /inner container -->

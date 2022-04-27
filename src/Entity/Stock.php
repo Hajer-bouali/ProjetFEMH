@@ -24,9 +24,14 @@ class Stock
     private $quantite;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="stocks")
      */
-    private $nom;
+    private $produit;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=OperationStock::class, inversedBy="stock")
+     */
+    private $operationStock;
 
 
     public function __construct()
@@ -53,14 +58,26 @@ class Stock
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getProduit(): ?string
     {
-        return $this->nom;
+        return $this->produit;
     }
 
-    public function setNom(string $nom): self
+    public function setProduit(?Produit $produit): self
     {
-        $this->nom = $nom;
+        $this->produit = $produit;
+
+        return $this;
+    }
+
+    public function getOperationStock(): ?OperationStock
+    {
+        return $this->operationStock;
+    }
+
+    public function setOperationStock(?OperationStock $operationStock): self
+    {
+        $this->operationStock = $operationStock;
 
         return $this;
     }

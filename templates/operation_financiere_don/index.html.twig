@@ -39,7 +39,7 @@
 							<b>
 								<i class="icon-diff-added"></i>
 							</b>
-							Ajouter une nouvelle opération Financière Don</a>
+							Ajouter une nouvelle opération Financière </a>
 					</div>
 
 				</div>
@@ -50,34 +50,36 @@
 							<th>Id</th>
 							<th>Donataire</th>
 							<th>Montant</th>
-							<th>Type adherent</th>
+							<th>Evénement</th>
+							<th>Responsable</th>	
 							<th>Etat</th>
 							<th>actions</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for operation_financiere_don in operation_financiere_dons %}
+						{% for operation_financiere in operation_financieres %}
 							<tr>
-								<td>{{ operation_financiere_don.id }}</td>
-								<td>{{ operation_financiere_don.nomdonataire }}</td>
-								<td>{{ operation_financiere_don.montant }}</td>
-								<td>{{ operation_financiere_don.typeadherent }}</td>
-								<td>{{ operation_financiere_don.etat }}</td>
+								<td>{{ operation_financiere.id }}</td>
+								<td>{{ operation_financiere.nomdonataire }}</td>
+								<td>{{ operation_financiere.montant }}</td>
+								<td>{{ operation_financiere.evenement }}</td>
+								<td>{{ operation_financiere.Responsable }}</td>
+								<td>{{ operation_financiere.etat }}</td>
 								<td>
-									<a class="list-icons-item text-primary-600" href="{{ path('operation_financiere_don_edit', {'id': operation_financiere_don.id}) }}">
+									<a class="list-icons-item text-primary-600" href="{{ path('operation_financiere_don_edit', {'id': operation_financiere.id}) }}">
 										<i class="icon-pencil7"></i>
 									</a>
-									<a href="#" data-target="#modal_delete{{operation_financiere_don.id}}" data-toggle="modal" data-id={{operation_financiere_don.id}} class="list-icons-item text-danger-600">
+									<a href="#" data-target="#modal_delete{{operation_financiere.id}}" data-toggle="modal" data-id={{operation_financiere.id}} class="list-icons-item text-danger-600">
 										<i class="icon-trash"></i>
 									</a>
-									<a href="{{ path('operation_financiere_don_show', {'id': operation_financiere_don.id}) }}" class="list-icons-item text-teal-600">
+									<a href="{{ path('operation_financiere_don_show', {'id': operation_financiere.id}) }}" class="list-icons-item text-teal-600">
 										<i class="icon-reading"></i>
 									</a>
-									<div id="modal_delete{{operation_financiere_don.id}}" class="modal fade" tabindex="-1">
+									<div id="modal_delete{{operation_financiere.id}}" class="modal fade" tabindex="-1">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header bg-danger">
-													<h6 class="modal-title">Supprimer L'opération Financière Don {{operation_financiere_don.id}}</h6>
+													<h6 class="modal-title">Supprimer L'opération Financière Don {{operation_financiere.id}}</h6>
 													<button type="button" class="close" data-dismiss="modal">&times;</button>
 												</div>
 
@@ -87,7 +89,7 @@
 
 												<div class="modal-footer">
 													<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-													<a type="button" class="btn bg-danger" href="{{path("operation_financiere_don_delete" , {id: operation_financiere_don.id})}}">Valider</a>
+													<a type="button" class="btn bg-danger" href="{{path("operation_financiere_don_delete" , {id: operation_financiere.id})}}">Valider</a>
 												</div>
 											</div>
 										</div>

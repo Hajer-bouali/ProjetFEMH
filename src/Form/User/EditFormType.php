@@ -21,7 +21,7 @@ class EditFormType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Utilisateur' => 'ROLE_USER',
-                    'Editeur' => 'ROLE_EDITOR',
+                    'Financieur' => 'ROLE_FINANCIEUR',
                     'Administrateur' => 'ROLE_ADMIN',
                 ],
                 'expanded' => true,

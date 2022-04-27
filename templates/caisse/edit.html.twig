@@ -56,29 +56,21 @@
 																</label> {{ form_widget(form.intitule , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Montant
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(form.montant , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-6">
+													    <div class="col-md-6">
 															<div class="form-group">
 																<label>
 																	les type de caisse<span class="text-danger">*</span>
 																</label>
 																<select name="listeTypeCaisse[]" class="form-control">
 																	{% for typeCaisse in typeCaisses %}
-																		<option value="{{ typeCaisse.id }}"> {{ typeCaisse.nom }}
+																		<option value="{{ typeCaisse.id }}" > {{ typeCaisse.nom }}
 																		</option>
 																	{% endfor %}
 																</select>
 															</div>
 														</div>
 													</div>
+
 													<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} {{ form_end(form) }}
 													</div>
 

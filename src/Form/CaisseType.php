@@ -14,7 +14,6 @@ class CaisseType extends AbstractType
     {
         $builder
             ->add('intitule')
-            ->add('montant')
             ->add('Enregistrer', SubmitType::class)
         ;
     }

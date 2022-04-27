@@ -1,30 +1,116 @@
 {% extends 'base.html.twig' %}
+{% block style %}
+	<!-- Core JS files -->
+	<script src="{{asset('templateAdmin/global_assets/js/main/jquery.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/ui/ripple.min.js') }}"></script>
+	<!-- /core JS files -->
 
-{% block title %}Caisse{% endblock %}
+	<!-- Theme JS files -->
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/styling/switch.min.js') }}"></script>
 
-{% block body %}
-    <h1>Caisse</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ caisse.id }}</td>
-            </tr>
-            <tr>
-                <th>Intitule</th>
-                <td>{{ caisse.intitule }}</td>
-            </tr>
-            <tr>
-                <th>Montant</th>
-                <td>{{ caisse.montant }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('caisse_index') }}">back to list</a>
-
-    <a href="{{ path('caisse_edit', {'id': caisse.id}) }}">edit</a>
-
-    {{ include('caisse/_delete_form.html.twig') }}
+	<script src="{{asset('templateAdmin/global_assets/js/demo_pages/form_checkboxes_radios.js') }}"></script>
+	<!-- /theme JS files -->
 {% endblock %}
+{% block body %}
+<!-- Main content -->
+<div
+	class="content-wrapper">
+
+	<!-- Page header -->
+	<div class="page-header page-header-light">
+		<div class="page-header-content header-elements-md-inline">
+			<div class="d-flex">
+				<div class="breadcrumb"></div>
+
+				<a href="#" class="header-elements-toggle text-default d-md-none">
+					<i class="icon-more"></i>
+				</a>
+			</div>
+
+		</div>
+	</div>
+	<!-- /page header -->
+
+	<!-- Content area -->
+	<div
+		class="content">
+
+		<!-- Basic datatable -->
+		<div class="card">
+			<div class="card-header header-elements-inline">
+				<h4 class="card-title">
+					les details du caisse {{ caisse.id }}
+				</h4>
+
+			</div>
+			<div class="card-header header-elements-inline">
+				<h6>
+					<i class="icon-table2"></i>
+					Nom de caisse: {{ caisse.intitule}}
+				</br>
+			</br>
+			<i class="icon-cash"></i>
+			le montant: {{ caisse.montant }}
+		</h6>
+	</div>
+
+	<table class="table datatable-basic">
+
+		<thead>
+			<tr>
+				<th>
+					Id
+				</th>
+				<th>
+					Montant
+				</th>
+
+				<th>
+					Responsable
+				</th>
+				<th>
+					Etat
+				</th>
+				<th>
+					Type
+				</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for operation in operations %}
+				<tr>
+					<td> {{ operation.id }}
+					</td>
+					<td> {{ operation.montant }}
+					</td>
+					<td> {{ operation.Responsable }}
+					</td>
+					<td> {{ operation.etat }}
+					</td>
+					<td>
+						{% if operation.typeoperation =='don'%}
+
+							<span class="badge badge-success">
+								<i class="icon-diff-added"></i>  Don
+							</span>
+						{% endif %}
+						{% if operation.typeoperation =='aide'%}
+						<span class="badge badge-danger">
+							<i class="icon-diff-removed"></i>  aide
+						</span>
+						{% endif %}
+					</td>
+					<td class="text-center"></td>
+				</tr>
+
+
+			</tbody>
+		</tbody>
+	</div>
+</div>{% endfor %}</div></tbody></table></div>{% endblock %}
