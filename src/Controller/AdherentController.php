@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Adherent;
 use App\Entity\Benificiaire;
+use App\Entity\revenufamilial;
 use App\Entity\Decision;
 use App\Entity\PiecesJointes;
 use App\Form\PiecesJointesType;
@@ -12,12 +13,18 @@ use App\Form\BenificiaireType;
 use App\Repository\AdherentRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\BenificiaireRepository;
+use App\Repository\RevenufamilialRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+// Include Dompdf required namespaces
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 
 /**
  * @Route("/adherent")
@@ -33,6 +40,63 @@ class AdherentController extends AbstractController
             'adherents' => $adherentRepository->findAll(),
         ]);
     }
+  /**
+     * @Route("/pdf", name="adherent_pdf", methods={"GET"})
+     */
+    public function pdfadherent(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
+
+ {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        $benificiaires = $benificiaireRepository->findByAdherent($adherent);
+        $benificiaire = new Benificiaire();
+        
+        $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
+        $formBen->handleRequest($request);
+
+        if ($formBen->isSubmitted() && $formBen->isValid()) {
+            $benificiaire->setAdherent($adherent);
+            $entityManager->persist($benificiaire);
+        }
+
+
+        $entityManager->flush();
+
+
+        return $this->render('adherent/show.html.twig', [
+            'adherent' => $adherent,
+            'formBen' => $formBen->createView(),
+            'benificiaires' => $benificiaires,
+        ]);
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('adherent/pdf.html.twig', [
+            'adherent' => $adherent,
+            'formBen' => $formBen->createView(),
+            'benificiaires' => $benificiaires,
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => true
+        ]);
+    }
+
+
+
 
     /**
      * @Route("/archiver", name="adherent_archive", methods={"GET"})
@@ -40,7 +104,7 @@ class AdherentController extends AbstractController
     public function archif(AdherentRepository $adherentRepository): Response
     {
         return $this->render('adherent/archiver.html.twig', [
-            'adherents' => $adherentRepository->findByStatut('desactivé'),
+            'adherents' => $adherentRepository->findByStatut('actif'),
         ]);
     }
     /**
@@ -100,6 +164,7 @@ class AdherentController extends AbstractController
             $adherent->setPrixlocation('0');
             $adherent->setTypehandicap('0');
             $adherent->setTypemaladiechronique('0');
+            $adherent->setBenificiaire('x');
             $adherent->setResponsable($this->getUser()->getName());
 
             $entityManager->persist($adherent);
@@ -123,13 +188,19 @@ class AdherentController extends AbstractController
     /**
      * @Route("/{id}", name="adherent_show", methods={"GET", "POST"})
      */
-    public function show(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
+    public function show(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, RevenufamilialRepository $revenufamilialRepository ,EntityManagerInterface $entityManager): Response
 
     {
         
         $benificiaires = $benificiaireRepository->findByAdherent($adherent);
         $benificiaire = new Benificiaire();
-        
+        $revenufamilials = $revenufamilialRepository->findByAdherent($adherent);
+        $revenufamilial =new Revenufamilial();
+
+        $formRF = $this->createForm(BenificiaireType::class, $benificiaire);
+        $formRF->handleRequest($request);
+
+
         $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
         $formBen->handleRequest($request);
 
@@ -137,7 +208,10 @@ class AdherentController extends AbstractController
             $benificiaire->setAdherent($adherent);
             $entityManager->persist($benificiaire);
         }
-
+        if ($formRF->isSubmitted() && $formRF->isValid()) {
+            $revenufamilial->setAdherent($adherent);
+            $entityManager->persist($revenufamilial);
+        }
 
         $entityManager->flush();
 
@@ -146,6 +220,8 @@ class AdherentController extends AbstractController
             'adherent' => $adherent,
             'formBen' => $formBen->createView(),
             'benificiaires' => $benificiaires,
+            'formRF' => $formRF->createView(),
+            'revenufamilials' =>$revenufamilials,
         ]);
     }
     /**

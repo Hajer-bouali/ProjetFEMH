@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>
+			Manage Donation
+		</title>
+	</head>
+	<body>
+		<div style="center">recherche sociale</div>
+		<!-- Profile info -->
+		<div class="card">
+			<div class="card-header header-elements-inline">
+				<h5 class="card-title">recherche sociale</h5>
+				<div class="header-elements"></div>
+			</div>
+
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-4">
+						<label>Information personnel<label></div>
+							<div class="col-md-8">
+								<div class="row">
+									<div class="col-md-8">
+										<label>Nom :</label>
+										{{adherent.nom}}
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-8">
+										<label>Numero de carte d'identité :</label>{{adherent.cin}}
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-8">
+										<label>Numero de telephone :</label>{{adherent.telephone}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<label>Information spécifique<label></div>
+									<div class="col-md-8">
+										<div class="row">
+
+											<div class="col-md-8">
+												<label>Role</label>
+												{{ form_widget(formCreerProfil.roles , {attr:{'class':'form-select2'}}) }}
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-8">
+												<label>Mot de passe</label>
+												{{ form_widget(formCreerProfil.plainPassword , {attr:{'class':'form-control'}}) }}
+											</div>
+
+										</div>
+										<div class="text-right">
+											{{ form_row(formCreerProfil.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+											{{ form_end(formCreerProfil) }}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+
+		<!-- /profile info -->
+
+
+	</body>
+</html>

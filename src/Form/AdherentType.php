@@ -50,7 +50,15 @@ class AdherentType extends AbstractType
             
             ->add('nombrefamille')
            // ->add('benificiaires')
-           ->add('etatreunion')
+           ->add('etatreunion', ChoiceType::class, [
+            'choices' => [
+                'en cour '=>'en cour',
+                 
+            ],
+            'expanded' => false,
+            'multiple' => false,
+            'label' => 'etat de dossier' 
+        ])
             ->add('logement', ChoiceType::class, [
                 'choices' => [
                     'Locataire '=>'Locataire',
