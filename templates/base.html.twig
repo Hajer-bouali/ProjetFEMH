@@ -67,14 +67,24 @@
 	<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
 	<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
 	<!-- /theme JS files show_adherent-->
+	
+	<!-- Theme JS files -->
+	<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
+	<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
+
+	<script src="assets/js/app.js"></script>
+	<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
+	<!-- /theme JS files -->
 
 
 	</head>
 	<body>
-		<div class="navbar navbar-expand-md navbar-dark">
+		
+		<!-- Main navbar -->
+		<div class="navbar navbar-expand-md navbar-light">
 			<div class="navbar-brand">
 				<a href="index.html" class="d-inline-block-center">
-					<img src="{{ asset('templateAdmin/global_assets/images/navbarr.png') }}" alt="">
+					<img src="{{ asset('templateAdmin/global_assets/images/logo final.png') }}" alt="">
 				</a>
 			</div>
 			<div class="d-md-none">
@@ -125,8 +135,25 @@
 				</ul>
 			</div>
 		</div>
-		<!-- Main navbar -->
 		<!-- /main navbar -->
+		<div class="navbar navbar-expand-md navbar-dark bg-teal-400 navbar-sticky" style="">
+		<div class="navbar-brand">
+				<a href="index.html" class="d-inline-block-center">
+					<img src="{{ asset('templateAdmin/global_assets/images/ihsenlogo.png') }}" class="rounded-circle" alt="">
+				</a>
+			</div>
+		<div class="text-center d-md-none w-100">
+			<button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-second">
+				<i class="icon-unfold mr-2"></i>
+				Alternative navbar
+			</button>
+		</div>
+
+		<div class="navbar-collapse collapse" id="navbar-second">
+			
+		</div>
+		
+	</div>
 		<!-- Page content -->
 			<div
 			class="page-content"> <!-- Main sidebar -->

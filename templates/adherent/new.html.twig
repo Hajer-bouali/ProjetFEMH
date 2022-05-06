@@ -52,7 +52,7 @@
 													<div class="card-header bg-white header-elements-inline">
 														<h6 class="card-title">Créer un nouveau dossiers</h6>
 														<div class="header-elements"></div>
-														
+
 													</div>
 													{{ form_start(form , {attr:{'class':'wizard-form steps-validation'}}) }}
 													<h6>information personnelle</h6>
@@ -125,11 +125,11 @@
 
 
 													</fieldset>
-													
+
 
 													<h6>statut résidentiel</h6>
 													<fieldset>
-													
+
 														<div class="row">
 															<div class="col-md-6">
 
@@ -139,7 +139,7 @@
 																{{ form_widget(form.logement , {attr:{'class':'form-control form-control-select2'}}) }}
 
 															</div>
-															<div id ="prix_location"  class="col-md-6">
+															<div id="prix_location" class="col-md-6">
 																<label>Prix location maison
 																</label>
 																{{ form_widget(form.prixlocation , {attr:{'class':'form-control '}}) }}
@@ -182,17 +182,16 @@
 																</div>
 															</div>
 															<!--<div class="col-md-6">
-																<div class="form-group">
-																	<label>Equipement  non disponibles</label>
-																</div>
-															</div>-->
+																																														<div class="form-group">
+																																															<label>Equipement  non disponibles</label>
+																																														</div>
+																																													</div>-->
 														</div>
-														
 
 
 													</fieldset>
 													<h6>Etat de santé</h6>
-														<fieldset>
+													<fieldset>
 
 														<div class="row">
 															<div class="col-md-6">
@@ -215,10 +214,10 @@
 															</div>
 
 														</div>
-														
+
 														<div class="row">
 															<div class="col-md-6">
-																<div  class="form-group">
+																<div class="form-group">
 																	<label>maladie chronique ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
 																	</label>
@@ -237,29 +236,29 @@
 															</div>
 
 														</div>
-														</fieldset>
+													</fieldset>
 
 													<h6>Revenu familial et Résumé de la situation sociale</h6>
 													<fieldset>
 														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Montant du revenu
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.montantrevenu , {attr:{'class':' form-control'}}) }}
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<label>Montant du revenu
+																			<span class="text-danger">*</span>
+																			{{ form_widget(form.montantrevenu , {attr:{'class':' form-control'}}) }}
 
-																	</label>
+																		</label>
+																	</div>
 																</div>
-															</div>
 
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>source revenu
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.source , {attr:{'class':' form-control'}}) }}
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<label>source revenu
+																			<span class="text-danger">*</span>
+																		</label>
+																		{{ form_widget(form.source , {attr:{'class':' form-control'}}) }}
+																	</div>
 																</div>
-															</div>
 														</div>
 														<div class="row">
 															<div class="col-md-6">
@@ -281,7 +280,7 @@
 																</div>
 															</div>
 														</div>
-													
+
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
@@ -293,18 +292,28 @@
 																</div>
 															</div>
 
-															
+
 														</div>
 														<div class="row">
-														<div class="col-md-6">
-														<div class="form-group">
+															<div class="col-md-6">
+																<div class="form-group">
 																	<label>Type de dossier:
 																		<span class="text-danger">*</span>
 																		{{ form_widget(form.typeadherent , {attr:{'class':'form_control form-control-select2'}}) }}
 
 																	</label>
 																</div>
-														</div>
+															</div>
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Etat de dossier
+																		<span class="text-danger">*</span>
+																		{{ form_widget(form.etatreunion , {attr:{'class':'form_control disabled'}}) }}
+
+																	</label>
+																</div>
+															</div>
+
 														</div>
 
 
@@ -313,7 +322,7 @@
 															{{ form_end(form) }}
 														</div>
 													</fieldset>
-												
+
 
 												</div>
 												<!-- /wizard with validation -->
@@ -341,35 +350,31 @@
 
 			<script>
 
-        $(document).ready(function() {
-            $("#adherent_logement").change(function() {
-				value=$("#adherent_logement").val();
-				if(value=='Locataire'){
-					$("#prix_location").show();
-				}else{
-					$("#prix_location").hide();
-				}
-            });
-			 $("#adherent_handicap").change(function() {
-					value2=$("#adherent_handicap").val();
-				if(value2=='oui'){
-					$("#adherent_typehandicap").show();
-				}else{
-					$("#adherent_typehandicap").hide();
-				}
-            });
-			$("#adherent_maladiechronique").change(function() {
-					value2=$("#adherent_maladiechronique").val();
-				if(value2=='oui'){
-					$("#adherent_typemaladiechronique").show();
-				}else{
-					$("#adherent_typemaladiechronique").hide();
-				}
-            });
-        }
-		
-		);
-
-
-    </script>
+				$(document).ready(function () {
+$("#adherent_logement").change(function () {
+value = $("#adherent_logement").val();
+if (value == 'Locataire') {
+$("#prix_location").show();
+} else {
+$("#prix_location").hide();
+}
+});
+$("#adherent_handicap").change(function () {
+value2 = $("#adherent_handicap").val();
+if (value2 == 'oui') {
+$("#adherent_typehandicap").show();
+} else {
+$("#adherent_typehandicap").hide();
+}
+});
+$("#adherent_maladiechronique").change(function () {
+value2 = $("#adherent_maladiechronique").val();
+if (value2 == 'oui') {
+$("#adherent_typemaladiechronique").show();
+} else {
+$("#adherent_typemaladiechronique").hide();
+}
+});
+});
+			</script>
 		{% endblock %}

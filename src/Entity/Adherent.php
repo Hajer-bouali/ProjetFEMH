@@ -159,6 +159,11 @@ class Adherent
      */
     private $responsable;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Revenufamilial::class, mappedBy="adherent")
+     */
+    private $revenufamilial;
+
 
     public function __construct()
     {
@@ -166,6 +171,7 @@ class Adherent
         $this->evenements = new ArrayCollection();
         $this->benificiaires = new ArrayCollection();
         $this->typeadherent = new ArrayCollection();
+        $this->revenufamilial = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -563,6 +569,36 @@ class Adherent
     public function setResponsable(string $responsable): self
     {
         $this->responsable = $responsable;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|revenufamilial[]
+     */
+    public function getRevenufamilial(): Collection
+    {
+        return $this->revenufamilial;
+    }
+
+    public function addRevenufamilial(revenufamilial $revenufamilial): self
+    {
+        if (!$this->revenufamilial->contains($revenufamilial)) {
+            $this->revenufamilial[] = $revenufamilial;
+            $revenufamilial->setAdherent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRevenufamilial(revenufamilial $revenufamilial): self
+    {
+        if ($this->revenufamilial->removeElement($revenufamilial)) {
+            // set the owning side to null (unless already changed)
+            if ($revenufamilial->getAdherent() === $this) {
+                $revenufamilial->setAdherent(null);
+            }
+        }
 
         return $this;
     }
