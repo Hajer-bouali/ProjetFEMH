@@ -7,6 +7,7 @@ use App\Entity\Adherent;
 use App\Entity\TypeEvenement;
 use App\Form\EvenementType;
 use App\Repository\EvenementRepository;
+use App\Repository\OperationFinanciereRepository;
 use App\Repository\AdherentRepository;
 use App\Repository\TypeEvenementRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,10 +54,12 @@ class EvenementController extends AbstractController
     /**
      * @Route("/{id}", name="evenement_show", methods={"GET"})
      */
-    public function show(Evenement $evenement): Response
+    public function show(Evenement $evenement,OperationFinanciereRepository $OperationFinanciereRepository): Response
     {
+        $operations = $OperationFinanciereRepository->findByEvenement($evenement);
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
+            'operations' => $operations,
         ]);
     }
 

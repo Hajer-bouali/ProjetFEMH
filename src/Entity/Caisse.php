@@ -27,7 +27,7 @@ class Caisse
     /**
      * @ORM\Column(type="float")
      */
-    private $montant;
+    private $montant=0;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeCaisse::class, inversedBy="caisses")

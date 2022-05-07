@@ -222,5 +222,4 @@ class Evenement
 
         return $this;
     }
-
 }

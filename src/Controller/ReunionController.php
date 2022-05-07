@@ -134,7 +134,7 @@ class ReunionController extends AbstractController
     /**
      * @Route("/deletedossier/{id}", name="dossier_delete")
      */
-    public function deletedossier(Decision $decision, Request $request, EntityManagerInterface $entityManager, AdherentRepository $AdherentRepository): Response
+    public function deletedossier(Decision $decision): Response
     {
         $em = $em = $this->getDoctrine()->getManager();
         $idreunion = $decision->getReunion()->getId();

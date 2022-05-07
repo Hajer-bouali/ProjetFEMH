@@ -21,7 +21,7 @@ class Stock
     /**
      * @ORM\Column(type="float")
      */
-    private $quantite;
+    private $quantite =1;
 
     /**
      * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="stocks")
@@ -33,10 +33,13 @@ class Stock
      */
     private $operationStock;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $unite;
 
     public function __construct()
     {
-        $this->produit = new ArrayCollection();
     }
 
 
@@ -58,7 +61,7 @@ class Stock
         return $this;
     }
 
-    public function getProduit(): ?string
+    public function getProduit(): ? Produit
     {
         return $this->produit;
     }
@@ -78,6 +81,17 @@ class Stock
     public function setOperationStock(?OperationStock $operationStock): self
     {
         $this->operationStock = $operationStock;
+
+        return $this;
+    }
+    public function getUnite(): ?string
+    {
+        return $this->unite;
+    }
+
+    public function setUnite(string $unite): self
+    {
+        $this->unite = $unite;
 
         return $this;
     }

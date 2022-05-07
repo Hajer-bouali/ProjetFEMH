@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\OperationFinanciere;
 use App\Entity\PieceJointeOperation;
-use App\Form\OperationFinanciereDonType;
 use App\Form\OperationFinanciereAideType;
+use App\Form\OperationFinanciereDonType;
 use App\Repository\OperationFinanciereRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +27,7 @@ class OperationFinanciereController extends AbstractController
             'operation_financieres' => $operationFinanciereRepository->findAll('don'),
         ]);
     }
-        /**
+    /**
      * @Route("/aide", name="operation_financiere_aide_index", methods={"GET"})
      */
     public function indexaide(OperationFinanciereRepository $operationFinanciereRepository): Response
@@ -51,13 +51,13 @@ class OperationFinanciereController extends AbstractController
         $formDon->handleRequest($request);
         if ($formDon->isSubmitted() && $formDon->isValid()) {
             $piecejointes = $formDon->get('pieceJointeOperations')->getData();
-            foreach($piecejointes as $piecejointe){
-                $fichier=md5(uniqid()). '.' . $piecejointe->guessExtension();
+            foreach ($piecejointes as $piecejointe) {
+                $fichier = md5(uniqid()) . '.' . $piecejointe->guessExtension();
                 $piecejointe->move(
                     $this->getParameter('image_directory'),
                     $fichier
                 );
-                $image= new PieceJointeOperation();
+                $image = new PieceJointeOperation();
                 $image->setNom($fichier);
                 $operationFinanciere->addPieceJointeOperation($image);
             }
@@ -74,7 +74,7 @@ class OperationFinanciereController extends AbstractController
             'formDon' => $formDon,
         ]);
     }
- /**
+    /**
      * @Route("/newAide", name="operation_financiere_aide_new", methods={"GET", "POST"})
      */
     public function newAide(Request $request, EntityManagerInterface $entityManager): Response
@@ -88,29 +88,34 @@ class OperationFinanciereController extends AbstractController
         $formAide->handleRequest($request);
         if ($formAide->isSubmitted() && $formAide->isValid()) {
             $piecejointes = $formAide->get('pieceJointeOperations')->getData();
-            foreach($piecejointes as $piecejointe){
-                $fichier=md5(uniqid()). '.' . $piecejointe->guessExtension();
+            foreach ($piecejointes as $piecejointe) {
+                $fichier = md5(uniqid()) . '.' . $piecejointe->guessExtension();
                 $piecejointe->move(
                     $this->getParameter('image_directory'),
                     $fichier
                 );
-                $image= new PieceJointeOperation();
+                $image = new PieceJointeOperation();
                 $image->setNom($fichier);
                 $operationFinanciere->addPieceJointeOperation($image);
             }
             $operationFinanciere->setTypeoperation('aide');
             $operationFinanciere->setEtat('Demande');
             $operationFinanciere->setResponsable($this->getUser()->getName());
+            $montantoperation = $operationFinanciere->getMontant();
+            $montantcaisse = $operationFinanciere->getCaisse()->getMontant();
+            if ($operationFinanciere->getEtat()=='valide' && $montantoperation > $montantcaisse) {
+                $this->addFlash('success', 'le montant est insfusent');
+                return $this->redirectToRoute('operation_financiere_aide_index');
+            }
             $entityManager->persist($operationFinanciere);
             $entityManager->flush();
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
         }
-        
 
         return $this->renderForm('operation_financiere_aide/new.html.twig', [
             'operation_financiere' => $operationFinanciere,
-            'formAide'=>$formAide,
+            'formAide' => $formAide,
         ]);
     }
     /**
@@ -119,7 +124,7 @@ class OperationFinanciereController extends AbstractController
     public function showDon(OperationFinanciere $operationFinanciere): Response
     {
         return $this->render('operation_financiere_don/show.html.twig', [
-            'operation_financiere' => $operationFinanciere,
+            'operation_financiere_don' => $operationFinanciere,
         ]);
     }
     /**
@@ -128,7 +133,7 @@ class OperationFinanciereController extends AbstractController
     public function showAide(OperationFinanciere $operationFinanciere): Response
     {
         return $this->render('operation_financiere_aide/show.html.twig', [
-            'operation_financiere' => $operationFinanciere,
+            'operation_financiere_aide' => $operationFinanciere,
         ]);
     }
     /**
@@ -144,13 +149,13 @@ class OperationFinanciereController extends AbstractController
 
         if ($formAide->isSubmitted() && $formAide->isValid()) {
             $piecejointes = $formAide->get('pieceJointeOperations')->getData();
-            foreach($piecejointes as $piecejointe){
-                $fichier=md5(uniqid()). '.' . $piecejointe->guessExtension();
+            foreach ($piecejointes as $piecejointe) {
+                $fichier = md5(uniqid()) . '.' . $piecejointe->guessExtension();
                 $piecejointe->move(
                     $this->getParameter('image_directory'),
                     $fichier
                 );
-                $image= new PieceJointeOperation();
+                $image = new PieceJointeOperation();
                 $image->setNom($fichier);
                 $operationFinanciere->addPieceJointeOperation($image);
             }
@@ -164,26 +169,26 @@ class OperationFinanciereController extends AbstractController
             'formAide' => $formAide,
         ]);
     }
-     /**
+    /**
      * @Route("/{id}/editDon", name="operation_financiere_don_edit", methods={"GET", "POST"})
      */
     public function editDon(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
     {
         $formDon = $this->createForm(OperationFinanciereDonType::class, $operationFinanciere);
-        
+
         if (!$this->isGranted('ROLE_FINANCIERE')) {
             $formDon->remove('etat');
         }$formDon->handleRequest($request);
 
         if ($formDon->isSubmitted() && $formDon->isValid()) {
             $piecejointes = $formDon->get('pieceJointeOperations')->getData();
-            foreach($piecejointes as $piecejointe){
-                $fichier=md5(uniqid()). '.' . $piecejointe->guessExtension();
+            foreach ($piecejointes as $piecejointe) {
+                $fichier = md5(uniqid()) . '.' . $piecejointe->guessExtension();
                 $piecejointe->move(
                     $this->getParameter('image_directory'),
                     $fichier
                 );
-                $image= new PieceJointeOperation();
+                $image = new PieceJointeOperation();
                 $image->setNom($fichier);
                 $operationFinanciere->addPieceJointeOperation($image);
             }
@@ -203,9 +208,8 @@ class OperationFinanciereController extends AbstractController
      */
     public function deleteAide(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
     {
-            $entityManager->remove($operationFinanciere);
-            $entityManager->flush();
- 
+        $entityManager->remove($operationFinanciere);
+        $entityManager->flush();
 
         return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -214,9 +218,8 @@ class OperationFinanciereController extends AbstractController
      */
     public function deleteDon(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
     {
-            $entityManager->remove($operationFinanciere);
-            $entityManager->flush();
- 
+        $entityManager->remove($operationFinanciere);
+        $entityManager->flush();
 
         return $this->redirectToRoute('operation_financiere_don_index', [], Response::HTTP_SEE_OTHER);
     }

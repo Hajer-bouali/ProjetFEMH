@@ -169,15 +169,11 @@
 										Valider
 									</button>
 								</div>
-							</form>
-						</tbody>
-					</tbody>
+							</div>
+						</div>
+					</form>
 				</div>
-			</tbody>
-		</tbody>
-	</div>
-</div>
-<div id="modal_delete{{ decision.id }}" class="modal fade" tabindex="-1">
+				<div id="modal_delete{{ decision.id }}" class="modal fade" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header bg-danger">
@@ -206,7 +202,12 @@
 			</div>
 		</div>
 	</div>
-</div>{% endfor %}<div id="modal_create{{ reunion.id }}" class="modal fade" tabindex="-1">
+</div>
+			{% endfor %}
+		</tbody>
+	</div>
+</div>
+<div id="modal_create{{ reunion.id }}" class="modal fade" tabindex="-1">
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header bg-primary">
