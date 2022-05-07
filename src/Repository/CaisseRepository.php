@@ -19,32 +19,18 @@ class CaisseRepository extends ServiceEntityRepository
         parent::__construct($registry, Caisse::class);
     }
 
-    // /**
-    //  * @return Caisse[] Returns an array of Caisse objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    public function updateMontant($caisse) {
+        $montant = 0;
+        foreach ($caisse->getOperationFinancieres() as $operationFinanciere) {
+            if ($operationFinanciere->getEtat() == 'valide') {
+                $montant = 
+                $operationFinanciere->getTypeoperation() == 'aide' ?
+                $montant - $operationFinanciere->getMontant() : 
+                $montant + $operationFinanciere->getMontant(); 
+            }
+        }
+        $caisse->setMontant($montant);
+        $this->_em->persist($caisse);
+        $this->_em->flush();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Caisse
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

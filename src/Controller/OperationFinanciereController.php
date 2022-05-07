@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Caisse;
 use App\Entity\OperationFinanciere;
 use App\Entity\PieceJointeOperation;
 use App\Form\OperationFinanciereAideType;
 use App\Form\OperationFinanciereDonType;
+use App\Repository\CaisseRepository;
 use App\Repository\OperationFinanciereRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,6 +29,7 @@ class OperationFinanciereController extends AbstractController
             'operation_financieres' => $operationFinanciereRepository->findAll('don'),
         ]);
     }
+    
     /**
      * @Route("/aide", name="operation_financiere_aide_index", methods={"GET"})
      */
@@ -66,6 +69,7 @@ class OperationFinanciereController extends AbstractController
             $operationFinanciere->setResponsable($this->getUser()->getName());
             $entityManager->persist($operationFinanciere);
             $entityManager->flush();
+            $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
 
             return $this->redirectToRoute('operation_financiere_don_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -74,6 +78,7 @@ class OperationFinanciereController extends AbstractController
             'formDon' => $formDon,
         ]);
     }
+    
     /**
      * @Route("/newAide", name="operation_financiere_aide_new", methods={"GET", "POST"})
      */
@@ -103,12 +108,13 @@ class OperationFinanciereController extends AbstractController
             $operationFinanciere->setResponsable($this->getUser()->getName());
             $montantoperation = $operationFinanciere->getMontant();
             $montantcaisse = $operationFinanciere->getCaisse()->getMontant();
-            if ($operationFinanciere->getEtat()=='valide' && $montantoperation > $montantcaisse) {
-                $this->addFlash('success', 'le montant est insfusent');
+            if ($montantoperation > $montantcaisse) {
+                $this->addFlash('warning', 'le montant est insfusent');
                 return $this->redirectToRoute('operation_financiere_aide_index');
             }
             $entityManager->persist($operationFinanciere);
             $entityManager->flush();
+            $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -118,6 +124,7 @@ class OperationFinanciereController extends AbstractController
             'formAide' => $formAide,
         ]);
     }
+
     /**
      * @Route("don/{id}", name="operation_financiere_don_show", methods={"GET"})
      */
@@ -127,6 +134,7 @@ class OperationFinanciereController extends AbstractController
             'operation_financiere_don' => $operationFinanciere,
         ]);
     }
+
     /**
      * @Route("aide/{id}", name="operation_financiere_aide_show", methods={"GET"})
      */
@@ -136,6 +144,7 @@ class OperationFinanciereController extends AbstractController
             'operation_financiere_aide' => $operationFinanciere,
         ]);
     }
+
     /**
      * @Route("/{id}/editAide", name="operation_financiere_aide_edit", methods={"GET", "POST"})
      */
@@ -160,6 +169,7 @@ class OperationFinanciereController extends AbstractController
                 $operationFinanciere->addPieceJointeOperation($image);
             }
             $entityManager->flush();
+            $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -169,6 +179,7 @@ class OperationFinanciereController extends AbstractController
             'formAide' => $formAide,
         ]);
     }
+
     /**
      * @Route("/{id}/editDon", name="operation_financiere_don_edit", methods={"GET", "POST"})
      */
@@ -193,6 +204,7 @@ class OperationFinanciereController extends AbstractController
                 $operationFinanciere->addPieceJointeOperation($image);
             }
             $entityManager->flush();
+            $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
 
             return $this->redirectToRoute('operation_financiere_don_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -208,18 +220,23 @@ class OperationFinanciereController extends AbstractController
      */
     public function deleteAide(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
     {
+        $caisse = $operationFinanciere->getCaisse();
         $entityManager->remove($operationFinanciere);
         $entityManager->flush();
+        $entityManager->getRepository(Caisse::class)->updateMontant($caisse);
 
         return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
     }
+
     /**
      * @Route("don/delete/{id}", name="operation_financiere_don_delete")
      */
     public function deleteDon(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
     {
+        $caisse = $operationFinanciere->getCaisse();
         $entityManager->remove($operationFinanciere);
         $entityManager->flush();
+        $entityManager->getRepository(Caisse::class)->updateMontant($caisse);
 
         return $this->redirectToRoute('operation_financiere_don_index', [], Response::HTTP_SEE_OTHER);
     }

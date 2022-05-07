@@ -78,26 +78,12 @@ class CaisseController extends AbstractController
     /**
      * @Route("/{id}", name="caisse_show", methods={"GET", "POST"})
      */
-    public function show(Caisse $caisse,OperationFinanciereRepository $OperationFinanciereRepository,EntityManagerInterface $entityManager): Response
+    public function show(Caisse $caisse, CaisseRepository $caisseRepository): Response
     {
-        $operations = $OperationFinanciereRepository->findByCaisse($caisse);
-        foreach($operations as $operation){
-            $entityManager->persist($caisse);
-            if($operation->getTypeoperation()==='don'&& $operation->getEtat()==='valide'){
-                $operationmontant=$operation->getMontant();
-                $caissemontant=$caisse->getMontant();
-                $caisse->setMontant($caissemontant+$operationmontant);
-            }
-            if($operation->getTypeoperation()==='aide'&& $operation->getEtat()==='valide'){
-                $operationmontant=$operation->getMontant();
-                $caissemontant=$caisse->getMontant();
-                $caisse->setMontant($caissemontant-$operationmontant);
-            }
-            $entityManager->flush();
-        }
+        $caisseRepository->updateMontant($caisse);
         return $this->render('caisse/show.html.twig', [
             'caisse' => $caisse,
-            'operations'=>$operations,
+            'operations'=> $caisse->getOperationFinancieres(),
         ]);
     }
 
