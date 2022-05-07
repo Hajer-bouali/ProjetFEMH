@@ -25,7 +25,7 @@ class OperationStock
     private $evenement;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $datelimitezakat;
 
@@ -64,10 +64,6 @@ class OperationStock
      */
     private $typeoperation;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $unite;
 
     public function __construct()
     {
@@ -214,18 +210,6 @@ class OperationStock
     public function setTypeoperation(string $typeoperation): self
     {
         $this->typeoperation = $typeoperation;
-
-        return $this;
-    }
-
-    public function getUnite(): ?string
-    {
-        return $this->unite;
-    }
-
-    public function setUnite(string $unite): self
-    {
-        $this->unite = $unite;
 
         return $this;
     }

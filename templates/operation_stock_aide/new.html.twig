@@ -55,13 +55,6 @@
 																</label> {{ form_widget(formAide.evenement, {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Unite
-																	<span class="text-danger"></span>
-																</label> {{ form_widget(formAide.unite, {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
 													</div>
 													<div class="row">
 														{% if is_granted('ROLE_FINANCIERE') %}
@@ -69,7 +62,7 @@
 																<div class="form-group">
 																	<label>Etat
 																		<span class="text-danger"></span>
-																	</label> {{ form_widget(formAide.etat , {attr:{'class':'form-control ','disabled':'disabled'}}) }}
+																	</label> {{ form_widget(formAide.etat , {attr:{'class':'form-control '}}) }}
 																</div>
 															</div>
 														{% endif %}

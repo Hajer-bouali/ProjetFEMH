@@ -27,17 +27,6 @@ class OperationStockDonType extends AbstractType
                 'multiple' => false,
                 'label' => 'stipulation',
             ])
-            ->add('unite', ChoiceType::class, [
-                'choices' => [
-                    'kg (Kilogramme)' => 'kilograme',
-                    'L (Litre)' => 'litre',
-                    'm (Métre)' => 'metre',
-                    'Piece' => 'piece',
-                ],
-                'expanded' => false,
-                'multiple' => false,
-                'label' => 'unite',
-            ])
             ->add('evenement')
             ->add('Enregistrer', SubmitType::class)
         ;

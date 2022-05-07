@@ -56,7 +56,6 @@ class CaisseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $caisse->setMontant('0');
             $entityManager->persist($caisse);
             $listeTypeCaisse=$request->request->get("listeTypeCaisse");
             foreach ($listeTypeCaisse as $typeCaisse_id) {
@@ -77,22 +76,24 @@ class CaisseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="caisse_show", methods={"GET"})
+     * @Route("/{id}", name="caisse_show", methods={"GET", "POST"})
      */
-    public function show(Caisse $caisse,OperationFinanciereRepository $OperationFinanciereRepository): Response
+    public function show(Caisse $caisse,OperationFinanciereRepository $OperationFinanciereRepository,EntityManagerInterface $entityManager): Response
     {
         $operations = $OperationFinanciereRepository->findByCaisse($caisse);
         foreach($operations as $operation){
+            $entityManager->persist($caisse);
             if($operation->getTypeoperation()==='don'&& $operation->getEtat()==='valide'){
                 $operationmontant=$operation->getMontant();
-               $caissemontant=$caisse->getMontant();
+                $caissemontant=$caisse->getMontant();
                 $caisse->setMontant($caissemontant+$operationmontant);
             }
             if($operation->getTypeoperation()==='aide'&& $operation->getEtat()==='valide'){
                 $operationmontant=$operation->getMontant();
-               $caissemontant=$caisse->getMontant();
+                $caissemontant=$caisse->getMontant();
                 $caisse->setMontant($caissemontant-$operationmontant);
             }
+            $entityManager->flush();
         }
         return $this->render('caisse/show.html.twig', [
             'caisse' => $caisse,

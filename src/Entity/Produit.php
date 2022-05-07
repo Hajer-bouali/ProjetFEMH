@@ -49,20 +49,13 @@ class Produit
      */
     private $unite;
 
-
     /**
-     * @ORM\ManyToMany(targetEntity=Evenement::class, mappedBy="produit")
-     */
-    private $evenements;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="idproduit")
+     * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="produit")
      */
     private $stocks;
 
     public function __construct()
     {
-        $this->evenements = new ArrayCollection();
         $this->stocks = new ArrayCollection();
     }
 
@@ -160,7 +153,7 @@ class Produit
     {
         if (!$this->stocks->contains($stock)) {
             $this->stocks[] = $stock;
-            $stock->setproduit($this);
+            $stock->setProduit($this);
         }
 
         return $this;
