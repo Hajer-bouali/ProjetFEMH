@@ -40,12 +40,12 @@ class AdherentController extends AbstractController
             'adherents' => $adherentRepository->findAll(),
         ]);
     }
-  /**
-     * @Route("/pdf", name="adherent_pdf", methods={"GET"})
+
+    /**
+     * @Route("/{adherent}/pdf", name="adherent_pdf", methods={"GET"})
      */
     public function pdfadherent(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
-
- {
+    {
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
@@ -67,12 +67,6 @@ class AdherentController extends AbstractController
 
         $entityManager->flush();
 
-
-        return $this->render('adherent/show.html.twig', [
-            'adherent' => $adherent,
-            'formBen' => $formBen->createView(),
-            'benificiaires' => $benificiaires,
-        ]);
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('adherent/pdf.html.twig', [
             'adherent' => $adherent,
@@ -90,7 +84,7 @@ class AdherentController extends AbstractController
         $dompdf->render();
 
         // Output the generated PDF to Browser (force download)
-        $dompdf->stream("mypdf.pdf", [
+        $dompdf->stream("adherent_" . $adherent->getId() . ".pdf", [
             "Attachment" => true
         ]);
     }
