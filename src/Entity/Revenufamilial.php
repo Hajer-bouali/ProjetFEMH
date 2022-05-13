@@ -27,16 +27,7 @@ class Revenufamilial
      */
     private $affairessociales;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $CNSS;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $CNRPS;
-
+    
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -51,6 +42,16 @@ class Revenufamilial
      * @ORM\ManyToOne(targetEntity=Adherent::class, inversedBy="revenufamilial")
      */
     private $adherent;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $regimesecuritesociale;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $typeregimesecuritesociale;
 
     public function getId(): ?int
     {
@@ -81,29 +82,7 @@ class Revenufamilial
         return $this;
     }
 
-    public function getCNSS(): ?string
-    {
-        return $this->CNSS;
-    }
 
-    public function setCNSS(string $CNSS): self
-    {
-        $this->CNSS = $CNSS;
-
-        return $this;
-    }
-
-    public function getCNRPS(): ?string
-    {
-        return $this->CNRPS;
-    }
-
-    public function setCNRPS(string $CNRPS): self
-    {
-        $this->CNRPS = $CNRPS;
-
-        return $this;
-    }
 
     public function getTypecarte(): ?string
     {
@@ -137,6 +116,30 @@ class Revenufamilial
     public function setAdherent(?Adherent $adherent): self
     {
         $this->adherent = $adherent;
+
+        return $this;
+    }
+
+    public function getRegimesecuritesociale(): ?string
+    {
+        return $this->regimesecuritesociale;
+    }
+
+    public function setRegimesecuritesociale(string $regimesecuritesociale): self
+    {
+        $this->regimesecuritesociale = $regimesecuritesociale;
+
+        return $this;
+    }
+
+    public function getTyperegimesecuritesociale(): ?string
+    {
+        return $this->typeregimesecuritesociale;
+    }
+
+    public function setTyperegimesecuritesociale(string $typeregimesecuritesociale): self
+    {
+        $this->typeregimesecuritesociale = $typeregimesecuritesociale;
 
         return $this;
     }

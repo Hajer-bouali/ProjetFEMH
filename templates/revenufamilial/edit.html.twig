@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Revenufamilial{% endblock %}
+
+{% block body %}
+    <h1>Edit Revenufamilial</h1>
+
+    {{ include('revenufamilial/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('revenufamilial_index') }}">back to list</a>
+
+    {{ include('revenufamilial/_delete_form.html.twig') }}
+{% endblock %}

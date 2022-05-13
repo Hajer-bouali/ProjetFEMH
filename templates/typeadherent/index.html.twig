@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for typeadherent in typeadherents %}
+        {% for typeadherent in typeadherents|reverse  %}
             <tr>
                 <td>{{ typeadherent.id }}</td>
                 <td>{{ typeadherent.nom }}</td>

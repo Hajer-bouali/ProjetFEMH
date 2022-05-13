@@ -39,7 +39,7 @@
 							<b>
 								<i class="icon-reading"></i>
 							</b>
-							Ajouter un nouveau reunion</a>
+							Ajouter une nouvelle réunion</a>
 					</div>
 
 				</div>
@@ -57,7 +57,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for reunion in reunions %}
+						{% for reunion in reunions|reverse  %}
 							<tr>
 
 								<td>{{ reunion.id }}</td>

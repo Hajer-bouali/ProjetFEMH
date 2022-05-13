@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for pieces_jointe in pieces_jointes %}
+        {% for pieces_jointe in pieces_jointes|reverse  %}
             <tr>
                 <td>{{ pieces_jointe.id }}</td>
                 <td>{{ pieces_jointe.nom }}</td>

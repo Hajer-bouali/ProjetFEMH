@@ -62,7 +62,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for adherent in adherents %}
+						{% for adherent in adherents|reverse %}
 							<tr>
 								<td>{{ adherent.id }}</td>
 								<td>{{ adherent.nom }}</td>
@@ -74,22 +74,23 @@
 										<a href="{{ path('adherent_edit', {'id': adherent.id}) }}" class="list-icons-item text-primary-600">
 											<i class="icon-pencil7"></i>
 										</a>
-										<!--bouton trach-->
-										<!--<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{adherent.id}}" data-toggle="modal">
-																					<i class="icon-trash"></i>
-																				</a>-->
-										<!--/bouton trach-->
+										
 											{% if adherent.statut=="actif"%}
 												<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal"> <i class="icon-folder-remove"></i>
 											</a>
 										{% else %}
-											<a href="#" class="list-icons-item text-primary-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal">
+											<a href="#" class="list-icons-item text-darck-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal">
 												<i class="icon-folder-remove"></i>
 											</a>
 										{% endif %}
 										<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600">
 											<i class="icon-reading"></i>
 										</a>
+										<!--bouton historique-->
+										<a href="#" class="list-icons-item text-pink-600">
+																					<i class="icon-folder-search "></i>
+																				</a>
+										<!--/bouton historique-->
 										<div class="list-icons">
 										<div class="dropdown">
 											<a href="#" class="list-icons-item" data-toggle="dropdown">

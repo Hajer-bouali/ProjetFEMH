@@ -37,11 +37,11 @@
 							<!-- Content area -->
 							<div class="content">
 								<div class="row">
-									<div class="col-lg-4">
+									<div class="col-lg-6">
 										<div class="card card-body border-top-info">
 											<div class="text-center">
-											<i class="icon-user-check mr-3 icon-2x"></i>
-												<h6 class="font-weight-semibold mb-0">INFORMATION PERSONNEL</h6>
+												<i class="icon-user-check mr-3 icon-2x"></i>
+												<h6 class="font-weight-semibold mb-0">INFORMATION PERSONNELLE</h6>
 
 												<a href="#collapse-icon" class="text-default" data-toggle="collapse">
 													<i class="icon-circle-down2"></i>
@@ -113,10 +113,10 @@
 									</div>
 
 
-									<div class="col-lg-4">
+									<div class="col-lg-6">
 										<div class="card card-body border-top-info">
 											<div class="text-center">
-											<i class="icon-home mr-3 icon-2x"></i>
+												<i class="icon-home mr-3 icon-2x"></i>
 												<h6 class="font-weight-semibold mb-0">STATUT RESIDENTIEL</h6>
 
 												<a href="#collapse-icon2" class="text-default" data-toggle="collapse">
@@ -171,10 +171,14 @@
 										</div>
 									</div>
 
-									<div class="col-lg-4">
+
+								</div>
+								<div class="row">
+
+									<div class="col-lg-6">
 										<div class="card card-body border-top-info">
 											<div class="text-center">
-											<i class="icon-accessibility mr-3 icon-2x"></i>
+												<i class="icon-accessibility mr-3 icon-2x"></i>
 												<h6 class="font-weight-semibold mb-0">ÉTAT DE SANTÉ</h6>
 
 												<a href="#collapse-icon3" class="text-default" data-toggle="collapse">
@@ -204,8 +208,8 @@
 														<div class="d-flex align-items-center">
 															<i class="icon-collaboration mr-3 icon-4x"></i>
 															<div class="font-weight-black">maladie chronique ?(lui ou
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											membre
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											de famille) :</div>
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											membre
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											de famille) :</div>
 															<samp class="font-size-lg">{{ adherent.maladiechronique
 																}}</samp>
 														</div><br>
@@ -224,14 +228,10 @@
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="row">
-
-
 									<div class="col-lg-6">
 										<div class="card card-body border-top-info">
 											<div class="text-center">
-											<i class="icon-user-plus mr-3 icon-2x"></i>
+												<i class="icon-user-plus mr-3 icon-2x"></i>
 												<h6 class="font-weight-semibold mb-0">RESUME DE LA SITUATION SOCIALE</h6>
 
 												<a href="#collapse-icon4" class="text-default" data-toggle="collapse">
@@ -273,58 +273,7 @@
 										</div>
 									</div>
 
-									<div class="col-lg-6">
-										<div class="card card-body border-top-info">
-											<div class="text-center">
-												<h6 class="font-weight-semibold mb-0">ÉTAT DE SANTÉ</h6>
 
-												<a href="#collapse-icon5" class="text-default" data-toggle="collapse">
-													<i class="icon-circle-down2"></i>
-												</a>
-											</div>
-
-											<div class="collapse" id="collapse-icon5">
-												<div class="mt-3">
-													<div class="form-group">
-														<div class="d-flex align-items-center">
-															<i class="icon-accessibility2 mr-3 icon-4x"></i>
-															<div class="font-weight-black">A-t-il un handicap ? :</div>
-															<samp class="font-size-lg">{{ adherent.handicap }}</samp>
-														</div><br>
-														<div class="d-flex align-items-center">
-															<i class="icon-question4 mr-3 icon-4x"></i>
-															<div class="font-weight-black">
-																Type d'handicap :</div>
-															<samp class="font-size-lg">{{ adherent.typehandicap }}
-															</samp>
-
-														</div>
-
-													</div>
-													<div class="form-group">
-														<div class="d-flex align-items-center">
-															<i class="icon-collaboration mr-3 icon-4x"></i>
-															<div class="font-weight-black">maladie chronique ?(lui ou
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											membre
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											de famille) :</div>
-															<samp class="font-size-lg">{{ adherent.maladiechronique
-																}}</samp>
-														</div><br>
-														<div class="d-flex align-items-center">
-															<i class="icon-question3 mr-3 icon-4x"></i>
-															<div class="font-weight-black">
-																Type maladie chronique ? :</div>
-															<samp class="font-size-lg">{{ adherent.typemaladiechronique
-																}}
-															</samp>
-
-														</div>
-													</div>
-
-												</div>
-											</div>
-										</div>
-									</div>
 								</div>
 
 
@@ -332,6 +281,7 @@
 									<div class="col-lg-12">
 										<div class="card card-body border-top-info">
 											<div class="text-center">
+											<i class="icon-wallet mr-3 icon-2x"></i>
 												<h6 class="font-weight-semibold mb-0">REVENU FAMILIAL</h6>
 
 												<a href="#collapse-icon6" class="text-default" data-toggle="collapse">
@@ -363,7 +313,7 @@
 													<div class="card-body">
 														<div class="card-title-left">
 
-															<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="#" data-target="#modal_ajout_benificiaire" data-toggle="modal">
+															<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="#" data-target="#modal_ajout_revenufamilial" data-toggle="modal">
 																<b>
 																	<i class="icon-reading"></i>
 																</b>
@@ -374,13 +324,13 @@
 															<thead>
 																<tr>
 
-																	<th>benificiaire</th>
-																	<th>les affaires sociales</th>
-																	<th>cnss</th>
-																	<th>cnrps</th>
-																	<th>type carte</th>
-																	<th>numero d'inscription</th>
-																	<th>action</th>
+																	<th>Benificiaire</th>
+																	<th>Les affaires sociales</th>
+																	<th>Régime securité sociale</th>
+																	<th>Type régime securité sociale</th>
+																	<th>Type carte</th>
+																	<th>Numero d'inscription</th>
+																	<th>Action</th>
 																</tr>
 															</thead>
 															<tbody>
@@ -388,14 +338,15 @@
 																	<tr>
 																		<td>{{ revenufamilial.benificiaire }}</td>
 																		<td>{{ revenufamilial.affairessociales }}</td>
-																		<td>{{ revenufamilial.cnss}}</td>
-																		<td>{{ revenufamilial.cnrps }}</td>
+																		<td>{{ revenufamilial.regimesecuritesociale}}</td>
+																		<td>{{ revenufamilial.typeregimesecuritesociale }}</td>
 																		<td>{{ revenufamilial.typecarte }}</td>
 																		<td>{{ revenufamilial.numinscription }}</td>
 
 																		<td>
-																			<div class="list-icons">
-																				
+																			<div
+																				class="list-icons">
+
 																				<!--bouton trach-->
 																				<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{revenufamilial.id}}" data-toggle="modal">
 																					<i class="icon-trash"></i>
@@ -426,7 +377,7 @@
 
 																				<div class="modal-footer">
 																					<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-																					<a type="button" class="btn bg-danger" href="{{ path('app_benificiaire_delete', {'id': revenufamilial.id}) }}">Valider</a>
+																					<a type="button" class="btn bg-danger" href="{{ path('app_benificiaire_delete', {'id': revenufamilial.id}) }}">Supprimer</a>
 																				</div>
 																			</div>
 																		</div>
@@ -479,6 +430,7 @@
 									<div class="col-lg-12">
 										<div class="card card-body border-top-info">
 											<div class="text-center">
+											<i class="icon-users4 mr-3 icon-2x"></i>
 												<h6 class="font-weight-semibold mb-0">MEMBRE FAMILLE</h6>
 
 												<a href="#collapse-icon7" class="text-default" data-toggle="collapse">
@@ -556,7 +508,7 @@
 
 																				<div class="modal-footer">
 																					<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-																					<a type="button" class="btn bg-danger" href="{{ path('app_benificiaire_delete', {'id': benificiaire.id}) }}">Valider</a>
+																					<a type="button" class="btn bg-danger" href="{{ path('app_benificiaire_delete', {'id': benificiaire.id}) }}">Supprimer</a>
 																				</div>
 																			</div>
 																		</div>
