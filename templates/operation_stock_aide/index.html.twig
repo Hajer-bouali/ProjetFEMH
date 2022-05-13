@@ -55,7 +55,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for operation_stock in operation_stocks %}
+                {% for operation_stock in operation_stocks|reverse  %}
                     <tr>
                         <td>{{ operation_stock.id }}</td>
                         <td>{{ operation_stock.date ? operation_stock.date|date('Y-m-d') : '' }}</td>

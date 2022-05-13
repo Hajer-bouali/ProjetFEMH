@@ -40,7 +40,7 @@
 							<b>
 								<i class="icon-reading"></i>
 							</b>
-							Ajouter un nouveau type de caisse</a>
+							Ajouter un type de caisse</a>
 					</div>
 
 				</div>
@@ -54,7 +54,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for type_caisse in type_caisses %}
+                {% for type_caisse in type_caisses|reverse  %}
 						<tr class="text-center">
                         <td>{{ type_caisse.id }}</td>
                         <td>{{ type_caisse.nom }}</td>

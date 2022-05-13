@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for benificiaire in benificiaires %}
+        {% for benificiaire in benificiaires|reverse %}
             <tr>
                 <td>{{ benificiaire.id }}</td>
                 <td>{{ benificiaire.relationfamiliale }}</td>

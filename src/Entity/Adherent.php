@@ -6,7 +6,6 @@ use App\Repository\AdherentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @ORM\Entity(repositoryClass=AdherentRepository::class)
  */
@@ -150,6 +149,11 @@ class Adherent
     private $benificiaires;
 
     /**
+     * @ORM\OneToMany(targetEntity=Historique::class, mappedBy="adherent")
+     */
+    private $historiques;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Typeadherent::class, inversedBy="adherents")
      */
     private $typeadherent;
@@ -164,9 +168,21 @@ class Adherent
      */
     private $revenufamilial;
 
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $updatedAt;
+
+
 
     public function __construct()
     {
+        $this->historiques = new ArrayCollection();
         $this->piecesJointes = new ArrayCollection();
         $this->evenements = new ArrayCollection();
         $this->benificiaires = new ArrayCollection();
@@ -178,6 +194,7 @@ class Adherent
     {
         return $this->id;
     }
+
 
  
 
@@ -463,6 +480,16 @@ class Adherent
         return $this;
     }
 
+    
+    /**
+     * @return Collection|Historique[]
+     */
+
+    public function getHistorique(): ?int
+    {
+        return $this->historique;
+    }
+
     /**
      * @return Collection|Evenement[]
      */
@@ -602,5 +629,31 @@ class Adherent
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+  
    
 }

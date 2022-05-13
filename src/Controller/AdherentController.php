@@ -4,16 +4,20 @@ namespace App\Controller;
 
 use App\Entity\Adherent;
 use App\Entity\Benificiaire;
-use App\Entity\revenufamilial;
+use App\Entity\Revenufamilial;
+use App\Entity\Historique;
 use App\Entity\Decision;
 use App\Entity\PiecesJointes;
 use App\Form\PiecesJointesType;
 use App\Form\AdherentType;
 use App\Form\BenificiaireType;
+use App\Form\RevenufamilialType;
+use App\Form\HistoriqueType;
 use App\Repository\AdherentRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\BenificiaireRepository;
 use App\Repository\RevenufamilialRepository;
+use App\Repository\HistoriqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -44,15 +48,19 @@ class AdherentController extends AbstractController
     /**
      * @Route("/{adherent}/pdf", name="adherent_pdf", methods={"GET"})
      */
-    public function pdfadherent(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
+    public function pdfadherent(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, RevenufamilialRepository $revenufamilialRepository,EntityManagerInterface $entityManager)
     {
+     
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
-        
+        $pdfOptions->setIsRemoteEnabled(true);
+        $pdfOptions->set('IsFontSubsettingEnabled', true);
+        $pdfOptions->set('IsHtml5ParserEnabled', true);
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
-
+        $dompdf->setOptions($pdfOptions);
+ 
         $benificiaires = $benificiaireRepository->findByAdherent($adherent);
         $benificiaire = new Benificiaire();
         
@@ -63,15 +71,27 @@ class AdherentController extends AbstractController
             $benificiaire->setAdherent($adherent);
             $entityManager->persist($benificiaire);
         }
+        $revenufamilials = $revenufamilialRepository->findByAdherent($adherent);
+        $revenufamilial =new Revenufamilial();
+        $formRF = $this->createForm(RevenufamilialType::class, $revenufamilial);
+        $formRF->handleRequest($request);
+ 
+        if ($formRF->isSubmitted() && $formRF->isValid()) {
+            $revenufamilial->setAdherent($adherent);
+            $entityManager->persist($revenufamilial);
+        } 
 
 
-        $entityManager->flush();
+      //  $entityManager->flush();
 
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('adherent/pdf.html.twig', [
             'adherent' => $adherent,
             'formBen' => $formBen->createView(),
-            'benificiaires' => $benificiaires,
+          'benificiaires' => $benificiaires,
+            'formRF' => $formRF->createView(),
+            'revenufamilials' =>$revenufamilials,
+            
         ]);
         
         // Load HTML to Dompdf
@@ -82,15 +102,13 @@ class AdherentController extends AbstractController
 
         // Render the HTML as PDF
         $dompdf->render();
-
+        $dompdf->output(['isRemoteEnabled' => true]);
         // Output the generated PDF to Browser (force download)
-        $dompdf->stream("adherent_" . $adherent->getId() . ".pdf", [
+        $dompdf->stream("Dossier de " . $adherent->getNom() . ".pdf", [
             "Attachment" => true
         ]);
+        exit(0);
     }
-
-
-
 
     /**
      * @Route("/archiver", name="adherent_archive", methods={"GET"})
@@ -119,6 +137,23 @@ class AdherentController extends AbstractController
     {
         return $this->render('adherent/accepted.html.twig', [
             'adherents' => $adherentRepository->findByStatut('refuse'),
+        ]);
+    }
+    /**
+     * @Route("/historique/{id}", name="adherent_refuse", methods={"POST"})
+     */
+    public function listhistorique(Request $request, Adherent $adherent, AdherentRepository $adherentRepository,HistoriqueRepository $historiqueRepository,EntityManagerInterface $entityManager): Response
+    {
+        $historiques = $historiqueRepository->findByAdherent($adherent);
+        $historique = new Historique();
+        $formH = $this->createForm(HistoriqueType::class, $historique);
+        $formH->handleRequest($request);
+        if ($formH->isSubmitted() && $formH->isValid()) {
+            $historique->setAdherent($adherent);
+            $entityManager->persist($historique);
+        }
+        return $this->render('historique/Show.html.twig', [
+            'adherents' => $adherentRepository->findById(),
         ]);
     }
     /**
@@ -158,7 +193,6 @@ class AdherentController extends AbstractController
             $adherent->setPrixlocation('0');
             $adherent->setTypehandicap('0');
             $adherent->setTypemaladiechronique('0');
-            $adherent->setBenificiaire('x');
             $adherent->setResponsable($this->getUser()->getName());
 
             $entityManager->persist($adherent);
@@ -182,26 +216,26 @@ class AdherentController extends AbstractController
     /**
      * @Route("/{id}", name="adherent_show", methods={"GET", "POST"})
      */
-    public function show(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, RevenufamilialRepository $revenufamilialRepository ,EntityManagerInterface $entityManager): Response
+    public function show(Request $request,Adherent $adherent,RevenufamilialRepository $revenufamilialRepository,BenificiaireRepository $benificiaireRepository,EntityManagerInterface $entityManager): Response
 
     {
-        
         $benificiaires = $benificiaireRepository->findByAdherent($adherent);
         $benificiaire = new Benificiaire();
-        $revenufamilials = $revenufamilialRepository->findByAdherent($adherent);
-        $revenufamilial =new Revenufamilial();
-
-        $formRF = $this->createForm(BenificiaireType::class, $benificiaire);
-        $formRF->handleRequest($request);
-
-
         $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
         $formBen->handleRequest($request);
-
         if ($formBen->isSubmitted() && $formBen->isValid()) {
             $benificiaire->setAdherent($adherent);
             $entityManager->persist($benificiaire);
         }
+
+
+        $revenufamilials = $revenufamilialRepository->findByAdherent($adherent);
+        $revenufamilial =new Revenufamilial();
+        $formRF = $this->createForm(RevenufamilialType::class, $revenufamilial);
+        $formRF->handleRequest($request);
+
+
+        
         if ($formRF->isSubmitted() && $formRF->isValid()) {
             $revenufamilial->setAdherent($adherent);
             $entityManager->persist($revenufamilial);
@@ -216,16 +250,23 @@ class AdherentController extends AbstractController
             'benificiaires' => $benificiaires,
             'formRF' => $formRF->createView(),
             'revenufamilials' =>$revenufamilials,
+            
         ]);
     }
     /**
      * @Route("/{id}/edit/", name="adherent_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Adherent $adherent, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Adherent $adherent,AdherentRepository $adherentRepository, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(AdherentType::class, $adherent);
         $form->handleRequest($request);
+        //$histrique = new Historique ;
+        //$histroique ->setDatemodif(new \DateTime('now'));
+
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($request->request->get('adherent')['nom'], $adherentRepository->findOneBy(['id' =>$adherent])->getNom());
+           //nekhdmou ajax? 9oli prob nheb ki ya3mel recherche l ay champ mta3 el adherent fi westou ma3naha 
+           //just kifah ynadi classe adherent fi west evenement w
             //on recupere les fichiers
             $piecesjointes = $form->get('piecesjointes')->getData();
             //on boucle sur les fichiers

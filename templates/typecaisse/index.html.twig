@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for typecaisse in typecaisses %}
+        {% for typecaisse in typecaisses|reverse  %}
             <tr>
                 <td>{{ typecaisse.id }}</td>
                 <td>{{ typecaisse.nom }}</td>

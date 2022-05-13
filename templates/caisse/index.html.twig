@@ -40,7 +40,7 @@
 							<b>
 								<i class="icon-cart-add2"></i>
 							</b>
-							Ajouter une nouvele caisse</a>
+							Ajouter une nouvelle caisse</a>
 					</div>
 
 				</div>
@@ -55,7 +55,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for caisse in caisses %}
+                {% for caisse in caisses|reverse  %}
                     <tr>
                         <td>{{ caisse.id }}</td>
                         <td>{{ caisse.intitule }}</td>
