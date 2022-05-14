@@ -71,12 +71,12 @@ class StockController extends AbstractController
                 if ($operation->getTypeoperation() === 'don' && $operation->getEtat() === 'valide') {
                     $stockquantite = $stock->getProduit()->getQuantite();
                     $quantiteoperation = $stock->getQuantite();
-                    $stock->getProduit()->setQuantite($quantiteoperation+$stockquantite);
+                    $stock->getProduit()->setQuantite($quantiteoperation + $stockquantite);
                 }
                 if ($operation->getTypeoperation() === 'aide' && $operation->getEtat() === 'valide') {
                     $stockquantite = $stock->getProduit()->getQuantite();
                     $quantiteoperation = $stock->getQuantite();
-                    $stock->setQuantite($stockquantite-$quantiteoperation);
+                    $stock->setQuantite($stockquantite - $quantiteoperation);
                 }
             }
             $entityManager->flush();

@@ -75,14 +75,28 @@
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>
-																	Liste produit
-																</label>
-																{{ form_widget(form.produit , {attr:{'class':'form-control form-control-select2'}}) }}
+
+																<label>date fin
+																</label> {{ form_widget(form.datefin , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 													</div>
-													
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>le montant 
+																</label> {{ form_widget(form.montantunitaire , {attr:{'class':'form_control'}}) }}
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>
+																	Liste produit
+																</label> {{ form_widget(form.produit , {attr:{'class':'form-control form-control-select2'}}) }}
+															</div>
+														</div>
+													</div>
+															
 
 													<div class="row">
 														<div class="text-right">

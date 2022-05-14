@@ -38,6 +38,11 @@ class Stock
      */
     private $unite;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $prixunitaire;
+
     public function __construct()
     {
     }
@@ -92,6 +97,18 @@ class Stock
     public function setUnite(string $unite): self
     {
         $this->unite = $unite;
+
+        return $this;
+    }
+
+    public function getPrixunitaire(): ?float
+    {
+        return $this->prixunitaire;
+    }
+
+    public function setPrixunitaire(float $prixunitaire): self
+    {
+        $this->prixunitaire = $prixunitaire;
 
         return $this;
     }

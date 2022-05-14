@@ -43,59 +43,62 @@
 													<div class="header-elements"></div>
 												</div>
 
-												<div class="card-body">
-													{{ form_start(form) }}
+												<div class="card-body"> {{ form_start(form) }}
 
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Nom
-																</label>
-																{{ form_widget(form.nom , {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(form.nom , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
-
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Date debut
-																</label>
-																{{ form_widget(form.datedebut , {attr:{'class':'form-control'}}) }}
+																<label>Type d'evenement
+																</label> {{ form_widget(form.typeEvenement , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
-
 													</div>
-
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>liste des adherents
-																</label>
-																{{ form_widget(form.adherent , {attr:{'class':'form_control form-control-select2'}}) }}
+																<label>date debut
+																</label> {{ form_widget(form.datedebut , {attr:{'class':'form-control'}}) }}
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>date fin
+																</label> {{ form_widget(form.datefin , {attr:{'class':'form-control'}}) }}
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>le montant 
+																</label> {{ form_widget(form.montantunitaire , {attr:{'class':'form_control'}}) }}
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>
-																	le type d'evenement
-																</label>
-																{{ form_widget(form.typeEvenement , {attr:{'class':'form-control'}}) }}
+																	Liste produit
+																</label> {{ form_widget(form.produit , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>liste des produit
-																</label>
-																{{ form_widget(form.produit , {attr:{'class':'form_control form-control-select2'}}) }}
+																<label>liste des adherents
+																</label> {{ form_widget(form.adherent , {attr:{'class':'form_control form-control-select2'}}) }}
 															</div>
 														</div>
 													</div>
 													<div class="row">
 
-														<div class="text-right">
-															{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
-															{{ form_end(form) }}
+														<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} {{ form_end(form) }}
 														</div>
 
 													</div>
