@@ -135,8 +135,7 @@
 		</div>
 		<!-- /main navbar -->
 		<div class="navbar navbar-expand-md navbar-dark bg-teal-400 navbar-sticky" style="">
-		<div class="">
-
+			<div class="navbar-brand">
 				<a href="index.html" class="d-inline-block-center">
 					<img src="{{ asset('templateAdmin/global_assets/images/image.png') }}" class="rounded-circle" alt="">
 				</a>
@@ -382,6 +381,7 @@
 				</div>
 			</div>
 			<!-- /main sidebar -->
+			
 			<script type="text/javascript">
 				{% for type, messages in app.session.flashbag.all() %}
 {% for message in messages %}
@@ -393,7 +393,6 @@ swal({
 	confirmButtonColor: '#3085d6',
 	cancelButtonColor: '#d33',
 })
-
 {% endfor %}
 {% endfor %}
 			</script>
