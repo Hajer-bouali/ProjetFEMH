@@ -154,6 +154,7 @@ class AdherentController extends AbstractController
         }
         return $this->render('historique/Show.html.twig', [
             'adherents' => $adherentRepository->findById(),
+            
         ]);
     }
     /**
@@ -192,6 +193,7 @@ class AdherentController extends AbstractController
             }
             $adherent->setPrixlocation('0');
             $adherent->setTypehandicap('0');
+            $adherent->setEtatreunion('en cour');
             $adherent->setTypemaladiechronique('0');
             $adherent->setResponsable($this->getUser()->getName());
 
@@ -265,8 +267,8 @@ class AdherentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             dd($request->request->get('adherent')['nom'], $adherentRepository->findOneBy(['id' =>$adherent])->getNom());
-           //nekhdmou ajax? 9oli prob nheb ki ya3mel recherche l ay champ mta3 el adherent fi westou ma3naha 
-           //just kifah ynadi classe adherent fi west evenement w
+
+            
             //on recupere les fichiers
             $piecesjointes = $form->get('piecesjointes')->getData();
             //on boucle sur les fichiers
