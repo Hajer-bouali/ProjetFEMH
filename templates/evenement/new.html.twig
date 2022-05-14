@@ -46,22 +46,19 @@
 													<div class="header-elements"></div>
 												</div>
 
-												<div class="card-body">
-													{{ form_start(form) }}
+												<div class="card-body"> {{ form_start(form) }}
 
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Nom
-																</label>
-																{{ form_widget(form.nom , {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(form.nom , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Type d'evenement
-																</label>
-																{{ form_widget(form.typeEvenement , {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(form.typeEvenement , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 													</div>
@@ -69,8 +66,7 @@
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>date debut
-																</label>
-																{{ form_widget(form.datedebut , {attr:{'class':'form-control'}}) }}
+																</label> {{ form_widget(form.datedebut , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 														<div class="col-md-6">
@@ -84,7 +80,7 @@
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>le montant 
+																<label>le montant
 																</label> {{ form_widget(form.montantunitaire , {attr:{'class':'form_control'}}) }}
 															</div>
 														</div>
@@ -96,80 +92,68 @@
 															</div>
 														</div>
 													</div>
+											<span class="badge badge-danger d-block">selection des dossiers</span>
+											<h5 class="card-title">
+												Faire la recherche des dossiers selon :
+											</h5>
 
-																<label>
-																	Liste produit
-																</label>
-																{{ form_widget(form.produit , {attr:{'class':'form-control form-control-select2'}}) }}
-															</div>
-														</div>
+											<div class="row">
+												<div class="col-md-3">
+													<div class="form-group">
+														<label>Nom
+														</label>
+														<input type="text" value class="form-control">
 													</div>
-													<span class="badge badge-danger d-block">selection des dossiers</span>
-													<h5 class="card-title">
-														Faire la recherche des dossiers selon :
-													</h5>
-
-													<div class="row">
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>Nom
-																</label>
-																<input type="text" value class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>
-																	 Montant de revenu
-																</label>
-																<input type="text" value class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>
-																	Nombre membre famille
-																</label>
-																<input type="text" value class="form-control">
-															</div>
-														</div>
-														<div class="col-md-3">
-															<div class="form-group">
-																<label>
-																	Montant de revenu
-																</label>
-																<input type="text" value class="form-control">
-															</div>
-														</div>
+												</div>
+												<div class="col-md-3">
+													<div class="form-group">
+														<label>
+															Montant de revenu
+														</label>
+														<input type="text" value class="form-control">
 													</div>
-
-
-													<div class="row">
-														<div class="text-right">
-															{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
-															{{ form_end(form) }}
-														</div>
+												</div>
+												<div class="col-md-3">
+													<div class="form-group">
+														<label>
+															Nombre membre famille
+														</label>
+														<input type="text" value class="form-control">
+													</div>
+												</div>
+												<div class="col-md-3">
+													<div class="form-group">
+														<label>
+															Montant de revenu
+														</label>
+														<input type="text" value class="form-control">
 													</div>
 												</div>
 											</div>
-											<!-- /profile info -->
 
+
+											<div class="row">
+												<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} {{ form_end(form) }}
+												</div>
+											</div>
 										</div>
 									</div>
-									<!-- /left content -->
+									<!-- /profile info -->
+
 								</div>
-								<!-- /inner container -->
 							</div>
-							<!-- Content area -->
-
-							<div class="content"></div>
-							<!-- /content area -->
+							<!-- /left content -->
 						</div>
-
+						<!-- /inner container -->
 					</div>
+					<!-- Content area -->
 
+					<div class="content"></div>
+					<!-- /content area -->
 				</div>
+
 			</div>
+
 		</div>
 	</div>
-{% endblock %}
+</div></div>{% endblock %}
