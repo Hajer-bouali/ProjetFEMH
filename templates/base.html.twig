@@ -43,39 +43,39 @@
 		<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/wizards/steps.min.js')}}"></script>
 
 
-	<!-- Theme JS files type adherent-->
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
+		<!-- Theme JS files type adherent-->
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
 
 		<!-- /theme JS files -->
 		<!-- Theme JS files alpaca_advanced -->
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/inputs/typeahead/handlebars.min.js')}}"></script>
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/inputs/alpaca/alpaca.min.js')}}"></script>
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/inputs/alpaca/price_format.min.js')}}"></script>
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/ui/prism.min.js')}}"></script>
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/editors/ckeditor/ckeditor.js')}}"></script>
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/styling/uniform.min.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/inputs/typeahead/handlebars.min.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/inputs/alpaca/alpaca.min.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/inputs/alpaca/price_format.min.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/ui/prism.min.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/editors/ckeditor/ckeditor.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/styling/uniform.min.js')}}"></script>
 
-	<script src="{{ asset('templateAdmin/assets/js/app.js')}}"></script>
-	<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/alpaca_advanced.js')}}"></script>
-	<!-- /theme JS files alpaca_advanced -->
-	
-	<!-- Theme JS files show_adherent -->
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
-	<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
-	<!-- /theme JS files show_adherent-->
-	
-	<!-- Theme JS files -->
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
-	<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
+		<script src="{{ asset('templateAdmin/assets/js/app.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/alpaca_advanced.js')}}"></script>
+		<!-- /theme JS files alpaca_advanced -->
 
-	<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
-	<!-- /theme JS files -->
+		<!-- Theme JS files show_adherent -->
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
+		<!-- /theme JS files show_adherent-->
+
+		<!-- Theme JS files -->
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
+
+		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
+		<!-- /theme JS files -->
 
 
 	</head>
 	<body>
-		
+
 		<!-- Main navbar -->
 		<div class="navbar navbar-expand-md navbar-light">
 			<div class="navbar-brand">
@@ -108,7 +108,8 @@
 						<a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
 							<img src="{{ asset('templateAdmin/global_assets/images/placeholders/placeholder.jpg') }}" class="rounded-circle" alt="">
 							{% if app.user %}
-								<span> {{ app.user.name }}
+								<span>
+									{{ app.user.name }}
 								</span>
 							{% endif %}
 						</a>
@@ -133,26 +134,27 @@
 		</div>
 		<!-- /main navbar -->
 		<div class="navbar navbar-expand-md navbar-dark bg-teal-400 navbar-sticky" style="">
-		<div class="">
+			<div class="">
+
+			
 				<a href="index.html" class="d-inline-block-center">
 					<img src="{{ asset('templateAdmin/global_assets/images/ihsenlogo.png') }}" class="rounded-circle" alt="">
 				</a>
 			</div>
-		<div class="text-center d-md-none w-100">
-			<button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-second">
-				<i class="icon-unfold mr-2"></i>
-				Alternative navbar
-			</button>
-		</div>
+			<div class="text-center d-md-none w-100">
+				<button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-second">
+					<i class="icon-unfold mr-2"></i>
+					Alternative navbar
+				</button>
+			</div>
 
-		<div class="navbar-collapse collapse" id="navbar-second">
-			
+			<div class="navbar-collapse collapse" id="navbar-second"></div>
+
 		</div>
-		
-	</div>
 		<!-- Page content -->
-			<div
-			class="page-content"> <!-- Main sidebar -->
+		<div
+			class="page-content">
+			<!-- Main sidebar -->
 			<div
 				class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
 				<!-- Main navigation -->
@@ -356,7 +358,7 @@
 								</li>
 							</ul>
 						</li>
-						
+
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link">
 								<i class="icon-people"></i>
@@ -381,19 +383,16 @@
 				</div>
 			</div>
 			<!-- /main sidebar -->
-	<script type="text/javascript">
-		{% for type, messages in app.session.flashbag.all() %}
-			{% for message in messages %}
-				alert('{{ message|raw }}');
-			{% endfor %}
-		{% endfor %}
-	</script>
-		
-		{% block body %}{% endblock %}
-		<!-- /main content -->
+			<script type="text/javascript">
+				{% for type, messages in app.session.flashbag.all() %}
+{% for message in messages %}
+alert('{{ message|raw }}');{% endfor %}
+{% endfor %}
+			</script>
+
+			{% block body %}{% endblock %}
+			<!-- /main content -->
 		</div>
 		<!-- /page content -->
-	</div>
-		{% block javascript %}{% endblock %}
 	</body>
-</html>
+</html></div>{% block javascript %}{% endblock %}</body></html>
