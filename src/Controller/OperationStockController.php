@@ -3,16 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\OperationStock;
+use App\Entity\Produit;
 use App\Entity\Stock;
 use App\Form\OperationStockAideType;
 use App\Form\OperationStockDonType;
 use App\Form\StockType;
 use App\Repository\OperationStockRepository;
+use App\Repository\ProduitRepository;
 use App\Repository\StockRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -92,24 +95,20 @@ class OperationStockController extends AbstractController
     }
 
     /**
-     * @Route("don/{id}", name="operation_stock_don_show", methods={"GET", "POST"})
+     * @Route("/don/{id}", name="operation_stock_don_show", methods={"GET", "POST"})
      */
-    public function showDon(Request $request, OperationStock $operationStock, StockRepository $stockRepository, EntityManagerInterface $entityManager): Response
+    public function showDon(Request $request,OperationStock $operationStock, StockRepository $stockRepository, EntityManagerInterface $entityManager): Response
     {
         $stocks = $stockRepository->findByOperationStock($operationStock);
         $stock = new Stock();
 
         $formstock = $this->createForm(StockType::class, $stock);
         $formstock->handleRequest($request);
-
+        
         if ($formstock->isSubmitted() && $formstock->isValid()) {
             $stock->setOperationStock($operationStock);
-            $quantiteoperation = $stock->getProduit()->getQuantite();
-            $quantite = $stock->getQuantite();
-            if ($operationStock->getTypeoperation() === 'don' && $operationStock->getEtat() === 'valide') {
-                $stock->getProduit()->setQuantite($quantite + $quantiteoperation);
-            }
             $entityManager->persist($stock);
+            
         }
         $entityManager->flush();
         return $this->render('operation_stock_don/show.html.twig', [
@@ -119,10 +118,14 @@ class OperationStockController extends AbstractController
         ]);
     }
     /**
-     * @Route("aide/{id}", name="operation_stock_aide_show", methods={"GET"})
+     * @Route("/aide/{id}", name="operation_stock_aide_show", methods={"GET", "POST"})
      */
-    public function showAide(Request $request, OperationStock $operationStock, StockRepository $stockRepository, EntityManagerInterface $entityManager): Response
+    public function showAide(Request $request, OperationStock $operationStock = null, StockRepository $stockRepository, ProduitRepository $produitRepository, EntityManagerInterface $entityManager): Response
     {
+        if (!$operationStock) {
+            throw(new NotFoundHttpException('OperationStock introuvable'));
+        }
+
         $stocks = $stockRepository->findByOperationStock($operationStock);
         $stock = new Stock();
 
@@ -130,15 +133,19 @@ class OperationStockController extends AbstractController
         $formstock->handleRequest($request);
 
         if ($formstock->isSubmitted() && $formstock->isValid()) {
-            $stock->setOperationStock($operationStock);
-            $quantiteoperation = $stock->getProduit()->getQuantite();
-            $quantite = $stock->getQuantite();
-            if ($operationStock->getTypeoperation() === 'aide' && $operationStock->getEtat() === 'valide') {
-                $stock->getProduit()->setQuantite($quantiteoperation-$quantite);
+            $produit = $stock->getProduit();
+            if ($produit->getQuantite() < $stock->getQuantite()) {
+                $this->addFlash('warning','Désolé mais nous n\'avons pas la quantité démandée en stock!');
+                return $this->redirectToRoute('operation_stock_aide_show', ['id' => $operationStock->getId()]);
             }
+            $stock->setOperationStock($operationStock);
+            $produit->setQuantite($produit->getQuantite() - $stock->getQuantite());
+            $entityManager->persist($produit);
             $entityManager->persist($stock);
+            $entityManager->flush();
+            return $this->redirectToRoute('operation_stock_aide_show', ['id' => $operationStock->getId()]);
         }
-        $entityManager->flush();
+        
         return $this->render('operation_stock_aide/show.html.twig', [
             'operationStock' => $operationStock,
             'stocks' => $stocks,
@@ -165,6 +172,7 @@ class OperationStockController extends AbstractController
             'formAide' => $formAide,
         ]);
     }
+
     /**
      * @Route("/{id}/edit/don", name="operation_stock_don_edit", methods={"GET", "POST"})
      */
@@ -184,8 +192,9 @@ class OperationStockController extends AbstractController
             'formDon' => $formDon,
         ]);
     }
+
     /**
-     * @Route("delete/{id}/don", name="operation_stock_don_delete")
+     * @Route("/delete/{id}/don", name="operation_stock_don_delete")
      */
     public function deletedon(Stock $stock, EntityManagerInterface $entityManager): Response
     {
@@ -195,8 +204,9 @@ class OperationStockController extends AbstractController
         $entityManager->flush();
         return $this->redirectToRoute('operation_stock_don_show', ['id' => $idoperationstock]);
     }
+
     /**
-     * @Route("delete/{id}/aide", name="operation_stock_aide_delete")
+     * @Route("/delete/{id}/aide", name="operation_stock_aide_delete")
      */
     public function deleteaide(OperationStock $operationStock, EntityManagerInterface $entityManager): Response
     {
@@ -204,5 +214,10 @@ class OperationStockController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('operation_stock_aide_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    protected function calculeStockPossible(OperationStock $operationStock) {
+        $stocks = $operationStock->getStock();
+        
     }
 }

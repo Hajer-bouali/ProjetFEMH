@@ -71,10 +71,10 @@
 																</label> {{ form_widget(formAide.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
-														<div class="col-md-6">
+														<div class="col-md-6 d-none" id="champ_modepaiement">
 															<div class="form-group">
 																<label>Pièce jointe
-																	<span class="text-danger">*</span>
+																	<span class="text-danger"></span>
 																</label> {{ form_widget(formAide.pieceJointeOperations , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
@@ -128,3 +128,16 @@
 			</div>
 		</div>
 	{% endblock %}
+	{% block javascript %}
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#operation_financiere_aide_modepaiement').on('select2:select', function (e) {
+				if ($(this).val() === 'cheque') {
+					$('#champ_modepaiement').removeClass('d-none');
+				} else {
+					$('#champ_modepaiement').addClass('d-none');
+				}
+			});
+		});
+	</script>
+{% endblock %}

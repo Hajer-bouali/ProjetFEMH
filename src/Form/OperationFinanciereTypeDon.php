@@ -35,13 +35,13 @@ class OperationFinanciereDonType extends AbstractType
                 ->add('caisse')
                 
                 ->add('montant')
-                ->add('datelimitezakat') 
+                ->add('datelimitezakat', null, [
+                    'widget' => 'single_text',
+                    ])
                 ->add('modepaiement', ChoiceType::class, [
                     'choices' => [
                         'Espèce' => 'espece',
                         'Chèque' => 'cheque',
-                        'Virement bancaire' => 'virementbancaire',
-                        'Prélèvement bancaire' => 'virementbancaire',
                     ],
                     'expanded' => false,
                     'multiple' => false,

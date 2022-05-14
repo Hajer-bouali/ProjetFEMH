@@ -57,6 +57,16 @@ class Evenement
      */
     private $operationStocks;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $datefin;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $montantunitaire;
+
 
     public function __construct()
     {
@@ -219,6 +229,30 @@ class Evenement
         if ($this->operationStocks->removeElement($operationStock)) {
             $operationStock->removeEvenement($this);
         }
+
+        return $this;
+    }
+
+    public function getDatefin(): ?\DateTimeInterface
+    {
+        return $this->datefin;
+    }
+
+    public function setDatefin(?\DateTimeInterface $datefin): self
+    {
+        $this->datefin = $datefin;
+
+        return $this;
+    }
+
+    public function getMontantunitaire(): ?float
+    {
+        return $this->montantunitaire;
+    }
+
+    public function setMontantunitaire(float $montantunitaire): self
+    {
+        $this->montantunitaire = $montantunitaire;
 
         return $this;
     }

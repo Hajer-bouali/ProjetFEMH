@@ -16,7 +16,10 @@ class EvenementType extends AbstractType
             ->add('datedebut',null, [ 
                 'widget' => 'single_text',
             ])
-            
+            ->add('datefin',null, [ 
+                'widget' => 'single_text',
+            ])
+            ->add('montantunitaire')
             ->add('nom')
             ->add('produit')
             ->add('adherent')

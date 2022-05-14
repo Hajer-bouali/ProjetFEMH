@@ -105,7 +105,7 @@ class OperationStock
         return $this->datelimitezakat;
     }
 
-    public function setDatelimitezakat(\DateTimeInterface $datelimitezakat): self
+    public function setDatelimitezakat(?\DateTimeInterface $datelimitezakat): self
     {
         $this->datelimitezakat = $datelimitezakat;
 
