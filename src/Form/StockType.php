@@ -27,6 +27,7 @@ class StockType extends AbstractType
                 'multiple' => false,
                 'label' => 'unite',
             ])
+            ->add('prixunitaire')
             ->add('Enregistrer', SubmitType::class)
 
         ;

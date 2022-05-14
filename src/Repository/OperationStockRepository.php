@@ -19,32 +19,18 @@ class OperationStockRepository extends ServiceEntityRepository
         parent::__construct($registry, OperationStock::class);
     }
 
-    // /**
-    //  * @return OperationStock[] Returns an array of OperationStock objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    public function updateQuantite($operationStock) {
+        $quantite = 0;
+        foreach ($operationStock->getStocks() as $stock) {
+            if ($stock->getOperationStock()->getEtat() == 'valide') {
+                $quantite = 
+                $stock->getOperationStock()->getTypeoperation() == 'aide' ?
+                $quantite - $stock->getProduit()->getQuantite() : 
+                $quantite + $stock->getProduit()->getQuantite(); 
+            }
+        }
+        $res=$stock->getProduit()->setQuantite($quantite);
+        $this->_em->persist($res);
+        $this->_em->flush();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?OperationStock
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
