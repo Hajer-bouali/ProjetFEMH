@@ -20,6 +20,7 @@
 		{% block style %}{% endblock %}
 		<!-- Core JS files -->
 		<script src="{{ asset('templateAdmin/global_assets/js/main/jquery.min.js') }}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/notifications/sweet_alert.min.js') }}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
 		<!-- /core JS files -->
@@ -134,7 +135,6 @@
 		<!-- /main navbar -->
 		<div class="navbar navbar-expand-md navbar-dark bg-teal-400 navbar-sticky" style="">
 		<div class="">
-
 				<a href="index.html" class="d-inline-block-center">
 					<img src="{{ asset('templateAdmin/global_assets/images/ihsenlogo.png') }}" class="rounded-circle" alt="">
 				</a>
@@ -382,21 +382,23 @@
 				</div>
 			</div>
 			<!-- /main sidebar -->
-			<script type="text/javascript">
-				{% for type, messages in app.session.flashbag.all() %}
-{% for message in messages %}
-swal({
 
-	text:  '{{ message|raw }}',
-	type: 'warning',
-	showCancelButton: false,
-	confirmButtonColor: '#3085d6',
-	cancelButtonColor: '#d33',
-})
-{% endfor %}
-{% endfor %}
-			</script>
-
+	<script type="text/javascript">
+		{% for type, messages in app.session.flashbag.all() %}
+			{% for message in messages %}
+				swal({
+					text:  '{{ message|raw }}',
+					type: 'warning',
+					showCancelButton: false,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+				})
+			{% endfor %}
+		{% endfor %}
+	</script>
+		
+		{% block body %}{% endblock %}
+		<!-- /main content -->
 
 		</div>
 		<!-- /page content -->
