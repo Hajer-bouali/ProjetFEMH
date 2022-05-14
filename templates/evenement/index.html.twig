@@ -57,7 +57,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for evenement in evenements %}
+                {% for evenement in evenements|reverse  %}
                     <tr>
                         <td>{{ evenement.id }}</td>
 						<td>{{ evenement.nom }}</td>

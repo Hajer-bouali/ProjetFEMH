@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Adherent;
 use App\Entity\Evenement;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +24,10 @@ class EvenementType extends AbstractType
             ->add('montantunitaire')
             ->add('nom')
             ->add('produit')
-            ->add('adherent')
+            ->add('adherent', EntityType::class, [
+                'class' =>Adherent::class,
+                'multiple' =>true,
+            ])
             ->add('typeEvenement')
             ->add('Enregistrer', SubmitType::class)
         ;

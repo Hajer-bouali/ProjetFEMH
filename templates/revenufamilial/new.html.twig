@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Revenufamilial{% endblock %}
+
+{% block body %}
+    <h1>Create new Revenufamilial</h1>
+
+    {{ include('revenufamilial/_form.html.twig') }}
+
+    <a href="{{ path('revenufamilial_index') }}">back to list</a>
+{% endblock %}

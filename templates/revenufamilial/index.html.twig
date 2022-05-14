@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Revenufamilial index{% endblock %}
+
+{% block body %}
+    <h1>Revenu familial index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Benificiaire</th>
+                <th>Affairessociales</th>
+                <th>Typecarte</th>
+                <th>Numinscription</th>
+                <th>Regimesecuritesociale</th>
+                <th>Typeregimesecuritesociale</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for revenufamilial in revenufamilials|reverse  %}
+            <tr>
+                <td>{{ revenufamilial.id }}</td>
+                <td>{{ revenufamilial.benificiaire }}</td>
+                <td>{{ revenufamilial.affairessociales }}</td>
+                <td>{{ revenufamilial.typecarte }}</td>
+                <td>{{ revenufamilial.numinscription }}</td>
+                <td>{{ revenufamilial.regimesecuritesociale }}</td>
+                <td>{{ revenufamilial.typeregimesecuritesociale }}</td>
+                <td>
+                    <a href="{{ path('revenufamilial_show', {'id': revenufamilial.id}) }}">show</a>
+                    <a href="{{ path('revenufamilial_edit', {'id': revenufamilial.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('revenufamilial_new') }}">Create new</a>
+{% endblock %}
