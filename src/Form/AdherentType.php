@@ -50,15 +50,18 @@ class AdherentType extends AbstractType
             
             ->add('nombrefamille')
            // ->add('benificiaires')
-           ->add('etatreunion', ChoiceType::class, [
+           /*->add('etatreunion', ChoiceType::class, [
             'choices' => [
-                'en cour '=>'en cour',
+                'en cour'=>'en cour',
+                'valide'=>'valide',
+                'refuse'=>'refuse',
+                'reporte'=>'reporte',
                  
             ],
             'expanded' => false,
             'multiple' => false,
             'label' => 'etat de dossier' 
-        ])
+        ])*/
             ->add('logement', ChoiceType::class, [
                 'choices' => [
                     'Locataire '=>'Locataire',
@@ -92,8 +95,8 @@ class AdherentType extends AbstractType
            // ->add('installationnondisponible')
             ->add('handicap', ChoiceType::class, [
                 'choices' => [
-                    'Oui'=>'Oui',
-                    'Non'=>'Non'
+                    'Oui'=>'oui',
+                    'Non'=>'non'
                 ],
                 'expanded' => false,
                 'multiple' => false,
