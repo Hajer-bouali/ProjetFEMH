@@ -68,7 +68,7 @@ class OperationFinanciereController extends AbstractController
             $operationFinanciere->setResponsable($this->getUser()->getName());
             if ($operationFinanciere->getMontant()>500 && $operationFinanciere->getModepaiement()==='espece' ) {
                 $this->addFlash('warning','Le mode de paiement espéce de lopération ne peut pas dépasser 500 Dt');
-                return $this->redirectToRoute('operation_financiere_don_index');
+                return $this->redirectToRoute('operation_financiere_don_new', ['id' => $operationFinanciere->getId()]);
             }
             $entityManager->persist($operationFinanciere);
             $entityManager->flush();
@@ -111,9 +111,9 @@ class OperationFinanciereController extends AbstractController
             $operationFinanciere->setResponsable($this->getUser()->getName());
             $montantoperation = $operationFinanciere->getMontant();
             $montantcaisse = $operationFinanciere->getCaisse()->getMontant();
-            if ($operationFinanciere > $montantcaisse) {
+            if ($montantoperation > $montantcaisse) {
                 $this->addFlash('warning', 'le montant est insfusent');
-                return $this->redirectToRoute('operation_financiere_aide_index');
+                return $this->redirectToRoute('operation_financiere_aide_new', ['id' => $operationFinanciere->getId()]);
             }
             $entityManager->persist($operationFinanciere);
             $entityManager->flush();
@@ -207,8 +207,8 @@ class OperationFinanciereController extends AbstractController
                 $operationFinanciere->addPieceJointeOperation($image);
             }
             if ($operationFinanciere->getMontant()>500 && $operationFinanciere->getModepaiement()==='espece' ) {
-                $this->addFlash('warning','Le mode de paiement espéce de lopération ne peut pas dépasser 500 Dt');
-                return $this->redirectToRoute('operation_financiere_don_index');
+                $this->addFlash('warning','Le mode de paiement espéce de l\'opération ne peut pas dépasser 500 Dt');
+                return $this->redirectToRoute('operation_financiere_don_edit', ['id' => $operationFinanciere->getId()]);
             }
             $entityManager->flush();
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
