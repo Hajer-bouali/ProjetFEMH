@@ -20,8 +20,10 @@
 		{% block style %}{% endblock %}
 		<!-- Core JS files -->
 		<script src="{{ asset('templateAdmin/global_assets/js/main/jquery.min.js') }}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/notifications/sweet_alert.min.js') }}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/plugins/ui/ripple.min.js') }}"></script>
 		<!-- /core JS files -->
 		<!-- Theme JS files -->
 		<script src="{{ asset('templateAdmin/global_assets/js/plugins/tables/datatables/datatables.min.js') }}"></script>
@@ -55,6 +57,13 @@
 		<script src="{{ asset('templateAdmin/global_assets/js/plugins/editors/ckeditor/ckeditor.js')}}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/styling/uniform.min.js')}}"></script>
 
+		<script src="{{ asset('templateAdmin/assets/js/app.js')}}"></script>
+		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/alpaca_advanced.js')}}"></script>
+		<!-- /theme JS files alpaca_advanced -->
+
+		
+
+		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_popups.js')}}"></script>
 		<script src="{{ asset('templateAdmin/assets/js/app.js')}}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/alpaca_advanced.js')}}"></script>
 		<!-- /theme JS files alpaca_advanced -->
@@ -138,7 +147,7 @@
 
 			
 				<a href="index.html" class="d-inline-block-center">
-					<img src="{{ asset('templateAdmin/global_assets/images/ihsenlogo.png') }}" class="rounded-circle" alt="">
+					<img src="{{ asset('templateAdmin/global_assets/images/image.png') }}" class="rounded-circle" alt="">
 				</a>
 			</div>
 			<div class="text-center d-md-none w-100">
@@ -358,7 +367,6 @@
 								</li>
 							</ul>
 						</li>
-
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link">
 								<i class="icon-people"></i>
@@ -387,6 +395,15 @@
 				{% for type, messages in app.session.flashbag.all() %}
 {% for message in messages %}
 alert('{{ message|raw }}');{% endfor %}
+swal({
+
+	text:  '{{ message|raw }}',
+	type: 'warning',
+	showCancelButton: false,
+	confirmButtonColor: '#3085d6',
+	cancelButtonColor: '#d33',
+})
+{% endfor %}
 {% endfor %}
 			</script>
 

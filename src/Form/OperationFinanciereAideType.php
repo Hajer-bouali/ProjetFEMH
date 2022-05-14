@@ -29,8 +29,6 @@ class OperationFinanciereAideType extends AbstractType
                     'choices' => [
                         'Espèce' => 'espece',
                         'Chèque' => 'cheque',
-                        'Virement bancaire' => 'virementbancaire',
-                        'Prélèvement bancaire' => 'virementbancaire',
                     ],
                     'expanded' => false,
                     'multiple' => false,
