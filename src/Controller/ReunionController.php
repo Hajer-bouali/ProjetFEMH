@@ -77,6 +77,7 @@ class ReunionController extends AbstractController
                 $adherent = $AdherentRepository->find($idadherent);
                 $decision->setReunion($reunion);
                 if($decision->getStatut()!="nontraitee"){
+                    $Etatreunion=$decision->getStatut(); 
                     $adherent->setEtatreunion(2);  
                 }
                 else{
