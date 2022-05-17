@@ -127,7 +127,7 @@ class OperationStockController extends AbstractController
      */
     public function showAide(Request $request, OperationStock $operationStock = null, StockRepository $stockRepository, ProduitRepository $produitRepository, EntityManagerInterface $entityManager): Response
     {
-        $resultat=0;
+        $resultat = 0;
 
         if (!$operationStock) {
             throw(new NotFoundHttpException('OperationStock introuvable'));
@@ -145,7 +145,7 @@ class OperationStockController extends AbstractController
                 return $this->redirectToRoute('operation_stock_aide_show', ['id' => $operationStock->getId()]);
             }
             $stock->setOperationStock($operationStock);
-            $resultat=$resultat+($produit->getQuantite() / $stock->getQuantite());
+            $resultat = $resultat + ($produit->getQuantite() / $stock->getQuantite());
            
             //$produit->setQuantite($produit->getQuantite() - $stock->getQuantite());
             $entityManager->persist($produit);
@@ -158,7 +158,6 @@ class OperationStockController extends AbstractController
             'operationStock' => $operationStock,
             'stocks' => $stocks,
             'resultat'=>$resultat,
-            dd($resultat),
             'formstock' => $formstock->createView(),
         ]);
     }
