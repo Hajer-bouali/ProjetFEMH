@@ -8,6 +8,7 @@ use App\Entity\PieceJointeOperation;
 use App\Form\OperationFinanciereAideType;
 use App\Form\OperationFinanciereDonType;
 use App\Repository\OperationFinanciereRepository;
+use App\Services\ServiceHistorique;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,7 +86,7 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("/newAide", name="operation_financiere_aide_new", methods={"GET", "POST"})
      */
-    public function newAide(Request $request, EntityManagerInterface $entityManager): Response
+    public function newAide(Request $request, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
         $operationFinanciere = new OperationFinanciere();
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
@@ -118,6 +119,12 @@ class OperationFinanciereController extends AbstractController
             $entityManager->persist($operationFinanciere);
             $entityManager->flush();
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
+            $serviceHistorique->saveModifications([
+                'user' => $this->getUser(),
+                'table' => 'operationFinanciere',
+                'ancien' => [],
+                'nouveau' => $operationFinanciere->toArray()
+            ]);
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -151,12 +158,13 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("/{id}/editAide", name="operation_financiere_aide_edit", methods={"GET", "POST"})
      */
-    public function editAide(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
+    public function editAide(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
         if (!$this->isGranted('ROLE_FINANCIERE')) {
             $formAide->remove('etat');
         }
+        $ancien = $operationFinanciere->toArray();
         $formAide->handleRequest($request);
 
         if ($formAide->isSubmitted() && $formAide->isValid()) {
@@ -173,6 +181,12 @@ class OperationFinanciereController extends AbstractController
             }
             $entityManager->flush();
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
+            $serviceHistorique->saveModifications([
+                'user' => $this->getUser(),
+                'table' => 'operationFinanciere',
+                'ancien' => $ancien,
+                'nouveau' => $operationFinanciere->toArray()
+            ]);
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -18,64 +18,28 @@ class Historique
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Adherent::class)
-     */
-    private $adherent;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $responsable;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $champmodifier;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $datemodif;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="historiques")
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $tableModifiee;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $modifications = [];
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAdherent(): ?Adherent
-    {
-        return $this->adherent;
-    }
-
-    public function setAdherent(?Adherent $adherent): self
-    {
-        $this->adherent = $adherent;
-
-        return $this;
-    }
-
-    public function getResponsable(): ?string
-    {
-        return $this->responsable;
-    }
-
-    public function setResponsable(string $responsable): self
-    {
-        $this->responsable = $responsable;
-
-        return $this;
-    }
-
-    public function getChampmodifier(): ?string
-    {
-        return $this->champmodifier;
-    }
-
-    public function setChampmodifier(string $champmodifier): self
-    {
-        $this->champmodifier = $champmodifier;
-
-        return $this;
     }
 
     public function getDatemodif(): ?\DateTimeInterface
@@ -86,6 +50,42 @@ class Historique
     public function setDatemodif(\DateTimeInterface $datemodif): self
     {
         $this->datemodif = $datemodif;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTableModifiee(): ?string
+    {
+        return $this->tableModifiee;
+    }
+
+    public function setTableModifiee(string $tableModifiee): self
+    {
+        $this->tableModifiee = $tableModifiee;
+
+        return $this;
+    }
+
+    public function getModifications(): ?array
+    {
+        return $this->modifications;
+    }
+
+    public function setModifications(array $modifications): self
+    {
+        $this->modifications = $modifications;
 
         return $this;
     }

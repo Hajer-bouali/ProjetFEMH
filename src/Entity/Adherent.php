@@ -149,11 +149,6 @@ class Adherent
     private $benificiaires;
 
     /**
-     * @ORM\OneToMany(targetEntity=Historique::class, mappedBy="adherent")
-     */
-    private $historiques;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Typeadherent::class, inversedBy="adherents")
      */
     private $typeadherent;
@@ -182,7 +177,6 @@ class Adherent
 
     public function __construct()
     {
-        $this->historiques = new ArrayCollection();
         $this->piecesJointes = new ArrayCollection();
         $this->evenements = new ArrayCollection();
         $this->benificiaires = new ArrayCollection();
@@ -481,14 +475,6 @@ class Adherent
     }
 
     
-    /**
-     * @return Collection|Historique[]
-     */
-
-    public function getHistorique(): ?int
-    {
-        return $this->historique;
-    }
 
     /**
      * @return Collection|Evenement[]
