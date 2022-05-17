@@ -81,9 +81,7 @@
 															</div>
 														</div>
 														{% if app.request.attributes.get('_route') == 'operation_financiere_aide_edit' %}
-														   {% for piecejointe in piecejointes %}
-														  		<img src="{{asset('/uploads/' ~ piecejointe.nom)}}" />
-													      {% endfor %}
+														  
 														{% endif %}
 													</div>
 													<div class="row">

@@ -106,11 +106,16 @@ class OperationStockController extends AbstractController
         $formstock->handleRequest($request);
         
         if ($formstock->isSubmitted() && $formstock->isValid()) {
+            $produit = $stock->getProduit();
             $stock->setOperationStock($operationStock);
+            $produit->setQuantite($produit->getQuantite() + $stock->getQuantite());
+            $entityManager->persist($produit);
             $entityManager->persist($stock);
-            
+            $entityManager->flush();
+
+            return $this->redirectToRoute('operation_stock_don_show', ['id' => $operationStock->getId()]);
+
         }
-        $entityManager->flush();
         return $this->render('operation_stock_don/show.html.twig', [
             'operationStock' => $operationStock,
             'stocks' => $stocks,
@@ -122,6 +127,8 @@ class OperationStockController extends AbstractController
      */
     public function showAide(Request $request, OperationStock $operationStock = null, StockRepository $stockRepository, ProduitRepository $produitRepository, EntityManagerInterface $entityManager): Response
     {
+        $resultat=0;
+
         if (!$operationStock) {
             throw(new NotFoundHttpException('OperationStock introuvable'));
         }
@@ -131,15 +138,16 @@ class OperationStockController extends AbstractController
 
         $formstock = $this->createForm(StockType::class, $stock);
         $formstock->handleRequest($request);
-
         if ($formstock->isSubmitted() && $formstock->isValid()) {
             $produit = $stock->getProduit();
             if ($produit->getQuantite() < $stock->getQuantite()) {
-                $this->addFlash('warning','Désolé mais nous n\'avons pas la quantité démandée en stock!');
+                $this->addFlash('warning','Désolé mais nous navons pas la quantité démandée en stock!');
                 return $this->redirectToRoute('operation_stock_aide_show', ['id' => $operationStock->getId()]);
             }
             $stock->setOperationStock($operationStock);
-            $produit->setQuantite($produit->getQuantite() - $stock->getQuantite());
+            $resultat=$resultat+($produit->getQuantite() / $stock->getQuantite());
+           
+            //$produit->setQuantite($produit->getQuantite() - $stock->getQuantite());
             $entityManager->persist($produit);
             $entityManager->persist($stock);
             $entityManager->flush();
@@ -149,6 +157,8 @@ class OperationStockController extends AbstractController
         return $this->render('operation_stock_aide/show.html.twig', [
             'operationStock' => $operationStock,
             'stocks' => $stocks,
+            'resultat'=>$resultat,
+            dd($resultat),
             'formstock' => $formstock->createView(),
         ]);
     }

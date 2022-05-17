@@ -193,7 +193,6 @@ class AdherentController extends AbstractController
             }
             $adherent->setPrixlocation('0');
             $adherent->setTypehandicap('0');
-            $adherent->setEtatreunion('en cour');
             $adherent->setTypemaladiechronique('0');
             $adherent->setResponsable($this->getUser()->getName());
 
