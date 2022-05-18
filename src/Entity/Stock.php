@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\StockRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,21 +21,30 @@ class Stock
     /**
      * @ORM\Column(type="float")
      */
-    private $quantite;
+    private $quantite =1;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="stock")
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="stocks")
      */
     private $produit;
 
     /**
+     * @ORM\ManyToOne(targetEntity=OperationStock::class, inversedBy="stock")
+     */
+    private $operationStock;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+    private $unite;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $prixunitaire;
 
     public function __construct()
     {
-        $this->produit = new ArrayCollection();
     }
 
 
@@ -58,44 +66,49 @@ class Stock
         return $this;
     }
 
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduit(): Collection
+    public function getProduit(): ? Produit
     {
         return $this->produit;
     }
 
-    public function addProduit(Produit $produit): self
+    public function setProduit(?Produit $produit): self
     {
-        if (!$this->produit->contains($produit)) {
-            $this->produit[] = $produit;
-            $produit->setStock($this);
-        }
+        $this->produit = $produit;
 
         return $this;
     }
 
-    public function removeProduit(Produit $produit): self
+    public function getOperationStock(): ?OperationStock
     {
-        if ($this->produit->removeElement($produit)) {
-            // set the owning side to null (unless already changed)
-            if ($produit->getStock() === $this) {
-                $produit->setStock(null);
-            }
-        }
+        return $this->operationStock;
+    }
+
+    public function setOperationStock(?OperationStock $operationStock): self
+    {
+        $this->operationStock = $operationStock;
+
+        return $this;
+    }
+    public function getUnite(): ?string
+    {
+        return $this->unite;
+    }
+
+    public function setUnite(string $unite): self
+    {
+        $this->unite = $unite;
 
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getPrixunitaire(): ?float
     {
-        return $this->nom;
+        return $this->prixunitaire;
     }
 
-    public function setNom(string $nom): self
+    public function setPrixunitaire(float $prixunitaire): self
     {
-        $this->nom = $nom;
+        $this->prixunitaire = $prixunitaire;
 
         return $this;
     }

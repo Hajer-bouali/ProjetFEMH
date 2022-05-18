@@ -1,0 +1,219 @@
+{% extends 'base.html.twig' %}
+{% block style %}
+	<!-- Core JS files -->
+	<script src="{{ asset('templateAdmin/global_assets/js/main/jquery.min.js') }}"></script>
+	<script src="{{ asset('templateAdmin/global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{ asset('templateAdmin/global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
+	<script src="{{ asset('templateAdmin/global_assets/js/plugins/ui/ripple.min.js') }}"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
+	<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/styling/switchery.min.js') }}"></script>
+	<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/styling/switch.min.js') }}"></script>
+
+	<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/form_checkboxes_radios.js') }}"></script>
+	<!-- /theme JS files -->
+{% endblock %}
+{% block body %}
+	<!-- Main content -->
+	<div
+		class="content-wrapper">
+		<!-- Page header -->
+		<div class="page-header page-header-light">
+			<div class="page-header-content header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb"></div>
+
+					<a href="#" class="header-elements-toggle text-default d-md-none">
+						<i class="icon-more"></i>
+					</a>
+				</div>
+
+			</div>
+		</div>
+		<!-- /page header -->
+
+		<!-- Content area -->
+		<div
+			class="content">
+
+			<!-- Basic datatable -->
+			<div class="card">
+				<div class="card-header header-elements-inline">
+					<h4 class="card-title">
+						Liste des produits de l'operation de don
+
+					</h4>
+					<div class="card-title-left">
+						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" data-target="#modal_ajout_produit" data-toggle="modal">
+							<b>
+								<i class="icon-reading"></i>
+							</b>
+							Ajouter un nouveau produit
+
+						</a>
+					</div>
+
+				</div>
+				<div class="card-header header-elements-inline">
+					<h6>
+						<i class="icon-table2"></i>
+						Date de l'operation: {{ operationStock.date ? operationStock.date|date('Y-m-d') : '' }}
+					</br>
+				</br>
+				<i class="icon-people"></i>
+				nom de donataire: {{ operationStock.nomdonataire }}
+			</h6>
+		</div>
+
+		<table class="table datatable-basic">
+
+			<thead>
+				<tr>
+					<th>
+						Id
+
+					</th>
+					<th>
+						produit
+					</th>
+					<th>
+						Quantité
+					</th>
+					<th>
+						Unite
+					</th>
+					<th>
+						Prix unitaire
+					</th>
+					<th>
+						Actions
+
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for stock in stocks %}
+					<tr>
+						<td> {{ stock.operationStock.id }}
+						</td>
+						<td> {{ stock.produit.intitule }}
+						</td>
+
+						<td> {{ stock.quantite }}
+						</td>
+						<td> {{ stock.unite }}
+						</td>
+						<td> {{ stock.prixunitaire }}
+						</td>
+						<td>
+							<div
+								class="list-icons">
+								<!--bouton trach-->
+								<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{ stock.id }}" data-toggle="modal">
+									<i class="icon-trash"></i>
+								</a>
+								<!--/bouton trach-->
+
+							</div>
+						</td>
+					</tr>
+
+					<div id="modal_delete{{ stock.id }}" class="modal fade" tabindex="-1">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header bg-danger">
+									<h4 class="modal-title">
+										Confirmez-vous la suppression du produit {{ stock.produit.intitule }}
+										de l'operation {{ operationStock.id }}
+										?
+									</h4>
+									<button type="button" class="close" data-dismiss="modal">
+										&times;
+
+									</button>
+								</div>
+
+								<div class="modal-body">
+									<p>
+										<h5>Voulez vous supprimer le produit {{stock.produit.intitule}}?</h5>
+									</p><br><h6>si vous confirmez, votre produit sera effacé</h6>
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-link" data-dismiss="modal">
+										Fermer
+
+									</button>
+									<a type="button" class="btn bg-danger" href="{{ path("operation_stock_don_delete" , {id: stock.id}) }}">
+										Valider
+
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<!--modal_ajout_produit-->
+	<div id="modal_ajout_produit" class="modal fade" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h4 class="modal-title">
+						<label class="d-block font-weight-semibold">Vous allez ajouter un produit au stock</label>
+					</h4>
+
+					<button type="button" class="close" data-dismiss="modal">
+						&times;
+					</button>
+				</div> {{ form_start(formstock) }}
+
+				<div class="modal-body">
+					<div class="row">
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Produit
+									<span class="text-danger"></span>
+								</label> {{ form_widget(formstock.produit, {attr:{'class':'form-control form-control-select2'}}) }}
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Quantite
+									<span class="text-danger"></span>
+								</label> {{ form_widget(formstock.quantite, {attr:{'class':'form-control'}}) }}
+							</div>
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Unite
+									<span class="text-danger"></span>
+								</label> {{ form_widget(formstock.unite, {attr:{'class':'form-control form-control-select2'}}) }}
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Prix unitaire
+									<span class="text-danger"></span>
+								</label> {{ form_widget(formstock.prixunitaire, {attr:{'class':'form-control'}}) }}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="text-right"> {{ form_row(formstock.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+					</div>
+				</div> {{ form_end(formstock) }}
+			</div>
+		</div>
+		<!--/modal_ajout_benificiaire-->
+	</div>
+{% endblock %}

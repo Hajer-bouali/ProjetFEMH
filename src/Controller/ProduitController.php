@@ -33,10 +33,9 @@ class ProduitController extends AbstractController
     /**
      * @Route("/new", name="produit_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, TypeProduitRepository $TypeProduitRepository,StockRepository $StockRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TypeProduitRepository $TypeProduitRepository): Response
     {
         $typeProduits=$TypeProduitRepository->findAll();
-        $stocks=$StockRepository->findAll();
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
@@ -50,12 +49,6 @@ class ProduitController extends AbstractController
                 $typeProduit=$TypeProduitRepository->find($typeProduit_id);
                 $produit->setTypeProduit($typeProduit);   
              }
-             $listeStock=$request->request->get("listeStock");
-             foreach($listeStock as $stock_id){
-                 $stock = new Stock();
-                 $stock=$StockRepository->find($stock_id);
-                 $produit->setStock($stock);
-             }
              $entityManager->flush();
             return $this->redirectToRoute('produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -63,7 +56,6 @@ class ProduitController extends AbstractController
         return $this->renderForm('produit/new.html.twig', [
             'produit' => $produit,
             'typeProduits' => $typeProduits,
-            'stocks'=>$stocks,
             'form' => $form,
         ]);
     }
@@ -81,13 +73,12 @@ class ProduitController extends AbstractController
     /**
      * @Route("/{id}/edit", name="produit_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager, TypeProduitRepository $TypeProduitRepository,StockRepository $StockRepository): Response
+    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager, TypeProduitRepository $TypeProduitRepository): Response
     {
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
         $typeProduits=$TypeProduitRepository->findAll();
-        $stocks=$StockRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $listeTypeProduit=$request->request->get("listeTypeProduit");
@@ -95,12 +86,6 @@ class ProduitController extends AbstractController
                 $typeProduit= new TypeProduit();
                 $typeProduit=$TypeProduitRepository->find($typeProduit_id);
                 $produit->setTypeProduit($typeProduit);   
-             }
-             $listeStock=$request->request->get("listeStock");
-             foreach($listeStock as $stock_id){
-                 $stock = new Stock();
-                 $stock=$StockRepository->find($stock_id);
-                 $produit->setStock($stock);
              }
             $entityManager->flush();
 
@@ -110,7 +95,6 @@ class ProduitController extends AbstractController
         return $this->renderForm('produit/edit.html.twig', [
             'produit' => $produit,
             'form' => $form,
-            'stocks'=>$stocks,
             'typeProduits'=>$typeProduits,
         ]);
     }

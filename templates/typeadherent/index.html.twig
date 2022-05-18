@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Typeadherent index{% endblock %}
+
+{% block body %}
+    <h1>Typeadherent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for typeadherent in typeadherents|reverse  %}
+            <tr>
+                <td>{{ typeadherent.id }}</td>
+                <td>{{ typeadherent.nom }}</td>
+                <td>
+                    <a href="{{ path('app_typeadherent_show', {'id': typeadherent.id}) }}">show</a>
+                    <a href="{{ path('app_typeadherent_edit', {'id': typeadherent.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_typeadherent_new') }}">Create new</a>
+{% endblock %}

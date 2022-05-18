@@ -51,38 +51,19 @@
 												<div class="card">
 													<div class="card-header bg-white header-elements-inline">
 														<h6 class="card-title">Créer un nouveau dossiers</h6>
-														<div class="header-elements">
-															<div class="list-icons">
-																<a class="list-icons-item" data-action="collapse"></a>
-																<a class="list-icons-item" data-action="reload"></a>
-																<a class="list-icons-item" data-action="remove"></a>
-															</div>
-														</div>
+														<div class="header-elements"></div>
+
 													</div>
 													{{ form_start(form , {attr:{'class':'wizard-form steps-validation'}}) }}
-
 													<h6>information personnelle</h6>
 													<fieldset>
-														<div class="row">
-															<div class="row">
-																<div class="col-md-6">
-																	<div class="form-group">
-																		<label>Numero
-																			<span class="text-danger">*</span>
-																		</label>
-																		{{ form_widget(form.numero , {attr:{'class':'form-control'}}) }}
-																	</div>
-																</div>
-															</div>
-
-														</div>
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Nom et Prénom
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.nom , {attr:{'class':'form-control'}}) }}
+																	{{ form_widget(form.nom , {attr:{'class':'form-control','placeholder':'Nom Prénom'}}) }}
 																</div>
 															</div>
 
@@ -91,35 +72,16 @@
 																	<label>Numéro de carte d'identité
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.cin , {attr:{'class':'form-control'}}) }}
+																	{{ form_widget(form.cin , {attr:{'class':'form-control ','placeholder':'Numéro de 8 chifre','data-mask':'99999999'}}) }}
 																</div>
 															</div>
 														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Nom et Prénom conjoint
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.nomconjoint , {attr:{'class':'form-control'}}) }}
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Numéro de carte d'identité conjoint
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.cinconjoint , {attr:{'class':'form-control'}}) }}
-																</div>
-															</div>
-														</div>
-
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Numéro de téléphone<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.telephone , {attr:{'class':'form-control'}}) }}
+																	{{ form_widget(form.telephone , {attr:{'class':'form-control','placeholder':'+216  - - - - - - - -','data-mask':'99999999'}}) }}
 
 																</div>
 															</div>
@@ -151,7 +113,7 @@
 																	<label>Nombre de membres de la famille
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.nombrefamille , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.nombrefamille , {attr:{'class':' form-control','placeholder':'Nombre de membres de la famille','type':'number'}}) }}
 
 
 																</div>
@@ -160,10 +122,14 @@
 															</div>
 
 														</div>
+
+
 													</fieldset>
 
-													<h6>statut résidentiel et état de santé</h6>
+
+													<h6>statut résidentiel</h6>
 													<fieldset>
+
 														<div class="row">
 															<div class="col-md-6">
 
@@ -173,13 +139,10 @@
 																{{ form_widget(form.logement , {attr:{'class':'form-control form-control-select2'}}) }}
 
 															</div>
-															<div class="col-md-6">
-
+															<div id="prix_location" class="col-md-6">
 																<label>Prix location maison
-																	<span class="text-danger">*</span>
 																</label>
 																{{ form_widget(form.prixlocation , {attr:{'class':'form-control '}}) }}
-
 															</div>
 
 														</div>
@@ -214,101 +177,88 @@
 																		<label>Nombre de chambres
 																			<span class="text-danger">*</span>
 																		</label>
-																		{{ form_widget(form.nombrechambre , {attr:{'class':'form-control form-control'}}) }}
+																		{{ form_widget(form.nombrechambre , {attr:{'class':' form-control'}}) }}
 																	</div>
 																</div>
 															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Installations non disponibles</label>
-																	{{ form_widget(form.installationnondisponible , {attr:{'class':'form-control form-control'}}) }}
-																</div>
-															</div>
+															<!--<div class="col-md-6">
+																																														<div class="form-group">
+																																															<label>Equipement  non disponibles</label>
+																																														</div>
+																																													</div>-->
 														</div>
 
+
+													</fieldset>
+													<h6>Etat de santé</h6>
+													<fieldset>
 
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label>A-t-il un handicap ?
+																	<label>A-t-il un handicap ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.handicap , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.handicap , {attr:{'class':' form-control'}}) }}
 
 
 																</div>
 
 															</div>
 															<div class="col-md-6">
-																<div class="form-group">
+																<div id="adherent_typehandicap" class="form-group">
 																	<label>Type d'handicap
-																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.typehandicap , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.typehandicap , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 
 														</div>
+
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label>Quelqu'un dans la famille a-t-il un handicap?
+																	<label>maladie chronique ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.famillehandicap , {attr:{'class':'form-control form-control'}}) }}
-
-
-																</div>
-
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Quelqu'un dans la famille souffre-t-il d'une maladie chronique ?
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.maladiechronique , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.maladiechronique , {attr:{'class':' form-control'}}) }}
 
 
 																</div>
 
 															</div>
 															<div class="col-md-6">
-																<div class="form-group">
+																<div id="adherent_typemaladiechronique" class="form-group">
 																	<label>Type maladie chronique ?
-																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.typemaladiechronique , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.typemaladiechronique , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 
 														</div>
-
-
 													</fieldset>
 
 													<h6>Revenu familial et Résumé de la situation sociale</h6>
 													<fieldset>
 														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Montant du revenu
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.montantrevenu , {attr:{'class':'form-control form-control'}}) }}
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<label>Montant du revenu
+																			<span class="text-danger">*</span>
+																			{{ form_widget(form.montantrevenu , {attr:{'class':' form-control'}}) }}
 
-																	</label>
+																		</label>
+																	</div>
 																</div>
-															</div>
 
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>source revenu
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.source , {attr:{'class':'form-control form-control'}}) }}
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<label>source revenu
+																			<span class="text-danger">*</span>
+																		</label>
+																		{{ form_widget(form.source , {attr:{'class':' form-control'}}) }}
+																	</div>
 																</div>
-															</div>
 														</div>
 														<div class="row">
 															<div class="col-md-6">
@@ -326,23 +276,11 @@
 																	<label>La Demande
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.demande , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.demande , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>la personne qui enregistre ce fichier
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.quienregistrefichier , {attr:{'class':'form-control '}}) }}
 
-																	</label>
-																</div>
-															</div>
-
-															
-														</div>
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
@@ -353,7 +291,21 @@
 																	</label>
 																</div>
 															</div>
+
+
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Type de dossier:
+																		<span class="text-danger">*</span>
+																		{{ form_widget(form.typeadherent , {attr:{'class':'form_control form-control-select2'}}) }}
+
+																	</label>
+																</div>
+															</div>
 															
+
 														</div>
 
 
@@ -387,4 +339,34 @@
 
 				</div>
 			</div>
+
+			<script>
+
+				$(document).ready(function () {
+$("#adherent_logement").change(function () {
+value = $("#adherent_logement").val();
+if (value == 'Locataire') {
+$("#prix_location").show();
+} else {
+$("#prix_location").hide();
+}
+});
+$("#adherent_handicap").change(function () {
+value2 = $("#adherent_handicap").val();
+if (value2 == 'Oui') {
+$("#adherent_typehandicap").show();
+} else {
+$("#adherent_typehandicap").hide();
+}
+});
+$("#adherent_maladiechronique").change(function () {
+value2 = $("#adherent_maladiechronique").val();
+if (value2 == 'Oui') {
+$("#adherent_typemaladiechronique").show();
+} else {
+$("#adherent_typemaladiechronique").hide();
+}
+});
+});
+			</script>
 		{% endblock %}

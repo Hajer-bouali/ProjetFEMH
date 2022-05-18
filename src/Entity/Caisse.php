@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CaisseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,12 +27,25 @@ class Caisse
     /**
      * @ORM\Column(type="float")
      */
-    private $montant;
+    private $montant=0;
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeCaisse::class, inversedBy="caisses")
      */
     private $typeCaisse;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OperationFinanciere::class, mappedBy="caisse")
+     */
+    private $operationFinancieres;
+
+    public function __construct()
+    {
+        $this->operationFinancieres = new ArrayCollection();
+    }
+
+    
+   
 
     public function getId(): ?int
     {
@@ -69,6 +84,40 @@ class Caisse
     public function setTypeCaisse(?TypeCaisse $typeCaisse): self
     {
         $this->typeCaisse = $typeCaisse;
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->intitule;
+    }
+
+    /**
+     * @return Collection|OperationFinanciere[]
+     */
+    public function getOperationFinancieres(): Collection
+    {
+        return $this->operationFinancieres;
+    }
+
+    public function addOperationFinanciere(OperationFinanciere $operationFinanciere): self
+    {
+        if (!$this->operationFinancieres->contains($operationFinanciere)) {
+            $this->operationFinancieres[] = $operationFinanciere;
+            $operationFinanciere->setCaisse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOperationFinanciere(OperationFinanciere $operationFinanciere): self
+    {
+        if ($this->operationFinancieres->removeElement($operationFinanciere)) {
+            // set the owning side to null (unless already changed)
+            if ($operationFinanciere->getCaisse() === $this) {
+                $operationFinanciere->setCaisse(null);
+            }
+        }
 
         return $this;
     }

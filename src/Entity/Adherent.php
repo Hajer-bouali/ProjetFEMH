@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Entity;
+//use App\Entity\Benificiaire;
 use App\Repository\AdherentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @ORM\Entity(repositoryClass=AdherentRepository::class)
  */
@@ -18,11 +18,7 @@ class Adherent
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="decimal", precision=10, scale=0)
-     */
-    private $numero;
-
+   
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -33,15 +29,6 @@ class Adherent
      */
     private $cin;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nomconjoint;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $cinconjoint;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -79,7 +66,7 @@ class Adherent
     private $nombrechambre;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=255)
      */
     private $electricite;
 
@@ -88,10 +75,7 @@ class Adherent
      */
     private $eau;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $installationnondisponible;
+   
 
     /**
      * @ORM\Column(type="boolean")
@@ -103,11 +87,7 @@ class Adherent
      */
     private $typehandicap;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $famillehandicap;
-
+    
     /**
      * @ORM\Column(type="boolean")
      */
@@ -138,10 +118,6 @@ class Adherent
      */
     private $demande;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $quienregistrefichier;
 
 
 
@@ -161,10 +137,57 @@ class Adherent
      */
     private $evenements;
 
+    /**
+
+     * @ORM\Column(type="string", length=255)
+     */
+    private $etatreunion;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Benificiaire::class, mappedBy="adherent")
+     */
+    private $benificiaires;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Historique::class, mappedBy="adherent")
+     */
+    private $historiques;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Typeadherent::class, inversedBy="adherents")
+     */
+    private $typeadherent;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $responsable;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Revenufamilial::class, mappedBy="adherent")
+     */
+    private $revenufamilial;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $updatedAt;
+
+
+
     public function __construct()
     {
+        $this->historiques = new ArrayCollection();
         $this->piecesJointes = new ArrayCollection();
         $this->evenements = new ArrayCollection();
+        $this->benificiaires = new ArrayCollection();
+        $this->typeadherent = new ArrayCollection();
+        $this->revenufamilial = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,17 +195,8 @@ class Adherent
         return $this->id;
     }
 
-    public function getNumero(): ?string
-    {
-        return $this->numero;
-    }
 
-    public function setNumero(string $numero): self
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
+ 
 
     public function getNom(): ?string
     {
@@ -208,29 +222,7 @@ class Adherent
         return $this;
     }
 
-    public function getNomconjoint(): ?string
-    {
-        return $this->nomconjoint;
-    }
 
-    public function setNomconjoint(string $nomconjoint): self
-    {
-        $this->nomconjoint = $nomconjoint;
-
-        return $this;
-    }
-
-    public function getCinconjoint(): ?string
-    {
-        return $this->cinconjoint;
-    }
-
-    public function setCinconjoint(string $cinconjoint): self
-    {
-        $this->cinconjoint = $cinconjoint;
-
-        return $this;
-    }
 
     public function getAdresse(): ?string
     {
@@ -316,12 +308,12 @@ class Adherent
         return $this;
     }
 
-    public function getElectricite(): ?bool
+    public function getElectricite(): ?string
     {
         return $this->electricite;
     }
 
-    public function setElectricite(bool $electricite): self
+    public function setElectricite(string $electricite): self
     {
         $this->electricite = $electricite;
 
@@ -340,17 +332,7 @@ class Adherent
         return $this;
     }
 
-    public function getInstallationnondisponible(): ?string
-    {
-        return $this->installationnondisponible;
-    }
-
-    public function setInstallationnondisponible(string $installationnondisponible): self
-    {
-        $this->installationnondisponible = $installationnondisponible;
-
-        return $this;
-    }
+  
 
     public function getHandicap(): ?bool
     {
@@ -376,17 +358,7 @@ class Adherent
         return $this;
     }
 
-    public function getFamillehandicap(): ?bool
-    {
-        return $this->famillehandicap;
-    }
-
-    public function setFamillehandicap(bool $famillehandicap): self
-    {
-        $this->famillehandicap = $famillehandicap;
-
-        return $this;
-    }
+   
 
     public function getMaladiechronique(): ?bool
     {
@@ -460,17 +432,7 @@ class Adherent
         return $this;
     }
 
-    public function getQuienregistrefichier(): ?string
-    {
-        return $this->quienregistrefichier;
-    }
-
-    public function setQuienregistrefichier(string $quienregistrefichier): self
-    {
-        $this->quienregistrefichier = $quienregistrefichier;
-
-        return $this;
-    }
+ 
 
    
 
@@ -518,6 +480,16 @@ class Adherent
         return $this;
     }
 
+    
+    /**
+     * @return Collection|Historique[]
+     */
+
+    public function getHistorique(): ?int
+    {
+        return $this->historique;
+    }
+
     /**
      * @return Collection|Evenement[]
      */
@@ -548,4 +520,140 @@ class Adherent
     public function __toString() {
         return $this->getNom() ? : 'Adherent';
     }
+
+
+    public function getEtatreunion(): ?string
+    {
+        return $this->etatreunion;
+    }
+
+    public function setEtatreunion(string $etatreunion): self
+    {
+        $this->etatreunion = $etatreunion;
+        return $this;
+    }
+    /**
+     * @return Collection<int, Benificiaire>
+     **/
+
+    public function getBenificiaires(): Collection
+    {
+        return $this->benificiaires;
+    }
+
+    public function addBenificiaire(Benificiaire $benificiaire): self
+    {
+        if (!$this->benificiaires->contains($benificiaire)) {
+            $this->benificiaires[] = $benificiaire;
+            $benificiaire->setAdherent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBenificiaire(Benificiaire $benificiaire): self
+    {
+        if ($this->benificiaires->removeElement($benificiaire)) {
+            // set the owning side to null (unless already changed)
+            if ($benificiaire->getAdherent() === $this) {
+                $benificiaire->setAdherent(null);
+            }
+        }
+
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Typeadherent>
+     */
+    public function getTypeadherent(): Collection
+    {
+        return $this->typeadherent;
+    }
+
+    public function addTypeadherent(Typeadherent $typeadherent): self
+    {
+        if (!$this->typeadherent->contains($typeadherent)) {
+            $this->typeadherent[] = $typeadherent;
+        }
+
+        return $this;
+    }
+
+    public function removeTypeadherent(Typeadherent $typeadherent): self
+    {
+        $this->typeadherent->removeElement($typeadherent);
+
+        return $this;
+    }
+
+    public function getResponsable(): ?string
+    {
+        return $this->responsable;
+    }
+
+    public function setResponsable(string $responsable): self
+    {
+        $this->responsable = $responsable;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|revenufamilial[]
+     */
+    public function getRevenufamilial(): Collection
+    {
+        return $this->revenufamilial;
+    }
+
+    public function addRevenufamilial(revenufamilial $revenufamilial): self
+    {
+        if (!$this->revenufamilial->contains($revenufamilial)) {
+            $this->revenufamilial[] = $revenufamilial;
+            $revenufamilial->setAdherent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRevenufamilial(revenufamilial $revenufamilial): self
+    {
+        if ($this->revenufamilial->removeElement($revenufamilial)) {
+            // set the owning side to null (unless already changed)
+            if ($revenufamilial->getAdherent() === $this) {
+                $revenufamilial->setAdherent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+  
+   
 }

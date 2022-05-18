@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<!-- Main content -->
+	<div
+		class="content-wrapper">
+
+		<!-- Page header -->
+		<div class="page-header page-header-light">
+			<div class="page-header-content header-elements-md-inline">
+				<div class="breadcrumb">
+					<a href="{{ path('operation_financiere_aide_index') }}" class="breadcrumb-item">
+						<i class="icon-home2 mr-2"></i>
+						Liste des opérations Financière aide
+					</a>
+					<a href="#" class="breadcrumb-item">
+						Modification d'opération Financière aide
+					</a>
+
+				</div>
+			</div>
+		</div>
+		<!-- /page header -->
+		<div class="grix xs4 container">
+			<div class="col-xs4">
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<div class="col-12">
+					<div class="col-xs4">
+						<div class="content-wrapper">
+
+							<div
+								class="content">
+
+								<!-- Inner container -->
+								<div
+									class="d-flex align-items-start flex-column flex-md-row">
+									<!-- Left content -->
+									<div class="tab-content w-100 overflow-auto order-2 order-md-1">
+										<div
+											class="tab-pane fade active show" id="settings">
+											<!-- Profile info -->
+											<div class="card">
+												<div class="card-header header-elements-inline">
+													<h5 class="card-title">
+														Créer une nouvelle opération Financière d'aide
+													</h5>
+													<div class="header-elements"></div>
+												</div>
+
+												<div class="card-body"> {{ form_start(formAide) }}
+
+													<div class="row">
+
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Montant
+																	<span class="text-danger">*</span>
+																</label> {{ form_widget(formAide.montant, {attr:{'class':'form-control'}}) }}
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>evenement
+																	<span class="text-danger"></span>
+																</label> {{ form_widget(formAide.evenement, {attr:{'class':'form-control'}}) }}
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Mode de paiement
+																	<span class="text-danger">*</span>
+																</label> {{ form_widget(formAide.modepaiement, {attr:{'class':'form-control form-control-select2'}}) }}
+															</div>
+														</div>
+														<div class="col-md-6 d-none" id="champ_modepaiement">
+															<div class="form-group">
+																<label>Pièce jointe
+																	<span class="text-danger"></span>
+																</label> {{ form_widget(formAide.pieceJointeOperations, {attr:{'class':'form-control form-control-select2'}}) }}
+															</div>
+														</div>
+														{% if app.request.attributes.get('_route') == 'operation_financiere_aide_edit' %}
+														   {% for piecejointe in piecejointes %}
+														  		<img src="{{asset('/uploads/' ~ piecejointe.nom)}}" />
+													      {% endfor %}
+														{% endif %}
+													</div>
+													<div class="row">
+
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>type de caisse
+																	<span class="text-danger">*</span>
+																</label> {{ form_widget(formAide.caisse , {attr:{'class':'form_control'}}) }}
+															</div>
+														</div>
+
+													</div>
+													<div class="row">
+														{% if is_granted('ROLE_FINANCIERE') %}
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Etat
+																		<span class="text-danger"></span>
+																	</label> {{ form_widget(formAide.etat , {attr:{'class':'form-control '}}) }}
+																</div>
+															</div>
+														{% endif %}
+
+													</div>
+													<div class="text-right"> {{ form_row(formAide.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+													</div> {{ form_end(formAide) }}
+												</div>
+											</div>
+										</div>
+										<!-- /left content -->
+									</div>
+									<!-- /inner container -->
+								</div>
+								<!-- Content area -->
+
+								<div class="content"></div>
+								<!-- /content area -->
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+	{% block javascript %}
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#operation_financiere_aide_modepaiement').on('select2:select', function (e) {
+				if ($(this).val() === 'cheque') {
+					$('#champ_modepaiement').removeClass('d-none');
+				} else {
+					$('#champ_modepaiement').addClass('d-none');
+				}
+			});
+		});
+	</script>
+{% endblock %}

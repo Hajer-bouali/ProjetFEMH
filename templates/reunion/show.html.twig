@@ -59,7 +59,7 @@
 			<div class="card-header header-elements-inline">
 				<h6>
 					<i class="icon-table2"></i>
-					Date de reunion: {{ reunion.date ? reunion.date|date('Y-m-d H:i:s') : '' }}
+					Date de reunion: {{ reunion.date ? reunion.date|date('Y-m-d') : '' }}
 				</br>
 			</br>
 			<i class="icon-people"></i>
@@ -70,7 +70,7 @@
 	<table class="table datatable-basic">
 
 		<thead>
-			<tr class="text-center">
+			<tr>
 				<th>
 					Id
 				</th>
@@ -90,8 +90,8 @@
 		</thead>
 		<tbody>
 			{% for decision in decisions %}
-				<tr class="text-center">
-					<td class="text-center"> {{ decision.adherent.id }}
+				<tr >
+					<td > {{ decision.adherent.id }}
 					</td>
 					<td> {{ decision.adherent.nom }}
 					</td>
@@ -103,8 +103,8 @@
 					<td> {{ decision.detail }}
 					</td>
 					<td>
-						<a type="button" class="btn bg-green" data-target="#modal_decision{{ decision.id }}" data-toggle="modal" data-id={{decision.id}}>
-							Decision
+						<a href="#" data-target="#modal_decision{{ decision.id }}" data-toggle="modal" data-id={{decision.id}} class="list-icons-item text-primary-600">
+							<i class="icon-balance"></i>
 						</a>
 						<a href="#" data-target="#modal_delete{{ decision.id }}" data-toggle="modal" data-id={{decision.id}} class="list-icons-item text-danger-600">
 							<i class="icon-trash"></i>
@@ -118,58 +118,68 @@
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header bg-primary">
-									<h6 class="modal-title">la décision de commute pour la réunion</h6>
+									<h6 class="modal-title">
+										<label class="d-block font-weight-semibold">
+											la décision de commute pour la réunion</label>
+									</h6>
 									<button type="button" class="close" data-dismiss="modal">
 										&times;
 									</button>
 								</div>
 
 								<div class="modal-body">
-							       <h6 class="modal-title">Statut </h6>
-									<div class="row">
+									<div class="form-group">
+										<h6>
+											<label class="d-block font-weight-semibold">Statut</label>
+										</h6>
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check" type="radio" name="statut" value="valide">
-												Valide
+												<input type="radio" class="form-check-input" name="statut" value="validé">
+												Validé
 											</label>
 										</div>
 
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-control" type="radio" name="statut" value="refuser">
-												Refuse
+												<input type="radio" class="form-check-input" name="statut" value="refusé">
+												Refusé
 											</label>
 										</div>
-
 										<div class="form-check form-check-inline">
 											<label class="form-check-label">
-												<input class="form-check" type="radio" name="statut" value="encours">
+												<input type="radio" class="form-check-input" name="statut" value="encours">
 												En cours
 											</label>
 										</div>
+										<div class="form-check form-check-inline">
+											<label class="form-check-label">
+												<input type="radio" class="form-check-input" name="statut" value="reporté">
+												Reporté
+											</label>
+										</div>
 									</div>
-								<h6 class="modal-title">Commentaire</h6>
-									<div class="row">
-										<input class="form-control" type="text" name="detail"></input>
+									<div class="form-group">
+										<h6>
+											<label class="d-block font-weight-semibold">Commentaire</label>
+										</h6>
+
+										<textarea class="form-control" type="text" name="detail"></textarea>
+									</div>
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-link" data-dismiss="modal">
+										Fermer
+									</button>
+									<button type="submit" class="btn bg-primary">
+										Valider
+									</button>
 								</div>
 							</div>
-							
-							<div class="modal-footer">
-								<button type="button" class="btn btn-link" data-dismiss="modal">
-									Fermer
-								</button>
-								<button type="submit" class="btn bg-primary">
-									Valider
-								</button>
-							</div>
-						</form>
-					</tbody>
-				</tbody>
-			</div>
-		</tbody>
-	</div>
-</div>
-<div id="modal_delete{{ decision.id }}" class="modal fade" tabindex="-1">
+						</div>
+					</form>
+				</div>
+				<div id="modal_delete{{ decision.id }}" class="modal fade" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header bg-danger">
@@ -198,7 +208,12 @@
 			</div>
 		</div>
 	</div>
-</div>{% endfor %}<div id="modal_create{{ reunion.id }}" class="modal fade" tabindex="-1">
+</div>
+			{% endfor %}
+		</tbody>
+	</div>
+</div>
+<div id="modal_create{{ reunion.id }}" class="modal fade" tabindex="-1">
 <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header bg-primary">
@@ -212,15 +227,18 @@
 		<form method="POST">
 			<div class="modal-body">
 
-				<div class="col-md-6">
+				<div class="col-md-12">
 
 					<label>
 						les Adherents
 					</label>
 					<select name="listeadherents[]" class="form_control form-control-select2" multiple>
+
 						{% for adherent in adherents %}
-							<option value="{{ adherent.id }}"> {{ adherent.nom }}
-							</option>
+						
+								<option  value="{{adherent.id}}"> {{ adherent.nom }}
+								</option>
+
 						{% endfor %}
 					</select>
 
@@ -238,4 +256,4 @@
 			</div>
 		</form>
 	</div>
-</div></div></tbody></table></div><!-- /basic datatable -->{% endblock %}
+</div></div></tbody></table></div>{% endblock %}

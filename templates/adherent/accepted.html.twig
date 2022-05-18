@@ -1,0 +1,176 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}dossiers acceptés
+{% endblock %}
+
+
+{% block body %}
+	<!-- Main content -->
+	<div
+		class="content-wrapper">
+
+		<!-- Page header -->
+		<div class="page-header page-header-light">
+			<div class="page-header-content header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{path('adherent_accept')}}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des dossiers acceptés</a>
+
+					</div>
+
+					<a href="#" class="header-elements-toggle text-default d-md-none">
+						<i class="icon-more"></i>
+					</a>
+				</div>
+
+
+			</div>
+		</div>
+		<!-- /page header -->
+
+
+		<!-- Content area -->
+		<div
+			class="content">
+
+			<!-- Basic datatable -->
+			<div class="card">
+				<div class="card-header header-elements-inline">
+					<h5 class="card-title">Liste des dossiers</h5>
+				</div>
+
+				<table class="table datatable-basic">
+
+					<thead>
+						<tr>
+
+							<th>id</th>
+							<th>Nom et prénom</th>
+							<th>Adresse</th>
+							<th>Telephone</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for adherent in adherents %}
+							<tr>
+								<td>{{ adherent.id }}</td>
+								<td>{{ adherent.nom }}</td>
+								<td>{{ adherent.adresse }}</td>
+								<td>{{ adherent.telephone }}</td>
+
+								<td>
+									<div class="list-icons">
+										<a href="{{ path('adherent_edit', {'id': adherent.id}) }}" class="list-icons-item text-primary-600">
+											<i class="icon-pencil7"></i>
+										</a>
+										<!--bouton trach-->
+										<!--<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{adherent.id}}" data-toggle="modal">
+																					<i class="icon-trash"></i>
+																				</a>-->
+										<!--/bouton trach-->
+											{% if adherent.statut=="actif"%}
+												<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal"> <i class="icon-folder-remove"></i>
+											</a>
+										{% else %}
+											<a href="#" class="list-icons-item text-primary-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal">
+												<i class="icon-folder-remove"></i>
+											</a>
+										{% endif %}
+										<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600">
+											<i class="icon-reading"></i>
+										</a>
+									</div>
+
+
+								</td>
+								<td class="text-center"></td>
+
+							</tr>
+							<!--modal archive-->
+							<div id="modal_archive{{adherent.id}}" class="modal fade" tabindex="-1">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header bg-danger">
+											<h4 class="modal-title">Confirmez-vous l'archivage ?
+											</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<div class="modal-body">
+											<p>
+												<h5>Voulez vous archiver le dossier de
+													{{adherent.nom}}?</h5>
+											</p><br><h6>si vous confirmez, votre dossier sera deplacer au archive</h6>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+											<a type="button" class="btn bg-danger" href="{{path("adherent_archiver" , {adherent: adherent.id,statut:'desactivé'})}}">Valider</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--/modal archiver-->
+							<!--modal desarchive-->
+							<div id="modal_desarchive{{adherent.id}}" class="modal fade" tabindex="-1">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header bg-primary">
+											<h4 class="modal-title">Confirmez-vous le desarchivage ?
+											</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<div class="modal-body">
+											<p>
+												<h5>Voulez vous desarchiver le dossier de
+													{{adherent.nom}}?</h5>
+											</p><br><h6>si vous confirmez, votre dossier sera deplacer au liste des adherents</h6>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+											<a type="button" class="btn bg-primary" href="{{path("adherent_archiver" , {adherent: adherent.id,statut:'actif'})}}">Valider</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--/modal disarchiver-->
+
+							<!--modal supression-->
+							<div id="modal_delete{{adherent.id}}" class="modal fade" tabindex="-1">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header bg-danger">
+											<h4 class="modal-title">Confirmez-vous la suppression ?
+											</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<div class="modal-body">
+											<p>
+												<h5>Voulez vous supprimer le dossier de
+													{{adherent.nom}}?</h5>
+											</p><br><h6>si vous confirmez, votre dossier sera effacé</h6>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+											<a type="button" class="btn bg-danger" href="{{path("adherent_delete" , {id: adherent.id})}}">Valider</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--/modal supression-->
+
+						</div>
+					</tbody>
+				{% endfor %}
+
+			</tbody>
+		</table>
+	</div>
+</div><!-- /basic datatable -->{% endblock %}

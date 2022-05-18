@@ -36,9 +36,8 @@ class RegistrationController extends AbstractController
         if ($this->getUser()) {
             return $this->redirectToRoute('admin');
         }
-       
-            if ($form->isSubmitted() && $form->isValid()) {
-                if ($form->get('plainPassword') == $form->get('Password')) {
+
+        if ($form->isSubmitted() && $form->isValid()) {
                 // encode the plain password
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
@@ -65,7 +64,7 @@ class RegistrationController extends AbstractController
                     $authenticator,
                     $request
                 );
-            }
+           
         }
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),

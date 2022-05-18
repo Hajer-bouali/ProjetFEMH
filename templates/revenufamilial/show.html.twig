@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Revenufamilial{% endblock %}
+
+{% block body %}
+    <h1>Revenufamilial</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ revenufamilial.id }}</td>
+            </tr>
+            <tr>
+                <th>Benificiaire</th>
+                <td>{{ revenufamilial.benificiaire }}</td>
+            </tr>
+            <tr>
+                <th>Affairessociales</th>
+                <td>{{ revenufamilial.affairessociales }}</td>
+            </tr>
+            <tr>
+                <th>Typecarte</th>
+                <td>{{ revenufamilial.typecarte }}</td>
+            </tr>
+            <tr>
+                <th>Numinscription</th>
+                <td>{{ revenufamilial.numinscription }}</td>
+            </tr>
+            <tr>
+                <th>Regimesecuritesociale</th>
+                <td>{{ revenufamilial.regimesecuritesociale }}</td>
+            </tr>
+            <tr>
+                <th>Typeregimesecuritesociale</th>
+                <td>{{ revenufamilial.typeregimesecuritesociale }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('revenufamilial_index') }}">back to list</a>
+
+    <a href="{{ path('revenufamilial_edit', {'id': revenufamilial.id}) }}">edit</a>
+
+    {{ include('revenufamilial/_delete_form.html.twig') }}
+{% endblock %}

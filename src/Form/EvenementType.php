@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Adherent;
 use App\Entity\Evenement;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,21 +15,19 @@ class EvenementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('date',null, [ 
+            ->add('datedebut',null, [ 
                 'widget' => 'single_text',
             ])
-            ->add('quantite')
-            ->add('montent')
-            ->add('bondachat')
-            ->add('quantiteviande')
-            ->add('quantitelaine')
-            ->add('numerodossier')
-            ->add('beneficiairecouche')
-            ->add('quantitecouche')
-            ->add('taillecouche')
-            ->add('telbeneficiairecouche')
-            ->add('cinbeneficiairecouche')
-            ->add('adherent')
+            ->add('datefin',null, [ 
+                'widget' => 'single_text',
+            ])
+            ->add('montantunitaire')
+            ->add('nom')
+            ->add('produit')
+            ->add('adherent', EntityType::class, [
+                'class' =>Adherent::class,
+                'multiple' =>true,
+            ])
             ->add('typeEvenement')
             ->add('Enregistrer', SubmitType::class)
         ;

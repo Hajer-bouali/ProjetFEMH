@@ -13,11 +13,16 @@ class DecisionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add('adherent', EntityType::class, [
+            'class' =>Adherent::class,
+            'multiple' =>true,
+        ])
         ->add('statut', ChoiceType::class, [
             'choices' => [
                 'En cours' => 'En cours',
-                'Valider' => 'Valider',
-                'Refuser' => 'Refuser',
+                'Validé' => 'Validé',
+                'Refusé' => 'Refusé',
+                'Reporté' => 'Reporté',
             ],
             'expanded' => true,
         ])

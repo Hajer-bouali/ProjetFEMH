@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OperationFinanciereDon{% endblock %}
+
+{% block body %}
+    <h1>OperationFinanciereDon</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ operation_financiere_don.id }}</td>
+            </tr>
+            <tr>
+                <th>Nomdonataire</th>
+                <td>{{ operation_financiere_don.nomdonataire }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ operation_financiere_don.montant }}</td>
+            </tr>
+            <tr>
+                <th>Modepaiement</th>
+                <td>{{ operation_financiere_don.modepaiement }}</td>
+            </tr>
+            <tr>
+                <th>Dete</th>
+                <td>{{ operation_financiere_don.date ? operation_financiere_don.dete|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Responsable</th>
+                <td>{{ operation_financiere_don.responsable }}</td>
+            </tr>
+            <tr>
+                <th>Typecaisse</th>
+                <td>{{ operation_financiere_don.typecaisse }}</td>
+            </tr>
+            <tr>
+                <th>Typeadherent</th>
+                <td>{{ operation_financiere_don.typeadherent }}</td>
+            </tr>
+            <tr>
+                <th>Decision</th>
+                <td>{{ operation_financiere_don.decision }}</td>
+            </tr>
+            <tr>
+                <th>Stipulation</th>
+                <td>{{ operation_financiere_don.stipulation }}</td>
+            </tr>
+            <tr>
+                <th>Beneficiaire</th>
+                <td>{{ operation_financiere_don.beneficiaire }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('operation_financiere_don_index') }}">back to list</a>
+
+    <a href="{{ path('operation_financiere_don_edit', {'id': operation_financiere_don.id}) }}">edit</a>
+
+    {{ include('operation_financiere_don/_delete_form.html.twig') }}
+{% endblock %}

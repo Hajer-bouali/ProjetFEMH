@@ -56,17 +56,17 @@
 
 							<th>id</th>
 							<th>Nom et prénom</th>
-							<th>Nom de conjoint</th>
+							<th>Adresse</th>
 							<th>Telephone</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for adherent in adherents %}
+						{% for adherent in adherents|reverse %}
 							<tr>
 								<td>{{ adherent.id }}</td>
 								<td>{{ adherent.nom }}</td>
-								<td>{{ adherent.nomconjoint }}</td>
+								<td>{{ adherent.adresse }}</td>
 								<td>{{ adherent.telephone }}</td>
 
 								<td>
@@ -74,22 +74,40 @@
 										<a href="{{ path('adherent_edit', {'id': adherent.id}) }}" class="list-icons-item text-primary-600">
 											<i class="icon-pencil7"></i>
 										</a>
-										<!--bouton trach-->
-										<!--<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{adherent.id}}" data-toggle="modal">
-																					<i class="icon-trash"></i>
-																				</a>-->
-										<!--/bouton trach-->
-											{% if adherent.statut=="actif"%}
-												<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal"> <i class="icon-folder-remove"></i>
+
+										{% if adherent.statut=="actif"%}
+											<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal">
+												<i class="icon-folder-remove"></i>
 											</a>
 										{% else %}
-											<a href="#" class="list-icons-item text-primary-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal">
+											<a href="#" class="list-icons-item text-darck-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal">
 												<i class="icon-folder-remove"></i>
 											</a>
 										{% endif %}
 										<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600">
 											<i class="icon-reading"></i>
 										</a>
+										<!--bouton historique-->
+										<a href="#" class="list-icons-item text-pink-600">
+											<i class="icon-folder-search "></i>
+										</a>
+										<!--/bouton historique-->
+										<div class="list-icons">
+											<div class="dropdown">
+												<a href="#" class="list-icons-item" data-toggle="dropdown">
+													<i class="icon-menu9"></i>
+												</a>
+
+												<div class="dropdown-menu dropdown-menu-right">
+													<a href="{{ url('adherent_pdf', {'adherent': adherent.id}) }}" class="dropdown-item">
+														<i class="icon-file-pdf"></i>
+														Export to .pdf</a>
+													<a href="#" class="dropdown-item">
+														<i class="icon-file-word"></i>
+														Export to .doc</a>
+												</div>
+											</div>
+										</div>
 									</div>
 
 
@@ -174,11 +192,13 @@
 							</div>
 							<!--/modal supression-->
 
-						</div>
-					</tbody>
-				{% endfor %}
 
-			</tbody>
-		</table>
-	</div>
-</div><!-- /basic datatable -->{% endblock %}
+						{% endfor %}
+
+					</tbody>
+
+				</table>
+
+			</div>
+		</div>
+	</div><!-- /basic datatable -->{% endblock %}

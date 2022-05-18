@@ -19,7 +19,8 @@
 					<a href="{{path('adherent_index')}}" class="breadcrumb-item">
 						<i class="icon-home2 mr-2"></i>
 						Liste des dossiers</a>
-					<a href="{{path('adherent_new')}}" class="breadcrumb-item">Créer un nouveau dossiers</a>
+					<a href="{{path('adherent_new')}}" class="breadcrumb-item">Modifier un dossier
+					</a>
 
 				</div>
 
@@ -50,33 +51,18 @@
 
 												<!-- Wizard with validation -->
 												<div class="card">
+													
 													<div class="card-header bg-white header-elements-inline">
-														<h6 class="card-title">Créer un nouveau dossiers</h6>
-														<div class="header-elements">
-															<div class="list-icons">
-																<a class="list-icons-item" data-action="collapse"></a>
-																<a class="list-icons-item" data-action="reload"></a>
-																<a class="list-icons-item" data-action="remove"></a>
-															</div>
-														</div>
+														<h6 class="card-title">Modifier le dossier de
+															{{adherent.nom}}</h6>
+
 													</div>
+
 													{{ form_start(form , {attr:{'class':'wizard-form steps-validation'}}) }}
 
 													<h6>information personnelle</h6>
 													<fieldset>
-														<div class="row">
-															<div class="row">
-																<div class="col-md-6">
-																	<div class="form-group">
-																		<label>Numero
-																			<span class="text-danger">*</span>
-																		</label>
-																		{{ form_widget(form.numero , {attr:{'class':'form-control'}}) }}
-																	</div>
-																</div>
-															</div>
 
-														</div>
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
@@ -93,24 +79,6 @@
 																		<span class="text-danger">*</span>
 																	</label>
 																	{{ form_widget(form.cin , {attr:{'class':'form-control'}}) }}
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Nom et Prénom conjoint
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.nomconjoint , {attr:{'class':'form-control'}}) }}
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Numéro de carte d'identité conjoint
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.cinconjoint , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														</div>
@@ -152,7 +120,7 @@
 																	<label>Nombre de membres de la famille
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.nombrefamille , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.nombrefamille , {attr:{'class':' form-control'}}) }}
 
 
 																</div>
@@ -163,7 +131,7 @@
 														</div>
 													</fieldset>
 
-													<h6>statut résidentiel et état de santé</h6>
+													<h6>statut résidentiel</h6>
 													<fieldset>
 														<div class="row">
 															<div class="col-md-6">
@@ -215,19 +183,17 @@
 																		<label>Nombre de chambres
 																			<span class="text-danger">*</span>
 																		</label>
-																		{{ form_widget(form.nombrechambre , {attr:{'class':'form-control form-control'}}) }}
+																		{{ form_widget(form.nombrechambre , {attr:{'class':' form-control'}}) }}
 																	</div>
 																</div>
 															</div>
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Installations non disponibles</label>
-																	{{ form_widget(form.installationnondisponible , {attr:{'class':'form-control form-control'}}) }}
-																</div>
-															</div>
+
 														</div>
 
+													</fieldset>
 
+													<h6>Etat de santé</h6>
+													<fieldset>
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
@@ -245,28 +211,16 @@
 																	<label>Type d'handicap
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.typehandicap , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.typehandicap , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 
 														</div>
+
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
-																	<label>Quelqu'un dans la famille a-t-il un handicap?
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.famillehandicap , {attr:{'class':'form-control form-control-select2'}}) }}
-
-
-																</div>
-
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Quelqu'un dans la famille souffre-t-il d'une maladie chronique ?
+																	<label>maladie chronique ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
 																	</label>
 																	{{ form_widget(form.maladiechronique , {attr:{'class':'form-control form-control-select2'}}) }}
@@ -280,13 +234,11 @@
 																	<label>Type maladie chronique ?
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.typemaladiechronique , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.typemaladiechronique , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 
 														</div>
-
-
 													</fieldset>
 
 													<h6>Revenu familial et Résumé de la situation sociale</h6>
@@ -296,7 +248,7 @@
 																<div class="form-group">
 																	<label>Montant du revenu
 																		<span class="text-danger">*</span>
-																		{{ form_widget(form.montantrevenu , {attr:{'class':'form-control form-control'}}) }}
+																		{{ form_widget(form.montantrevenu , {attr:{'class':'form-control'}}) }}
 
 																	</label>
 																</div>
@@ -307,7 +259,7 @@
 																	<label>source revenu
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.source , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.source , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														</div>
@@ -317,7 +269,7 @@
 																	<label>Resumé
 																		<span class="text-danger">*</span>
 																		{{ form_widget(form.resume , {attr:{'class':'form-control  '}}) }}
-																		
+
 
 																	</label>
 																</div>
@@ -328,21 +280,11 @@
 																	<label>La Demande
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.demande , {attr:{'class':'form-control form-control'}}) }}
+																	{{ form_widget(form.demande , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														</div>
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>la personne qui enregistre ce fichier
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.quienregistrefichier , {attr:{'class':'form-control '}}) }}
 
-																	</label>
-																</div>
-															</div>
-														</div>
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
@@ -354,31 +296,25 @@
 																	</label>
 																</div>
 															</div>
-															
+
 														</div>
 														<div class="text-right">
 															{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
 															{{ form_end(form) }}
 														</div>
 													</fieldset>
-
-
 												</div>
 												<!-- /wizard with validation -->
 
+												
 											</div>
 											<!-- /content area -->
-
-
 										</div>
 									</div>
 									<!-- /left content -->
 								</div>
 								<!-- /inner container -->
 							</div>
-							<!-- Content area -->
-							<div class="content"></div>
-							<!-- /content area -->
 						</div>
 
 
@@ -386,4 +322,6 @@
 
 				</div>
 			</div>
-		{% endblock %}
+		</div>
+	</div>
+{% endblock %}

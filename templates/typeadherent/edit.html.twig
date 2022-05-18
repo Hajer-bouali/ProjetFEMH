@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Typeadherent{% endblock %}
+
+{% block body %}
+    <h1>Edit Typeadherent</h1>
+
+    {{ include('typeadherent/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_typeadherent_index') }}">back to list</a>
+
+    {{ include('typeadherent/_delete_form.html.twig') }}
+{% endblock %}

@@ -8,27 +8,32 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 
 class AdherentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-        ->add('piecesjointes', FileType::class,[
+        // On modifie le formulaire avant de définir les datas
+    $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        //On récupère l'entité lié au formulaire
+        $entity = $event->getData();
+        $form = $event->getForm();
+        $form->add('piecesjointes', FileType::class,[
             'label'=>false,
             'multiple'=>true,
             'mapped'=>false,
             'required'=>false,
             'attr' =>['class'=>'form-input-styled']
         ])
-            ->add('numero')
+            
             ->add('nom')
             ->add('cin')
-            ->add('nomconjoint')
-            ->add('cinconjoint')
             ->add('adresse')
             ->add('telephone')
             ->add('etatcivil', ChoiceType::class, [
@@ -42,22 +47,37 @@ class AdherentType extends AbstractType
                 'multiple' => false,
                 'label' => 'etat civil' 
             ])
+            
             ->add('nombrefamille')
+           // ->add('benificiaires')
+           /*->add('etatreunion', ChoiceType::class, [
+            'choices' => [
+                'en cour'=>'en cour',
+                'valide'=>'valide',
+                'refuse'=>'refuse',
+                'reporte'=>'reporte',
+                 
+            ],
+            'expanded' => false,
+            'multiple' => false,
+            'label' => 'etat de dossier' 
+        ])*/
             ->add('logement', ChoiceType::class, [
                 'choices' => [
-                    'Louer une maison'=>'Louer',
-                    'posseder une maison'=>'posseder' 
+                    'Locataire '=>'Locataire',
+                    'Propriétaire'=>'Propriétaire' 
                 ],
                 'expanded' => false,
                 'multiple' => false,
                 'label' => 'logement' 
             ])
-            ->add('prixlocation')
+            ->add('prixlocation', TextType::class, [
+                'required' => false])
             ->add('nombrechambre')
             ->add('electricite', ChoiceType::class, [
                 'choices' => [
-                    'Oui'=>0,
-                    'Non'=>1
+                    'Oui'=>'oui',
+                    'Non'=>'non'
                 ],
                 'expanded' => false,
                 'multiple' => false,
@@ -65,25 +85,26 @@ class AdherentType extends AbstractType
             ])
             ->add('eau', ChoiceType::class, [
                 'choices' => [
-                    'Oui'=>0,
-                    'Non'=>1 
+                    'Oui'=>'oui',
+                    'Non'=>'non'
                 ],
                 'expanded' => false,
                 'multiple' => false,
                 'label' => 'eau' 
             ])
-            ->add('installationnondisponible')
+           // ->add('installationnondisponible')
             ->add('handicap', ChoiceType::class, [
                 'choices' => [
-                    'Oui'=>0,
-                    'Non'=>1 
+                    'Oui'=>'oui',
+                    'Non'=>'non'
                 ],
                 'expanded' => false,
                 'multiple' => false,
                 'label' => 'handicap' 
             ])
-            ->add('typehandicap')
-            ->add('famillehandicap', ChoiceType::class, [
+            ->add('typehandicap', TextType::class, [
+                'required' => false])
+           /* ->add('famillehandicap', ChoiceType::class, [
                 'choices' => [
                     'Oui'=>0,
                     'Non'=>1 
@@ -91,17 +112,18 @@ class AdherentType extends AbstractType
                 'expanded' => false,
                 'multiple' => false,
                 'label' => 'famillehandicap' 
-            ])
+            ])*/
             ->add('maladiechronique', ChoiceType::class, [
                 'choices' => [
-                    'Oui'=>0,
-                    'Non'=>1 
+                    'Oui'=>'Oui',
+                    'Non'=>'Non' 
                 ],
                 'expanded' => false,
                 'multiple' => false,
                 'label' => 'maladiechronique' 
             ])
-            ->add('typemaladiechronique')
+            ->add('typemaladiechronique', TextType::class, [
+                'required' => false])
             ->add('montantrevenu')
             ->add('source')
             ->add('resume', TextareaType::class,[
@@ -109,13 +131,13 @@ class AdherentType extends AbstractType
                 'label' => 'resume' 
             ])
             ->add('demande')
-            ->add('quienregistrefichier')
-            
+            ->add('typeadherent')
             
 
             ->add('Enregistrer', SubmitType::class)
 
         ;
+    });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

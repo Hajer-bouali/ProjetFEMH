@@ -15,6 +15,7 @@ class TypeEvenementType extends AbstractType
     {
         $builder
             ->add('nom')
+           
             ->add('Enregistrer', SubmitType::class)
         ;
     }

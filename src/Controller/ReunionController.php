@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Adherent;
 use App\Entity\Decision;
 use App\Entity\Reunion;
 use App\Form\ReunionType;
@@ -72,8 +73,15 @@ class ReunionController extends AbstractController
         if ($listeadherents = $request->request->get("listeadherents")) {
             foreach ($listeadherents as $idadherent) {
                 $decision = new Decision();
+               
                 $adherent = $AdherentRepository->find($idadherent);
                 $decision->setReunion($reunion);
+                if($decision->getStatut()!="nontraitee"){
+                    $adherent->setEtatreunion(2);  
+                }
+                else{
+                    $adherent->setEtatreunion(1); 
+                }
                 $decision->setAdherent($adherent);
                 $decision->setStatut("nontraitee");
                 $decision->setDetail("nontraitee");
@@ -83,11 +91,12 @@ class ReunionController extends AbstractController
 
         $entityManager->flush();
 
-        $adherents = $AdherentRepository->findAll();
+        $adherents = $AdherentRepository->findByetatreunion(0);
         $decisions = $decisionRepository->findByreunion($reunion);
         return $this->render('reunion/show.html.twig', [
             'reunion' => $reunion,
             'decisions' => $decisions,
+            'listeadherents'=>$listeadherents,
             'adherents' => $adherents,
         ]);
     }
@@ -125,7 +134,7 @@ class ReunionController extends AbstractController
     /**
      * @Route("/deletedossier/{id}", name="dossier_delete")
      */
-    public function deletedossier(Decision $decision, Request $request, EntityManagerInterface $entityManager, AdherentRepository $AdherentRepository): Response
+    public function deletedossier(Decision $decision): Response
     {
         $em = $em = $this->getDoctrine()->getManager();
         $idreunion = $decision->getReunion()->getId();
@@ -142,7 +151,6 @@ class ReunionController extends AbstractController
         $idreunion = $decision->getReunion()->getId();
         $detail = $request->request->get("detail");
         $statut = $request->request->get("statut");
-        dd($statut);
                 $decision->setStatut($statut);
                 $decision->setDetail($detail);
                 $entityManager->persist($decision);

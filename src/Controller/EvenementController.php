@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Controller\JsonResponse;
 use App\Entity\Evenement;
 use App\Entity\Adherent;
 use App\Entity\TypeEvenement;
 use App\Form\EvenementType;
+use App\Form\AdherentType;
 use App\Repository\EvenementRepository;
+use App\Repository\OperationFinanciereRepository;
 use App\Repository\AdherentRepository;
 use App\Repository\TypeEvenementRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,11 +32,13 @@ class EvenementController extends AbstractController
             'evenements' => $evenementRepository->findAll(),
         ]);
     }
+   
 
     /**
      * @Route("/new", name="evenement_new", methods={"GET", "POST"})
      */
-    function new (Request $request, EntityManagerInterface $entityManager,TypeEvenementRepository $TypeEvenementRepository,AdherentRepository $AdherentRepository): Response {
+    function new(Request $request, EntityManagerInterface $entityManager, TypeEvenementRepository $TypeEvenementRepository, AdherentRepository $AdherentRepository): Response
+    {
         $evenement = new Evenement();
         $form = $this->createForm(EvenementType::class, $evenement);
         $form->handleRequest($request);
@@ -53,10 +58,14 @@ class EvenementController extends AbstractController
     /**
      * @Route("/{id}", name="evenement_show", methods={"GET"})
      */
-    public function show(Evenement $evenement): Response
+    public function show(Evenement $evenement, AdherentRepository  $adherentRepository, OperationFinanciereRepository $OperationFinanciereRepository): Response
     {
+        $adherents = $adherentRepository->findAll();
+        $operations = $OperationFinanciereRepository->findByEvenement($evenement);
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
+            'adherents' => $adherents,
+            'operations' => $operations,
         ]);
     }
 

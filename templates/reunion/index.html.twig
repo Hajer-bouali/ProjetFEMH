@@ -39,7 +39,7 @@
 							<b>
 								<i class="icon-reading"></i>
 							</b>
-							Ajouter un nouveau reunion</a>
+							Ajouter une nouvelle réunion</a>
 					</div>
 
 				</div>
@@ -47,7 +47,7 @@
 				<table class="table datatable-basic ">
 
 					<thead>
-						<tr class="text-center">
+						<tr>
 
 							<th>Id</th>
 							<th>Date</th>
@@ -57,7 +57,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for reunion in reunions %}
+						{% for reunion in reunions|reverse  %}
 							<tr>
 
 								<td>{{ reunion.id }}</td>
@@ -109,3 +109,6 @@
 		</div>
 	</div>
 {% endblock %}
+
+
+

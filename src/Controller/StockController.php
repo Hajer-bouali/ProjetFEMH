@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Stock;
 use App\Form\StockType;
+use App\Repository\OperationStockRepository;
 use App\Repository\StockRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,8 +30,7 @@ class StockController extends AbstractController
     /**
      * @Route("/new", name="stock_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    function new (Request $request, EntityManagerInterface $entityManager): Response {
         $stock = new Stock();
         $form = $this->createForm(StockType::class, $stock);
         $form->handleRequest($request);
@@ -61,12 +61,24 @@ class StockController extends AbstractController
     /**
      * @Route("/{id}/edit", name="stock_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Stock $stock, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Stock $stock, EntityManagerInterface $entityManager, OperationStockRepository $OperationStockRepository): Response
     {
         $form = $this->createForm(StockType::class, $stock);
         $form->handleRequest($request);
-
+        $operations = $OperationStockRepository->findByStock($stock);
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($operations as $operation) {
+                if ($operation->getTypeoperation() === 'don' && $operation->getEtat() === 'valide') {
+                    $stockquantite = $stock->getProduit()->getQuantite();
+                    $quantiteoperation = $stock->getQuantite();
+                    $stock->getProduit()->setQuantite($quantiteoperation + $stockquantite);
+                }
+                if ($operation->getTypeoperation() === 'aide' && $operation->getEtat() === 'valide') {
+                    $stockquantite = $stock->getProduit()->getQuantite();
+                    $quantiteoperation = $stock->getQuantite();
+                    $stock->setQuantite($stockquantite - $quantiteoperation);
+                }
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('stock_index', [], Response::HTTP_SEE_OTHER);
@@ -81,11 +93,10 @@ class StockController extends AbstractController
     /**
      * @Route("/delete/{id}", name="stock_delete")
      */
-    public function delete( Stock $stock, EntityManagerInterface $entityManager): Response
+    public function delete(Stock $stock, EntityManagerInterface $entityManager): Response
     {
-            $entityManager->remove($stock);
-            $entityManager->flush();
-    
+        $entityManager->remove($stock);
+        $entityManager->flush();
 
         return $this->redirectToRoute('stock_index', [], Response::HTTP_SEE_OTHER);
     }

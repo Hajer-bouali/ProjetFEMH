@@ -1,4 +1,3 @@
-
 {% extends 'base.html.twig' %}
 {% block body %}
 	<!-- Main content -->
@@ -52,126 +51,71 @@
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Date
-																</label> {{ form_widget(form.date , {attr:{'class':'form-control'}}) }}
+																<label>Nom
+																</label> {{ form_widget(form.nom , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Quantité
-																</label> {{ form_widget(form.quantite , {attr:{'class':'form-control'}}) }}
+																<label>Type d'evenement
+																</label> {{ form_widget(form.typeEvenement , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>bon d'achat
-																</label> {{ form_widget(form.bondachat , {attr:{'class':'form-control'}}) }}
+																<label>date debut
+																</label> {{ form_widget(form.datedebut , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>	Montent
-																</label> {{ form_widget(form.montent , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Quantité de laine
-																</label> {{ form_widget(form.quantitelaine , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>	Quantite de viande
-																</label> {{ form_widget(form.quantiteviande , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>numéro de dossier
-																</label> {{ form_widget(form.numerodossier , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>	Beneficiaire de couche
-																</label> {{ form_widget(form.beneficiairecouche , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>quantité de couche
-																</label> {{ form_widget(form.quantitecouche , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>	taille de couche
-																</label> {{ form_widget(form.taillecouche , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>telephone de beneficiaire de couche
-																</label> {{ form_widget(form.telbeneficiairecouche , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>	cin de beneficiaire de couche
-																</label> {{ form_widget(form.cinbeneficiairecouche , {attr:{'class':'form-control'}}) }}
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>liste des adherents
-																</label> {{ form_widget(form.adherent , {attr:{'class':'form_control form-control-select2'}}) }}
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>	le type d'evenement
-																</label> {{ form_widget(form.typeEvenement , {attr:{'class':'form-control form-control-select2'}}) }}
-															</div>
-														</div>
-													</div>
-													<div class="row">
 
-														<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} {{ form_end(form) }}
+																<label>date fin
+																</label> {{ form_widget(form.datefin , {attr:{'class':'form-control'}}) }}
+															</div>
 														</div>
-
+													</div>
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>le montant
+																</label> {{ form_widget(form.montantunitaire , {attr:{'class':'form_control'}}) }}
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>
+																	Liste produit
+																</label> {{ form_widget(form.produit , {attr:{'class':'form-control form-control-select2'}}) }}
+															</div>
+													<div class="row">
+														<div class="text-right">
+															{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+															{{ form_end(form) }}
+														</div>
 													</div>
 												</div>
-												<!-- /profile info -->
-
 											</div>
 										</div>
-										<!-- /left content -->
 									</div>
-									<!-- /inner container -->
+									<!-- /profile info -->
+
 								</div>
-								<!-- Content area -->
-
-								<div class="content"></div>
-								<!-- /content area -->
 							</div>
-
+							<!-- /left content -->
 						</div>
-
+						<!-- /inner container -->
 					</div>
+					<!-- Content area -->
+
+					<div class="content"></div>
+					<!-- /content area -->
 				</div>
+
 			</div>
+
 		</div>
-	{% endblock %}
+	</div>
+</div></div>{% endblock %}

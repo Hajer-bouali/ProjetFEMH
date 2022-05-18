@@ -35,6 +35,28 @@ class EditPasswordType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('password', RepeatedType::class, [
+                'label' => false,
+                // instead of being set onto the object directly,
+                // this is read and encoded in the controller
+                'type' => PasswordType::class,
+                'mapped' => false,
+                'attr' => ['autocomplete' => 'new-password'],
+                'first_options'=>['label'=>false],
+                'second_options'=>['label'=>false],
+                'invalid_mrssage'=>'the password fields must match',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
+            ])
             ->add('Enregistrer', SubmitType::class)
 
 

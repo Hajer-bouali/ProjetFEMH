@@ -1,16 +1,31 @@
 <?php
+
 namespace App\Controller;
+
 use App\Entity\Adherent;
+use App\Entity\Benificiaire;
+use App\Entity\Revenufamilial;
+use App\Entity\Decision;
 use App\Entity\PiecesJointes;
 use App\Form\PiecesJointesType;
 use App\Form\AdherentType;
+use App\Form\BenificiaireType;
+use App\Form\RevenufamilialType;
 use App\Repository\AdherentRepository;
+use App\Repository\DecisionRepository;
+use App\Repository\BenificiaireRepository;
+use App\Repository\RevenufamilialRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+// Include Dompdf required namespaces
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 
 /**
  * @Route("/adherent")
@@ -23,8 +38,73 @@ class AdherentController extends AbstractController
     public function index(AdherentRepository $adherentRepository): Response
     {
         return $this->render('adherent/index.html.twig', [
-            'adherents' => $adherentRepository->findByStatut('actif'),
+            'adherents' => $adherentRepository->findAll(),
         ]);
+    }
+
+    /**
+     * @Route("/{adherent}/pdf", name="adherent_pdf", methods={"GET"})
+     */
+    public function pdfadherent(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, RevenufamilialRepository $revenufamilialRepository,EntityManagerInterface $entityManager)
+    {
+     
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+        $pdfOptions->set('IsFontSubsettingEnabled', true);
+        $pdfOptions->set('IsHtml5ParserEnabled', true);
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        $dompdf->setOptions($pdfOptions);
+ 
+        $benificiaires = $benificiaireRepository->findByAdherent($adherent);
+        $benificiaire = new Benificiaire();
+        
+        $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
+        $formBen->handleRequest($request);
+
+        if ($formBen->isSubmitted() && $formBen->isValid()) {
+            $benificiaire->setAdherent($adherent);
+            $entityManager->persist($benificiaire);
+        }
+        $revenufamilials = $revenufamilialRepository->findByAdherent($adherent);
+        $revenufamilial =new Revenufamilial();
+        $formRF = $this->createForm(RevenufamilialType::class, $revenufamilial);
+        $formRF->handleRequest($request);
+ 
+        if ($formRF->isSubmitted() && $formRF->isValid()) {
+            $revenufamilial->setAdherent($adherent);
+            $entityManager->persist($revenufamilial);
+        } 
+
+
+      //  $entityManager->flush();
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('adherent/pdf.html.twig', [
+            'adherent' => $adherent,
+            'formBen' => $formBen->createView(),
+          'benificiaires' => $benificiaires,
+            'formRF' => $formRF->createView(),
+            'revenufamilials' =>$revenufamilials,
+            
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+        $dompdf->output(['isRemoteEnabled' => true]);
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("Dossier de " . $adherent->getNom() . ".pdf", [
+            "Attachment" => true
+        ]);
+        exit(0);
     }
 
     /**
@@ -33,21 +113,47 @@ class AdherentController extends AbstractController
     public function archif(AdherentRepository $adherentRepository): Response
     {
         return $this->render('adherent/archiver.html.twig', [
-            'adherents' => $adherentRepository->findByStatut('desactivé'),
+            'adherents' => $adherentRepository->findByStatut('actif'),
         ]);
     }
-
-
+    /**
+     * @Route("/valide", name="adherent_accept")
+     */
+    public function listaccepted( AdherentRepository $adherentRepository): Response
+    {
+        
+        return $this->render('adherent/accepted.html.twig', [
+            'adherents' => $adherentRepository->findByStatut('valide'),
+        ]);
+    }
+    
+    /**
+     * @Route("/refuse", name="adherent_refuse", methods={"GET"})
+     */
+    public function listrefuse(AdherentRepository $adherentRepository): Response
+    {
+        return $this->render('adherent/accepted.html.twig', [
+            'adherents' => $adherentRepository->findByStatut('refuse'),
+        ]);
+    }
     /**
      * @Route("/new", name="adherent_new",  methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
     {
         $adherent = new Adherent();
         $form = $this->createForm(AdherentType::class, $adherent);
         $form->handleRequest($request);
-        //$PiecesJointes= new PiecesJointes();
-        // $formPJ=$this->createForm(PiecesJointesType::class, $PiecesJointes);
+        $benificiaire = new Benificiaire();
+        $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
+        $formBen->handleRequest($request);
+
+        if ($formBen->isSubmitted() && $formBen->isValid()) {
+            $benificiaireRepository->add($benificiaire);
+
+            return $this->redirectToRoute('adherent_new', [], Response::HTTP_SEE_OTHER);
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $piecesjointes = $form->get('piecesjointes')->getData();
@@ -64,6 +170,12 @@ class AdherentController extends AbstractController
                 $file->setNom($fichier);
                 $adherent->addPiecesJointe($file);
             }
+            $adherent->setPrixlocation('0');
+            $adherent->setTypehandicap('0');
+            $adherent->setEtatreunion('en cour');
+            $adherent->setTypemaladiechronique('0');
+            $adherent->setResponsable($this->getUser()->getName());
+
             $entityManager->persist($adherent);
             $entityManager->flush();
 
@@ -72,28 +184,68 @@ class AdherentController extends AbstractController
 
         return $this->renderForm('adherent/new.html.twig', [
             'adherent' => $adherent,
+            'benificiaire' => $benificiaire,
+            'formBen' => $formBen,
             'form' => $form
-            // 'formPJ' => $formPJ->createView()
+        ]);
+        return $this->renderForm('benificiaire/new.html.twig', [
+            'benificiaire' => $benificiaire,
+            'formBen' => $formBen,
         ]);
     }
+
     /**
-     * @Route("/{id}", name="adherent_show", methods={"GET"})
+     * @Route("/{id}", name="adherent_show", methods={"GET", "POST"})
      */
-    public function show(Adherent $adherent): Response
+    public function show(Request $request,Adherent $adherent,RevenufamilialRepository $revenufamilialRepository,BenificiaireRepository $benificiaireRepository,EntityManagerInterface $entityManager): Response
+
     {
+        $benificiaires = $benificiaireRepository->findByAdherent($adherent);
+        $benificiaire = new Benificiaire();
+        $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
+        $formBen->handleRequest($request);
+        if ($formBen->isSubmitted() && $formBen->isValid()) {
+            $benificiaire->setAdherent($adherent);
+            $entityManager->persist($benificiaire);
+        }
+
+
+        $revenufamilials = $revenufamilialRepository->findByAdherent($adherent);
+        $revenufamilial =new Revenufamilial();
+        $formRF = $this->createForm(RevenufamilialType::class, $revenufamilial);
+        $formRF->handleRequest($request);
+
+
+        
+        if ($formRF->isSubmitted() && $formRF->isValid()) {
+            $revenufamilial->setAdherent($adherent);
+            $entityManager->persist($revenufamilial);
+        }
+
+        $entityManager->flush();
+
+
         return $this->render('adherent/show.html.twig', [
             'adherent' => $adherent,
+            'formBen' => $formBen->createView(),
+            'benificiaires' => $benificiaires,
+            'formRF' => $formRF->createView(),
+            'revenufamilials' =>$revenufamilials,
+            
         ]);
     }
     /**
-     * @Route("/{id}/edit", name="adherent_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit/", name="adherent_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Adherent $adherent, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Adherent $adherent,AdherentRepository $adherentRepository, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(AdherentType::class, $adherent);
         $form->handleRequest($request);
-
+       
         if ($form->isSubmitted() && $form->isValid()) {
+           // dd($request->request->get('adherent')['nom'], $adherentRepository->findOneBy(['id' =>$adherent])->getNom());
+            
+            
             //on recupere les fichiers
             $piecesjointes = $form->get('piecesjointes')->getData();
             //on boucle sur les fichiers
@@ -150,17 +302,9 @@ class AdherentController extends AbstractController
             $this->addFlash('success', "Desrchive effectué avec succès!");
         }
 
-        /* if (
-            $adherent->getDatearchivage() == null) {
-            $adherent->setDatearchivage(new \DateTime()); 
-            $em->persist($adherent);
-            $em->flush();
-            $this->addFlash('success', "Archive effectué avec succès!");
-        }else {
-            $this->addFlash('success', "Deja archivé !");
-        }*/
         return $this->redirectToRoute('adherent_index', ['id' => $adherent]);
     }
+    
 
     /**
      * @Route("/supprimer/piecesJointes/{id}", name="adherent_piecesJointes_delete", methods={"DELETE"})
