@@ -5,19 +5,16 @@ namespace App\Controller;
 use App\Entity\Adherent;
 use App\Entity\Benificiaire;
 use App\Entity\Revenufamilial;
-use App\Entity\Historique;
 use App\Entity\Decision;
 use App\Entity\PiecesJointes;
 use App\Form\PiecesJointesType;
 use App\Form\AdherentType;
 use App\Form\BenificiaireType;
 use App\Form\RevenufamilialType;
-use App\Form\HistoriqueType;
 use App\Repository\AdherentRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\BenificiaireRepository;
 use App\Repository\RevenufamilialRepository;
-use App\Repository\HistoriqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -140,24 +137,6 @@ class AdherentController extends AbstractController
         ]);
     }
     /**
-     * @Route("/historique/{id}", name="adherent_refuse", methods={"POST"})
-     */
-    public function listhistorique(Request $request, Adherent $adherent, AdherentRepository $adherentRepository,HistoriqueRepository $historiqueRepository,EntityManagerInterface $entityManager): Response
-    {
-        $historiques = $historiqueRepository->findByAdherent($adherent);
-        $historique = new Historique();
-        $formH = $this->createForm(HistoriqueType::class, $historique);
-        $formH->handleRequest($request);
-        if ($formH->isSubmitted() && $formH->isValid()) {
-            $historique->setAdherent($adherent);
-            $entityManager->persist($historique);
-        }
-        return $this->render('historique/Show.html.twig', [
-            'adherents' => $adherentRepository->findById(),
-            
-        ]);
-    }
-    /**
      * @Route("/new", name="adherent_new",  methods={"GET", "POST"})
      */
     public function new(Request $request, BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
@@ -262,12 +241,10 @@ class AdherentController extends AbstractController
     {
         $form = $this->createForm(AdherentType::class, $adherent);
         $form->handleRequest($request);
-        //$histrique = new Historique ;
-        //$histroique ->setDatemodif(new \DateTime('now'));
-
+       
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($request->request->get('adherent')['nom'], $adherentRepository->findOneBy(['id' =>$adherent])->getNom());
-
+           // dd($request->request->get('adherent')['nom'], $adherentRepository->findOneBy(['id' =>$adherent])->getNom());
+            
             
             //on recupere les fichiers
             $piecesjointes = $form->get('piecesjointes')->getData();
