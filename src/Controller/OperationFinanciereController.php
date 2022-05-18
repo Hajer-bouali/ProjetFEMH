@@ -8,6 +8,7 @@ use App\Entity\PieceJointeOperation;
 use App\Form\OperationFinanciereAideType;
 use App\Form\OperationFinanciereDonType;
 use App\Repository\OperationFinanciereRepository;
+use App\Services\ServiceHistorique;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,7 +69,7 @@ class OperationFinanciereController extends AbstractController
             $operationFinanciere->setResponsable($this->getUser()->getName());
             if ($operationFinanciere->getMontant()>500 && $operationFinanciere->getModepaiement()==='espece' ) {
                 $this->addFlash('warning','Le mode de paiement espéce de lopération ne peut pas dépasser 500 Dt');
-                return $this->redirectToRoute('operation_financiere_don_index');
+                return $this->redirectToRoute('operation_financiere_don_new', ['id' => $operationFinanciere->getId()]);
             }
             $entityManager->persist($operationFinanciere);
             $entityManager->flush();
@@ -85,7 +86,7 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("/newAide", name="operation_financiere_aide_new", methods={"GET", "POST"})
      */
-    public function newAide(Request $request, EntityManagerInterface $entityManager): Response
+    public function newAide(Request $request, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
         $operationFinanciere = new OperationFinanciere();
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
@@ -111,13 +112,19 @@ class OperationFinanciereController extends AbstractController
             $operationFinanciere->setResponsable($this->getUser()->getName());
             $montantoperation = $operationFinanciere->getMontant();
             $montantcaisse = $operationFinanciere->getCaisse()->getMontant();
-            if ($operationFinanciere > $montantcaisse) {
+            if ($montantoperation > $montantcaisse) {
                 $this->addFlash('warning', 'le montant est insfusent');
-                return $this->redirectToRoute('operation_financiere_aide_index');
+                return $this->redirectToRoute('operation_financiere_aide_new', ['id' => $operationFinanciere->getId()]);
             }
             $entityManager->persist($operationFinanciere);
             $entityManager->flush();
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
+            $serviceHistorique->saveModifications([
+                'user' => $this->getUser(),
+                'table' => 'operationFinanciere',
+                'ancien' => [],
+                'nouveau' => $operationFinanciere->toArray()
+            ]);
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -151,12 +158,13 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("/{id}/editAide", name="operation_financiere_aide_edit", methods={"GET", "POST"})
      */
-    public function editAide(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
+    public function editAide(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
         if (!$this->isGranted('ROLE_FINANCIERE')) {
             $formAide->remove('etat');
         }
+        $ancien = $operationFinanciere->toArray();
         $formAide->handleRequest($request);
 
         if ($formAide->isSubmitted() && $formAide->isValid()) {
@@ -173,6 +181,12 @@ class OperationFinanciereController extends AbstractController
             }
             $entityManager->flush();
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
+            $serviceHistorique->saveModifications([
+                'user' => $this->getUser(),
+                'table' => 'operationFinanciere',
+                'ancien' => $ancien,
+                'nouveau' => $operationFinanciere->toArray()
+            ]);
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -207,8 +221,8 @@ class OperationFinanciereController extends AbstractController
                 $operationFinanciere->addPieceJointeOperation($image);
             }
             if ($operationFinanciere->getMontant()>500 && $operationFinanciere->getModepaiement()==='espece' ) {
-                $this->addFlash('warning','Le mode de paiement espéce de lopération ne peut pas dépasser 500 Dt');
-                return $this->redirectToRoute('operation_financiere_don_index');
+                $this->addFlash('warning','Le mode de paiement espéce de l\'opération ne peut pas dépasser 500 Dt');
+                return $this->redirectToRoute('operation_financiere_don_edit', ['id' => $operationFinanciere->getId()]);
             }
             $entityManager->flush();
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());

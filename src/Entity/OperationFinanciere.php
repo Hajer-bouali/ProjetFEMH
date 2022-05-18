@@ -254,5 +254,12 @@ class OperationFinanciere
         return $this;
     }
 
+    public function toArray() {
+        return [
+            'montant' => $this->getMontant(),
+            'evenement' => $this->getEvenement()->getNom()
+        ];
+    }
+
 
 }
