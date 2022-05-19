@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Adherent;
+
 use App\Entity\Revenufamilial;
 use App\Form\RevenufamilialType;
 use App\Repository\RevenufamilialRepository;
@@ -68,14 +70,12 @@ class RevenufamilialController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'revenufamilial_delete', methods: ['POST'])]
-    public function delete(Request $request, Revenufamilial $revenufamilial, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}/{idadherent}', name: 'revenufamilial_delete')]
+    public function delete(Request $request, Revenufamilial $revenufamilial, $idadherent, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$revenufamilial->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($revenufamilial);
-            $entityManager->flush();
-        }
 
-        return $this->redirectToRoute('revenufamilial_index', [], Response::HTTP_SEE_OTHER);
+        $entityManager->remove($revenufamilial);
+        $entityManager->flush();
+        return $this->redirectToRoute('adherent_show', ['id' => $idadherent], Response::HTTP_SEE_OTHER);
     }
 }
