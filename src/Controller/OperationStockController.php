@@ -144,10 +144,8 @@ class OperationStockController extends AbstractController
                 $this->addFlash('warning','Désolé mais nous navons pas la quantité démandée en stock!');
                 return $this->redirectToRoute('operation_stock_aide_show', ['id' => $operationStock->getId()]);
             }
-            $stock->setOperationStock($operationStock);
-            $resultat = $resultat + ($produit->getQuantite() / $stock->getQuantite());
-           
-            //$produit->setQuantite($produit->getQuantite() - $stock->getQuantite());
+            $stock->setOperationStock($operationStock);           
+            $produit->setQuantite($produit->getQuantite() - $stock->getQuantite());
             $entityManager->persist($produit);
             $entityManager->persist($stock);
             $entityManager->flush();
