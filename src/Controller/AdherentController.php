@@ -181,6 +181,9 @@ class AdherentController extends AbstractController
         if ($formBen->isSubmitted() && $formBen->isValid()) {
             $benificiaire->setAdherent($adherent);
             $entityManager->persist($benificiaire);
+            $entityManager->flush();
+            return $this->redirectToRoute('adherent_show', ['id' => $adherent->getId()]);
+
         }
 
 
@@ -194,10 +197,12 @@ class AdherentController extends AbstractController
         if ($formRF->isSubmitted() && $formRF->isValid()) {
             $revenufamilial->setAdherent($adherent);
             $entityManager->persist($revenufamilial);
+             $entityManager->flush();
+             return $this->redirectToRoute('adherent_show', ['id' => $adherent->getId()]);
+
         }
 
-        $entityManager->flush();
-
+       
 
         return $this->render('adherent/show.html.twig', [
             'adherent' => $adherent,
