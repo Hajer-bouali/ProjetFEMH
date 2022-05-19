@@ -37,6 +37,11 @@ class Historique
      */
     private $modifications = [];
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $typeOperation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Historique
     public function setModifications(array $modifications): self
     {
         $this->modifications = $modifications;
+
+        return $this;
+    }
+
+    public function getTypeOperation(): ?string
+    {
+        return $this->typeOperation;
+    }
+
+    public function setTypeOperation(?string $typeOperation): self
+    {
+        $this->typeOperation = $typeOperation;
 
         return $this;
     }

@@ -39,7 +39,8 @@
 							<b>
 								<i class="icon-diff-removed"></i>
 							</b>
-							Ajouter une nouvelle opération Financière </a>
+							Ajouter une nouvelle opération Financière
+						</a>
 					</div>
 
 				</div>
@@ -51,7 +52,7 @@
 							<th>Montant</th>
 							<th>Caisse</th>
 							<th>Evénement</th>
-							<th>Responsable</th>	
+							<th>Responsable</th>
 							<th>Etat</th>
 							<th>actions</th>
 						</tr>
@@ -75,11 +76,19 @@
 									<a href="{{ path('operation_financiere_aide_show', {'id': operation_financiere.id}) }}" class="list-icons-item text-teal-600">
 										<i class="icon-reading"></i>
 									</a>
+									<!--bouton historique-->
+									<a href="#" data-target="#modal_affiche_historique_aide{{operation_financiere.id}}" data-toggle="modal" data-id={{operation_financiere.id}} class="list-icons-item text-pink-600">
+										<i class="icon-history"></i>
+									</a>
+									<!--/bouton historique-->
+
+									<!--modal supprimé-->
 									<div id="modal_delete{{operation_financiere.id}}" class="modal fade" tabindex="-1">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header bg-danger">
-													<h6 class="modal-title">Supprimer L'opération Financière Don {{operation_financiere.id}}</h6>
+													<h6 class="modal-title">Supprimer L'opération Financière Don
+														{{operation_financiere.id}}</h6>
 													<button type="button" class="close" data-dismiss="modal">&times;</button>
 												</div>
 
@@ -94,11 +103,43 @@
 											</div>
 										</div>
 									</div>
+									<!--/modal supprimé-->
+									<!--modal historique-->
+									<div id="modal_affiche_historique_aide{{operation_financiere.id}}" class="modal fade" tabindex="-1">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header bg-pink">
+													<h6 class="modal-title">liste des historiques d'operation
+														{{operation_financiere.id}}</h6>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+
+												<div class="modal-body">
+													
+														{{ historiqueaides.datemodif }}
+														{{ historiqueaides.modifications }}
+														{{historiqueaides.getUser}}
+
+
+													
+												</div>
+
+												<div class="modal-footer">
+													<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+													<a type="button" class="btn bg-pink" href="{{path("operation_financiere_aide_delete" , {id: operation_financiere.id})}}">Valider</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!--/modal historique-->
 								</td>
 							</tr>
 						{% endfor %}
+
 					</tbody>
 				</table>
+
 				<!-- /basic datatable -->
 			</div>
 
