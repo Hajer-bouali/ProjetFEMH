@@ -37,10 +37,6 @@ class Evenement
      */
     private $nom;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, inversedBy="evenements")
-     */
-    private $produit;
 
     /**
      * @ORM\Column(type="date")
@@ -67,13 +63,18 @@ class Evenement
      */
     private $montantunitaire;
 
+    /**
+     * @ORM\OneToMany(targetEntity=FicheTechnique::class, mappedBy="evenement")
+     */
+    private $ficheTechniques;
+
 
     public function __construct()
     {
         $this->adherent = new ArrayCollection();
-        $this->produit = new ArrayCollection();
         $this->operationFinancieres = new ArrayCollection();
         $this->operationStocks = new ArrayCollection();
+        $this->ficheTechniques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,34 +131,6 @@ class Evenement
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Produit>
-     */
-    public function getProduit(): Collection
-    {
-        return $this->produit;
-    }
-
-    public function addProduit(Produit $produit): self
-    {
-        if (!$this->produit->contains($produit)) {
-            $this->produit[] = $produit;
-        }
-
-        return $this;
-    }
-
-    public function removeProduit(Produit $produit): self
-    {
-        $this->produit->removeElement($produit);
-
-        return $this;
-    }
-
-
-   
-
   
     public function getDatedebut(): ?\DateTimeInterface
     {
@@ -253,6 +226,36 @@ class Evenement
     public function setMontantunitaire(float $montantunitaire): self
     {
         $this->montantunitaire = $montantunitaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FicheTechnique>
+     */
+    public function getFicheTechniques(): Collection
+    {
+        return $this->ficheTechniques;
+    }
+
+    public function addFicheTechnique(FicheTechnique $ficheTechnique): self
+    {
+        if (!$this->ficheTechniques->contains($ficheTechnique)) {
+            $this->ficheTechniques[] = $ficheTechnique;
+            $ficheTechnique->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFicheTechnique(FicheTechnique $ficheTechnique): self
+    {
+        if ($this->ficheTechniques->removeElement($ficheTechnique)) {
+            // set the owning side to null (unless already changed)
+            if ($ficheTechnique->getEvenement() === $this) {
+                $ficheTechnique->setEvenement(null);
+            }
+        }
 
         return $this;
     }

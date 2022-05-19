@@ -44,35 +44,43 @@
 														Créer un nouveau événement
 													</h5>
 													<div class="header-elements"></div>
-												</div>
-
-												<div class="card-body"> {{ form_start(form) }}
-
+												</div> {{ form_start(form , {attr:{'class':'wizard-form steps-validation'}}) }}
+												<h6>Créer un nouveau evenement</h6>
+												<fieldset>
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Nom
-																</label> {{ form_widget(form.nom , {attr:{'class':'form-control'}}) }}
+																	<span class="text-danger">*</span>
+																</label> {{ form_widget(form.nom , {attr:{'class':'form-control','placeholder':'Nom'}}) }}
 															</div>
 														</div>
+
 														<div class="col-md-6">
 															<div class="form-group">
 																<label>Type d'événement
-																</label> {{ form_widget(form.typeEvenement , {attr:{'class':'form-control'}}) }}
+																	<span class="text-danger">*</span>
+																</label> {{ form_widget(form.typeEvenement , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>date début
+
+																<label>Date début<span class="text-danger">*</span>
+
+													
+
 																</label> {{ form_widget(form.datedebut , {attr:{'class':'form-control'}}) }}
+
 															</div>
 														</div>
+
 														<div class="col-md-6">
 															<div class="form-group">
-
-																<label>date fin
+																<label>Date fin
+																	<span class="text-danger">*</span>
 																</label> {{ form_widget(form.datefin , {attr:{'class':'form-control'}}) }}
 															</div>
 														</div>
@@ -80,23 +88,174 @@
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
+																
 																<label>Montant (si vous pouvez soutenir l'événement de caisse)
 																</label> {{ form_widget(form.montantunitaire , {attr:{'class':'form_control'}}) }}
+
 															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>
-																	Liste produit
-																</label> {{ form_widget(form.produit , {attr:{'class':'form-control form-control-select2'}}) }}
-															</div>
-													<div class="row">
-														<div class="text-right">
-															{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
-															{{ form_end(form) }}
 														</div>
 													</div>
+
+												</fieldset>
+												<h6>Créer son fiche technique</h6>
+												<fieldset>
+													<div class="title-right">
+														<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" data-target="#modal_ajout_produit" data-toggle="modal">
+															<b>
+																<i class="icon-reading"></i>
+															</b>
+															Ajouter un nouveau produit
+														</a>
+													</div>
+													<table class="table datatable-basic">
+
+														<thead>
+															<tr>
+																<th>
+																	Id
+
+																</th>
+																<th>
+																	produit
+																</th>
+																<th>
+																	Quantité
+																</th>
+																<th>
+																	Unite
+																</th>
+																<th>
+																	Nombre panier
+																</th>
+																<th>
+																	Actions
+
+																</th>
+															</tr>
+														</thead>
+														<tbody>
+															{% for ficheTechnique in ficheTechniques %}
+																<tr>
+
+																	<td> {{ ficheTechnique.id }}
+																	</td>
+																	<td> {{ ficheTechnique.produit.intitule }}
+																	</td>
+
+																	<td> {{ ficheTechnique.quantite }}
+																	</td>
+																	<td> {{ ficheTechnique.unite }}
+																	</td>
+																	<td> {{ ficheTechnique.nbstockproduit }}
+																	</td>
+																	<td>
+																		<div
+																			class="list-icons">
+																			<!--bouton trach-->
+																			<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{ app_fiche_technique_delete.id }}" data-toggle="modal">
+																				<i class="icon-trash"></i>
+																			</a>
+																			<!--/bouton trach-->
+
+																		</div>
+																	</td>
+																</tr>
+
+																<div id="modal_delete{{ evenement.id }}" class="modal fade" tabindex="-1">
+																	<div class="modal-dialog">
+																		<div class="modal-content">
+																			<div class="modal-header bg-danger">
+																				<h4 class="modal-title">
+																					Confirmez-vous la suppression du produit {{ fichetechnique.produit.intitule }}
+																					de la {{ fichetechnique.id }}
+																					?
+																				</h4>
+																				<button type="button" class="close" data-dismiss="modal">
+																					&times;
+
+																				</button>
+																			</div>
+
+																			<div class="modal-body">
+																				<p>
+																					<h5>Voulez vous supprimer le produit {{fichetechnique.produit.intitule}}?</h5>
+																				</p><br><h6>si vous confirmez, votre produit sera effacé</h6>
+																			</div>
+
+																			<div class="modal-footer">
+																				<button type="button" class="btn btn-link" data-dismiss="modal">
+																					Fermer
+
+																				</button>
+																				<a type="button" class="btn bg-danger" href="{{ path("app_fiche_technique_delete" , {id: stock.id}) }}">
+																					Valider
+
+																				</a>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															{% endfor %}
+															<!--modal_ajout_produit-->
+													<div id="modal_ajout_produit" class="modal fade" tabindex="-1">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header bg-primary">
+																<h4 class="modal-title">
+																	<label class="d-block font-weight-semibold">Vous allez ajouter un produit au fiche technique</label>
+																</h4>
+
+																<button type="button" class="close" data-dismiss="modal">
+																	&times;
+																</button>
+															</div> {{ form_start(formfichetechnique) }}
+
+															<div class="modal-body">
+																<div class="row">
+
+																	<div class="col-md-6">
+																		<div class="form-group">
+																			<label>Produit
+																				<span class="text-danger"></span>
+																			</label> {{ form_widget(formfichetechnique.produit, {attr:{'class':'form-control form-control-select2'}}) }}
+																		</div>
+																	</div>
+																	<div class="col-md-6">
+																		<div class="form-group">
+																			<label>Quantite
+																				<span class="text-danger"></span>
+																			</label> {{ form_widget(formfichetechnique.quantite, {attr:{'class':'form-control'}}) }}
+																		</div>
+																	</div>
+																</div>
+																<div class="row">
+
+																	<div class="col-md-6">
+																		<div class="form-group">
+																			<label>Unite
+																				<span class="text-danger"></span>
+																			</label> {{ form_widget(formfichetechnique.unite, {attr:{'class':'form-control form-control-select2'}}) }}
+																		</div>
+																	</div>
+																</div>
+
+															</div>
+															<div class="modal-footer">
+																<div class="text-right"> {{ form_row(formfichetechnique.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+																</div>
+															</div> {{ form_end(formfichetechnique) }}
+														</div>
+													</div>
+													<!--/modal_ajout_benificiaire-->
 												</div>
+														</tbody>
+
+													</table>
+													
+														<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} {{ form_end(form) }}
+														</div>
+											
+												</fieldset>
 											</div>
 										</div>
 									</div>

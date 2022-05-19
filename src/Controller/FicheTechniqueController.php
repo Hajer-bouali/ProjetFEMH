@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\FicheTechnique;
+use App\Form\FicheTechniqueType;
+use App\Repository\FicheTechniqueRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+
+/**
+ * @Route("/fiche/technique")
+ */
+class FicheTechniqueController extends AbstractController
+{
+     /**
+     * @Route("/", name="app_fiche_technique_index", methods={"GET"})
+     */
+    public function index(EntityManagerInterface $entityManager): Response
+    {
+        $ficheTechniques = $entityManager
+            ->getRepository(FicheTechnique::class)
+            ->findAll();
+
+        return $this->render('fiche_technique/index.html.twig', [
+            'fiche_techniques' => $ficheTechniques,
+        ]);
+    }
+
+    /**
+     * @Route("/new", name="app_fiche_technique_new", methods={"GET" , "POST"})
+     */
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $ficheTechnique = new FicheTechnique();
+        $form = $this->createForm(FicheTechniqueType::class, $ficheTechnique);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($ficheTechnique);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_fiche_technique_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('fiche_technique/new.html.twig', [
+            'fiche_technique' => $ficheTechnique,
+            'form' => $form,
+        ]);
+    }
+
+      /**
+     * @Route("/{id}", name="app_fiche_technique_new", methods={"GET"})
+     */
+    public function show(FicheTechnique $ficheTechnique): Response
+    {
+        return $this->render('fiche_technique/show.html.twig', [
+            'fiche_technique' => $ficheTechnique,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="app_fiche_technique_delete", methods={"GET" , "POST"})
+     */
+    public function edit(Request $request, FicheTechnique $ficheTechnique, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(FicheTechniqueType::class, $ficheTechnique);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_fiche_technique_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('fiche_technique/edit.html.twig', [
+            'fiche_technique' => $ficheTechnique,
+            'form' => $form,
+        ]);
+    }
+    /**
+     * @Route("/delete/{id}", name="app_fiche_technique_delete")
+     */
+    public function delete(Request $request, FicheTechnique $ficheTechnique, EntityManagerInterface $entityManager): Response
+    {
+            $entityManager->remove($ficheTechnique);
+            $entityManager->flush();
+  
+
+        return $this->redirectToRoute('app_fiche_technique_index', [], Response::HTTP_SEE_OTHER);
+    }
+}

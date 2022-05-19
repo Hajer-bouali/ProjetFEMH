@@ -54,9 +54,14 @@ class Produit
      */
     private $stocks;
 
+    /**
+     * @ORM\OneToMany(targetEntity=FicheTechnique::class, mappedBy="produit")
+     */
+    private $ficheTechniques;
+
     public function __construct()
     {
-        $this->stocks = new ArrayCollection();
+        $this->ficheTechniques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,5 +176,34 @@ class Produit
         return $this;
     }
 
+    /**
+     * @return Collection<int, FicheTechnique>
+     */
+    public function getFicheTechniques(): Collection
+    {
+        return $this->ficheTechniques;
+    }
+
+    public function addFicheTechnique(FicheTechnique $ficheTechnique): self
+    {
+        if (!$this->ficheTechniques->contains($ficheTechnique)) {
+            $this->ficheTechniques[] = $ficheTechnique;
+            $ficheTechnique->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFicheTechnique(FicheTechnique $ficheTechnique): self
+    {
+        if ($this->ficheTechniques->removeElement($ficheTechnique)) {
+            // set the owning side to null (unless already changed)
+            if ($ficheTechnique->getProduit() === $this) {
+                $ficheTechnique->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
 
 }
