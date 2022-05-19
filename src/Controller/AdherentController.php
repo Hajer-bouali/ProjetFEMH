@@ -5,19 +5,16 @@ namespace App\Controller;
 use App\Entity\Adherent;
 use App\Entity\Benificiaire;
 use App\Entity\Revenufamilial;
-use App\Entity\Historique;
 use App\Entity\Decision;
 use App\Entity\PiecesJointes;
 use App\Form\PiecesJointesType;
 use App\Form\AdherentType;
 use App\Form\BenificiaireType;
 use App\Form\RevenufamilialType;
-use App\Form\HistoriqueType;
 use App\Repository\AdherentRepository;
 use App\Repository\DecisionRepository;
 use App\Repository\BenificiaireRepository;
 use App\Repository\RevenufamilialRepository;
-use App\Repository\HistoriqueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -53,45 +50,19 @@ class AdherentController extends AbstractController
      
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
+        //$dompdf = new Dompdf(array('enable_remote' => true));
+
         $pdfOptions->set('defaultFont', 'Arial');
         $pdfOptions->setIsRemoteEnabled(true);
         $pdfOptions->set('IsFontSubsettingEnabled', true);
         $pdfOptions->set('IsHtml5ParserEnabled', true);
+
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
         $dompdf->setOptions($pdfOptions);
- 
-        $benificiaires = $benificiaireRepository->findByAdherent($adherent);
-        $benificiaire = new Benificiaire();
-        
-        $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
-        $formBen->handleRequest($request);
-
-        if ($formBen->isSubmitted() && $formBen->isValid()) {
-            $benificiaire->setAdherent($adherent);
-            $entityManager->persist($benificiaire);
-        }
-        $revenufamilials = $revenufamilialRepository->findByAdherent($adherent);
-        $revenufamilial =new Revenufamilial();
-        $formRF = $this->createForm(RevenufamilialType::class, $revenufamilial);
-        $formRF->handleRequest($request);
- 
-        if ($formRF->isSubmitted() && $formRF->isValid()) {
-            $revenufamilial->setAdherent($adherent);
-            $entityManager->persist($revenufamilial);
-        } 
-
-
-      //  $entityManager->flush();
-
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('adherent/pdf.html.twig', [
             'adherent' => $adherent,
-            'formBen' => $formBen->createView(),
-          'benificiaires' => $benificiaires,
-            'formRF' => $formRF->createView(),
-            'revenufamilials' =>$revenufamilials,
-            
         ]);
         
         // Load HTML to Dompdf
@@ -99,13 +70,14 @@ class AdherentController extends AbstractController
         
         // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
         $dompdf->setPaper('A4', 'portrait');
-
+        
         // Render the HTML as PDF
         $dompdf->render();
-        $dompdf->output(['isRemoteEnabled' => true]);
+        
+        $dompdf->output(['isRemoteEnabled' => false]);
         // Output the generated PDF to Browser (force download)
         $dompdf->stream("Dossier de " . $adherent->getNom() . ".pdf", [
-            "Attachment" => true
+            "Attachment" => false
         ]);
         exit(0);
     }
@@ -137,24 +109,6 @@ class AdherentController extends AbstractController
     {
         return $this->render('adherent/accepted.html.twig', [
             'adherents' => $adherentRepository->findByStatut('refuse'),
-        ]);
-    }
-    /**
-     * @Route("/historique/{id}", name="adherent_refuse", methods={"POST"})
-     */
-    public function listhistorique(Request $request, Adherent $adherent, AdherentRepository $adherentRepository,HistoriqueRepository $historiqueRepository,EntityManagerInterface $entityManager): Response
-    {
-        $historiques = $historiqueRepository->findByAdherent($adherent);
-        $historique = new Historique();
-        $formH = $this->createForm(HistoriqueType::class, $historique);
-        $formH->handleRequest($request);
-        if ($formH->isSubmitted() && $formH->isValid()) {
-            $historique->setAdherent($adherent);
-            $entityManager->persist($historique);
-        }
-        return $this->render('historique/Show.html.twig', [
-            'adherents' => $adherentRepository->findById(),
-            
         ]);
     }
     /**
@@ -261,12 +215,10 @@ class AdherentController extends AbstractController
     {
         $form = $this->createForm(AdherentType::class, $adherent);
         $form->handleRequest($request);
-        //$histrique = new Historique ;
-        //$histroique ->setDatemodif(new \DateTime('now'));
-
+       
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($request->request->get('adherent')['nom'], $adherentRepository->findOneBy(['id' =>$adherent])->getNom());
-
+           // dd($request->request->get('adherent')['nom'], $adherentRepository->findOneBy(['id' =>$adherent])->getNom());
+            
             
             //on recupere les fichiers
             $piecesjointes = $form->get('piecesjointes')->getData();

@@ -44,63 +44,55 @@
 
 			<!-- Basic datatable -->
 			<div class="card">
+
 				<div class="card-header header-elements-inline">
 
 					<h4 class="card-title">
-						l'evenement
+						Evenement de :
 						{{ evenement.nom }}
 					</h4>
 				</div>
-				<div class="card-header header-elements-inline"></div>
-				<div class="form-group">
 
 
-					<div class="d-flex align-items-center">
-						<i class="icon-calendar mr-2 icon-4x"></i>
-						<div class="font-weight-black ">Type d'evenement :</div>
+				<div class="row">
 
-						<samp class="font-size-lg">{{ evenement.typeEvenement}}</samp>
-					</div>
 
-					<br>
-						<div class="d-flex align-items-center">
-							<i class="icon-calendar2 mr-2 icon-4x"></i>
-							<div class="font-weight-black">Date debut d'evenement :
+					
+					<div class="col-lg-4">
+						<div class="for-group">
+
+
+							<div class="d-flex align-items-center">
+								<i class="icon-calendar mr-2 icon-4x"></i>
+								<div class="font-weight-black ">Type d'evenement :</div>
+
+								<samp class="font-size-lg">{{ evenement.typeEvenement}}</samp>
 							</div>
-							<samp class="font-size-lg">{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</samp>
 
-						</div>
-					</br>
-					<h5 class="card-title">
-						Faire la recherche des dossiers selon :
-					</h5>
-					<div class="row">
+							<br>
+							<div class="d-flex align-items-center">
+								<i class="icon-calendar2 mr-2 icon-4x"></i>
+								<div class="font-weight-black">Date debut d'evenement :
+								</div>
+								<samp class="font-size-lg">{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</samp>
 
-						<div class="col-md-3">
-
-
-							Montant de revenu:
-
-							<input type="text" value class="form-control">
-
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-									Nombre membre famille:
-								<input type="text" value class="form-control">
 							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-									type de logement:
-								<input type="text" value class="form-control">
+							<br>
+							<div class="d-flex align-items-center">
+								<i class="icon-calendar2 mr-2 icon-4x"></i>
+								<div class="font-weight-black">Date fin d'evenement :
+								</div>
+								<samp class="font-size-lg">{{ evenement.datefin ? evenement.datefin|date('Y-m-d') : '' }}</samp>
+
 							</div>
+
+
 						</div>
 					</div>
-
 
 				</div>
-				
+
+
 				<table class="table datatable-basic">
 
 					<thead>
@@ -123,133 +115,29 @@
 
 								<td>
 									<div class="list-icons">
-										<a href="{{ path('adherent_edit', {'id': adherent.id}) }}" class="list-icons-item text-primary-600">
-											<i class="icon-pencil7"></i>
-										</a>
+
 
 										{% if adherent.statut=="actif"%}
-											<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal">
-												<i class="icon-folder-remove"></i>
-											</a>
+											<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal"></a>
 										{% else %}
-											<a href="#" class="list-icons-item text-darck-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal">
-												<i class="icon-folder-remove"></i>
-											</a>
+											<a href="#" class="list-icons-item text-darck-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal"></a>
 										{% endif %}
 										<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600">
 											<i class="icon-reading"></i>
 										</a>
-										<!--bouton historique-->
-										<a href="#" class="list-icons-item text-pink-600">
-											<i class="icon-folder-search "></i>
+										<a href="#" class="list-icons-item text-teal-600">
+											<i class="icon-checkmark-circle text-green"></i>
 										</a>
-										<!--/bouton historique-->
-										<div class="list-icons">
-											<div class="dropdown">
-												<a href="#" class="list-icons-item" data-toggle="dropdown">
-													<i class="icon-menu9"></i>
-												</a>
-
-												<div class="dropdown-menu dropdown-menu-right">
-													<a href="{{ url('adherent_pdf', {'adherent': adherent.id}) }}" class="dropdown-item">
-														<i class="icon-file-pdf"></i>
-														Export to .pdf</a>
-													<a href="#" class="dropdown-item">
-														<i class="icon-file-word"></i>
-														Export to .doc</a>
-												</div>
-											</div>
-										</div>
 									</div>
-
-
 								</td>
 								<td class="text-center"></td>
-
 							</tr>
-							<!--modal archive-->
-							<div id="modal_archive{{adherent.id}}" class="modal fade" tabindex="-1">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header bg-danger">
-											<h4 class="modal-title">Confirmez-vous l'archivage ?
-											</h4>
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-										</div>
-
-										<div class="modal-body">
-											<p>
-												<h5>Voulez vous archiver le dossier de
-													{{adherent.nom}}?</h5>
-											</p><br><h6>si vous confirmez, votre dossier sera deplacer au archive</h6>
-										</div>
-
-										<div class="modal-footer">
-											<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-											<a type="button" class="btn bg-danger" href="{{path("adherent_archiver" , {adherent: adherent.id,statut:'desactivé'})}}">Valider</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!--/modal archiver-->
-							<!--modal desarchive-->
-							<div id="modal_desarchive{{adherent.id}}" class="modal fade" tabindex="-1">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header bg-primary">
-											<h4 class="modal-title">Confirmez-vous le desarchivage ?
-											</h4>
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-										</div>
-
-										<div class="modal-body">
-											<p>
-												<h5>Voulez vous desarchiver le dossier de
-													{{adherent.nom}}?</h5>
-											</p><br><h6>si vous confirmez, votre dossier sera deplacer au liste des adherents</h6>
-										</div>
-
-										<div class="modal-footer">
-											<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-											<a type="button" class="btn bg-primary" href="{{path("adherent_archiver" , {adherent: adherent.id,statut:'actif'})}}">Valider</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!--/modal disarchiver-->
-
-							<!--modal supression-->
-							<div id="modal_delete{{adherent.id}}" class="modal fade" tabindex="-1">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header bg-danger">
-											<h4 class="modal-title">Confirmez-vous la suppression ?
-											</h4>
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-										</div>
-
-										<div class="modal-body">
-											<p>
-												<h5>Voulez vous supprimer le dossier de
-													{{adherent.nom}}?</h5>
-											</p><br><h6>si vous confirmez, votre dossier sera effacé</h6>
-										</div>
-
-										<div class="modal-footer">
-											<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-											<a type="button" class="btn bg-danger" href="{{path("adherent_delete" , {id: adherent.id})}}">Valider</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!--/modal supression-->
-
-
 						{% endfor %}
-
 					</tbody>
-
 				</table>
 
+			</div>
+
+		</div>
 	</div>
-{% endblock %}
+</div>{% endblock %}
