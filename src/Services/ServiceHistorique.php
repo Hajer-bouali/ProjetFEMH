@@ -23,7 +23,8 @@ class ServiceHistorique {
         $historique->setDatemodif(new \DateTime('now'));
         $historique->setTableModifiee($params['table']);
         $historique->setModifications($modifications);
-        $historique->setTypeOperation($params('typeoperation'));
+        $historique->setTypeOperation($params['typeoperation']);
+        $historique->setIdligne($params['idligne']);
         $this->entityManager->persist($historique);
         $this->entityManager->flush();
     }

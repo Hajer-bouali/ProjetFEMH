@@ -7,8 +7,8 @@ use App\Entity\OperationFinanciere;
 use App\Entity\PieceJointeOperation;
 use App\Form\OperationFinanciereAideType;
 use App\Form\OperationFinanciereDonType;
-use App\Repository\OperationFinanciereRepository;
 use App\Repository\HistoriqueRepository;
+use App\Repository\OperationFinanciereRepository;
 use App\Services\ServiceHistorique;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ class OperationFinanciereController extends AbstractController
      */
     public function indexdon(OperationFinanciereRepository $operationFinanciereRepository): Response
     {
-        
+
         return $this->render('operation_financiere_don/index.html.twig', [
             'operation_financieres' => $operationFinanciereRepository->findAll('don'),
         ]);
@@ -37,10 +37,11 @@ class OperationFinanciereController extends AbstractController
      */
     public function indexaide(OperationFinanciereRepository $operationFinanciereRepository, HistoriqueRepository $historiquerepository): Response
     {
-        $historiqueaides= $historiquerepository-> findByTypeOperation('aide');
+        $operation_financieres = $operationFinanciereRepository->findByTypeoperation('aide');
+        $historiqueaides = $historiquerepository->findByTableModifiee('operationFinanciere');
         return $this->render('operation_financiere_aide/index.html.twig', [
-            'historiqueaides'=>$historiqueaides,
-            'operation_financieres' => $operationFinanciereRepository->findByTypeoperation('aide'),
+            'historiqueaides' => $historiqueaides,
+            'operation_financieres' => $operation_financieres,
         ]);
     }
 
@@ -71,8 +72,8 @@ class OperationFinanciereController extends AbstractController
             $operationFinanciere->setTypeoperation('don');
             $operationFinanciere->setEtat('Demande');
             $operationFinanciere->setResponsable($this->getUser()->getName());
-            if ($operationFinanciere->getMontant()>500 && $operationFinanciere->getModepaiement()==='espece' ) {
-                $this->addFlash('warning','Le mode de paiement espéce de lopération ne peut pas dépasser 500 Dt');
+            if ($operationFinanciere->getMontant() > 500 && $operationFinanciere->getModepaiement() === 'espece') {
+                $this->addFlash('warning', 'Le mode de paiement espéce de lopération ne peut pas dépasser 500 Dt');
                 return $this->redirectToRoute('operation_financiere_don_new', ['id' => $operationFinanciere->getId()]);
             }
             $entityManager->persist($operationFinanciere);
@@ -90,7 +91,7 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("/newAide", name="operation_financiere_aide_new", methods={"GET", "POST"})
      */
-    public function newAide(Request $request, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique ): Response
+    public function newAide(Request $request, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
         $operationFinanciere = new OperationFinanciere();
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
@@ -123,12 +124,15 @@ class OperationFinanciereController extends AbstractController
             $entityManager->persist($operationFinanciere);
             $entityManager->flush();
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
+
             $serviceHistorique->saveModifications([
                 'user' => $this->getUser(),
                 'table' => 'operationFinanciere',
                 'ancien' => [],
                 'nouveau' => $operationFinanciere->toArray(),
-                'typeoperation' => 'aide'
+                'typeoperation' => 'ajout',
+                'idligne' => $operationFinanciere->getId(),
+
             ]);
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
@@ -136,7 +140,6 @@ class OperationFinanciereController extends AbstractController
 
         return $this->renderForm('operation_financiere_aide/new.html.twig', [
             'operation_financiere' => $operationFinanciere,
-            'historiqueaides' => $historiqueaides,
             'formAide' => $formAide,
         ]);
     }
@@ -188,10 +191,13 @@ class OperationFinanciereController extends AbstractController
             $entityManager->flush();
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
             $serviceHistorique->saveModifications([
+
                 'user' => $this->getUser(),
                 'table' => 'operationFinanciere',
                 'ancien' => $ancien,
-                'nouveau' => $operationFinanciere->toArray()
+                'nouveau' => $operationFinanciere->toArray(),
+                'typeoperation' => 'edit',
+                'idligne' => $operationFinanciere->getId(),
             ]);
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
@@ -226,8 +232,8 @@ class OperationFinanciereController extends AbstractController
                 $image->setNom($fichier);
                 $operationFinanciere->addPieceJointeOperation($image);
             }
-            if ($operationFinanciere->getMontant()>500 && $operationFinanciere->getModepaiement()==='espece' ) {
-                $this->addFlash('warning','Le mode de paiement espéce de l\'opération ne peut pas dépasser 500 Dt');
+            if ($operationFinanciere->getMontant() > 500 && $operationFinanciere->getModepaiement() === 'espece') {
+                $this->addFlash('warning', 'Le mode de paiement espéce de l\'opération ne peut pas dépasser 500 Dt');
                 return $this->redirectToRoute('operation_financiere_don_edit', ['id' => $operationFinanciere->getId()]);
             }
             $entityManager->flush();
