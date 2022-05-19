@@ -50,45 +50,19 @@ class AdherentController extends AbstractController
      
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
+        //$dompdf = new Dompdf(array('enable_remote' => true));
+
         $pdfOptions->set('defaultFont', 'Arial');
         $pdfOptions->setIsRemoteEnabled(true);
         $pdfOptions->set('IsFontSubsettingEnabled', true);
         $pdfOptions->set('IsHtml5ParserEnabled', true);
+
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
         $dompdf->setOptions($pdfOptions);
- 
-        $benificiaires = $benificiaireRepository->findByAdherent($adherent);
-        $benificiaire = new Benificiaire();
-        
-        $formBen = $this->createForm(BenificiaireType::class, $benificiaire);
-        $formBen->handleRequest($request);
-
-        if ($formBen->isSubmitted() && $formBen->isValid()) {
-            $benificiaire->setAdherent($adherent);
-            $entityManager->persist($benificiaire);
-        }
-        $revenufamilials = $revenufamilialRepository->findByAdherent($adherent);
-        $revenufamilial =new Revenufamilial();
-        $formRF = $this->createForm(RevenufamilialType::class, $revenufamilial);
-        $formRF->handleRequest($request);
- 
-        if ($formRF->isSubmitted() && $formRF->isValid()) {
-            $revenufamilial->setAdherent($adherent);
-            $entityManager->persist($revenufamilial);
-        } 
-
-
-      //  $entityManager->flush();
-
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('adherent/pdf.html.twig', [
             'adherent' => $adherent,
-            'formBen' => $formBen->createView(),
-          'benificiaires' => $benificiaires,
-            'formRF' => $formRF->createView(),
-            'revenufamilials' =>$revenufamilials,
-            
         ]);
         
         // Load HTML to Dompdf
@@ -96,13 +70,14 @@ class AdherentController extends AbstractController
         
         // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
         $dompdf->setPaper('A4', 'portrait');
-
+        
         // Render the HTML as PDF
         $dompdf->render();
-        $dompdf->output(['isRemoteEnabled' => true]);
+        
+        $dompdf->output(['isRemoteEnabled' => false]);
         // Output the generated PDF to Browser (force download)
         $dompdf->stream("Dossier de " . $adherent->getNom() . ".pdf", [
-            "Attachment" => true
+            "Attachment" => false
         ]);
         exit(0);
     }

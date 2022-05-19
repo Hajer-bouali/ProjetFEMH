@@ -8,6 +8,7 @@ use App\Entity\PieceJointeOperation;
 use App\Form\OperationFinanciereAideType;
 use App\Form\OperationFinanciereDonType;
 use App\Repository\OperationFinanciereRepository;
+use App\Repository\HistoriqueRepository;
 use App\Services\ServiceHistorique;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,6 +26,7 @@ class OperationFinanciereController extends AbstractController
      */
     public function indexdon(OperationFinanciereRepository $operationFinanciereRepository): Response
     {
+        
         return $this->render('operation_financiere_don/index.html.twig', [
             'operation_financieres' => $operationFinanciereRepository->findAll('don'),
         ]);
@@ -33,9 +35,11 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("/aide", name="operation_financiere_aide_index", methods={"GET"})
      */
-    public function indexaide(OperationFinanciereRepository $operationFinanciereRepository): Response
+    public function indexaide(OperationFinanciereRepository $operationFinanciereRepository, HistoriqueRepository $historiquerepository): Response
     {
+        $historiqueaides= $historiquerepository-> findByTypeOperation('aide');
         return $this->render('operation_financiere_aide/index.html.twig', [
+            'historiqueaides'=>$historiqueaides,
             'operation_financieres' => $operationFinanciereRepository->findByTypeoperation('aide'),
         ]);
     }
@@ -86,7 +90,7 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("/newAide", name="operation_financiere_aide_new", methods={"GET", "POST"})
      */
-    public function newAide(Request $request, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
+    public function newAide(Request $request, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique ): Response
     {
         $operationFinanciere = new OperationFinanciere();
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
@@ -123,7 +127,8 @@ class OperationFinanciereController extends AbstractController
                 'user' => $this->getUser(),
                 'table' => 'operationFinanciere',
                 'ancien' => [],
-                'nouveau' => $operationFinanciere->toArray()
+                'nouveau' => $operationFinanciere->toArray(),
+                'typeoperation' => 'aide'
             ]);
 
             return $this->redirectToRoute('operation_financiere_aide_index', [], Response::HTTP_SEE_OTHER);
@@ -131,6 +136,7 @@ class OperationFinanciereController extends AbstractController
 
         return $this->renderForm('operation_financiere_aide/new.html.twig', [
             'operation_financiere' => $operationFinanciere,
+            'historiqueaides' => $historiqueaides,
             'formAide' => $formAide,
         ]);
     }
