@@ -115,12 +115,28 @@
 												</div>
 
 												<div class="modal-body">
-													
-														{{ historiqueaides.datemodif }}
-														{{ historiqueaides.modifications }}
-														{{historiqueaides.getUser}}
 
-
+												<table class="table datatable-basic">
+												<thead>
+													<tr>
+														<th>Id</th>
+														<th>User</th>
+														<th>Date</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for historiqueaide in historiqueaides  %}
+														{% if historiqueaide.id == operation_financiere.id %}
+															<tr>
+																<td>{{ historiqueaide.id }}</td>
+																<td>{{ historiqueaide.user }}</td>
+																<td>{{ historiqueaide.datemodif|date('d-m-Y-h:m:s') }}</td>
+															</tr>
+														{% endif %}
+													{% endfor %}
+							
+												</tbody>
+											</table>
 													
 												</div>
 

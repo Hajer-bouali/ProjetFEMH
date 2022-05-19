@@ -42,6 +42,11 @@ class Historique
      */
     private $typeOperation;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $idligne;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,4 +111,17 @@ class Historique
 
         return $this;
     }
+
+    public function getIdligne(): ?int
+    {
+        return $this->idligne;
+    }
+
+    public function setIdligne(int $idligne): self
+    {
+        $this->idligne = $idligne;
+
+        return $this;
+    }
+    
 }

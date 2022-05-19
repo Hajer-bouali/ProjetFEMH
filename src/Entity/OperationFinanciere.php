@@ -256,6 +256,7 @@ class OperationFinanciere
 
     public function toArray() {
         return [
+            'aideOUdon'=> $this->getTypeoperation(),
             'montant' => $this->getMontant(),
             'evenement' => $this->getEvenement()->getNom()
         ];
