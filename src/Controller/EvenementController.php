@@ -62,7 +62,9 @@ class EvenementController extends AbstractController
         $adherents = $adherentRepository->findAll();
         $ficheTechniques = $fichetechniqueRepository->findByEvenement($evenement);
         $ficheTechnique = new FicheTechnique();
-        $resultat = 0;
+        $nbstockproduit = 0;
+        $nbpanierfinale = 10;
+
         $formfichetechnique = $this->createForm(FicheTechniqueType::class, $ficheTechnique);
         $formfichetechnique->handleRequest($request);
 
@@ -70,11 +72,11 @@ class EvenementController extends AbstractController
             $produit = $ficheTechnique->getProduit();
             if ($produit->getQuantite() < $ficheTechnique->getQuantite()) {
                 $this->addFlash('warning', 'Désolé mais nous navons pas la quantité démandée en stock!');
-                return $this->redirectToRoute('evenement_new', ['id' => $evenement->getId()]);
+                return $this->redirectToRoute('evenement_show', ['id' => $evenement->getId()]);
             }
 
-            $resultat = ($produit->getQuantite() / $ficheTechnique->getQuantite());
-            $ficheTechnique->setNbstockproduit($resultat);
+            $nbstockproduit = ($produit->getQuantite() / $ficheTechnique->getQuantite());
+            $ficheTechnique->setNbstockproduit($nbstockproduit);
             $ficheTechnique->setEvenement($evenement);
 
             $entityManager->persist($ficheTechnique);
@@ -83,9 +85,16 @@ class EvenementController extends AbstractController
 
         }
 
+        foreach($ficheTechniques as $ficheTechnique) {
+            if($ficheTechnique->getNbstockproduit() < $nbpanierfinale){
+               $nbpanierfinale =  $ficheTechnique->getNbstockproduit();
+              // dd($nbpanierfinale);
+            }
+        }
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
             'adherents' => $adherents,
+            'nbpanierfinale'=>$nbpanierfinale,
             'formfichetechnique' => $formfichetechnique->createView(),
             'ficheTechniques' => $ficheTechniques,
         ]);

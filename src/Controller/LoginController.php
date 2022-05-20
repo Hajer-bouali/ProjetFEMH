@@ -17,6 +17,9 @@ class LoginController extends AbstractController
         if ($this->getUser()) {
             return $this->redirectToRoute('admin');
         }
+        if ($this->getUser() && $this->getUser()->getRoles()== 'ROLE_FINANCIERE') {
+            return $this->redirectToRoute('financiere');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
