@@ -33,6 +33,7 @@ class CreateFormType extends AbstractType
                 'multiple' => true,
                 'label' => 'Rôles' 
             ])
+            
             ->add('plainPassword', RepeatedType::class, [
                 'label' => false,
                 // instead of being set onto the object directly,
