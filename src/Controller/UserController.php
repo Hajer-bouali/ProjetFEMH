@@ -7,7 +7,6 @@ use App\Form\CreateFormType;
 use App\Form\EditFormType;
 use App\Form\EditPasswordType;
 use App\Repository\UserRepository;
-use App\Security\ProjetAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
