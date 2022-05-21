@@ -19,7 +19,6 @@ class CreateFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
         ->add('name')
         ->add('firstname')
             ->add('email')
@@ -33,7 +32,7 @@ class CreateFormType extends AbstractType
                 'multiple' => true,
                 'label' => 'Rôles' 
             ])
-            
+
             ->add('plainPassword', RepeatedType::class, [
                 'label' => false,
                 // instead of being set onto the object directly,
