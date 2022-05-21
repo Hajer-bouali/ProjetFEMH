@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Benificiaire;
 use App\Form\BenificiaireType;
 use App\Repository\BenificiaireRepository;
+use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,12 +72,14 @@ class BenificiaireController extends AbstractController
         ]);
     }
     /**
-     * @Route("/delete/{id}", name="app_benificiaire_delete")
+     * @Route("/delete/{id}/{idadherent}", name="app_benificiaire_delete")
      */
-    public function delete(Request $request, Benificiaire $benificiaire, BenificiaireRepository $benificiaireRepository): Response
+    public function delete(Request $request, Benificiaire $benificiaire,$idadherent, BenificiaireRepository $benificiaireRepository, EntityManagerInterface $entityManager): Response
     {
             $benificiaireRepository->remove($benificiaire);
+            $entityManager->flush();
 
-        return $this->redirectToRoute('app_benificiaire_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('adherent_show', ['id' => $idadherent], Response::HTTP_SEE_OTHER);
     }
+
 }
