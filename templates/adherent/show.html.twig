@@ -510,6 +510,7 @@
 																		<td>{{ benificiaire.Metier }}</td>
 
 																		<td>
+																		
 																			<div
 																				class="list-icons">
 																				<!--bouton modif-->
@@ -547,7 +548,7 @@
 
 																				<div class="modal-footer">
 																					<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-																					<a type="button" class="btn bg-danger" href="{{ path('app_benificiaire_delete', {'id': benificiaire.id}) }}">Supprimer</a>
+																					<a type="button" class="btn bg-danger" href="{{ path('app_benificiaire_delete', {'id': benificiaire.id,'idadherent':adherent.id}) }}">Supprimer</a>
 																				</div>
 																			</div>
 																		</div>
@@ -557,34 +558,6 @@
 
 																{% endfor %}
 
-																<!--modal_ajout_benificiaire-->
-																<div id="modal_ajout_benificiaire" class="modal fade" tabindex="-1">
-																	<div class="modal-dialog">
-																		<div class="modal-content">
-																			<div class="modal-header bg-danger">
-																				<h4 class="modal-title">Vous allez ajouter un membre famille au
-																					{{adherent.nom}}
-																				</h4>
-
-																				<button type="button" class="close" data-dismiss="modal">&times;</button>
-																			</div>
-																			{{ form_start(formBen) }}
-
-																			<div class="modal-body">
-
-																				<div class="text-right"></div>
-																			</div>
-																			{{ form_end(formBen) }}
-																			<div class="modal-footer">
-																				<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-																			</div>
-
-
-																		</div>
-																	</div>
-																</div>
-																<!--/modal_ajout_benificiaire-->
-
 															</tbody>
 														</table>
 													</div>
@@ -593,6 +566,68 @@
 											</div>
 										</div>
 									</div>
+
+									<!-- Vertical form modal -->
+									<div id="modal_ajout_benificiaire" class="modal fade" tabindex="-1">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Vous allez ajouter un membre famille au
+																					{{adherent.nom}}</h5>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+
+												{{ form_start(formBen) }}
+												<div class="modal-body">
+													<div class="form-group">
+														<div class="row">
+															<div class="col-sm-6">
+																<label>relationfamiliale</label>
+																{{ form_widget(formBen.relationfamiliale, {attr:{'class':'form-control form-control-select2'}}) }}
+															</div>
+
+															<div class="col-sm-6">
+																<label>nom
+																</label>
+																{{ form_widget(formBen.nom, {attr:{'class':'form-control '}}) }}
+
+															</div>
+														</div>
+													</div>
+
+													<div class="form-group">
+														<div class="row">
+															<div class="col-sm-6"> 
+																<label>date naissance</label>
+																{{ form_widget(formBen.datenaissance, {attr:{'class':'form-control'}}) }}
+															</div>
+
+															<div class="col-sm-6">
+																<label>niveau etude</label>
+																{{ form_widget(formBen.niveauetude, {attr:{'class':'form-control form-control-select2'}}) }}
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<div class="row">
+															<div class="col-sm-6">
+																<label>metier</label>
+																{{ form_widget(formBen.metier, {attr:{'class':'form-control '}}) }}
+															</div>
+
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+													{{ form_row(formBen.EnregistrerBen , {attr:{'class':'btn btn-primary'}}) }}
+												</div>
+												{{ form_end(formBen) }}
+											</div>
+										</div>
+									</div>
+									<!-- /vertical form modal -->
+
 								</div>
 							</div>
 							<!-- /content area -->
