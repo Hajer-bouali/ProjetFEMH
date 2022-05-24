@@ -6,6 +6,7 @@ use App\Entity\Typeadherent;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TypeadherentType extends AbstractType
 {
@@ -13,7 +14,8 @@ class TypeadherentType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('adherents')
+            //->add('adherents')
+            ->add('Enregistrer', SubmitType::class)
         ;
     }
 

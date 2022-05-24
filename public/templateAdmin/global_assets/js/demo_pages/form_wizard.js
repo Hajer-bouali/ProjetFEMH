@@ -33,9 +33,9 @@ var FormWizard = function() {
             labels: {
                 previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
                 next: 'Next <i class="icon-arrow-right14 ml-2" />',
-                finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
+                finish: 'Submit form <i class="icon-arrow-right14 ml-2" id="envoi" />'
             },
-            onFinished: function (event, currentIndex) {
+            onFinished: function(event, currentIndex) {
                 alert('Form submitted.');
             }
         });
@@ -52,14 +52,14 @@ var FormWizard = function() {
                 next: 'Next <i class="icon-arrow-right14 ml-2" />',
                 finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
             },
-            onContentLoaded: function (event, currentIndex) {
+            onContentLoaded: function(event, currentIndex) {
                 $(this).find('.card-body').addClass('hide');
 
                 // Re-initialize components
                 _componentSelect2();
                 _componentUniform();
             },
-            onFinished: function (event, currentIndex) {
+            onFinished: function(event, currentIndex) {
                 alert('Form submitted.');
             }
         });
@@ -72,12 +72,12 @@ var FormWizard = function() {
             labels: {
                 previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
                 next: 'Next <i class="icon-arrow-right14 ml-2" />',
-                finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
+                finish: 'Submit form: <i class="icon-arrow-right14 ml-2" />'
             },
             transitionEffect: 'fade',
             saveState: true,
             autoFocus: true,
-            onFinished: function (event, currentIndex) {
+            onFinished: function(event, currentIndex) {
                 alert('Form submitted.');
             }
         });
@@ -95,7 +95,7 @@ var FormWizard = function() {
             transitionEffect: 'fade',
             startIndex: 2,
             autoFocus: true,
-            onFinished: function (event, currentIndex) {
+            onFinished: function(event, currentIndex) {
                 alert('Form submitted.');
             }
         });
@@ -112,7 +112,7 @@ var FormWizard = function() {
                 next: 'Next <i class="icon-arrow-right14 ml-2" />',
                 finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
             },
-            onFinished: function (event, currentIndex) {
+            onFinished: function(event, currentIndex) {
                 alert('Form submitted.');
             }
         });
@@ -140,11 +140,11 @@ var FormWizard = function() {
             labels: {
                 previous: '<i class="icon-arrow-left13 mr-2" /> Previous',
                 next: 'Next <i class="icon-arrow-right14 ml-2" />',
-                finish: 'Submit form <i class="icon-arrow-right14 ml-2" />'
+                finish: 'Submit form <i class="icon-arrow-right14 ml-2" id="envoi"/>'
             },
             transitionEffect: 'fade',
             autoFocus: true,
-            onStepChanging: function (event, currentIndex, newIndex) {
+            onStepChanging: function(event, currentIndex, newIndex) {
 
                 // Allways allow previous action even if the current form is not valid!
                 if (currentIndex > newIndex) {
@@ -162,12 +162,12 @@ var FormWizard = function() {
                 form.validate().settings.ignore = ':disabled,:hidden';
                 return form.valid();
             },
-            onFinishing: function (event, currentIndex) {
+            onFinishing: function(event, currentIndex) {
                 form.validate().settings.ignore = ':disabled';
                 return form.valid();
             },
-            onFinished: function (event, currentIndex) {
-                alert('Submitted!');
+            onFinished: function(event, currentIndex) {
+                $('#steps-uid-0').submit();
             }
         });
 
@@ -188,17 +188,17 @@ var FormWizard = function() {
 
                 // Unstyled checkboxes, radios
                 if (element.parents().hasClass('form-check')) {
-                    error.appendTo( element.parents('.form-check').parent() );
+                    error.appendTo(element.parents('.form-check').parent());
                 }
 
                 // Input with icons and Select2
                 else if (element.parents().hasClass('form-group-feedback') || element.hasClass('select2-hidden-accessible')) {
-                    error.appendTo( element.parent() );
+                    error.appendTo(element.parent());
                 }
 
                 // Input group, styled file input
                 else if (element.parent().is('.uniform-uploader, .uniform-select') || element.parents().hasClass('input-group')) {
-                    error.appendTo( element.parent().parent() );
+                    error.appendTo(element.parent().parent());
                 }
 
                 // Other elements

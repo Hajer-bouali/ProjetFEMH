@@ -192,14 +192,13 @@
 													</fieldset>
 													<h6>Etat de santé</h6>
 													<fieldset>
-
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>A-t-il un handicap ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.handicap , {attr:{'class':' form-control'}}) }}
+																	{{ form_widget(form.handicap , {attr:{'class':' form-control form-control-select2'}}) }}
 
 
 																</div>
@@ -221,7 +220,7 @@
 																	<label>maladie chronique ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
 																	</label>
-																	{{ form_widget(form.maladiechronique , {attr:{'class':' form-control'}}) }}
+																	{{ form_widget(form.maladiechronique , {attr:{'class':' form-control form-control-select2'}}) }}
 
 
 																</div>
@@ -245,9 +244,10 @@
 																	<div class="form-group">
 																		<label>Montant du revenu
 																			<span class="text-danger">*</span>
-																			{{ form_widget(form.montantrevenu , {attr:{'class':' form-control'}}) }}
-
 																		</label>
+																		{{ form_widget(form.montantrevenu , {attr:{'class':' form-control'}}) }}
+
+																		
 																	</div>
 																</div>
 
@@ -280,20 +280,6 @@
 																</div>
 															</div>
 														</div>
-
-														<div class="row">
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Telecharger les pieces jointes:
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.piecesjointes , {attr:{'class':'form-input-styled'}}) }}
-
-																	</label>
-																</div>
-															</div>
-
-
-														</div>
 														<div class="row">
 															<div class="col-md-6">
 																<div class="form-group">
@@ -308,9 +294,23 @@
 
 														</div>
 
+														<div class="row">
+															<div class="col-md-12">
+																<div class="form-group">
+																	<label>Telecharger les pieces jointes:
+																		<span class="text-danger">*</span>
+																		{{ form_widget(form.piecesjointes , {attr:{'class':''}}) }}
+
+																	</label>
+																</div>
+															</div>
+
+
+														</div>
+														
+
 
 														<div class="text-right">
-															{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
 															{{ form_end(form) }}
 														</div>
 													</fieldset>
@@ -360,8 +360,8 @@ $("#adherent_typehandicap").hide();
 }
 });
 $("#adherent_maladiechronique").change(function () {
-value2 = $("#adherent_maladiechronique").val();
-if (value2 == 'Oui') {
+value3 = $("#adherent_maladiechronique").val();
+if (value3 == 'Oui') {
 $("#adherent_typemaladiechronique").show();
 } else {
 $("#adherent_typemaladiechronique").hide();
