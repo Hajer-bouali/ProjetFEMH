@@ -14,9 +14,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 /**
  * @Route("/reunion")
+ * @Security("is_granted('ROLE_SOCIAL') or is_granted('ROLE_ADMIN')")
  */
 class ReunionController extends AbstractController
 {
@@ -49,7 +52,8 @@ class ReunionController extends AbstractController
                 $adherent = $AdherentRepository->find($idadherent);
                 $decision->setReunion($reunion);
                 $decision->setAdherent($adherent);
-                $decision->setStatut("Non traitée");
+                $decision->setStatut("Encours");
+                $adherent->setEtatreunion("Non traitée");
                 $decision->setDetail("Non traitée");
                 $entityManager->persist($decision);
             }
@@ -76,23 +80,18 @@ class ReunionController extends AbstractController
                
                 $adherent = $AdherentRepository->find($idadherent);
                 $decision->setReunion($reunion);
-                if($decision->getStatut()!="nontraitee"){
-                    $Etatreunion=$decision->getStatut(); 
-                    $adherent->setEtatreunion(2);  
-                }
-                else{
-                    $adherent->setEtatreunion(1); 
-                }
+
                 $decision->setAdherent($adherent);
-                $decision->setStatut("nontraitee");
-                $decision->setDetail("nontraitee");
+                $decision->setDetail("Non traitée");
+                $decision->setStatut("Encours");
                 $entityManager->persist($decision);
+                $entityManager->persist($adherent);
             }
         }
 
         $entityManager->flush();
 
-        $adherents = $AdherentRepository->findByetatreunion(0);
+        $adherents = $AdherentRepository->findByetatreunion('Encours');
         $decisions = $decisionRepository->findByreunion($reunion);
         return $this->render('reunion/show.html.twig', [
             'reunion' => $reunion,
@@ -152,7 +151,10 @@ class ReunionController extends AbstractController
         $idreunion = $decision->getReunion()->getId();
         $detail = $request->request->get("detail");
         $statut = $request->request->get("statut");
+
                 $decision->setStatut($statut);
+                $adherent= $decision->getAdherent();
+                $adherent->setEtatreunion($statut); 
                 $decision->setDetail($detail);
                 $entityManager->persist($decision);
         $entityManager->flush();

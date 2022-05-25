@@ -24,6 +24,7 @@ class Historique
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="historiques")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $user;
 

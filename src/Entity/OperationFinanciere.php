@@ -58,11 +58,13 @@ class OperationFinanciere
 
     /**
      * @ORM\ManyToOne(targetEntity=Caisse::class, inversedBy="operationFinancieres")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $caisse;
 
     /**
      * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="operationFinancieres")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $evenement;
 

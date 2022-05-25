@@ -8,7 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
  /**
-* @IsGranted("ROLE_FINANCIERE")
+* @IsGranted("ROLE_FINANCIERE","ROLE_ADMIN")
+
 */
 
 class FinanciereController extends AbstractController

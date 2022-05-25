@@ -29,6 +29,7 @@ class Evenement
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeEvenement::class, inversedBy="evenement")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $typeEvenement;
 

@@ -54,9 +54,12 @@
 															<div class="col-md-6">
 																<label>Email</label> {{ form_widget(formedituser.email , {attr:{'class':'form-control'}}) }}
 															</div>
-															<div class="col-md-6">
-																<label>Role</label> {{ form_widget(formedituser.roles , {attr:{'class':'form-control'}}) }}
-															</div>
+															{% if is_granted('ROLE_ADMIN') %}
+
+																<div class="col-md-6">
+																	<label>Role</label> {{ form_widget(formedituser.roles , {attr:{'class':'form-control'}}) }}
+																</div>
+															{% endif %}
 														</div>
 													</div>
 

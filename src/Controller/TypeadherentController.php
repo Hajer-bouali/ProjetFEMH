@@ -9,8 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-#[Route('/typeadherent')]
+/**
+ * @Route("/typeadherent")
+ * @Security("is_granted('ROLE_SOCIALE') or is_granted('ROLE_ADMIN')")
+ */
 class TypeadherentController extends AbstractController
 {
     #[Route('/', name: 'app_typeadherent_index', methods: ['GET'])]

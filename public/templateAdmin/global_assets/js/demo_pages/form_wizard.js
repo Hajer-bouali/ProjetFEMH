@@ -167,7 +167,7 @@ var FormWizard = function() {
                 return form.valid();
             },
             onFinished: function (event, currentIndex) {
-                alert('Submitted!');
+                alert('Submitted! test');
             }
         });
 

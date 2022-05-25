@@ -20,8 +20,8 @@ class EditFormType extends AbstractType
             ->add('email', TextType::class)
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Utilisateur' => 'ROLE_USER',
-                    'Financieur' => 'ROLE_FINANCIEUR',
+                    'Financier' => 'ROLE_FINANCIER',
+                    'sociale' => 'ROLE_SOCIAL',
                     'Administrateur' => 'ROLE_ADMIN',
                 ],
                 'expanded' => true,

@@ -103,7 +103,7 @@
 						</td>
 
 						<td>
-							<button type="button" class="btn  {% if decision.statut == 'Valide' %} bg-green {% endif %} {% if decision.statut == 'Refuse' %} bg-danger {% endif %} {% if decision.statut == 'En cours' %} bg-warning {% endif %}">
+							<button type="button" class="btn  {% if decision.statut == 'Valide' %} bg-green {% endif %} {% if decision.statut == 'Refuse' %} bg-danger {% endif %} {% if decision.statut == 'Encours' %} bg-warning {% endif %}">
 								{{ decision.statut }}
 							</button>
 						</td>
@@ -151,12 +151,6 @@
 												<label class="form-check-label">
 													<input type="radio" class="form-check-input" name="statut" value="refusé">
 													Refusé
-												</label>
-											</div>
-											<div class="form-check form-check-inline">
-												<label class="form-check-label">
-													<input type="radio" class="form-check-input" name="statut" value="encours">
-													En cours
 												</label>
 											</div>
 											<div class="form-check form-check-inline">

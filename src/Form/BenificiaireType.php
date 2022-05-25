@@ -56,7 +56,7 @@ class BenificiaireType extends AbstractType
             ])
             ->add('metier')
             //->add('adherent')
-            ->add('EnregistrerBen', SubmitType::class)
+            ->add('Enregistrer', SubmitType::class)
         ;
     }
 

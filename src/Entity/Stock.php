@@ -25,11 +25,13 @@ class Stock
 
     /**
      * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="stocks")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $produit;
 
     /**
      * @ORM\ManyToOne(targetEntity=OperationStock::class, inversedBy="stock")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $operationStock;
 
