@@ -142,10 +142,9 @@
 																{{ form_widget(form.logement , {attr:{'class':'form-control form-control-select2'}}) }}
 
 															</div>
-															<div class="col-md-6">
+															<div id="prix_location" class="col-md-6">
 
 																<label>Prix location maison
-																	<span class="text-danger">*</span>
 																</label>
 																{{ form_widget(form.prixlocation , {attr:{'class':'form-control '}}) }}
 
@@ -207,9 +206,8 @@
 
 															</div>
 															<div class="col-md-6">
-																<div class="form-group">
+																<div id="adherent_typehandicap" class="form-group">
 																	<label>Type d'handicap
-																		<span class="text-danger">*</span>
 																	</label>
 																	{{ form_widget(form.typehandicap , {attr:{'class':' form-control'}}) }}
 																</div>
@@ -230,9 +228,8 @@
 
 															</div>
 															<div class="col-md-6">
-																<div class="form-group">
+																<div id="adherent_typemaladiechronique" class="form-group">
 																	<label>Type maladie chronique ?
-																		<span class="text-danger">*</span>
 																	</label>
 																	{{ form_widget(form.typemaladiechronique , {attr:{'class':' form-control'}}) }}
 																</div>
@@ -286,20 +283,27 @@
 														</div>
 
 														<div class="row">
-															<div class="col-md-6">
+														<div class="col-md-6">
+																<div class="form-group">
+																	<label>Type de dossier
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.typeadherent , {attr:{'class':'form-control form-control-select2'}}) }}
+																</div>
+															</div>
+															
+ 														</div>
+														 <div class="row">
+														 <div class="col-md-12">
 																<div class="form-group">
 																	<label>Telecharger les pieces jointes:
 																		<span class="text-danger">*</span>
-
-																		{{ form_widget(form.piecesjointes , {attr:{'class':'form-input-styled ' ,'value':'{{ }}'}}) }}
-
+																		{{ form_widget(form.piecesjointes , {attr:{'class':'file-input-ajax' }}) }}
 																	</label>
 																</div>
 															</div>
-
-														</div>
+														 </div>
 														<div class="text-right">
-															{{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
 															{{ form_end(form) }}
 														</div>
 													</fieldset>
@@ -324,4 +328,43 @@
 			</div>
 		</div>
 	</div>
+	
+			<script>
+
+				$(document).ready(function () {
+$("#adherent_logement").change(function () {
+value = $("#adherent_logement").val();
+if (value == 'Locataire') {
+$("#prix_location").show();
+} else {
+$("#prix_location").hide();
+}
+});
+$("#adherent_handicap").change(function () {
+value2 = $("#adherent_handicap").val();
+if (value2 == 'Oui') {
+$("#adherent_typehandicap").show();
+} else {
+$("#adherent_typehandicap").hide();
+}
+});
+$("#adherent_maladiechronique").change(function () {
+value2 = $("#adherent_maladiechronique").val();
+if (value2 == 'Oui') {
+$("#adherent_typemaladiechronique").show();
+} else {
+$("#adherent_typemaladiechronique").hide();
+}
+});
+});
+			</script>
+{% endblock %}
+{% block javascript %}
+<script>
+$(document).ready(function(){
+ $('.custom-file').removeClass('custom-file')
+ $('input[id=adherent_piecesjointes').removeClass('form-control custom-file-input')
+ $('label[for=adherent_piecesjointes').remove();
+})
+</script>
 {% endblock %}

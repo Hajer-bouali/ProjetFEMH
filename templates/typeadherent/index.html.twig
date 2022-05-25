@@ -1,35 +1,105 @@
+
 {% extends 'base.html.twig' %}
-
-{% block title %}Typeadherent index{% endblock %}
-
 {% block body %}
-    <h1>Typeadherent index</h1>
+	<!-- Main content -->
+	<div
+		class="content-wrapper">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for typeadherent in typeadherents|reverse  %}
-            <tr>
-                <td>{{ typeadherent.id }}</td>
-                <td>{{ typeadherent.nom }}</td>
-                <td>
-                    <a href="{{ path('app_typeadherent_show', {'id': typeadherent.id}) }}">show</a>
-                    <a href="{{ path('app_typeadherent_edit', {'id': typeadherent.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+		<!-- Page header -->
+		<div class="page-header page-header-light">
+			<div class="page-header-content header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{path('app_typeadherent_index')}}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste de type des dossiers</a>
 
-    <a href="{{ path('app_typeadherent_new') }}">Create new</a>
-{% endblock %}
+					</div>
+
+					<a href="#" class="header-elements-toggle text-default d-md-none">
+						<i class="icon-more"></i>
+					</a>
+				</div>
+
+
+			</div>
+		</div>
+		<!-- /page header -->
+
+
+		<!-- Content area -->
+		<div
+			class="content">
+
+			<!-- Basic datatable -->
+			<div class="card">
+				<div class="card-header header-elements-inline">
+					<h5 class="card-title">Liste de type des dossiers</h5>
+					<div class="card-title-left">
+						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('app_typeadherent_new')}}">
+							<b>
+								<i class="icon-reading"></i>
+							</b>
+							Ajouter un nouveau type de produit</a>
+					</div>
+
+				</div>
+
+				<table class="table datatable-basic">
+                <thead>
+                    <tr class="text-center">
+                        <th>Id</th>
+                        <th>Nom</th>	
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for type_produit in type_produits|reverse  %}
+						<tr class="text-center">
+                        <td>{{ type_produit.id }}</td>
+                        <td>{{ type_produit.nom }}</td>
+							
+                            <td>
+
+								<a class="list-icons-item text-primary-600" href="{{ path('type_produit_edit', {'id': type_produit.id}) }}">
+									<i class="icon-pencil7"></i>
+								</a>
+								<a href="#" data-target="#modal_delete{{type_produit.id}}" data-toggle="modal" data-id={{type_produit.id}} class="list-icons-item text-danger-600">
+									<i class="icon-trash"></i>
+								</a>
+								<a href="{{ path('type_produit_show', {'id': type_produit.id}) }}" class="list-icons-item text-teal-600">
+									<i class="icon-reading"></i>
+								</a>
+								<div id="modal_delete{{type_produit.id}}" class="modal fade" tabindex="-1">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header bg-danger">
+												<h6 class="modal-title">Supprimer le type de produit {{type_produit.id}}</h6>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+
+											<div class="modal-body">
+												<p>Êtes-vous sûr de vouloir supprimer ?</p>
+											</div>
+
+											<div class="modal-footer">
+												<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+												<a type="button" class="btn bg-danger" href="{{path("type_produit_delete" , {id: type_produit.id})}}">Valider</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</td>
+						<td ></td>
+						<td ></td>	
+                        <td class="text-center"></td>
+						</tr>
+
+					{% endfor %}
+				</tbody>
+			</table>
+			<!-- /basic datatable -->
+		</div>
+
+	</div>
+</div>{% endblock %}
