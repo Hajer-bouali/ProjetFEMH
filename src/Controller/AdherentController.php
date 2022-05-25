@@ -21,6 +21,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 // Include Dompdf required namespaces
 use Dompdf\Dompdf;
@@ -29,6 +31,7 @@ use Dompdf\Options;
 
 /**
  * @Route("/adherent")
+ * @Security("is_granted('ROLE_SOCIAL') or is_granted('ROLE_ADMIN')")
  */
 class AdherentController extends AbstractController
 {

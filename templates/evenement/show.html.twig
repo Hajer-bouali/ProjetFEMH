@@ -161,7 +161,7 @@
 									</td>
 								</tr>
 
-								<div id="modal_delete{{ evenement.id }}" class="modal fade" tabindex="-1">
+								<div id="modal_delete{{ ficheTechnique.id }}" class="modal fade" tabindex="-1">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header bg-danger">
@@ -187,7 +187,7 @@
 													Fermer
 
 												</button>
-												<a type="button" class="btn bg-danger" href="{{ path("app_fiche_technique_delete" , {id: evenement.id}) }}">
+												<a type="button" class="btn bg-danger" href="{{ path("app_fiche_technique_delete" , {'id': ficheTechnique.id,'evenement':evenement.id}) }}">
 													Valider
 
 												</a>

@@ -10,10 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 
 /**
  * @Route("/fiche/technique")
+ * @Security("is_granted('ROLE_SOCIAL') or is_granted('ROLE_ADMIN')")
  */
 class FicheTechniqueController extends AbstractController
 {
@@ -54,7 +57,7 @@ class FicheTechniqueController extends AbstractController
     }
 
       /**
-     * @Route("/{id}", name="app_fiche_technique_new", methods={"GET"})
+     * @Route("/{id}", name="app_fiche_technique_show", methods={"GET"})
      */
     public function show(FicheTechnique $ficheTechnique): Response
     {
@@ -64,7 +67,7 @@ class FicheTechniqueController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_fiche_technique_delete", methods={"GET" , "POST"})
+     * @Route("/{id}/edit", name="app_fiche_technique_edit", methods={"GET" , "POST"})
      */
     public function edit(Request $request, FicheTechnique $ficheTechnique, EntityManagerInterface $entityManager): Response
     {
@@ -83,14 +86,14 @@ class FicheTechniqueController extends AbstractController
         ]);
     }
     /**
-     * @Route("/delete/{id}", name="app_fiche_technique_delete")
+     * @Route("/delete/{id}/{evenement}", name="app_fiche_technique_delete")
      */
-    public function delete(Request $request, FicheTechnique $ficheTechnique, EntityManagerInterface $entityManager): Response
+    public function delete(FicheTechnique $ficheTechnique,$evenement, EntityManagerInterface $entityManager): Response
     {
             $entityManager->remove($ficheTechnique);
             $entityManager->flush();
   
 
-        return $this->redirectToRoute('app_fiche_technique_index', [], Response::HTTP_SEE_OTHER);
-    }
+            return $this->redirectToRoute('evenement_show', ['id' => $evenement], Response::HTTP_SEE_OTHER);
+        }
 }

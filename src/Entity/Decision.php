@@ -24,11 +24,13 @@ class Decision
 
     /**
      * @ORM\ManyToOne(targetEntity=Reunion::class, inversedBy="decisions")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $reunion;
 
     /**
      * @ORM\ManyToOne(targetEntity=Adherent::class, inversedBy="decisions")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $adherent;
 

@@ -15,9 +15,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/evenement")
+ * @Security("is_granted('ROLE_SOCIAL') or is_granted('ROLE_ADMIN')")
+
  */
 class EvenementController extends AbstractController
 {
@@ -63,7 +66,7 @@ class EvenementController extends AbstractController
         $ficheTechniques = $fichetechniqueRepository->findByEvenement($evenement);
         $ficheTechnique = new FicheTechnique();
         $nbstockproduit = 0;
-        $nbpanierfinale = 10;
+        $nbpanierfinale = 1000000;
 
         $formfichetechnique = $this->createForm(FicheTechniqueType::class, $ficheTechnique);
         $formfichetechnique->handleRequest($request);

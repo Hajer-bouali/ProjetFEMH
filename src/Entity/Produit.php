@@ -41,6 +41,7 @@ class Produit
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeProduit::class,cascade={"persist"}, inversedBy="produit")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $typeProduit;
 

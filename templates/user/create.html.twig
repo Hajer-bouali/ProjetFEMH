@@ -82,13 +82,21 @@
 																	<label>Information spécifique<label></div>
 																		<div class="col-md-8">
 																			<div class="row">
+																			{% if is_granted('ROLE_ADMIN') %}
 
 																				<div class="col-md-8">
 																					<label>Role</label>
 																					{{ form_widget(formCreerProfil.roles , {attr:{'class':'form-select2'}}) }}
 																				</div>
+
+																			{% endif %}
+
 																			</div>
 																			<div class="row">
+																			<div class="col-md-8">
+																					<label>Mot de passe</label>
+																					{{ form_widget(formCreerProfil.plainPassword , {attr:{'class':'form-control'}}) }}
+																				</div>
 																				<div class="col-md-8">
 																					<label>Mot de passe</label>
 																					{{ form_widget(formCreerProfil.plainPassword , {attr:{'class':'form-control'}}) }}

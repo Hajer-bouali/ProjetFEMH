@@ -43,6 +43,7 @@ class Benificiaire
 
     /**
      * @ORM\ManyToOne(targetEntity=Adherent::class, inversedBy="benificiaires",cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $adherent;
 

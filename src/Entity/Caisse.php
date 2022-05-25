@@ -31,11 +31,12 @@ class Caisse
 
     /**
      * @ORM\ManyToOne(targetEntity=TypeCaisse::class, inversedBy="caisses")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $typeCaisse;
 
     /**
-     * @ORM\OneToMany(targetEntity=OperationFinanciere::class, mappedBy="caisse")
+     * @ORM\OneToMany(targetEntity=OperationFinanciere::class, mappedBy="caisse") 
      */
     private $operationFinancieres;
 

@@ -48,6 +48,7 @@ when@test:
     security:
         role_hierarchy:
             ROLE_FINANCIERE:     ROLE_USER
+            ROLE_SOCIALE:     ROLE_USER
             ROLE_COMMERCIAL:     ROLE_USER
             ROLE_ADMIN:          ROLE_UESR
         password_hashers:
@@ -60,3 +61,4 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+

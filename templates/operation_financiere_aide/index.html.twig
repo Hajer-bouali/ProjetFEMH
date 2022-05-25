@@ -106,9 +106,9 @@
 									<!--/modal supprimé-->
 									<!--modal historique-->
 									<div id="modal_affiche_historique_aide{{operation_financiere.id}}" class="modal fade" tabindex="-1">
-										<div class="modal-dialog">
+										<div class="modal-dialog modal-full">
 											<div class="modal-content">
-												<div class="modal-header bg-pink">
+												<div class="modal-header bg-slate">
 													<h6 class="modal-title">liste des historiques d'operation
 														{{operation_financiere.id}}</h6>
 													<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -122,15 +122,22 @@
 														<th>Id</th>
 														<th>User</th>
 														<th>Date</th>
+														<th>Action</th>
+														<th>Les champs modifiere</th>
 													</tr>
 												</thead>
 												<tbody>
 													{% for historiqueaide in historiqueaides  %}
-														{% if historiqueaide.id == operation_financiere.id %}
+														{% if historiqueaide.idligne == operation_financiere.id %}
 															<tr>
 																<td>{{ historiqueaide.id }}</td>
 																<td>{{ historiqueaide.user }}</td>
 																<td>{{ historiqueaide.datemodif|date('d-m-Y-h:m:s') }}</td>
+																<td>{{ historiqueaide.typeoperation  }}</td>
+																<td><button type="button" class="btn bg-warning legitRipple" data-popup="popover" title="Ancien"  title="Ancien" data-trigger="hover" data-content="{{ historiqueaide.typeoperation }}">Ancien</button>
+																	<button type="button" class="btn btn-success" data-popup="popover" title="Ancien"  title="Ancien" data-trigger="hover" data-content="And here's some amazing content. It's very engaging. Right?">Nouveau</button>
+																</td>
+															    <td class="text-center"></td>
 															</tr>
 														{% endif %}
 													{% endfor %}
@@ -141,8 +148,8 @@
 												</div>
 
 												<div class="modal-footer">
-													<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-													<a type="button" class="btn bg-pink" href="{{path("operation_financiere_aide_delete" , {id: operation_financiere.id})}}">Valider</a>
+													<button type="button" class="btn btn-black" data-dismiss="modal">Fermer</button>
+													<a type="button" class="btn bg-slate" href="{{path("operation_financiere_aide_delete" , {id: operation_financiere.id})}}">Valider</a>
 												</div>
 											</div>
 										</div>

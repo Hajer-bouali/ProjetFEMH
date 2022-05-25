@@ -36,11 +36,13 @@ class FicheTechnique
 
     /**
      * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="ficheTechniques")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $produit;
 
     /**
      * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="ficheTechniques" ,cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $evenement;
 
