@@ -5,8 +5,27 @@
 {% endblock %}
 
 {% block body %}
+
 	<!--commantaire-->
 	<div class="grix xs4 container">
+		<!-- Page header -->
+		<div class="page-header page-header-light">
+		<div class="page-header-content header-elements-md-inline">
+			<div class="breadcrumb">
+				<a href="{{ path('adherent_index') }}" class="breadcrumb-item">
+					<i class="icon-home2 mr-2"></i>
+					Liste des dossiers
+				</a>
+				<a href="{{ path('adherent_show', {'id': adherent.id}) }}" class="breadcrumb-item">
+					Affichage de dossier
+					{{adherent.id}}
+
+				</a>
+
+			</div>
+		</div>
+	</div>
+	<!-- /page header -->
 		<div class="col-xs4">
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 			<div class="col-12">
@@ -14,26 +33,6 @@
 					<div class="page-content">
 						<div
 							class="content-wrapper">
-
-
-							<!-- Page header -->
-							<div class="page-header page-header-light">
-								<div class="page-header-content header-elements-md-inline">
-									<div class="breadcrumb">
-										<a href="{{ path('adherent_index') }}" class="breadcrumb-item">
-											<i class="icon-home2 mr-2"></i>
-											Liste des dossiers
-										</a>
-										<a href="{{ path('adherent_show', {'id': adherent.id}) }}" class="breadcrumb-item">
-											Affichage de dossier
-											{{adherent.id}}
-
-										</a>
-
-									</div>
-								</div>
-							</div>
-							<!-- /page header -->
 							<!-- Content area -->
 							<div class="content">
 								<div class="row">
@@ -344,12 +343,12 @@
 																			<div
 																				class="list-icons">
 																				<!--bouton modif-->
-																				<a href="{{ path('revenufamilial_edit', {'id': revenufamilial.id}) }}" class="list-icons-item text-primary-600">
+																				<a href="{{ path('revenufamilial_edit', {'id': revenufamilial.id}) }}" data-popup="tooltip-custom" title="Modifier le revenu familiale" class="list-icons-item text-primary-600">
 																					<i class="icon-pencil7"></i>
 																				</a>
 																				<!--bouton modif-->
 																				<!--bouton trach-->
-																				<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{revenufamilial.id}}" data-toggle="modal">
+																				<a href="#" class="list-icons-item text-danger-600" data-popup="tooltip-custom" title="Supprimer le revenu familiale" data-target="#modal_delete{{revenufamilial.id}}" data-toggle="modal">
 																					<i class="icon-trash"></i>
 																				</a>
 																				<!--/bouton trach-->
@@ -514,12 +513,12 @@
 																			<div
 																				class="list-icons">
 																				<!--bouton modif-->
-																				<a href="{{ path('app_benificiaire_edit', {'id': benificiaire.id}) }}" class="list-icons-item text-primary-600">
+																				<a href="{{ path('app_benificiaire_edit', {'id': benificiaire.id}) }}" data-popup="tooltip-custom" title="Modifier le bénéficiaire" class="list-icons-item text-primary-600">
 																					<i class="icon-pencil7"></i>
 																				</a>
 																				<!--bouton modif-->
 																				<!--bouton trach-->
-																				<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{benificiaire.id}}" data-toggle="modal">
+																				<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{benificiaire.id}}" data-popup="tooltip-custom" title="Supprimer le bénéficiaire" data-toggle="modal">
 																					<i class="icon-trash"></i>
 																				</a>
 																				<!--/bouton trach-->

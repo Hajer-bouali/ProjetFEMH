@@ -1,4 +1,3 @@
-
 {% extends 'base.html.twig' %}
 {% block body %}
 	<!-- Main content -->
@@ -12,8 +11,8 @@
 					<div class="breadcrumb">
 						<a href="{{path('evenement_index')}}" class="breadcrumb-item">
 							<i class="icon-home2 mr-2"></i>
-							Liste des événements </a>
-
+							Liste des événements
+						</a>
 					</div>
 
 					<a href="#" class="header-elements-toggle text-default d-md-none">
@@ -33,8 +32,9 @@
 
 			<!-- Basic datatable -->
 			<div class="card">
-				<div class="card-header header-elements-inline">
-					<h5 class="card-title">Liste des événements </h5>
+				<div class="card-header bg-white header-elements-inline">
+					<h5 class="card-title">Liste des événements
+					</h5>
 					<div class="card-title-left">
 						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('evenement_new')}}">
 							<b>
@@ -46,64 +46,67 @@
 				</div>
 
 				<table class="table datatable-basic">
-                <thead>
-                    <tr>
-                        <th>Id</th>
+					<thead>
+						<tr>
+							<th>Id</th>
 
-                        <th>Nom</th>
-                        <th>Type d'événement</th>
-                        <th>Date début</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for evenement in evenements|reverse  %}
-                    <tr>
-                        <td>{{ evenement.id }}</td>
-						<td>{{ evenement.nom }}</td>
-						<td>{{ evenement.typeEvenement }}</td>
-                        <td>{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</td>
-                        
+							<th>Nom</th>
+							<th>Type d'événement</th>
+							<th>Date début</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for evenement in evenements|reverse  %}
+							<tr>
+								<td>{{ evenement.id }}</td>
+								<td>{{ evenement.nom }}</td>
+								<td>{{ evenement.typeEvenement }}</td>
+								<td>{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</td>
 
-                        <td>
+								<td>
 
-								<a class="list-icons-item text-primary-600" href="{{ path('evenement_edit', {'id': evenement.id}) }}">
-									<i class="icon-pencil7"></i>
-								</a>
-								<a href="#" data-target="#modal_delete{{evenement.id}}" data-toggle="modal" data-id={{evenement.id}} class="list-icons-item text-danger-600">
-									<i class="icon-trash"></i>
-								</a>
-								<a href="{{ path('evenement_show', {'id': evenement.id}) }}" class="list-icons-item text-teal-600">
-									<i class="icon-reading"></i>
-								</a>
-								<div id="modal_delete{{evenement.id}}" class="modal fade" tabindex="-1">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header bg-danger">
-												<h6 class="modal-title">Supprimer l'événement {{evenement.id}}</h6>
-												<button type="button" class="close" data-dismiss="modal">&times;</button>
-											</div>
+									<a class="list-icons-item text-primary-600"  data-popup="tooltip-custom" title="Modifier l'événement" href="{{ path('evenement_edit', {'id': evenement.id}) }}">
+										<i class="icon-pencil7"></i>
+									</a>
+									<a href="#" data-target="#modal_delete{{evenement.id}}" data-toggle="modal" data-popup="tooltip-custom" title="Supprimer l'événement" data-id={{evenement.id}} class="list-icons-item text-danger-600">
+										<i class="icon-trash"></i>
+									</a>
+									<a href="{{ path('evenement_show', {'id': evenement.id}) }}" data-popup="tooltip-custom" title="préparer une fiche technique pour l'événement" class="list-icons-item text-teal-600">
+										<i class="icon-reading"></i>
+									</a>
+									<a class="list-icons-item" data-popup="tooltip-custom" title="Liste des  bénéficiaires de ce evenement" href="{{ path('evenement_adherents', {'id': evenement.id}) }}">
+										<i class="icon-menu8"></i>
+									</a>
+									<div id="modal_delete{{evenement.id}}" class="modal fade" tabindex="-1">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header bg-danger">
+													<h6 class="modal-title">Supprimer l'événement {{evenement.id}}</h6>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
 
-											<div class="modal-body">
-												<p>Êtes-vous sûr de vouloir supprimer l'événement {{evenement.nom}}?</p>
-											</div>
+												<div class="modal-body">
+													<p>Êtes-vous sûr de vouloir supprimer l'événement {{evenement.nom}}?</p>
+												</div>
 
-											<div class="modal-footer">
-												<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
-												<a type="button" class="btn bg-danger" href="{{path("evenement_delete" , {id: evenement.id})}}">Valider</a>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-link" data-dismiss="modal">Fermer</button>
+													<a type="button" class="btn bg-danger" href="{{path("evenement_delete" , {id: evenement.id})}}">Valider</a>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</td>
-						<td class="text-center"></td>	
-						</tr>
+								</td>
+								<td class="text-center"></td>
+							</tr>
 
-					{% endfor %}
-				</tbody>
-			</table>
-			<!-- /basic datatable -->
+						{% endfor %}
+					</tbody>
+				</table>
+				<!-- /basic datatable -->
+			</div>
+
 		</div>
-
 	</div>
-</div>{% endblock %}
+{% endblock %}

@@ -56,7 +56,7 @@ class OperationFinanciereController extends AbstractController
         $operationFinanciere = new OperationFinanciere();
         $formDon = $this->createForm(OperationFinanciereDonType::class, $operationFinanciere);
 
-        if (!$this->isGranted('ROLE_FINANCIERE')) {
+        if (!$this->isGranted('ROLE_FINANCIER')) {
             $formDon->remove('etat');
         }
         $formDon->handleRequest($request);
@@ -99,7 +99,7 @@ class OperationFinanciereController extends AbstractController
         $operationFinanciere = new OperationFinanciere();
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
 
-        if (!$this->isGranted('ROLE_FINANCIERE')) {
+        if (!$this->isGranted('ROLE_FINANCIER')) {
             $formAide->remove('etat');
         }
         $formAide->handleRequest($request);
@@ -173,7 +173,7 @@ class OperationFinanciereController extends AbstractController
     public function editAide(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
-        if (!$this->isGranted('ROLE_FINANCIERE')) {
+        if (!$this->isGranted('ROLE_FINANCIER')) {
             $formAide->remove('etat');
         }
         $ancien = $operationFinanciere->toArray();
@@ -219,7 +219,7 @@ class OperationFinanciereController extends AbstractController
     {
         $formDon = $this->createForm(OperationFinanciereDonType::class, $operationFinanciere);
 
-        if (!$this->isGranted('ROLE_FINANCIERE')) {
+        if (!$this->isGranted('ROLE_FINANCIER')) {
             $formDon->remove('etat');
         }$formDon->handleRequest($request);
 

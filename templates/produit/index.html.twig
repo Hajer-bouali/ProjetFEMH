@@ -65,13 +65,13 @@
 								<td>{{ produit.dateExpiration ? produit.dateExpiration|date('Y-m-d'):'' }}</td>
 								<td>
 									<div class="list-icons">
-										<a class="list-icons-item text-primary-600" href="{{ path('produit_edit', {'id': produit.id}) }}">
+										<a class="list-icons-item text-primary-600"  data-popup="tooltip-custom" title="Modifier le produit" href="{{ path('produit_edit', {'id': produit.id}) }}">
 											<i class="icon-pencil7"></i>
 										</a>
-										<a href="#" data-target="#modal_delete{{produit.id}}" data-toggle="modal" data-id={{produit.id}} class="list-icons-item text-danger-600">
+										<a href="#" data-target="#modal_delete{{produit.id}}" data-popup="tooltip-custom" title="Supprimer le produit" data-toggle="modal" data-id={{produit.id}} class="list-icons-item text-danger-600">
 											<i class="icon-trash"></i>
 										</a>
-										<a href="{{ path('produit_show', {'id': produit.id}) }}" class="list-icons-item text-teal-600">
+										<a href="{{ path('produit_show', {'id': produit.id}) }}" data-popup="tooltip-custom" title="Afficher le produit" class="list-icons-item text-teal-600">
 											<i class="icon-reading"></i>
 										</a>
 									</div>

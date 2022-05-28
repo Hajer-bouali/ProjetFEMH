@@ -19,32 +19,38 @@ class AdherentRepository extends ServiceEntityRepository
         parent::__construct($registry, Adherent::class);
     }
 
-    // /**
-    //  * @return Adherent[] Returns an array of Adherent objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Adherent[] Returns an array of Adherent objects
+     */
+    public function findByCriteres($criteres)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+        $queryBuilder = $this->createQueryBuilder('a')
+        ->where('a.etatreunion = :etatreunion')
+        ->setParameter('etatreunion', 'validé');
+
+        if ($criteres['nombrefamille_min'] != '') {
+            $queryBuilder->andWhere('a.nombrefamille >= :nombrefamille_min')
+            ->setParameter('nombrefamille_min', $criteres['nombrefamille_min']);
+        }
+
+        if ($criteres['nombrefamille_max'] != '') {
+            $queryBuilder->andWhere('a.nombrefamille <= :nombrefamille_max')
+            ->setParameter('nombrefamille_max', $criteres['nombrefamille_max']);
+        }
+        
+        if ($criteres['montantrevenu_min'] != '') {
+            $queryBuilder->andWhere('a.montantrevenu >= :montantrevenu_min')
+            ->setParameter('montantrevenu_min', $criteres['montantrevenu_min']);
+        }
+
+        if ($criteres['montantrevenu_max'] != '') {
+            $queryBuilder->andWhere('a.montantrevenu <= :montantrevenu_max')
+            ->setParameter('montantrevenu_max', $criteres['montantrevenu_max']);
+        }
+       
+        return $queryBuilder
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Adherent
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

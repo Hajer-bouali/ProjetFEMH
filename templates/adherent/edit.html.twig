@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification le dossier de
-	{{ adherent.nom }}
+{% block title %}Modification le dossier de {{ adherent.nom }}
 {% endblock %}
 
 
@@ -19,15 +18,10 @@
 					<a href="{{path('adherent_index')}}" class="breadcrumb-item">
 						<i class="icon-home2 mr-2"></i>
 						Liste des dossiers</a>
-					<a href="{{path('adherent_new')}}" class="breadcrumb-item">Modifier un dossier
+					<a href="#" class="breadcrumb-item">Modifier un dossier
 					</a>
-
 				</div>
-
-
 			</div>
-
-
 		</div>
 		<!-- /page header -->
 		<div class="grix xs4 container">
@@ -51,14 +45,11 @@
 
 												<!-- Wizard with validation -->
 												<div class="card">
-													
+
 													<div class="card-header bg-white header-elements-inline">
-														<h6 class="card-title">Modifier le dossier de
-															{{adherent.nom}}</h6>
+														<h6 class="card-title">Modifier le dossier de {{adherent.nom}}</h6>
 
-													</div>
-
-													{{ form_start(form , {attr:{'class':'wizard-form steps-validation'}}) }}
+													</div> {{ form_start(form , {attr:{'class':'wizard-form steps-validation'}}) }}
 
 													<h6>information personnelle</h6>
 													<fieldset>
@@ -68,8 +59,7 @@
 																<div class="form-group">
 																	<label>Nom et Prénom
 																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.nom , {attr:{'class':'form-control'}}) }}
+																	</label> {{ form_widget(form.nom , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 
@@ -77,8 +67,7 @@
 																<div class="form-group">
 																	<label>Numéro de carte d'identité
 																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.cin , {attr:{'class':'form-control'}}) }}
+																	</label> {{ form_widget(form.cin , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														</div>
@@ -87,8 +76,7 @@
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Numéro de téléphone<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.telephone , {attr:{'class':'form-control'}}) }}
+																	</label> {{ form_widget(form.telephone , {attr:{'class':'form-control'}}) }}
 
 																</div>
 															</div>
@@ -97,8 +85,7 @@
 																<div class="form-group">
 																	<label>L'état civil
 																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.etatcivil , {attr:{'class':'form-control form-control-select2'}}) }}
+																	</label> {{ form_widget(form.etatcivil , {attr:{'class':'form-control form-control-select2'}}) }}
 
 																</div>
 
@@ -110,8 +97,7 @@
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Adresse</label>
-																	<span class="text-danger">*</span>
-																	{{ form_widget(form.adresse , {attr:{'class':' form-control'}}) }}
+																	<span class="text-danger">*</span> {{ form_widget(form.adresse , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 
@@ -119,8 +105,7 @@
 																<div class="form-group">
 																	<label>Nombre de membres de la famille
 																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.nombrefamille , {attr:{'class':' form-control'}}) }}
+																	</label> {{ form_widget(form.nombrefamille , {attr:{'class':' form-control'}}) }}
 
 
 																</div>
@@ -138,15 +123,13 @@
 
 																<label>propriété de logement
 																	<span class="text-danger">*</span>
-																</label>
-																{{ form_widget(form.logement , {attr:{'class':'form-control form-control-select2'}}) }}
+																</label> {{ form_widget(form.logement , {attr:{'class':'form-control form-control-select2'}}) }}
 
 															</div>
 															<div id="prix_location" class="col-md-6">
 
 																<label>Prix location maison
-																</label>
-																{{ form_widget(form.prixlocation , {attr:{'class':'form-control '}}) }}
+																</label> {{ form_widget(form.prixlocation , {attr:{'class':'form-control '}}) }}
 
 															</div>
 
@@ -156,8 +139,7 @@
 
 																<label>Disponibilité d'eau
 																	<span class="text-danger">*</span>
-																</label>
-																{{ form_widget(form.eau , {attr:{'class':'form-control form-control-select2'}}) }}
+																</label> {{ form_widget(form.eau , {attr:{'class':'form-control form-control-select2'}}) }}
 
 															</div>
 															<div class="col-md-6">
@@ -165,8 +147,7 @@
 																<div class="form-group">
 																	<label>Disponibilité d'électricité
 																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.electricite , {attr:{'class':'form-control form-control-select2'}}) }}
+																	</label> {{ form_widget(form.electricite , {attr:{'class':'form-control form-control-select2'}}) }}
 
 
 																</div>
@@ -181,8 +162,7 @@
 																	<div class="form-group">
 																		<label>Nombre de chambres
 																			<span class="text-danger">*</span>
-																		</label>
-																		{{ form_widget(form.nombrechambre , {attr:{'class':' form-control'}}) }}
+																		</label> {{ form_widget(form.nombrechambre , {attr:{'class':' form-control'}}) }}
 																	</div>
 																</div>
 															</div>
@@ -198,8 +178,7 @@
 																<div class="form-group">
 																	<label>A-t-il un handicap ?
 																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.handicap , {attr:{'class':'form-control form-control-select2'}}) }}
+																	</label> {{ form_widget(form.handicap , {attr:{'class':'form-control form-control-select2'}}) }}
 
 
 																</div>
@@ -208,8 +187,7 @@
 															<div class="col-md-6">
 																<div id="adherent_typehandicap" class="form-group">
 																	<label>Type d'handicap
-																	</label>
-																	{{ form_widget(form.typehandicap , {attr:{'class':' form-control'}}) }}
+																	</label> {{ form_widget(form.typehandicap , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 
@@ -220,8 +198,7 @@
 																<div class="form-group">
 																	<label>maladie chronique ?(lui ou membre de famille)
 																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.maladiechronique , {attr:{'class':'form-control form-control-select2'}}) }}
+																	</label> {{ form_widget(form.maladiechronique , {attr:{'class':'form-control form-control-select2'}}) }}
 
 
 																</div>
@@ -230,8 +207,7 @@
 															<div class="col-md-6">
 																<div id="adherent_typemaladiechronique" class="form-group">
 																	<label>Type maladie chronique ?
-																	</label>
-																	{{ form_widget(form.typemaladiechronique , {attr:{'class':' form-control'}}) }}
+																	</label> {{ form_widget(form.typemaladiechronique , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 
@@ -244,8 +220,7 @@
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Montant du revenu
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.montantrevenu , {attr:{'class':'form-control'}}) }}
+																		<span class="text-danger">*</span> {{ form_widget(form.montantrevenu , {attr:{'class':'form-control'}}) }}
 
 																	</label>
 																</div>
@@ -255,8 +230,7 @@
 																<div class="form-group">
 																	<label>source revenu
 																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.source , {attr:{'class':'form-control'}}) }}
+																	</label> {{ form_widget(form.source , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														</div>
@@ -264,8 +238,7 @@
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Resumé
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.resume , {attr:{'class':'form-control  '}}) }}
+																		<span class="text-danger">*</span> {{ form_widget(form.resume , {attr:{'class':'form-control  '}}) }}
 
 
 																	</label>
@@ -276,41 +249,37 @@
 																<div class="form-group">
 																	<label>La Demande
 																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.demande , {attr:{'class':'form-control'}}) }}
+																	</label> {{ form_widget(form.demande , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														</div>
 
 														<div class="row">
-														<div class="col-md-6">
+															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Type de dossier
 																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.typeadherent , {attr:{'class':'form-control form-control-select2'}}) }}
+																	</label> {{ form_widget(form.typeadherent , {attr:{'class':'form-control form-control-select2'}}) }}
 																</div>
 															</div>
-															
- 														</div>
-														 <div class="row">
-														 <div class="col-md-12">
+
+														</div>
+														<div class="row">
+															<div class="col-md-12">
 																<div class="form-group">
 																	<label>Telecharger les pieces jointes:
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.piecesjointes , {attr:{'class':'file-input-ajax' }}) }}
+																		<span class="text-danger">*</span> {{ form_widget(form.piecesjointes , {attr:{'class':'file-input-ajax' }}) }}
 																	</label>
 																</div>
 															</div>
-														 </div>
-														<div class="text-right">
-															{{ form_end(form) }}
+														</div>
+														<div class="text-right"> {{ form_end(form) }}
 														</div>
 													</fieldset>
 												</div>
 												<!-- /wizard with validation -->
 
-												
+
 											</div>
 											<!-- /content area -->
 										</div>
@@ -328,10 +297,10 @@
 			</div>
 		</div>
 	</div>
-	
-			<script>
 
-				$(document).ready(function () {
+	<script>
+
+		$(document).ready(function () {
 $("#adherent_logement").change(function () {
 value = $("#adherent_logement").val();
 if (value == 'Locataire') {
@@ -357,14 +326,14 @@ $("#adherent_typemaladiechronique").hide();
 }
 });
 });
-			</script>
+	</script>
 {% endblock %}
 {% block javascript %}
-<script>
-$(document).ready(function(){
- $('.custom-file').removeClass('custom-file')
- $('input[id=adherent_piecesjointes').removeClass('form-control custom-file-input')
- $('label[for=adherent_piecesjointes').remove();
+	<script>
+		$(document).ready(function () {
+$('.custom-file').removeClass('custom-file')
+$('input[id=adherent_piecesjointes').removeClass('form-control custom-file-input')
+$('label[for=adherent_piecesjointes').remove();
 })
-</script>
+	</script>
 {% endblock %}

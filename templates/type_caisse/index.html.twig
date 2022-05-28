@@ -61,14 +61,11 @@
 							
                             <td>
 
-								<a class="list-icons-item text-primary-600" href="{{ path('type_caisse_edit', {'id': type_caisse.id}) }}">
+								<a class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier le type de caisse"  href="{{ path('type_caisse_edit', {'id': type_caisse.id}) }}">
 									<i class="icon-pencil7"></i>
 								</a>
-								<a href="#" data-target="#modal_delete{{type_caisse.id}}" data-toggle="modal" data-id={{type_caisse.id}} class="list-icons-item text-danger-600">
+								<a href="#" data-target="#modal_delete{{type_caisse.id}}" data-toggle="modal" data-popup="tooltip-custom" title="Supprimer le type de caisse"  data-id={{type_caisse.id}} class="list-icons-item text-danger-600">
 									<i class="icon-trash"></i>
-								</a>
-								<a href="{{ path('type_caisse_show', {'id': type_caisse.id}) }}" class="list-icons-item text-teal-600">
-									<i class="icon-reading"></i>
 								</a>
 								<div id="modal_delete{{type_caisse.id}}" class="modal fade" tabindex="-1">
 									<div class="modal-dialog">

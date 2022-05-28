@@ -7,16 +7,15 @@
 		<!-- Page header -->
 		<div class="page-header page-header-light">
 			<div class="page-header-content header-elements-md-inline">
-				<div class="breadcrumb">
-					<a href="{{path('reunion_index')}}" class="breadcrumb-item">
-						<i class="icon-home2 mr-2"></i>
-						Liste des reunions</a>
-					<a href="{{path('reunion_create')}}" class="breadcrumb-item">Modification du reunion</a>
-
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{path('reunion_index')}}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des réunions</a>
+						<a href="#" class="breadcrumb-item">Modification du réunion</a>
+					</div>
 				</div>
 			</div>
-
-
 		</div>
 		<!-- /page header -->
 		<div class="grix xs4 container">
@@ -38,7 +37,7 @@
 											class="tab-pane fade active show" id="settings">
 											<!-- Profile info -->
 											<div class="card">
-												<div class="card-header header-elements-inline">
+												<div class="card-header bg-white header-elements-inline">
 													<h5 class="card-title">Modifier la reunion {{reunion.id}}</h5>
 													<div class="header-elements"></div>
 												</div>

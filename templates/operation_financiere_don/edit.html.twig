@@ -75,7 +75,7 @@
 														<div class="col-md-6  d-none" id="champ_modepaiement">
 															<div class="form-group">
 																<label>Pièce jointe
-																	<span class="text-danger" id="champ_modepaiement"></span>
+																	<span class="text-danger"></span>
 																</label> {{ form_widget(formDon.pieceJointeOperations , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
@@ -115,12 +115,12 @@
 														</div>
 													</div>
 													<div class="row">
-														{% if is_granted('ROLE_FINANCIERE') %}
+														{% if is_granted('ROLE_FINANCIER') %}
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Etat
 																		<span class="text-danger"></span>
-																	</label> {{ form_widget(formDon.etat , {attr:{'class':'form-control '}}) }}
+																	</label> {{ form_widget(formDon.etat , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														{% endif %}
@@ -159,7 +159,7 @@ $('#champ_date').removeClass('d-none');
 $('#champ_date').addClass('d-none');
 }
 });
-$('#operation_financiere_don_stipulation').on('select2:select', function (e) {
+$('#operation_financiere_don_modepaiement').on('select2:select', function (e) {
 	if ($(this).val() === 'cheque') {
 		$('#champ_modepaiement').removeClass('d-none');
 	} else {

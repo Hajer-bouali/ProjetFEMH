@@ -39,7 +39,7 @@
 							<b>
 								<i class="icon-reading"></i>
 							</b>
-							Ajouter une nouvelle réunion</a>
+							Ajouter un nouveau réunion</a>
 					</div>
 
 				</div>
@@ -65,13 +65,13 @@
 								<td>{{ reunion.listemembre}}</td>
 								<td>
 
-									<a class="list-icons-item text-primary-600" href="{{ path('reunion_edit', {'id': reunion.id}) }}">
+									<a class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier le réunion" data-popup="tooltip-custom" title="Modifier la réunion" href="{{ path('reunion_edit', {'id': reunion.id}) }}">
 										<i class="icon-pencil7"></i>
 									</a>
-									<a href="#" data-target="#modal_delete{{reunion.id}}" data-toggle="modal" data-id={{reunion.id}} class="list-icons-item text-danger-600">
+									<a href="#" data-target="#modal_delete{{reunion.id}}" data-popup="tooltip-custom" title="Supprimer le réunion" data-popup="tooltip-custom" title="Supprimer la réunion"  data-toggle="modal" data-id={{reunion.id}} class="list-icons-item text-danger-600">
 										<i class="icon-trash"></i>
 									</a>
-									<a href="{{ path('reunion_show', {'id': reunion.id}) }}" class="list-icons-item text-teal-600">
+									<a href="{{ path('reunion_show', {'id': reunion.id}) }}" data-popup="tooltip-custom" title="Afficher le réunion"  class="list-icons-item text-teal-600">
 										<i class="icon-reading"></i>
 									</a>
 

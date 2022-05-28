@@ -26,9 +26,12 @@
 		<div class="page-header-content header-elements-md-inline">
 			<div class="d-flex">
 				<div class="breadcrumb"></div>
-
-				<a href="#" class="header-elements-toggle text-default d-md-none">
-					<i class="icon-more"></i>
+				<a href="{{ path('caisse_index') }}" class="breadcrumb-item">
+					<i class="icon-home2 mr-2"></i>
+					Liste des caisses
+				</a>
+				<a href="#" class="breadcrumb-item">
+					Affichage de  caisse
 				</a>
 			</div>
 
@@ -42,9 +45,9 @@
 
 		<!-- Basic datatable -->
 		<div class="card">
-			<div class="card-header header-elements-inline">
+			<div class="card-header bg-white header-elements-inline">
 				<h4 class="card-title">
-					les details du caisse {{ caisse.id }}
+					les details du caisse {{ caisse.intitule }}
 				</h4>
 
 			</div>
@@ -97,13 +100,15 @@
 						{% if operation.typeoperation =='don'%}
 
 							<span class="badge badge-success">
-								<i class="icon-diff-added"></i>  Don
+								<i class="icon-diff-added"></i>
+								Don
 							</span>
 						{% endif %}
 						{% if operation.typeoperation =='aide'%}
-						<span class="badge badge-danger">
-							<i class="icon-diff-removed"></i>  aide
-						</span>
+							<span class="badge badge-danger">
+								<i class="icon-diff-removed"></i>
+								aide
+							</span>
 						{% endif %}
 					</td>
 					<td class="text-center"></td>

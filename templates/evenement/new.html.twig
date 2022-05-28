@@ -7,15 +7,17 @@
 		<!-- Page header -->
 		<div class="page-header page-header-light">
 			<div class="page-header-content header-elements-md-inline">
-				<div class="breadcrumb">
-					<a href="{{ path('evenement_index') }}" class="breadcrumb-item">
-						<i class="icon-home2 mr-2"></i>
-						Liste des événements
-					</a>
-					<a href="{{ path('evenement_new') }}" class="breadcrumb-item">
-						Créer un nouveau événement
-					</a>
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{ path('evenement_index') }}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des événements
+						</a>
+						<a href="{{ path('evenement_new') }}" class="breadcrumb-item">
+							Créer un nouveau événement
+						</a>
 
+					</div>
 				</div>
 			</div>
 		</div>
@@ -39,14 +41,14 @@
 											class="tab-pane fade active show" id="settings">
 											<!-- Profile info -->
 											<div class="card">
-												<div class="card-header header-elements-inline">
+												<div class="card-header bg-white header-elements-inline">
 													<h5 class="card-title">
 														Créer un nouveau événement
 													</h5>
 													<div class="header-elements"></div>
-												</div> {{ form_start(form , {attr:{'class':'wizard-form steps-validation'}}) }}
-												<h6>Créer un nouveau evenement</h6>
-												<fieldset>
+												</div>
+												<div class="card-body">{{ form_start(form) }}
+
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
@@ -96,27 +98,23 @@
 													</div>
 													<div class="text-right"> {{ form_row(form.Enregistrer , {attr:{'class':'btn btn-primary'}}) }} {{ form_end(form) }}
 													</div>
-												</fieldset>
-
+												</div>
 											</div>
 										</div>
+										<!-- /profile info -->
+
 									</div>
-									<!-- /profile info -->
-
 								</div>
+								<!-- /left content -->
 							</div>
-							<!-- /left content -->
+							<!-- /inner container -->
 						</div>
-						<!-- /inner container -->
+						<!-- Content area -->
 					</div>
-					<!-- Content area -->
 
-					<div class="content"></div>
-					<!-- /content area -->
 				</div>
 
 			</div>
-
 		</div>
 	</div>
-</div></div>{% endblock %}
+</div>{% endblock %}
