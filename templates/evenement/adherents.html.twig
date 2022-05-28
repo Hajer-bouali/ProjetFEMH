@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Liste des adherents
+{% endblock %}
+
+
+{% block body %}
+	<!-- Main content -->
+	<div
+		class="content-wrapper">
+		<!-- Page header -->
+		<div class="page-header page-header-light">
+			<div class="page-header-content header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{path('evenement_index')}}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des événement</a>
+						<a href="#" class="breadcrumb-item">
+							Liste des bénéficiaires de l'événement
+						</a>
+					</div>
+
+					<a href="#" class="header-elements-toggle text-default d-md-none">
+						<i class="icon-more"></i>
+					</a>
+				</div>
+
+
+			</div>
+		</div>
+		<!-- /page header -->
+
+
+		<!-- Content area -->
+		<div
+			class="content">
+
+			<!-- Basic datatable -->
+			<div class="card">
+				<div class="card-header bg-white header-elements-inline">
+					<h5 class="card-title">Les condition pour choisir la Liste des bénéficiaires de l'événement</h5>
+				</div>
+				<div class="card-body">
+					<form action="{{ url('evenement_adherents', {'id':evenement_id}) }}" method="POST">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Revenu min</label>
+									<input value="{{ criteres and criteres['montantrevenu_min'] ? criteres['montantrevenu_min'] : '' }}" type="text" id="montantrevenu_min" name="montantrevenu_min" class="form-control"/>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Revenu max</label>
+									<input value="{{ criteres and criteres['montantrevenu_max'] ? criteres['montantrevenu_max'] : '' }}" type="text" id="montantrevenu_max" name="montantrevenu_max" class="form-control"/>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Membres de famille min</label>
+									<input value="{{ criteres and criteres['nombrefamille_min'] ? criteres['nombrefamille_min'] : '' }}" type="text" id="nombrefamille_min" name="nombrefamille_min" class="form-control"/>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Membres de famille max</label>
+									<input value="{{ criteres and criteres['nombrefamille_max'] ? criteres['nombrefamille_max'] : '' }}" type="text" id="nombrefamille_max" name="nombrefamille_max" class="form-control"/>
+								</div>
+							</div>
+						</div>
+						<div class="text-right">
+							<div class="form-group">
+								<button type="submit" data-popup="tooltip-custom" title="Attention, on appuiant sur cette bouton vous allez ajouter tous les dossiers qui acceptent ces critères à cet évènement!" id="enregistrer" class="btn btn-primary btn">
+									Ajouter les adherents
+								</button>
+								<p class="text-danger"></p>
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+			<div
+				class="d-flex align-items-start flex-column flex-md-row">
+
+				<!-- Left content -->
+				<div
+					class="w-100 overflow-auto order-2 order-md-1">
+
+					<!-- Questions list -->
+					<div class="card-group-control  card-group-control-right">
+						<div class="card mb-2">
+							<div class="card-header bg-white">
+								<h5 class="card-title ">
+									<a class="text-default collapsed" data-toggle="collapse" href="#question5">
+										<i class="icon-user-check text-success-400 border-success-400 border-3 rounded-round p-2"></i>
+										La résultat de  la recherche : la Liste des bénéficiaires de l'événement
+									</a>
+								</h5>
+							</div>
+
+							<div id="question5" class="collapse">
+								<div class="card-body ">
+									<table class="table datatable-basic">
+
+										<thead>
+											<tr>
+
+												<th>id</th>
+												<th>Nom et prénom</th>
+												<th>Adresse</th>
+												<th>Téléphone</th>
+												<th>Etat dossier</th>
+												<th>Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											{% for adherent in adherents|reverse %}
+												<tr>
+													<td>{{ adherent.id }}</td>
+													<td>{{ adherent.nom }}</td>
+													<td>{{ adherent.adresse }}</td>
+													<td>{{ adherent.telephone }}</td>
+													<td>{{ adherent.etatreunion }}</td>
+													<td>
+														<div class="list-icons">
+															<a href="{{ path('evenement_delete_adherent', {'evenement': evenement_id, 'adherent': adherent.id}) }}" class="list-icons-item text-danger-600">
+																<i class="icon-trash"></i>
+															</a>
+														</div>
+													</td>
+
+												</tr>
+											{% endfor %}
+
+										</tbody>
+
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div><!-- /basic datatable -->{% endblock %}

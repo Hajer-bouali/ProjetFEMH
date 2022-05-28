@@ -67,18 +67,18 @@
 		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
 		<!-- /theme JS files show_adherent-->
 
-	 <!-- Theme JS files upload -->
-    <script src="{{asset('templateAdmin/global_assets/js/plugins/uploaders/fileinput/plugins/purify.min.js')}}"></script>
-    <script src="{{asset('templateAdmin/global_assets/js/plugins/uploaders/fileinput/plugins/sortable.min.js')}}"></script>
-    <script src="{{asset('templateAdmin/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js')}}"></script>
+		<!-- Theme JS files upload -->
+		<script src="{{asset('templateAdmin/global_assets/js/plugins/uploaders/fileinput/plugins/purify.min.js')}}"></script>
+		<script src="{{asset('templateAdmin/global_assets/js/plugins/uploaders/fileinput/plugins/sortable.min.js')}}"></script>
+		<script src="{{asset('templateAdmin/global_assets/js/plugins/uploaders/fileinput/fileinput.min.js')}}"></script>
 
-    <script src="{{asset('templateAdmin/global_assets/js/demo_pages/uploader_bootstrap.js')}}"></script>
-    <!-- /theme JS files upload-->
-	<!-- Theme JS files dropzone-->
-	<script src="{{asset('templateAdmin/global_assets/js/plugins/uploaders/dropzone.min.js')}}"></script>
+		<script src="{{asset('templateAdmin/global_assets/js/demo_pages/uploader_bootstrap.js')}}"></script>
+		<!-- /theme JS files upload-->
+		<!-- Theme JS files dropzone-->
+		<script src="{{asset('templateAdmin/global_assets/js/plugins/uploaders/dropzone.min.js')}}"></script>
 
-	<script src="{{asset('templateAdmin/global_assets/js/demo_pages/uploader_dropzone.js')}}"></script>
-	<!-- /theme JS files dropzone-->
+		<script src="{{asset('templateAdmin/global_assets/js/demo_pages/uploader_dropzone.js')}}"></script>
+		<!-- /theme JS files dropzone-->
 
 
 		<!-- Theme JS files -->
@@ -98,7 +98,7 @@
 		<div class="navbar navbar-expand-md navbar-light">
 			<div class="navbar-brand">
 				<a href="index.html" class="d-inline-block-center">
-					<img src="{{ asset('templateAdmin/global_assets/images/logo final.png') }}" alt="">
+					<img src="{{ asset('templateAdmin/global_assets/images/logo_final.png') }}" alt="">
 				</a>
 			</div>
 			<div class="d-md-none">
@@ -183,138 +183,146 @@
 							</div>
 							<i class="icon-menu" title="Main"></i>
 						</li>
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link">
+									<i class="icon-paste"></i>
+									<span>Gestion des dossiers</span>
+								</a>
 
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-paste"></i>
-								<span>Gestion des dossiers</span>
-							</a>
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item">
+										<a href="{{path('adherent_index')}}" class="nav-link">Liste des dossiers
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{path('adherent_new')}}" class="nav-link">Ajouter dossier</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{path('adherent_archive')}}" class="nav-link">liste des dossiers archivés</a>
+									</li>
+								</ul>
+							</li>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
 
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								<li class="nav-item">
-									<a href="{{path('adherent_index')}}" class="nav-link">Liste des dossiers
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{path('adherent_new')}}" class="nav-link">Ajouter dossier</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{path('adherent_archive')}}" class="nav-link">liste des dossiers archivés</a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-cart5"></i>
-								<span>
-									Gestion des produits
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								<li class="nav-item">
-									<a href="{{ path('produit_index') }}" class="nav-link">
-										Liste des produits
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('produit_new') }}" class="nav-link">
-										Ajouter produit
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('type_produit_index') }}" class="nav-link">
-										Liste  type de produit
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('type_produit_new') }}" class="nav-link">
-										Ajouter un type de produit
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-stack"></i>
-								<span>
-									Gestion des reunions
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								<li class="nav-item">
-									<a href="{{ path('reunion_index') }}" class="nav-link">
-										Liste des reunions
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('reunion_create') }}" class="nav-link">
-										Ajouter reunion
-									</a>
-								</li>
-							</ul>
-						</li>
-
-
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-cash"></i>
-								<span>
-									Gestion de caisse
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								<li class="nav-item">
-									<a href="{{ path('caisse_index') }}" class="nav-link">
-										Liste des caisses
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('caisse_new') }}" class="nav-link">
-										Ajouter une caisse
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('type_caisse_index') }}" class="nav-link">
-										Liste des type caisses
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('type_caisse_new') }}" class="nav-link">
-										Ajouter un type caisse
-									</a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-calendar3"></i>
-								<span>
-									Gestion d'evenement
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								<li class="nav-item">
-									<a href="{{ path('evenement_index') }}" class="nav-link">
-										Liste des evenements
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('evenement_new') }}" class="nav-link">
-										Ajouter un evenement
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('type_evenement_index') }}" class="nav-link">
-										Liste des type des evenements
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('type_evenement_new') }}" class="nav-link">
-										Ajouter un type d'evenement
-									</a>
-								</li>
-							</ul>
-						</li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link">
+									<i class="icon-cart5"></i>
+									<span>
+										Gestion des produits
+									</span>
+								</a>
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item">
+										<a href="{{ path('produit_index') }}" class="nav-link">
+											Liste des produits
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('produit_new') }}" class="nav-link">
+											Ajouter produit
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('type_produit_index') }}" class="nav-link">
+											Liste  type de produit
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('type_produit_new') }}" class="nav-link">
+											Ajouter un type de produit
+										</a>
+									</li>
+								</ul>
+							</li>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link">
+									<i class="icon-stack"></i>
+									<span>
+										Gestion des reunions
+									</span>
+								</a>
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item">
+										<a href="{{ path('reunion_index') }}" class="nav-link">
+											Liste des reunions
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('reunion_create') }}" class="nav-link">
+											Ajouter reunion
+										</a>
+									</li>
+								</ul>
+							</li>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link">
+									<i class="icon-cash"></i>
+									<span>
+										Gestion de caisse
+									</span>
+								</a>
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item">
+										<a href="{{ path('caisse_index') }}" class="nav-link">
+											Liste des caisses
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('caisse_new') }}" class="nav-link">
+											Ajouter une caisse
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('type_caisse_index') }}" class="nav-link">
+											Liste des type caisses
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('type_caisse_new') }}" class="nav-link">
+											Ajouter un type caisse
+										</a>
+									</li>
+								</ul>
+							</li>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link">
+									<i class="icon-calendar3"></i>
+									<span>
+										Gestion d'evenement
+									</span>
+								</a>
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item">
+										<a href="{{ path('evenement_index') }}" class="nav-link">
+											Liste des evenements
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('evenement_new') }}" class="nav-link">
+											Ajouter un evenement
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('type_evenement_index') }}" class="nav-link">
+											Liste des type des evenements
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('type_evenement_new') }}" class="nav-link">
+											Ajouter un type d'evenement
+										</a>
+									</li>
+								</ul>
+							</li>
+						{% endif %}
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link">
 								<i class="icon-tree7"></i>
@@ -323,77 +331,82 @@
 								</span>
 							</a>
 							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								<li class="nav-item">
-									<a href="#" class="nav-link">
+								{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
+									<li class="nav-item">
+										<a href="#" class="nav-link">
 
-										Liste des operation financière
+											Liste des operation financière
 
-									</a>
-									<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-										<li class="nav-item">
-											<a href="{{ path('operation_financiere_don_index')}}" class="nav-link">
-												<i class="icon-diff-added"></i>
-												<span>
-													Liste des operation Don
-												</span>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ path('operation_financiere_aide_index')}}" class="nav-link">
-												<i class="icon-diff-removed"></i>
-												<span>
-													Liste des operation Aide
-												</span>
-											</a>
-										</li>
-									</ul>
-								</li>
-								<li class="nav-item">
-									<a href="#" class="nav-link">
-										Liste des operation Stocks
-									</a>
-									<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-										<li class="nav-item">
-											<a href="{{ path('operation_stock_don_index')}}" class="nav-link">
-												<i class="icon-diff-added"></i>
-												<span>
-													Liste des operation Don
-												</span>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a href="{{ path('operation_stock_aide_index')}}" class="nav-link">
-												<i class="icon-diff-removed"></i>
-												<span>
-													Liste des operation Aide
-												</span>
-											</a>
-										</li>
-									</ul>
-								</li>
+										</a>
+										<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+											<li class="nav-item">
+												<a href="{{ path('operation_financiere_don_index')}}" class="nav-link">
+													<i class="icon-diff-added"></i>
+													<span>
+														Liste des operation Don
+													</span>
+												</a>
+											</li>
+											<li class="nav-item">
+												<a href="{{ path('operation_financiere_aide_index')}}" class="nav-link">
+													<i class="icon-diff-removed"></i>
+													<span>
+														Liste des operation Aide
+													</span>
+												</a>
+											</li>
+										</ul>
+									</li>
+								{% endif %}
+								{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
+									<li class="nav-item">
+										<a href="#" class="nav-link">
+											Liste des operation Stocks
+										</a>
+										<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+											<li class="nav-item">
+												<a href="{{ path('operation_stock_don_index')}}" class="nav-link">
+													<i class="icon-diff-added"></i>
+													<span>
+														Liste des operation Don
+													</span>
+												</a>
+											</li>
+											<li class="nav-item">
+												<a href="{{ path('operation_stock_aide_index')}}" class="nav-link">
+													<i class="icon-diff-removed"></i>
+													<span>
+														Liste des operation Aide
+													</span>
+												</a>
+											</li>
+										</ul>
+									</li>
+								{% endif %}
 							</ul>
 						</li>
-
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-people"></i>
-								<span>
-									Gestion des utilisateurs
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								<li class="nav-item">
-									<a href="{{ path('user_index') }}" class="nav-link">
-										Liste des utilisateurs
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="{{ path('user_create') }}" class="nav-link">
-										Ajouter utilisateur
-									</a>
-								</li>
-							</ul>
-						</li>
+						{% if is_granted('ROLE_ADMIN')%}
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link">
+									<i class="icon-people"></i>
+									<span>
+										Gestion des utilisateurs
+									</span>
+								</a>
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item">
+										<a href="{{ path('user_index') }}" class="nav-link">
+											Liste des utilisateurs
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('user_create') }}" class="nav-link">
+											Ajouter utilisateur
+										</a>
+									</li>
+								</ul>
+							</li>
+						{% endif %}
 					</ul>
 				</div>
 			</div>
@@ -408,8 +421,7 @@ type: 'warning',
 showCancelButton: false,
 confirmButtonColor: '#3085d6',
 cancelButtonColor: '#d33'
-}){% endfor %}
-{% endfor %}
+}){% endfor %}{% endfor %}
 			</script>
 
 			{% block body %}{% endblock %}
@@ -418,4 +430,4 @@ cancelButtonColor: '#d33'
 		</div>
 		<!-- /page content -->
 	</body>
-</html></div>{% block javascript %}{% endblock %}</body></html>
+</html></body></html></div>{% block javascript %}{% endblock %}</body></html>

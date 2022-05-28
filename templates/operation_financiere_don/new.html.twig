@@ -114,12 +114,12 @@
 														</div>
 													</div>
 													<div class="row">
-														{% if is_granted('ROLE_FINANCIERE') %}
+														{% if is_granted('ROLE_FINANCIER') %}
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Etat
 																		<span class="text-danger"></span>
-																	</label> {{ form_widget(formDon.etat , {attr:{'class':'form-control ','disabled':'disabled'}}) }}
+																	</label> {{ form_widget(formDon.etat , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														{% endif %}

@@ -25,8 +25,6 @@ class Evenement
      */
     private $adherent;
 
-
-
     /**
      * @ORM\ManyToOne(targetEntity=TypeEvenement::class, inversedBy="evenement")
      * @ORM\JoinColumn(onDelete="CASCADE")
@@ -37,7 +35,6 @@ class Evenement
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
-
 
     /**
      * @ORM\Column(type="date")
@@ -69,6 +66,10 @@ class Evenement
      */
     private $ficheTechniques;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $criteres = [];
 
     public function __construct()
     {
@@ -82,7 +83,6 @@ class Evenement
     {
         return $this->id;
     }
-
 
     /**
      * @return Collection|Adherent[]
@@ -144,7 +144,6 @@ class Evenement
 
         return $this;
     }
-
 
     public function __toString() {
         return $this->nom;
@@ -257,6 +256,18 @@ class Evenement
                 $ficheTechnique->setEvenement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCriteres(): ?array
+    {
+        return $this->criteres;
+    }
+
+    public function setCriteres(array $criteres): self
+    {
+        $this->criteres = $criteres;
 
         return $this;
     }

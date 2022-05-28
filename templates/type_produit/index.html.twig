@@ -61,13 +61,13 @@
 							
                             <td>
 
-								<a class="list-icons-item text-primary-600" href="{{ path('type_produit_edit', {'id': type_produit.id}) }}">
+								<a class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier le type de produit" href="{{ path('type_produit_edit', {'id': type_produit.id}) }}">
 									<i class="icon-pencil7"></i>
 								</a>
-								<a href="#" data-target="#modal_delete{{type_produit.id}}" data-toggle="modal" data-id={{type_produit.id}} class="list-icons-item text-danger-600">
+								<a href="#" data-target="#modal_delete{{type_produit.id}}" data-popup="tooltip-custom" title="Supprimer le type de produit" data-toggle="modal" data-id={{type_produit.id}} class="list-icons-item text-danger-600">
 									<i class="icon-trash"></i>
 								</a>
-								<a href="{{ path('type_produit_show', {'id': type_produit.id}) }}" class="list-icons-item text-teal-600">
+								<a href="{{ path('type_produit_show', {'id': type_produit.id}) }}"  data-popup="tooltip-custom" title="Afficher le type de produit" class="list-icons-item text-teal-600">
 									<i class="icon-reading"></i>
 								</a>
 								<div id="modal_delete{{type_produit.id}}" class="modal fade" tabindex="-1">

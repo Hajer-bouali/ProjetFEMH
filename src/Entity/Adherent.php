@@ -1,11 +1,10 @@
 <?php
-
 namespace App\Entity;
-//use App\Entity\Benificiaire;
-use App\Repository\AdherentRepository;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AdherentRepository;
 /**
  * @ORM\Entity(repositoryClass=AdherentRepository::class)
  */
@@ -17,7 +16,6 @@ class Adherent
      * @ORM\Column(type="integer")
      */
     private $id;
-
    
     /**
      * @ORM\Column(type="string", length=255)
@@ -28,7 +26,6 @@ class Adherent
      * @ORM\Column(type="decimal", precision=10, scale=0)
      */
     private $cin;
-
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -75,8 +72,6 @@ class Adherent
      */
     private $eau;
 
-   
-
     /**
      * @ORM\Column(type="boolean")
      */
@@ -86,7 +81,6 @@ class Adherent
      * @ORM\Column(type="string", length=255)
      */
     private $typehandicap;
-
     
     /**
      * @ORM\Column(type="boolean")
@@ -117,10 +111,6 @@ class Adherent
      * @ORM\Column(type="string", length=255)
      */
     private $demande;
-
-
-
-
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -173,8 +163,6 @@ class Adherent
      */
     private $updatedAt;
 
-
-
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
@@ -188,9 +176,6 @@ class Adherent
     {
         return $this->id;
     }
-
-
- 
 
     public function getNom(): ?string
     {

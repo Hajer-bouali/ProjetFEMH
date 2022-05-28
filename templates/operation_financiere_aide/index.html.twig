@@ -130,12 +130,15 @@
 													{% for historiqueaide in historiqueaides  %}
 														{% if historiqueaide.idligne == operation_financiere.id %}
 															<tr>
+																{% set ancien = historiqueaide.modifications['ancien'] %}
+																{% set nouveau = historiqueaide.modifications['nouveau'] %}
 																<td>{{ historiqueaide.id }}</td>
 																<td>{{ historiqueaide.user }}</td>
 																<td>{{ historiqueaide.datemodif|date('d-m-Y-h:m:s') }}</td>
 																<td>{{ historiqueaide.typeoperation  }}</td>
-																<td><button type="button" class="btn bg-warning legitRipple" data-popup="popover" title="Ancien"  title="Ancien" data-trigger="hover" data-content="{{ historiqueaide.typeoperation }}">Ancien</button>
-																	<button type="button" class="btn btn-success" data-popup="popover" title="Ancien"  title="Ancien" data-trigger="hover" data-content="And here's some amazing content. It's very engaging. Right?">Nouveau</button>
+																
+																<td><button type="button" class="btn bg-warning legitRipple" data-popup="popover" title="Ancien"  title="Ancien" data-trigger="hover" data-content=" Montant : {{ ancien ? ancien['montant'] : 0}}">Ancien</button>
+																	<button type="button" class="btn btn-success" data-popup="popover" title="Nouveau"  title="Nouveau" data-trigger="hover" data-content=" Montant : {{ nouveau ? nouveau['montant'] : 0}}">Nouveau</button>
 																</td>
 															    <td class="text-center"></td>
 															</tr>
@@ -149,7 +152,6 @@
 
 												<div class="modal-footer">
 													<button type="button" class="btn btn-black" data-dismiss="modal">Fermer</button>
-													<a type="button" class="btn bg-slate" href="{{path("operation_financiere_aide_delete" , {id: operation_financiere.id})}}">Valider</a>
 												</div>
 											</div>
 										</div>

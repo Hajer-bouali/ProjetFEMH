@@ -26,10 +26,17 @@
 		<!-- Page header -->
 		<div class="page-header page-header-light">
 			<div class="page-header-content header-elements-md-inline">
-					<a href="{{ path('evenement_index') }}" class="breadcrumb-item">
-						<i class="icon-home2 mr-2"></i>
-						Liste des événements
-					</a>
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{ path('evenement_index') }}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des événements
+						</a>
+						<a href="#" class="breadcrumb-item">
+							préparer une fiche technique pour l'événement
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- /page header -->
@@ -41,11 +48,10 @@
 			<!-- Basic datatable -->
 			<div class="card">
 
-				<div class="card-header header-elements-inline">
+				<div class="card-header bg-white header-elements-inline">
 
 					<h4 class="card-title">
-					La fiche technique de l'événement :
-						{{ evenement.nom }}
+						La fiche technique de l'événement : {{ evenement.nom }}
 					</h4>
 
 					<div class="title-left">
@@ -62,237 +68,234 @@
 				<div class="row">
 
 
-					
-				<div class="card-header header-elements-inline">
+					<div class="card-header header-elements-inline">
 						<div class="for-group">
+							<div class="card-body p-0" style="">
+								<div class="nav nav-sidebar my-2">
 
-
-							<div class="d-flex align-items-center">
-								<i class="icon-calendar mr-2 icon-4x"></i>
-								<div class="font-weight-black ">Type d'evenement :</div>
-
-								<samp class="font-size-lg">{{ evenement.typeEvenement}}</samp>
-							</div>
-
-							<br>
-							<div class="d-flex align-items-center">
-								<i class="icon-calendar2 mr-2 icon-4x"></i>
-								<div class="font-weight-black">Date debut d'evenement :
+									<li class="nav-item">
+										<a class="nav-link legitRipple">
+											<i class="icon-certificate"></i>
+											Type d'événement :
+											<span class="badge bg-success-300 ml-auto">{{ evenement.typeEvenement}}</span>
+										</a>
+										<a class="nav-link legitRipple">
+											<i class="icon-calendar52"></i>
+											Date debut d'événement :
+											<span class="badge bg-success-300 ml-auto">{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</span>
+										</a>
+										<a class="nav-link legitRipple">
+											<i class="icon-calendar52"></i>
+											Date fin d'événement :
+											<span class="badge bg-success-300 ml-auto">{{ evenement.datefin ? evenement.datefin|date('Y-m-d') : '' }}</span>
+										</a>
+										<a class="nav-link legitRipple">
+											<i class="icon-cart5"></i>
+											Nombre des paniers finale :
+											<span class="badge bg-success-300 ml-auto">{{ nbpanierfinale and nbpanierfinale ? nbpanierfinale : '0'}}</span>
+											
+										</a>
+									</li>
 								</div>
-								<samp class="font-size-lg">{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</samp>
-
 							</div>
 							<br>
-							<div class="d-flex align-items-center">
-								<i class="icon-calendar2 mr-2 icon-4x"></i>
-								<div class="font-weight-black">Date fin d'evenement :
-								</div>
-								<samp class="font-size-lg">{{ evenement.datefin ? evenement.datefin|date('Y-m-d') : '' }}</samp>
-
-							</div>
-							<br>
-								<div class="d-flex align-items-center">
-									<i class="icon-cart5 mr-2 icon-4x"></i>
-									<div class="font-weight-black">  Nombre des paniers finale :
-									</div>
-									<samp class="font-size-lg">{{ nbpanierfinale}}</samp>
-	
-								</div>
-
-
 						</div>
 					</div>
 
 				</div>
 
 
-					
-					<table class="table datatable-basic">
-
-						<thead>
-							<tr>
-								<th>
-									Id
-
-								</th>
-								<th>
-									produit
-								</th>
-								<th>
-									Quantité
-								</th>
-								<th>
-									Unite
-								</th>
-								<th>
-									Nombre panier
-								</th>
-								<th>
-									Actions
-
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for ficheTechnique in ficheTechniques %}
-								<tr>
-
-									<td> {{ ficheTechnique.id }}
-									</td>
-									<td> {{ ficheTechnique.produit.intitule }}
-									</td>
-
-									<td> {{ ficheTechnique.quantite }}
-									</td>
-									<td> {{ ficheTechnique.unite }}
-									</td>
-									<td> {{ ficheTechnique.nbstockproduit }}
-									</td>
-									<td>
-										<div
-											class="list-icons">
-											<!--bouton trach-->
-											<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{ ficheTechnique.id }}" data-toggle="modal">
-												<i class="icon-trash"></i>
-											</a>
-											<!--/bouton trach-->
-
-										</div>
-									</td>
-								</tr>
-
-								<div id="modal_delete{{ ficheTechnique.id }}" class="modal fade" tabindex="-1">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header bg-danger">
-												<h4 class="modal-title">
-													Confirmez-vous la suppression du produit 
-													de la
-													?
-												</h4>
-												<button type="button" class="close" data-dismiss="modal">
-													&times;
-
-												</button>
-											</div>
-
-											<div class="modal-body">
-												<p>
-													<h5>Voulez vous supprimer le produit ?</h5>
-												</p><br><h6>si vous confirmez, votre produit sera effacé</h6>
-											</div>
-
-											<div class="modal-footer">
-												<button type="button" class="btn btn-link" data-dismiss="modal">
-													Fermer
-
-												</button>
-												<a type="button" class="btn bg-danger" href="{{ path("app_fiche_technique_delete" , {'id': ficheTechnique.id,'evenement':evenement.id}) }}">
-													Valider
-
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							{% endfor %}
-							<!--modal_ajout_produit-->
-							<div id="modal_ajout_produit" class="modal fade" tabindex="-1">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header bg-primary">
-											<h4 class="modal-title">
-												<label class="d-block font-weight-semibold">Vous allez ajouter un produit au fiche technique</label>
-											</h4>
-
-											<button type="button" class="close" data-dismiss="modal">
-												&times;
-											</button>
-										</div> {{ form_start(formfichetechnique) }}
-
-										<div class="modal-body">
-											<div class="row">
-
-												<div class="col-md-6">
-													<div class="form-group">
-														<label>Produit
-															<span class="text-danger"></span>
-														</label> {{ form_widget(formfichetechnique.produit, {attr:{'class':'form-control form-control-select2'}}) }}
-													</div>
-												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<label>Quantite
-															<span class="text-danger"></span>
-														</label> {{ form_widget(formfichetechnique.quantite, {attr:{'class':'form-control'}}) }}
-													</div>
-												</div>
-											</div>
-											<div class="row">
-
-												<div class="col-md-6">
-													<div class="form-group">
-														<label>Unite
-															<span class="text-danger"></span>
-														</label> {{ form_widget(formfichetechnique.unite, {attr:{'class':'form-control form-control-select2'}}) }}
-													</div>
-												</div>
-											</div>
-
-										</div>
-										<div class="modal-footer">
-											<div class="text-right"> {{ form_row(formfichetechnique.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
-											</div>
-										</div> {{ form_end(formfichetechnique) }}
-									</div>
-								</div>
-								<!--/modal_ajout_benificiaire-->
-							</div>
-						</tbody>
-
-					</table>
-				<!--<table class="table datatable-basic">
+				<table class="table datatable-basic">
 
 					<thead>
 						<tr>
+							<th>
+								Id
 
-							<th>id</th>
-							<th>Nom et prénom</th>
-							<th>Adresse</th>
-							<th>Telephone</th>
-							<th>Actions</th>
+							</th>
+							<th>
+								produit
+							</th>
+							<th>
+								Quantité
+							</th>
+							<th>
+								Unite
+							</th>
+							<th>
+								Nombre panier
+							</th>
+							<th>
+								Actions
+
+							</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for adherent in adherents|reverse %}
+						{% for ficheTechnique in ficheTechniques %}
 							<tr>
-								<td>{{ adherent.id }}</td>
-								<td>{{ adherent.nom }}</td>
-								<td>{{ adherent.adresse }}</td>
-								<td>{{ adherent.telephone }}</td>
 
+								<td> {{ ficheTechnique.id }}
+								</td>
+								<td> {{ ficheTechnique.produit.intitule }}
+								</td>
+
+								<td> {{ ficheTechnique.quantite }}
+								</td>
+								<td> {{ ficheTechnique.unite }}
+								</td>
+								<td> {{ ficheTechnique.nbstockproduit }}
+								</td>
 								<td>
-									<div class="list-icons">
+									<div
+										class="list-icons">
+										<!--bouton trach-->
 
+										<a class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier la fiche technique" href="{{ path('app_fiche_technique_edit', {'id': evenement.id}) }}">
+											<i class="icon-pencil7"></i>
+										</a>
+										<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{ ficheTechnique.id }}" data-toggle="modal">
+											<i class="icon-trash"></i>
+										</a>
 
-										{% if adherent.statut=="actif"%}
-											<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal"></a>
-										{% else %}
-											<a href="#" class="list-icons-item text-darck-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal"></a>
-										{% endif %}
-										<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600">
-											<i class="icon-reading"></i>
-										</a>
-										<a href="#" class="list-icons-item text-teal-600">
-											<i class="icon-checkmark-circle text-green"></i>
-										</a>
+										<!--/bouton trach-->
+
 									</div>
 								</td>
-								<td class="text-center"></td>
 							</tr>
+
+							<div id="modal_delete{{ ficheTechnique.id }}" class="modal fade" tabindex="-1">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header bg-danger">
+											<h4 class="modal-title">
+												Confirmez-vous la suppression du produit 
+																																																																									de la
+																																																																									?
+											</h4>
+											<button type="button" class="close" data-dismiss="modal">
+												&times;
+
+											</button>
+										</div>
+
+										<div class="modal-body">
+											<p>
+												<h5>Voulez vous supprimer le produit ?</h5>
+											</p><br><h6>si vous confirmez, votre produit sera effacé</h6>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-link" data-dismiss="modal">
+												Fermer
+
+											</button>
+											<a type="button" class="btn bg-danger" href="{{ path("app_fiche_technique_delete" , {'id': ficheTechnique.id,'evenement':evenement.id}) }}">
+												Valider
+
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
 						{% endfor %}
+						<!--modal_ajout_produit-->
+						<div id="modal_ajout_produit" class="modal fade" tabindex="-1">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header bg-primary">
+										<h4 class="modal-title">
+											<label class="d-block font-weight-semibold">Vous allez ajouter un produit au fiche technique</label>
+										</h4>
+
+										<button type="button" class="close" data-dismiss="modal">
+											&times;
+										</button>
+									</div> {{ form_start(formfichetechnique) }}
+
+									<div class="modal-body">
+										<div class="row">
+
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Produit
+														<span class="text-danger"></span>
+													</label> {{ form_widget(formfichetechnique.produit, {attr:{'class':'form-control form-control-select2'}}) }}
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Quantite
+														<span class="text-danger"></span>
+													</label> {{ form_widget(formfichetechnique.quantite, {attr:{'class':'form-control'}}) }}
+												</div>
+											</div>
+										</div>
+										<div class="row">
+
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Unite
+														<span class="text-danger"></span>
+													</label> {{ form_widget(formfichetechnique.unite, {attr:{'class':'form-control form-control-select2'}}) }}
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<div class="text-right"> {{ form_row(formfichetechnique.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+										</div>
+									</div> {{ form_end(formfichetechnique) }}
+								</div>
+							</div>
+							<!--/modal_ajout_benificiaire-->
+						</div>
 					</tbody>
-				</table>-->
+
+				</table>
+				<!--<table class="table datatable-basic">
+																				
+																									<thead>
+																										<tr>
+																				
+																											<th>id</th>
+																											<th>Nom et prénom</th>
+																											<th>Adresse</th>
+																											<th>Telephone</th>
+																											<th>Actions</th>
+																										</tr>
+																									</thead>
+																									<tbody>
+																										{% for adherent in adherents|reverse %}
+																											<tr>
+																												<td>{{ adherent.id }}</td>
+																												<td>{{ adherent.nom }}</td>
+																												<td>{{ adherent.adresse }}</td>
+																												<td>{{ adherent.telephone }}</td>
+																				
+																												<td>
+																													<div class="list-icons">
+																				
+																				
+																														{% if adherent.statut=="actif"%}
+																															<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal"></a>
+																														{% else %}
+																															<a href="#" class="list-icons-item text-darck-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal"></a>
+																														{% endif %}
+																														<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600">
+																															<i class="icon-reading"></i>
+																														</a>
+																														<a href="#" class="list-icons-item text-teal-600">
+																															<i class="icon-checkmark-circle text-green"></i>
+																														</a>
+																													</div>
+																												</td>
+																												<td class="text-center"></td>
+																											</tr>
+																										{% endfor %}
+																									</tbody>
+																								</table>-->
 
 			</div>
 

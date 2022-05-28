@@ -92,6 +92,7 @@ class Historique
     public function getModifications(): ?array
     {
         return $this->modifications;
+        
     }
 
     public function setModifications(array $modifications): self

@@ -25,13 +25,13 @@
 		<div class="page-header page-header-light">
 			<div class="page-header-content header-elements-md-inline">
 				<div class="d-flex">
-					<div class="breadcrumb"></div>
-
-					<a href="#" class="header-elements-toggle text-default d-md-none">
-						<i class="icon-more"></i>
-					</a>
+					<div class="breadcrumb">
+						<a href="{{path('reunion_index')}}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des réunion</a>
+						<a href="#" class="breadcrumb-item">Affichage du réunion</a>
+					</div>
 				</div>
-
 			</div>
 		</div>
 		<!-- /page header -->
@@ -42,18 +42,16 @@
 
 			<!-- Basic datatable -->
 			<div class="card">
-				<div class="card-header header-elements-inline">
+				<div class="card-header bg-white header-elements-inline">
 					<h4 class="card-title">
-						Liste des decisions de reunion
-						{{ reunion.id }}
+						Liste des decisions de réunion {{ reunion.id }}
 					</h4>
 					<div class="card-title-left">
 						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" data-target="#modal_create{{ reunion.id }}" data-toggle="modal" data-id={{reunion.id}}>
 							<b>
 								<i class="icon-reading"></i>
 							</b>
-							Affecter des adherents au reunion
-							{{ reunion.id }}
+							Affecter des adherents au réunion {{ reunion.id }}
 						</a>
 					</div>
 
@@ -61,13 +59,11 @@
 				<div class="card-header header-elements-inline">
 					<h6>
 						<i class="icon-table2"></i>
-						Date de reunion:
-						{{ reunion.date ? reunion.date|date('Y-m-d') : '' }}
+						Date de réunion: {{ reunion.date ? reunion.date|date('Y-m-d') : '' }}
 					</br>
 				</br>
 				<i class="icon-people"></i>
-				Liste des participants reunion:
-				{{ reunion.listemembre }}
+				Liste des participants réunion: {{ reunion.listemembre }}
 			</h6>
 		</div>
 
@@ -95,26 +91,22 @@
 			<tbody>
 				{% for decision in decisions %}
 					<tr>
-						<td>
-							{{ decision.adherent.id }}
+						<td> {{ decision.adherent.id }}
 						</td>
-						<td>
-							{{ decision.adherent.nom }}
+						<td> {{ decision.adherent.nom }}
 						</td>
 
 						<td>
-							<button type="button" class="btn  {% if decision.statut == 'Valide' %} bg-green {% endif %} {% if decision.statut == 'Refuse' %} bg-danger {% endif %} {% if decision.statut == 'Encours' %} bg-warning {% endif %}">
-								{{ decision.statut }}
+							<button type="button" class="btn  {% if decision.statut == 'Valide' %} bg-green {% endif %} {% if decision.statut == 'Refuse' %} bg-danger {% endif %} {% if decision.statut == 'Encours' %} bg-warning {% endif %}"> {{ decision.statut }}
 							</button>
 						</td>
-						<td>
-							{{ decision.detail }}
+						<td> {{ decision.detail }}
 						</td>
 						<td>
-							<a href="#" data-target="#modal_decision{{ decision.id }}" data-toggle="modal" data-id={{decision.id}} class="list-icons-item text-primary-600">
+							<a href="#" data-popup="tooltip-custom" title="Decision du réunion" data-target="#modal_decision{{ decision.id }}" data-toggle="modal" data-id={{decision.id}} class="list-icons-item text-primary-600">
 								<i class="icon-balance"></i>
 							</a>
-							<a href="#" data-target="#modal_delete{{ decision.id }}" data-toggle="modal" data-id={{decision.id}} class="list-icons-item text-danger-600">
+							<a href="#" data-target="#modal_delete{{ decision.id }}" data-popup="tooltip-custom" title="Supprimer le réunion" data-toggle="modal" data-id={{decision.id}} class="list-icons-item text-danger-600">
 								<i class="icon-trash"></i>
 							</a>
 						</td>
@@ -186,10 +178,8 @@
 							<div class="modal-content">
 								<div class="modal-header bg-danger">
 									<h6 class="modal-title">
-										Supprimer le decision
-										{{ decision.id }}
-										de la reunion
-										{{ reunion.id }}
+										Supprimer le decision {{ decision.id }}
+										de la reunion {{ reunion.id }}
 									</h6>
 									<button type="button" class="close" data-dismiss="modal">
 										&times;
@@ -222,8 +212,7 @@
 			<div class="modal-content">
 				<div class="modal-header bg-primary">
 					<h6 class="modal-title">
-						Affecter des adherents au reunion
-						{{ reunion.id }}
+						Affecter des adherents au reunion {{ reunion.id }}
 					</h6>
 					<button type="button" class="close" data-dismiss="modal">
 						&times;
@@ -241,8 +230,7 @@
 
 								{% for adherent in adherents %}
 
-									<option value="{{adherent.id}}">
-										{{ adherent.nom }}
+									<option value="{{adherent.id}}"> {{ adherent.nom }}
 									</option>
 
 								{% endfor %}

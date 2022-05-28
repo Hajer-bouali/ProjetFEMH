@@ -7,16 +7,22 @@
 		<!-- Page header -->
 		<div class="page-header page-header-light">
 			<div class="page-header-content header-elements-md-inline">
-				<div class="breadcrumb">
-					<a href="{{ path('caisse_index') }}" class="breadcrumb-item">
-						<i class="icon-home2 mr-2"></i>
-						Liste des caisses
-					</a>
-					<a href="{{ path('caisse_new') }}" class="breadcrumb-item">
-						Modification du caisse
-					</a>
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{path('caisse_index')}}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des caisses</a>
+							<a href="#" class="breadcrumb-item">
+							Modification du caisse</a>
 
+					</div>
+
+					<a href="#" class="header-elements-toggle text-default d-md-none">
+						<i class="icon-more"></i>
+					</a>
 				</div>
+
+
 			</div>
 		</div>
 		<!-- /page header -->
@@ -39,13 +45,14 @@
 											class="tab-pane fade active show" id="settings">
 											<!-- Profile info -->
 											<div class="card">
-												<div class="card-header header-elements-inline">
-													<h5 class="card-title">
-														Créer un nouveau caisse
-													</h5>
+												<div class="card-header bg-white header-elements-inline">
+													<h6 class="card-title">
+														Modifier la caisse {{caisse.intitule}}
+													</h6>
 													<div class="header-elements"></div>
 												</div>
-
+												
+										
 												<div class="card-body"> {{ form_start(form) }}
 
 													<div class="row">

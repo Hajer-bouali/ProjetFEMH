@@ -34,7 +34,7 @@
 			<!-- Basic datatable -->
 			<div class="card">
 				<div class="card-header header-elements-inline">
-					<h5 class="card-title">Liste des caissses</h5>
+					<h5 class="card-title">Liste des caisses</h5>
 					<div class="card-title-left">
 						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('caisse_new')}}">
 							<b>
@@ -62,13 +62,13 @@
                         <td>{{ caisse.montant }}</td>
                             <td>
 									<div class="list-icons">
-										<a class="list-icons-item text-primary-600" href="{{ path('caisse_edit', {'id': caisse.id}) }}">
+										<a class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier la caisse"  href="{{ path('caisse_edit', {'id': caisse.id}) }}">
 											<i class="icon-pencil7"></i>
 										</a>
-										<a href="#" data-target="#modal_delete{{caisse.id}}" data-toggle="modal" data-id={{caisse.id}} class="list-icons-item text-danger-600">
+										<a href="#" data-target="#modal_delete{{caisse.id}}" data-toggle="modal" data-popup="tooltip-custom" title="Supprimer la caisse"  data-id={{caisse.id}} class="list-icons-item text-danger-600">
 											<i class="icon-trash"></i>
 										</a>
-										<a href="{{ path('caisse_show', {'id': caisse.id}) }}" class="list-icons-item text-teal-600">
+										<a href="{{ path('caisse_show', {'id': caisse.id}) }}" data-popup="tooltip-custom" title="Afficher la caisse"  class="list-icons-item text-teal-600">
 											<i class="icon-reading"></i>
 										</a>
 									</div>

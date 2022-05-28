@@ -10,16 +10,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     /**
-     * @Route("/login", name="login")
+     * @Route("/", name="login")
      */
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('admin');
+            return $this->redirectToRoute('profil_index');
         }
-        if ($this->getUser() && $this->getUser()->getRoles()== 'ROLE_FINANCIERE') {
-            return $this->redirectToRoute('financiere');
-        }
+
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

@@ -12,11 +12,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 /**
  * @Route("/user")
+ * @Security("is_granted('ROLE_SOCIAL') or is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER')")
  */
 class UserController extends AbstractController
 {
@@ -36,7 +37,11 @@ class UserController extends AbstractController
     function new (Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response {
         $user = new User();
         $formCreerProfil = $this->createForm(CreateFormType::class, $user);
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $formCreerProfil->remove('roles');
+        }
         $formCreerProfil->handleRequest($request);
+
 
         if ($formCreerProfil->isSubmitted() && $formCreerProfil->isValid()) {
             // encode the plain password
@@ -67,8 +72,11 @@ class UserController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $formedituser = $this->createForm(EditFormType::class, $user);
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            $formedituser->remove('roles');
+        }
         $formedituser->handleRequest($request);
-
+       
         $formPassword = $this->createForm(EditPasswordType::class, $user);
         $formPassword->handleRequest($request);
 

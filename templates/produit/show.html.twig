@@ -1,11 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}affichage de produit
-	{{ produit.id }}
+{% block title %}affichage de produit {{ produit.id }}
 {% endblock %}
 
 {% block body %}
-<!--commantaire-->
+
+	<!-- Page header -->
+	<div class="page-header page-header-light">
+		<div class="page-header-content header-elements-md-inline">
+			<div class="d-flex">
+				<div class="breadcrumb">
+					<a href="{{ path('produit_index') }}" class="breadcrumb-item">
+						<i class="icon-home2 mr-2"></i>
+						Liste des produits
+					</a>
+					<a href="{{ path('produit_new') }}" class="breadcrumb-item">
+						Affichage du produit
+					</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /page header -->
 	<div class="grix xs4 container">
 		<div class="col-xs4">
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -25,15 +42,14 @@
 										class="tab-pane fade active show" id="settings">
 										<!-- Produit info -->
 										<div class="card">
-										<div class="card-header header-elements-inline">
-												<h5 class=" text-teal text-center ">L'affichage de produit
-													{{ produit.id }}</h5>
+											<div class="card-header bg-white header-elements-inline">
+												<h5 class=" text-teal text-center ">L'affichage de produit {{ produit.id }}</h5>
 											</div>
 											<div class="card-body">
-												
+
 												<div class="form-group">
 													<div class="row">
-													
+
 														<div class="col-md-6">
 															<div class="d-flex align-items-center">
 																<i class="icon-calendar mr-3 icon-2x"></i>
@@ -72,7 +88,7 @@
 													</div>
 
 												</div>
-												
+
 											</div>
 											<!-- /Produit info -->
 										</div>
