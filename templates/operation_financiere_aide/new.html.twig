@@ -7,15 +7,16 @@
 		<!-- Page header -->
 		<div class="page-header page-header-light">
 			<div class="page-header-content header-elements-md-inline">
-				<div class="breadcrumb">
-					<a href="{{ path('operation_financiere_aide_index') }}" class="breadcrumb-item">
-						<i class="icon-home2 mr-2"></i>
-						Liste des opérations Financière de aide
-					</a>
-					<a href="{{ path('operation_financiere_aide_new') }}" class="breadcrumb-item">
-						Créer une nouvelle opération Financière de aide
-					</a>
-
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{ path('operation_financiere_aide_index') }}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des opérations Financière de aide
+						</a>
+						<a href="{{ path('operation_financiere_aide_new') }}" class="breadcrumb-item">
+							Créer une nouvelle opération Financière de aide
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -37,7 +38,7 @@
 									<div class="tab-content w-100 overflow-auto order-2 order-md-1">
 										<div class="tab-pane fade active show" id="settings">
 											<div class="card">
-												<div class="card-header header-elements-inline">
+												<div class="card-header bg-white header-elements-inline">
 													<h5 class="card-title">
 														Créer une nouvelle opération Financière d'aide
 													</h5>
@@ -91,12 +92,12 @@
 
 													</div>
 													<div class="row">
-														{% if is_granted('ROLE_FINANCIERE') %}
+														{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Etat
 																		<span class="text-danger"></span>
-																	</label> {{ form_widget(formAide.etat , {attr:{'class':'form-control '}}) }}
+																	</label> {{ form_widget(formAide.etat , {attr:{'class':'form-control'}}) }}
 																</div>
 															</div>
 														{% endif %}
@@ -129,15 +130,15 @@
 		</div>
 	{% endblock %}
 	{% block javascript %}
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$('#operation_financiere_aide_modepaiement').on('select2:select', function (e) {
-				if ($(this).val() === 'cheque') {
-					$('#champ_modepaiement').removeClass('d-none');
-				} else {
-					$('#champ_modepaiement').addClass('d-none');
-				}
-			});
-		});
-	</script>
-{% endblock %}
+		<script type="text/javascript">
+			$(document).ready(function () {
+$('#operation_financiere_aide_modepaiement').on('select2:select', function (e) {
+if ($(this).val() === 'cheque') {
+$('#champ_modepaiement').removeClass('d-none');
+} else {
+$('#champ_modepaiement').addClass('d-none');
+}
+});
+});
+		</script>
+	{% endblock %}

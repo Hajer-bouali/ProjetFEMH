@@ -60,7 +60,7 @@ class EvenementController extends AbstractController
     /**
      * @Route("/{id}", name="evenement_show", methods={"GET", "POST"})
      */
-    public function show(Request $request, Evenement $evenement, AdherentRepository $adherentRepository, EntityManagerInterface $entityManager,  FicheTechniqueRepository $fichetechniqueRepository): Response
+        public function show(Request $request, Evenement $evenement, AdherentRepository $adherentRepository, EntityManagerInterface $entityManager,  FicheTechniqueRepository $fichetechniqueRepository): Response
     {
         $adherents = $adherentRepository->findAll();
         $ficheTechniques = $fichetechniqueRepository->findByEvenement($evenement);
@@ -92,6 +92,9 @@ class EvenementController extends AbstractController
                $nbpanierfinale = $ficheTechnique->getNbstockproduit();
             }
         }
+        $ficheTechnique->setNbpanierfinale($nbpanierfinale);
+        $entityManager->persist($ficheTechnique);
+        $entityManager->flush();
         return $this->render('evenement/show.html.twig', [
             'evenement' => $evenement,
             'adherents' => $adherents,
@@ -140,7 +143,9 @@ class EvenementController extends AbstractController
      */
     public function adherents(Request $request, Evenement $evenement, EntityManagerInterface $entityManager, AdherentRepository $adherentRepository): Response
     {
+        
         if ($request->isMethod('POST')) {
+            $nbaderents = 0;
             //supprimer tous les anciens adherents
             foreach($evenement->getAdherent() as $adherent) {
                 $evenement->removeAdherent($adherent);
@@ -152,14 +157,23 @@ class EvenementController extends AbstractController
             //affectation de la liste des adherents a l'évènement selectionné
             foreach($adherentsList as $adherent) {
                 $evenement->addAdherent($adherent);
+                $nbaderents=  $nbaderents + 1 ;
             }
 
             //sauvgarde des critères de recherche dans la table evenement
             $evenement->setCriteres($request->request->all());
-
+            $evenement->setNbaderents($nbaderents);
+            $ficheTechniques = $evenement->getFicheTechniques();
+            
             $entityManager->persist($evenement);
             $entityManager->flush();
-
+            foreach ($ficheTechniques as $ficheTechnique) {
+            if ($evenement->getNbaderents() > $ficheTechnique->getNbpanierfinale()) {
+                $this->addFlash('warning', 'vous avez dépassé le nombre des bénéficiaires possible !
+                la stock est insuffisant');
+                return $this->redirectToRoute('evenement_adherents', ['id' => $evenement->getId()]);
+            }
+        }
             return $this->redirectToRoute('evenement_adherents', ['id' => $evenement->getId()], Response::HTTP_SEE_OTHER);
         }
 

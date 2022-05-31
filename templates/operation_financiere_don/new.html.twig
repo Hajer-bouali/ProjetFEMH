@@ -7,15 +7,16 @@
 		<!-- Page header -->
 		<div class="page-header page-header-light">
 			<div class="page-header-content header-elements-md-inline">
-				<div class="breadcrumb">
-					<a href="{{ path('operation_financiere_don_index') }}" class="breadcrumb-item">
-						<i class="icon-home2 mr-2"></i>
-						Liste des opérations Financière de don
-					</a>
-					<a href="{{ path('operation_financiere_don_new') }}" class="breadcrumb-item">
-						Créer une nouvelle opération Financière de don
-					</a>
-
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{ path('operation_financiere_don_index') }}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des opérations Financière de don
+						</a>
+						<a href="{{ path('operation_financiere_don_new') }}" class="breadcrumb-item">
+							Créer une nouvelle opération Financière de don
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -37,7 +38,7 @@
 									<div class="tab-content w-100 overflow-auto order-2 order-md-1">
 										<div class="tab-pane fade active show" id="settings">
 											<div class="card">
-												<div class="card-header header-elements-inline">
+												<div class="card-header bg-white header-elements-inline">
 													<h5 class="card-title">
 														Créer une nouvelle opération Financière de don
 													</h5>
@@ -63,22 +64,6 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-md-6">
-															<div class="form-group">
-																<label>Mode de paiement
-																	<span class="text-danger">*</span>
-																</label> {{ form_widget(formDon.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
-															</div>
-														</div>
-														<div class="col-md-6 d-none" id="champ_modepaiement">
-															<div class="form-group" >
-																<label>Pièce jointe
-																	<span class="text-danger"></span>
-																</label> {{ form_widget(formDon.pieceJointeOperations , {attr:{'class':'form-control form-control-select2'}}) }}
-															</div>
-														</div>
-													</div>
-													<div class="row">
 
 														<div class="col-md-6">
 															<div class="form-group">
@@ -95,6 +80,23 @@
 															</div>
 														</div>
 													</div>
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Mode de paiement
+																	<span class="text-danger">*</span>
+																</label> {{ form_widget(formDon.modepaiement , {attr:{'class':'form-control form-control-select2'}}) }}
+															</div>
+														</div>
+														<div class="col-md-6 d-none" id="champ_modepaiement">
+															<div class="form-group">
+																<label>Pièce jointe
+																	<span class="text-danger"></span>
+																</label> {{ form_widget(formDon.pieceJointeOperations , {attr:{'class':'form-control form-control-select2'}}) }}
+															</div>
+														</div>
+													</div>
+
 													<div class="row">
 
 														<div class="col-md-6">
@@ -114,7 +116,7 @@
 														</div>
 													</div>
 													<div class="row">
-														{% if is_granted('ROLE_FINANCIER') %}
+														{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Etat
@@ -156,18 +158,18 @@
 			$(document).ready(function () {
 
 $('#operation_financiere_don_stipulation').on('select2:select', function (e) {
-	if ($(this).val() === 'Zakat') {
-		$('#champ_date').removeClass('d-none');
-	} else {
-		$('#champ_date').addClass('d-none');
-	}
+if ($(this).val() === 'Zakat') {
+$('#champ_date').removeClass('d-none');
+} else {
+$('#champ_date').addClass('d-none');
+}
 });
 $('#operation_financiere_don_modepaiement').on('select2:select', function (e) {
-	if ($(this).val() === 'cheque') {
-		$('#champ_modepaiement').removeClass('d-none');
-	} else {
-		$('#champ_modepaiement').addClass('d-none');
-	}
+if ($(this).val() === 'cheque') {
+$('#champ_modepaiement').removeClass('d-none');
+} else {
+$('#champ_modepaiement').addClass('d-none');
+}
 });
 });
 		</script>

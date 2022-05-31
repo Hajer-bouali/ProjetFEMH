@@ -1,120 +1,100 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}affichage de produit {{ produit.id }}
-{% endblock %}
-
 {% block body %}
+	<!-- Main content -->
+	<div
+		class="content-wrapper">
 
-	<!-- Page header -->
-	<div class="page-header page-header-light">
-		<div class="page-header-content header-elements-md-inline">
-			<div class="d-flex">
-				<div class="breadcrumb">
-					<a href="{{ path('produit_index') }}" class="breadcrumb-item">
-						<i class="icon-home2 mr-2"></i>
-						Liste des produits
-					</a>
-					<a href="{{ path('produit_new') }}" class="breadcrumb-item">
-						Affichage du produit
-					</a>
-
+		<!-- Page header -->
+		<div class="page-header page-header-light">
+			<div class="page-header-content header-elements-md-inline">
+				<div class="d-flex">
+					<div class="breadcrumb">
+						<a href="{{path('produit_index')}}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des produits</a>
+						<a href="#" class="breadcrumb-item">Modification de produit</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- /page header -->
-	<div class="grix xs4 container">
-		<div class="col-xs4">
-			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-			<div class="col-12">
-				<div class="col-xs4">
-					<div class="content-wrapper">
+		<!-- /page header -->
+		<div
+			class="content">
 
-						<div
-							class="content">
+			<!-- Inner container -->
+			<div class="d-flex align-items-start flex-column flex-md-row">
 
-							<!-- Inner container -->
-							<div
-								class="d-flex align-items-start flex-column flex-md-row">
-								<!-- Left content -->
-								<div class="tab-content w-100 overflow-auto order-2 order-md-1">
-									<div
-										class="tab-pane fade active show" id="settings">
-										<!-- Produit info -->
-										<div class="card">
-											<div class="card-header bg-white header-elements-inline">
-												<h5 class=" text-teal text-center ">L'affichage de produit {{ produit.id }}</h5>
-											</div>
-											<div class="card-body">
-
-												<div class="form-group">
-													<div class="row">
-
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-calendar mr-3 icon-2x"></i>
-																<div class="font-weight-black">Date d'expiration  :</div>
-																<samp class="font-size-lg">{{ produit.dateExpiration ? produit.dateExpiration|date('Y-m-d H:i:s') : '' }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-database-check mr-3 icon-2x"></i>
-																<div class="font-weight-black">La quantité :</div>
-																<samp class="font-size-lg">{{ produit.quantite }}</samp>
-
-															</div>
-														</div>
-													</div>
-
-												</div>
-												<div class="form-group">
-													<div class="row">
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-cabinet mr-3 icon-2x"></i>
-																<div class="font-weight-black">Categorie :</div>
-																<samp class="font-size-lg">{{ produit.categorie }}</samp>
-															</div>
-														</div>
-														<div class="col-md-6">
-															<div class="d-flex align-items-center">
-																<i class="icon-bookmark2 mr-3 icon-2x"></i>
-																<div class="font-weight-black">référence:</div>
-																<samp class="font-size-lg">{{ produit.ref }}</samp>
-
-															</div>
-														</div>
-													</div>
-
-												</div>
-
-											</div>
-											<!-- /Produit info -->
-										</div>
-									</div>
-									<!-- /left content -->
+				<!-- Left content -->
 
 
-									<!-- Right sidebar component -->
-									<div
-										class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-300 border-0 shadow-0 order-1 order-md-2 sidebar-expand-md">
+				<!-- Timeline -->
+					<div class="timeline timeline-left"> <div
+						class="timeline-container">
 
-										<!-- Sidebar content -->
-										<div class="sidebar-content"></div>
-										<!-- /sidebar content -->
-									</div>
-									<!-- /right sidebar component -->
-								</div>
-								<!-- /inner container -->
-							</div>
-							<!-- Content area -->
-							<div class="content"></div>
-							<!-- /content area -->
+
+						<!-- Date stamp -->
+						<div class="timeline-date text-muted">
+							<i class="icon-history mr-2"></i>
+							<span class="font-weight-semibold">Monday</span>, April 18
 						</div>
+						<!-- /date stamp -->
+
+
+						<!-- Invoices -->
+						<div class="timeline-row">
+							<div class="timeline-icon">
+								<div class="bg-warning-400">
+									<i class="icon-cash3"></i>
+								</div>
+							</div>
+
+							<div class="row">
+								<div>
+									<div class="card border-left-3 border-left-danger rounded-left-0">
+										<div class="card-body">
+											<div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
+												<div>
+													<h6 class="font-weight-semibold">Leonardo Fellini</h6>
+
+												</div>
+
+												<div class="text-sm-right mb-0 mt-3 mt-sm-0 ml-auto">
+													<h6 class="font-weight-semibold">$8,750</h6>
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+
+
+								
+							</div>
+						</div>
+						<!-- /invoices -->
+
+
+						<!-- Messages -->
+						<div class="timeline-row">
+							<div class="timeline-icon">
+								<div class="bg-info-400">
+									<i class="icon-comment-discussion"></i>
+								</div>
+							</div>
+
+
+						</div>
+						<!-- /messages -->
 
 
 					</div>
 
+					<!-- /timeline -->
 				</div>
-			{% endblock %}
+				<!-- /left content -->
+			</div>
+			<!-- /inner container -->
+		</div>
+	</div>
+{% endblock %}
