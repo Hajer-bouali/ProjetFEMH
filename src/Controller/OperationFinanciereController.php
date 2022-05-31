@@ -27,11 +27,12 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("/don", name="operation_financiere_don_index", methods={"GET"})
      */
-    public function indexdon(OperationFinanciereRepository $operationFinanciereRepository): Response
+    public function indexdon(OperationFinanciereRepository $operationFinanciereRepository, HistoriqueRepository $historiquerepository): Response
     {
-
+        $historiquedons = $historiquerepository->findByTableModifiee('operationFinanciere');
         return $this->render('operation_financiere_don/index.html.twig', [
             'operation_financieres' => $operationFinanciereRepository->findAll('don'),
+            'historiquedons' => $historiquedons,
         ]);
     }
 
@@ -51,14 +52,14 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("/newDon", name="operation_financiere_don_new", methods={"GET", "POST"})
      */
-    public function newDon(Request $request, EntityManagerInterface $entityManager): Response
+    public function newDon(Request $request, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
         $operationFinanciere = new OperationFinanciere();
         $formDon = $this->createForm(OperationFinanciereDonType::class, $operationFinanciere);
 
-        if (!$this->isGranted('ROLE_FINANCIER')) {
+        /*if (!$this->isGranted('ROLE_FINANCIER')) {
             $formDon->remove('etat');
-        }
+        }*/
         $formDon->handleRequest($request);
         if ($formDon->isSubmitted() && $formDon->isValid()) {
             $piecejointes = $formDon->get('pieceJointeOperations')->getData();
@@ -81,6 +82,16 @@ class OperationFinanciereController extends AbstractController
             }
             $entityManager->persist($operationFinanciere);
             $entityManager->flush();
+
+            $serviceHistorique->saveModifications([
+                'user' => $this->getUser(),
+                'table' => 'operationFinanciere',
+                'ancien' => [],
+                'nouveau' => $operationFinanciere->toArray(),
+                'typeoperation' => 'ajout',
+                'idligne' => $operationFinanciere->getId(),
+
+            ]);
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
 
             return $this->redirectToRoute('operation_financiere_don_index', [], Response::HTTP_SEE_OTHER);
@@ -173,9 +184,6 @@ class OperationFinanciereController extends AbstractController
     public function editAide(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
-        if (!$this->isGranted('ROLE_FINANCIER')) {
-            $formAide->remove('etat');
-        }
         $ancien = $operationFinanciere->toArray();
         $formAide->handleRequest($request);
 
@@ -215,13 +223,11 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("/{id}/editDon", name="operation_financiere_don_edit", methods={"GET", "POST"})
      */
-    public function editDon(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
+    public function editDon(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
         $formDon = $this->createForm(OperationFinanciereDonType::class, $operationFinanciere);
-
-        if (!$this->isGranted('ROLE_FINANCIER')) {
-            $formDon->remove('etat');
-        }$formDon->handleRequest($request);
+        $ancien = $operationFinanciere->toArray();
+        $formDon->handleRequest($request);
 
         if ($formDon->isSubmitted() && $formDon->isValid()) {
             $piecejointes = $formDon->get('pieceJointeOperations')->getData();
@@ -242,6 +248,16 @@ class OperationFinanciereController extends AbstractController
             $entityManager->flush();
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
 
+
+            $serviceHistorique->saveModifications([
+
+                'user' => $this->getUser(),
+                'table' => 'operationFinanciere',
+                'ancien' => $ancien,
+                'nouveau' => $operationFinanciere->toArray(),
+                'typeoperation' => 'edit',
+                'idligne' => $operationFinanciere->getId(),
+            ]);
             return $this->redirectToRoute('operation_financiere_don_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -254,7 +270,7 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("aide/delete/{id}", name="operation_financiere_aide_delete")
      */
-    public function deleteAide(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
+    public function deleteAide( OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
     {
         $caisse = $operationFinanciere->getCaisse();
         $entityManager->remove($operationFinanciere);

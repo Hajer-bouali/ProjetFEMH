@@ -23,13 +23,16 @@
 		<div class="page-header page-header-light">
 			<div class="page-header-content header-elements-md-inline">
 				<div class="d-flex">
-					<div class="breadcrumb"></div>
-
-					<a href="#" class="header-elements-toggle text-default d-md-none">
-						<i class="icon-more"></i>
-					</a>
+					<div class="breadcrumb">
+						<a href="{{ path('operation_stock_don_index') }}" class="breadcrumb-item">
+							<i class="icon-home2 mr-2"></i>
+							Liste des opérations Stock Don
+						</a>
+						<a href="#" class="breadcrumb-item">
+							Affichage d'opération Stock Don
+						</a>
+					</div>
 				</div>
-
 			</div>
 		</div>
 		<!-- /page header -->
@@ -57,14 +60,27 @@
 
 				</div>
 				<div class="card-header header-elements-inline">
-					<h6>
-						<i class="icon-table2"></i>
-						Date de l'operation: {{ operationStock.date ? operationStock.date|date('Y-m-d') : '' }}
-					</br>
-				</br>
-				<i class="icon-people"></i>
-				nom de donataire: {{ operationStock.nomdonataire }}
-			</h6>
+				<div class="for-group">
+						<div class="card-body p-0" style="">
+							<div class="nav nav-sidebar my-2">
+
+								<li class="nav-item">
+								
+									<a class="nav-link legitRipple">
+										<i class="icon-calendar52"></i>
+										Date de l'oération :
+										<span class="badge bg-success-300 ml-auto">{{ operationStock.date ? operationStock.date|date('Y-m-d') : '' }}</span>
+									</a>
+									<a class="nav-link legitRipple">
+										<i class="icon-user"></i>
+										Responsable :
+										<span class="badge bg-success-300 ml-auto">{{ operationStock.responsable }}</span>
+									</a>
+							
+								</li>
+							</div>
+						</div>
+					</div>
 		</div>
 
 		<table class="table datatable-basic">
@@ -108,8 +124,12 @@
 						<td> {{ stock.prixunitaire }}
 						</td>
 						<td>
-							<div
-								class="list-icons">
+							<div class="list-icons">
+								<a
+									class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier la fiche technique" href="{{ path('stock_edit', {'id': stock.id,'operationstock':operationStock.id}) }}">
+									<!--bouton trach-->
+									<i class="icon-pencil7"></i>
+								</a>
 								<!--bouton trach-->
 								<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{ stock.id }}" data-toggle="modal">
 									<i class="icon-trash"></i>

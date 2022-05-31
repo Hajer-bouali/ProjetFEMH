@@ -74,27 +74,29 @@
 								<div class="nav nav-sidebar my-2">
 
 									<li class="nav-item">
-										<a class="nav-link legitRipple">
-											<i class="icon-certificate"></i>
-											Type d'événement :
-											<span class="badge bg-success-300 ml-auto">{{ evenement.typeEvenement}}</span>
-										</a>
-										<a class="nav-link legitRipple">
-											<i class="icon-calendar52"></i>
-											Date debut d'événement :
-											<span class="badge bg-success-300 ml-auto">{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</span>
-										</a>
-										<a class="nav-link legitRipple">
-											<i class="icon-calendar52"></i>
-											Date fin d'événement :
-											<span class="badge bg-success-300 ml-auto">{{ evenement.datefin ? evenement.datefin|date('Y-m-d') : '' }}</span>
-										</a>
-										<a class="nav-link legitRipple">
-											<i class="icon-cart5"></i>
-											Nombre des paniers finale :
-											<span class="badge bg-success-300 ml-auto">{{ nbpanierfinale and nbpanierfinale ? nbpanierfinale : '0'}}</span>
-											
-										</a>
+										<h6>
+											<a class="nav-link legitRipple">
+												<i class="icon-certificate"></i>
+												Type d'événement :
+												<span class="badge bg-success-300 ml-auto">{{ evenement.typeEvenement}}</span>
+											</a>
+											<a class="nav-link legitRipple">
+												<i class="icon-calendar52"></i>
+												Date debut d'événement :
+												<span class="badge bg-success-300 ml-auto">{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</span>
+											</a>
+											<a class="nav-link legitRipple">
+												<i class="icon-calendar52"></i>
+												Date fin d'événement :
+												<span class="badge bg-success-300 ml-auto">{{ evenement.datefin ? evenement.datefin|date('Y-m-d') : '' }}</span>
+											</a>
+											<a class="nav-link legitRipple">
+												<i class="icon-cart5"></i>
+												Nombre des paniers finale :
+												<span class="badge bg-success-300 ml-auto">{{ nbpanierfinale and nbpanierfinale ? nbpanierfinale : '0'}}</span>
+
+											</a>
+										</h6>
 									</li>
 								</div>
 							</div>
@@ -151,7 +153,7 @@
 										class="list-icons">
 										<!--bouton trach-->
 
-										<a class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier la fiche technique" href="{{ path('app_fiche_technique_edit', {'id': evenement.id}) }}">
+										<a class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier la fiche technique" href="{{ path('app_fiche_technique_edit', {'id': ficheTechnique.id,'evenement':evenement.id}) }}"> <!--bouton trach-->
 											<i class="icon-pencil7"></i>
 										</a>
 										<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{ ficheTechnique.id }}" data-toggle="modal">
@@ -170,8 +172,8 @@
 										<div class="modal-header bg-danger">
 											<h4 class="modal-title">
 												Confirmez-vous la suppression du produit 
-																																																																									de la
-																																																																									?
+																																																																																					de la
+																																																																																					?
 											</h4>
 											<button type="button" class="close" data-dismiss="modal">
 												&times;
@@ -220,7 +222,7 @@
 												<div class="form-group">
 													<label>Produit
 														<span class="text-danger"></span>
-													</label> {{ form_widget(formfichetechnique.produit, {attr:{'class':'form-control form-control-select2'}}) }}
+													</label> {{ form_widget(formfichetechnique.produit, {attr:{'class':'form-control'}}) }}
 												</div>
 											</div>
 											<div class="col-md-6">
@@ -255,47 +257,47 @@
 
 				</table>
 				<!--<table class="table datatable-basic">
-																				
-																									<thead>
-																										<tr>
-																				
-																											<th>id</th>
-																											<th>Nom et prénom</th>
-																											<th>Adresse</th>
-																											<th>Telephone</th>
-																											<th>Actions</th>
-																										</tr>
-																									</thead>
-																									<tbody>
-																										{% for adherent in adherents|reverse %}
-																											<tr>
-																												<td>{{ adherent.id }}</td>
-																												<td>{{ adherent.nom }}</td>
-																												<td>{{ adherent.adresse }}</td>
-																												<td>{{ adherent.telephone }}</td>
-																				
-																												<td>
-																													<div class="list-icons">
-																				
-																				
-																														{% if adherent.statut=="actif"%}
-																															<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal"></a>
-																														{% else %}
-																															<a href="#" class="list-icons-item text-darck-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal"></a>
-																														{% endif %}
-																														<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600">
-																															<i class="icon-reading"></i>
-																														</a>
-																														<a href="#" class="list-icons-item text-teal-600">
-																															<i class="icon-checkmark-circle text-green"></i>
-																														</a>
-																													</div>
-																												</td>
-																												<td class="text-center"></td>
-																											</tr>
-																										{% endfor %}
-																									</tbody>
-																								</table>-->
+																								
+																													<thead>
+																														<tr>
+																								
+																															<th>id</th>
+																															<th>Nom et prénom</th>
+																															<th>Adresse</th>
+																															<th>Telephone</th>
+																															<th>Actions</th>
+																														</tr>
+																													</thead>
+																													<tbody>
+																														{% for adherent in adherents|reverse %}
+																															<tr>
+																																<td>{{ adherent.id }}</td>
+																																<td>{{ adherent.nom }}</td>
+																																<td>{{ adherent.adresse }}</td>
+																																<td>{{ adherent.telephone }}</td>
+																								
+																																<td>
+																																	<div class="list-icons">
+																								
+																								
+																																		{% if adherent.statut=="actif"%}
+																																			<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal"></a>
+																																		{% else %}
+																																			<a href="#" class="list-icons-item text-darck-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal"></a>
+																																		{% endif %}
+																																		<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600">
+																																			<i class="icon-reading"></i>
+																																		</a>
+																																		<a href="#" class="list-icons-item text-teal-600">
+																																			<i class="icon-checkmark-circle text-green"></i>
+																																		</a>
+																																	</div>
+																																</td>
+																																<td class="text-center"></td>
+																															</tr>
+																														{% endfor %}
+																													</tbody>
+																												</table>-->
 
 			</div>
 

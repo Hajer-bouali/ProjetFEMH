@@ -71,6 +71,12 @@ class Evenement
      */
     private $criteres = [];
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbaderents;
+
+   
     public function __construct()
     {
         $this->adherent = new ArrayCollection();
@@ -271,4 +277,18 @@ class Evenement
 
         return $this;
     }
+
+    public function getNbaderents(): ?int
+    {
+        return $this->nbaderents;
+    }
+
+    public function setNbaderents(?int $nbaderents): self
+    {
+        $this->nbaderents = $nbaderents;
+
+        return $this;
+    }
+
+   
 }
