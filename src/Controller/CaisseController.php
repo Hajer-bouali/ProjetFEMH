@@ -31,7 +31,7 @@ class CaisseController extends AbstractController
         foreach($operations as $operation){
             if($operation->getTypeoperation()==='don'&& $operation->getEtat()==='valide'){
                 $operationmontant=$operation->getMontant();
-               $caissemontant=$caisse->getMontant();
+                $caissemontant=$caisse->getMontant();
                 $caisse->setMontant($caissemontant+$operationmontant);
             }
             if($operation->getTypeoperation()==='aide'&& $operation->getEtat()==='valide'){

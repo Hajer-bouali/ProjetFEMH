@@ -10,6 +10,7 @@ use App\Repository\ProduitRepository;
 use App\Repository\StockRepository;
 use App\Repository\TypeProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\FicheTechniqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,8 +27,26 @@ class ProduitController extends AbstractController
     /**
      * @Route("/", name="produit_index", methods={"GET"})
      */
-    public function index(ProduitRepository $produitRepository): Response
+    public function index(ProduitRepository $produitRepository, FicheTechniqueRepository $fichtechniqueRepository, EntityManagerInterface $entityManager): Response
     {
+
+        $produit = new Produit();
+        $fichtechniques = $fichtechniqueRepository->findAll();
+        foreach ($fichtechniques as $fichtechnique) {
+            if ($fichtechnique->getEvenement()->getEtat() === 'valide') {
+                $evenement= $fichtechnique->getEvenement();
+                $nbadherent= count($evenement->getAdherent());
+                $quantiteFichTechnique= $fichtechnique->getQuantite();
+                $nbpanierfinale= $fichtechnique->getEvenement()->getNbpanierfinale();
+                $quantiteProduit=$fichtechnique->getProduit()->getQuantite(); 
+                $quantitefinale= $nbpanierfinale * $quantiteFichTechnique ;
+                $produit->setQuantite($quantiteProduit - $quantitefinale);
+                
+           
+            }
+            
+        }
+        
         return $this->render('produit/index.html.twig', [
             'produits' => $produitRepository->findAll(),
         ]);

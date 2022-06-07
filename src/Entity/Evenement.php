@@ -71,6 +71,17 @@ class Evenement
      */
     private $criteres = [];
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbpanierfinale;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $etat;
+
+   
     public function __construct()
     {
         $this->adherent = new ArrayCollection();
@@ -271,4 +282,30 @@ class Evenement
 
         return $this;
     }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+    
+    public function getNbpanierfinale(): ?int
+    {
+        return $this->nbpanierfinale;
+    }
+
+    public function setNbpanierfinale(?int $nbpanierfinale): self
+    {
+        $this->nbpanierfinale = $nbpanierfinale;
+
+        return $this;
+    }
+
+   
 }

@@ -52,7 +52,7 @@
 
 							<th>Nom</th>
 							<th>Type d'événement</th>
-							<th>Date début</th>
+							<th>Etat</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -62,7 +62,7 @@
 								<td>{{ evenement.id }}</td>
 								<td>{{ evenement.nom }}</td>
 								<td>{{ evenement.typeEvenement }}</td>
-								<td>{{ evenement.datedebut ? evenement.datedebut|date('Y-m-d') : '' }}</td>
+								<td>{{ evenement.etat}}</td>
 
 								<td>
 

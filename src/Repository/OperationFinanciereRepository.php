@@ -19,22 +19,28 @@ class OperationFinanciereRepository extends ServiceEntityRepository
         parent::__construct($registry, OperationFinanciere::class);
     }
 
-    // /**
-    //  * @return OperationFinanciere[] Returns an array of OperationFinanciere objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+   /**
+     * @return OperationFinanciere[] Returns an array of OperationFinanciere objects
+     */
+    public function findCaisseByDate($datedebut , $datefin , $caisse, $typeOperation = null) {
+        $queryBuilder = $this->createQueryBuilder('o')
+        ->join('o.caisse', 'c')
+        ->where('o.date >= :datedebut')
+        ->setParameter('datedebut', $datedebut)
+        ->andwhere('o.date <= :datefin')
+        ->setParameter('datefin', $datefin)
+        ->andwhere('c.id = :caisse')
+        ->setParameter('caisse', $caisse);
+        
+        if ($typeOperation) {
+            $queryBuilder->andwhere('o.typeoperation = :typeOperation')
+            ->setParameter('typeOperation', $typeOperation);
+        }
+
+        return $queryBuilder
+        ->getQuery()
+        ->getResult();
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?OperationFinanciere

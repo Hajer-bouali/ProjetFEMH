@@ -35,7 +35,6 @@
 		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/form_select2.js') }}"></script>
 		<!-- /theme JS files -->
 
-		<script src="{{ asset('templateAdmin/global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/form_inputs.js') }}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/form_wizard.js') }}"></script>
 		<script src="{{asset('templateAdmin/global_assets/js/plugins/forms/validation/validate.min.js')}}"></script>
@@ -62,7 +61,6 @@
 
 
 		<!-- Theme JS files show_adherent -->
-		<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
 		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
 		<!-- /theme JS files show_adherent-->
@@ -79,16 +77,16 @@
 
 		<script src="{{asset('templateAdmin/global_assets/js/demo_pages/uploader_dropzone.js')}}"></script>
 		<!-- /theme JS files dropzone-->
+		<!-- Theme JS files show -->
+		<script src="{{asset('templateAdmin/global_assets/js/demo_pages/user_pages_profile.js')}}"></script>
+		<script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
+		<script src="{{asset('templateAdmin/global_assets/js/plugins/ui/fullcalendar/fullcalendar.min.js')}}"></script>
 
 
-		<!-- Theme JS files -->
-		<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js')}}"></script>
-		<script src="{{ asset('templateAdmin/global_assets/js/plugins/extensions/jquery_ui/touch.min.js')}}"></script>
+		<!-- /Theme JS files -->
 
-		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_collapsible.js')}}"></script>
 		<!-- /theme JS files -->
-		<!-- Theme JS files modale historique -->
-		<script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_popups.js')}}"></script>
+		<!-- Theme JS files modale historique --><script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_popups.js')}}"> </script>
 		<!-- /theme JS files modale historique-->
 
 	</head>
@@ -424,14 +422,17 @@
 
 			<script type="text/javascript">
 				{% for type, messages in app.session.flashbag.all() %}
-{% for message in messages %}
-swal({
-text: '{{ message|raw }}',
-type: 'warning',
-showCancelButton: false,
-confirmButtonColor: '#3085d6',
-cancelButtonColor: '#d33'
-}){% endfor %}{% endfor %}
+					{% for message in messages %}
+					swal({
+						text: '{{ message|raw }}',
+						type: '{{type}}',
+						showCancelButton: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33'
+						});
+						
+					{% endfor %}
+				{% endfor %}	
 			</script>
 
 			{% block body %}{% endblock %}

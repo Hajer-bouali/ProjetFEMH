@@ -34,8 +34,6 @@ class OperationFinanciere
      */
     private $modepaiement;
 
-
-
     /**
      * @ORM\Column(type="string", length=255)
      */

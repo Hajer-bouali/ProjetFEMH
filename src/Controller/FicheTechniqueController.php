@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Evenement;
 use App\Entity\FicheTechnique;
 use App\Form\FicheTechniqueType;
 use App\Repository\FicheTechniqueRepository;
@@ -67,9 +68,9 @@ class FicheTechniqueController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_fiche_technique_edit", methods={"GET" , "POST"})
+     * @Route("/{id}/edit/{evenement}", name="app_fiche_technique_edit", methods={"GET" , "POST"})
      */
-    public function edit(Request $request, FicheTechnique $ficheTechnique, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, FicheTechnique $ficheTechnique,$evenement, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(FicheTechniqueType::class, $ficheTechnique);
         $form->handleRequest($request);
@@ -77,7 +78,7 @@ class FicheTechniqueController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_fiche_technique_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('evenement_show', ['id' => $evenement], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('fiche_technique/edit.html.twig', [

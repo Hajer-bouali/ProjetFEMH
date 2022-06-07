@@ -2,23 +2,25 @@
 
 namespace App\Controller;
 
+use App\Services\ServiceChiffreCaisse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
- /**
-* @IsGranted("ROLE_FINANCIERE","ROLE_ADMIN")
-
-*/
+ 
 
 class FinanciereController extends AbstractController
 {
     /**
      * @Route("/financiere", name="financiere")
      */
-    public function index(): Response
+    public function index(ServiceChiffreCaisse $serviceChiffreciasse): Response
     {
+        $date1 = new \DateTime('last year');
+        $date2 = new \DateTime('now');
+        dump($serviceChiffreciasse->afficherChiffreCaisse($date1, $date2, 1, 'don'));
+        die();
         return $this->render('financiere/index.html.twig', [
             'controller_name' => 'FinanciereController',
         ]);
