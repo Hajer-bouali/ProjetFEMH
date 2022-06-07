@@ -41,7 +41,7 @@ class AdherentController extends AbstractController
     public function index(AdherentRepository $adherentRepository): Response
     {
         return $this->render('adherent/index.html.twig', [
-            'adherents' => $adherentRepository->findAll(),
+            'adherents' => $adherentRepository->findByStatut('actif'),
         ]);
     }
 
@@ -91,7 +91,7 @@ class AdherentController extends AbstractController
     public function archif(AdherentRepository $adherentRepository): Response
     {
         return $this->render('adherent/archiver.html.twig', [
-            'adherents' => $adherentRepository->findByStatut('actif'),
+            'adherents' => $adherentRepository->findByStatut('desactive'),
         ]);
     }
     /**
@@ -275,7 +275,7 @@ class AdherentController extends AbstractController
         $em = $em = $this->getDoctrine()->getManager();
         if ($adherent->getStatut() == 'actif') {
 
-            $adherent->setStatut('desactivé');
+            $adherent->setStatut('desactive');
             $em->flush();
             $this->addFlash('success', "Archive effectué avec succès!");
         } else {
