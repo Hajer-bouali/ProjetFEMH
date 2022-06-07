@@ -25,7 +25,7 @@ class ProduitRepository extends ServiceEntityRepository
             if ($operationstock->getEtat() == 'valide') {
                 $quantite = 
                 $operationstock->getTypeoperation() == 'aide' ?
-                $quantite - $operationstock->getQuantite() : 
+                $quantite - $operationstock->getQuantite() :
                 $quantite + $operationstock->getQuantite(); 
             }
         }
