@@ -52,8 +52,9 @@ class BenificiaireRepository extends ServiceEntityRepository
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('b.exampleField < :val')
+            ->setParameter('val1', $value1)
+            ->setParameter('val2', $value2)
             ->orderBy('b.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()

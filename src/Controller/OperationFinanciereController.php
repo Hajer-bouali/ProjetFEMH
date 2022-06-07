@@ -57,9 +57,6 @@ class OperationFinanciereController extends AbstractController
         $operationFinanciere = new OperationFinanciere();
         $formDon = $this->createForm(OperationFinanciereDonType::class, $operationFinanciere);
 
-        /*if (!$this->isGranted('ROLE_FINANCIER')) {
-            $formDon->remove('etat');
-        }*/
         $formDon->handleRequest($request);
         if ($formDon->isSubmitted() && $formDon->isValid()) {
             $piecejointes = $formDon->get('pieceJointeOperations')->getData();
@@ -75,6 +72,7 @@ class OperationFinanciereController extends AbstractController
             }
             $operationFinanciere->setTypeoperation('don');
             $operationFinanciere->setEtat('Demande');
+            $operationFinanciere->setDate(new \DateTime('now'));
             $operationFinanciere->setResponsable($this->getUser()->getName());
             if ($operationFinanciere->getMontant() > 500 && $operationFinanciere->getModepaiement() === 'espece') {
                 $this->addFlash('warning', 'Le mode de paiement espéce de lopération ne peut pas dépasser 500 Dt');
@@ -110,9 +108,6 @@ class OperationFinanciereController extends AbstractController
         $operationFinanciere = new OperationFinanciere();
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
 
-        if (!$this->isGranted('ROLE_FINANCIER')) {
-            $formAide->remove('etat');
-        }
         $formAide->handleRequest($request);
         if ($formAide->isSubmitted() && $formAide->isValid()) {
             $piecejointes = $formAide->get('pieceJointeOperations')->getData();
@@ -128,6 +123,7 @@ class OperationFinanciereController extends AbstractController
             }
             $operationFinanciere->setTypeoperation('aide');
             $operationFinanciere->setEtat('Demande');
+            $operationFinanciere->setDate(new \DateTime('now'));
             $operationFinanciere->setResponsable($this->getUser()->getName());
             $montantoperation = $operationFinanciere->getMontant();
             $montantcaisse = $operationFinanciere->getCaisse()->getMontant();

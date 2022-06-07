@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Evenement;
 use App\Entity\FicheTechnique;
 use App\Form\FicheTechniqueType;
 use App\Repository\FicheTechniqueRepository;

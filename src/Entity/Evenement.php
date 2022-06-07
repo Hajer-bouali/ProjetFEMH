@@ -74,7 +74,12 @@ class Evenement
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $nbaderents;
+    private $nbpanierfinale;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $etat;
 
    
     public function __construct()
@@ -278,14 +283,26 @@ class Evenement
         return $this;
     }
 
-    public function getNbaderents(): ?int
+    public function getEtat(): ?string
     {
-        return $this->nbaderents;
+        return $this->etat;
     }
 
-    public function setNbaderents(?int $nbaderents): self
+    public function setEtat(string $etat): self
     {
-        $this->nbaderents = $nbaderents;
+        $this->etat = $etat;
+
+        return $this;
+    }
+    
+    public function getNbpanierfinale(): ?int
+    {
+        return $this->nbpanierfinale;
+    }
+
+    public function setNbpanierfinale(?int $nbpanierfinale): self
+    {
+        $this->nbpanierfinale = $nbpanierfinale;
 
         return $this;
     }
