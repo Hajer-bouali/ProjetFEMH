@@ -24,7 +24,7 @@ class CreateFormType extends AbstractType
             ->add('email')
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Utilisateur' => 'ROLE_USER',
+                    'sociale' => 'ROLE_SOCIAL',
                     'Financiere' => 'ROLE_FINANCIERE',
                     'Administrateur' => 'ROLE_ADMIN'
                 ],
