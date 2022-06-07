@@ -412,14 +412,17 @@
 
 			<script type="text/javascript">
 				{% for type, messages in app.session.flashbag.all() %}
-{% for message in messages %}
-swal({
-text: '{{ message|raw }}',
-type: 'warning',
-showCancelButton: false,
-confirmButtonColor: '#3085d6',
-cancelButtonColor: '#d33'
-}){% endfor %}{% endfor %}
+					{% for message in messages %}
+					swal({
+						text: '{{ message|raw }}',
+						type: '{{type}}',
+						showCancelButton: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33'
+						});
+						
+					{% endfor %}
+				{% endfor %}	
 			</script>
 
 			{% block body %}{% endblock %}

@@ -46,12 +46,6 @@ class FicheTechnique
      */
     private $evenement;
 
-     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $nbpanierfinale;
-
-
     public function __construct()
     {
 
@@ -118,17 +112,6 @@ class FicheTechnique
     public function setEvenement(?Evenement $evenement): self
     {
         $this->evenement = $evenement;
-
-        return $this;
-    }
-    public function getNbpanierfinale(): ?int
-    {
-        return $this->nbpanierfinale;
-    }
-
-    public function setNbpanierfinale(?int $nbpanierfinale): self
-    {
-        $this->nbpanierfinale = $nbpanierfinale;
 
         return $this;
     }

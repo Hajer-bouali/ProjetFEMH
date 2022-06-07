@@ -23,10 +23,7 @@ class EvenementType extends AbstractType
             ])
             ->add('montantunitaire')
             ->add('nom')
-            /*->add('adherent', EntityType::class, [
-                'class' =>Adherent::class,
-                'multiple' =>true,
-            ])*/
+            ->add('etat')
             ->add('typeEvenement')
             ->add('Enregistrer', SubmitType::class)
         ;
