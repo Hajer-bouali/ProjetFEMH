@@ -179,10 +179,20 @@
 						<!-- Main -->
 						<li class="nav-item-header">
 							<div class="text-uppercase font-size-xs line-height-xs">
-								Main
+								Menu
 							</div>
-							<i class="icon-menu" title="Main"></i>
+							<i class="icon-menu" title="Menu"></i>
 						</li>
+						
+						<li class="nav-item ">
+								<a href="#" class="nav-link">
+									<i class="icon-home4"></i>
+									<span>Dashboard</span>
+								</a>
+
+								
+							</li>
+
 						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
 							<li class="nav-item nav-item-submenu">
 								<a href="#" class="nav-link">
