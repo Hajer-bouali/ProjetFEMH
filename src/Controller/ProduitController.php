@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
-use App\Entity\Stock;
 use App\Entity\TypeProduit;
 use App\Form\ProduitType;
 use App\Repository\ProduitRepository;
-use App\Repository\StockRepository;
 use App\Repository\TypeProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\FicheTechniqueRepository;
