@@ -38,13 +38,9 @@
 			<!-- Basic datatable -->
 			<div class="card">
 				<div class="card-header header-elements-inline">
-					<h5 class="card-title">Liste des dossiers</h5>
+					<h5 class="card-title">Liste des dossiers archivés</h5>
 					<div class="card-title-left">
-						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('adherent_new')}}">
-							<b>
-								<i class="icon-reading"></i>
-							</b>
-							Ajouter un nouveau Adherent</a>
+						
 					</div>
 
 				</div>
@@ -56,7 +52,7 @@
 
 							<th>id</th>
 							<th>Nom et prénom</th>
-							<th>Nom de conjoint</th>
+							<th>Adresse</th>
 							<th>Telephone</th>
 							<th>Actions</th>
 						</tr>
@@ -66,7 +62,7 @@
 							<tr>
 								<td>{{ adherent.id }}</td>
 								<td>{{ adherent.nom }}</td>
-								<td>{{ adherent.nomconjoint }}</td>
+								<td>{{ adherent.adresse }}</td>
 								<td>{{ adherent.telephone }}</td>
 
 								<td>
