@@ -163,6 +163,11 @@ class Adherent
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date;
+
     public function __construct()
     {
         $this->piecesJointes = new ArrayCollection();
@@ -490,6 +495,7 @@ class Adherent
 
     public function __toString() {
         return $this->getNom() ? : 'Adherent';
+
     }
 
 
@@ -621,6 +627,18 @@ class Adherent
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

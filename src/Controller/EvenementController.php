@@ -36,6 +36,15 @@ class EvenementController extends AbstractController
             'evenements' => $evenementRepository->findAll(),
         ]);
     }
+        /**
+     * @Route("/dashboard", name="evenement_dashboard", methods={"GET" , "POST"})
+     */
+    public function dashboard(): Response
+    {
+        return $this->render('evenement/dashboard.html.twig', [
+     
+        ]);
+    }
 
     /**
      * @Route("/new", name="evenement_new", methods={"GET", "POST"})

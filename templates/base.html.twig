@@ -88,7 +88,21 @@
 		<!-- /theme JS files -->
 		<!-- Theme JS files modale historique --><script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_popups.js')}}"> </script>
 		<!-- /theme JS files modale historique-->
+<!-- Theme JS files -->
+	<script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
 
+	<script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/pies_donuts.js')}}"></script>
+	<!-- /theme JS files -->
+	    <!-- Theme JS files -->
+    <script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
+
+    <script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/lines.js')}}"></script>
+    <!-- /theme JS files -->
+    <!-- Theme JS files Donut multiples-->
+    <script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
+
+    <script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/pies_donuts.js')}}"></script>
+    <!-- /theme JS files Donut multiples-->
 	</head>
 	<body>
 
@@ -182,16 +196,17 @@
 							<i class="icon-menu" title="Menu"></i>
 						</li>
 						
+						
+
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
 						<li class="nav-item ">
-								<a href="#" class="nav-link">
+								<a href="{{path('evenement_dashboard')}}" class="nav-link">
 									<i class="icon-home4"></i>
 									<span>Dashboard</span>
 								</a>
 
 								
 							</li>
-
-						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
 							<li class="nav-item nav-item-submenu">
 								<a href="#" class="nav-link">
 									<i class="icon-paste"></i>
@@ -213,6 +228,14 @@
 							</li>
 						{% endif %}
 						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
+						<li class="nav-item ">
+								<a href="{{path('caisse_dashboard')}}" class="nav-link">
+									<i class="icon-home4"></i>
+									<span>Dashboard</span>
+								</a>
+
+								
+							</li>
 
 							<li class="nav-item nav-item-submenu">
 								<a href="#" class="nav-link">

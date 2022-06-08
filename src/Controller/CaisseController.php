@@ -45,6 +45,15 @@ class CaisseController extends AbstractController
             'operations'=>$operations,
         ]);
     }
+    /**
+     * @Route("/dashboard", name="caisse_dashboard", methods={"GET" , "POST"})
+     */
+    public function dashboard(): Response
+    {
+        return $this->render('caisse/dashboard.html.twig', [
+     
+        ]);
+    }
 
     /**
      * @Route("/new", name="caisse_new", methods={"GET", "POST"})

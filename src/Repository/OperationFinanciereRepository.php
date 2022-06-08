@@ -26,6 +26,7 @@ class OperationFinanciereRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('o')
         ->join('o.caisse', 'c')
         ->where('o.date >= :datedebut')
+        //set parameter tched el variable eli 9balha toul eli ahna h3a 3ana datedebut taffecti fiha el valiabel eli ndakhalhali eli ahna hna esmha$datedebut
         ->setParameter('datedebut', $datedebut)
         ->andwhere('o.date <= :datefin')
         ->setParameter('datefin', $datefin)

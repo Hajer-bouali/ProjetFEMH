@@ -20,7 +20,7 @@
 			<div class="card-header header-elements-inline">
 				<img src="../../public/templateAdmin/global_assets/images/logo_final.png">
 
-				<h2 style="color:teal">Recherche sociale "{{ asset('templateAdmin/global_assets/images/logo final.png') }}"</h2>
+				<h2 style="color:teal">Recherche sociale </h2>
 				<div class="header-elements"></div>
 			</div>
 			<div class="col-md-6">
@@ -149,6 +149,18 @@
 						<h3>RESUME DE LA SITUATION SOCIALE</h3>
 					</strong>
 				</label>
+				<div class="row">
+				<div class="col-md-6">
+					<label>
+						<strong>Y a t-il une maladie chronique dans la fammile:</strong>
+					</label> {{adherent.resume}}
+				</div>
+				<div class="col-md-6">
+					<label>
+						<strong>Le type du maladie chronique :</strong>
+					</label> {{adherent.demande}}
+				</div>
+			</div>
 			</div><br>
 
 
