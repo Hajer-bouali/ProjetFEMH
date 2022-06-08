@@ -29,6 +29,12 @@ class ProduitRepository extends ServiceEntityRepository
                 $quantite + $operationstock->getQuantite(); 
             }
         }
+        foreach($produit->getFicheTechniques() as $operationstock){
+            if ($operationstock->getEvenement()->getEtat() == 'valide') {
+                $quantite = 
+                $quantite - ($operationstock->getQuantite() * $operationstock->getEvenement()->getNbpanierfinale()) ;
+            }
+        }
         $produit->setQuantite($quantite);
         $this->_em->persist($produit);
         $this->_em->flush();
