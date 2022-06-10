@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use App\Services\ServiceChiffreCaisse;
 
 
 /**
@@ -24,6 +25,26 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class OperationFinanciereController extends AbstractController
 {
+     /**
+     * @Route("/statistique", name="operation_statistique", methods={"GET"})
+     */
+    public function statistique(OperationFinanciereRepository $operationFinanciereRepository,ServiceChiffreCaisse $serviceChiffreciasse): Response
+    {
+        $i=0;
+
+        $tab = [];
+        for( $i=0;$i<10;$i++ ) {
+            $tab[$i]['montant']='300';
+            $tab[$i]['date']='2020/02';
+        }
+      
+       
+        return $this->render('caisse/scriptstatistique.html.twig',[
+            'tab' => $tab,
+        ]);
+
+    }
+   
     /**
      * @Route("/don", name="operation_financiere_don_index", methods={"GET"})
      */

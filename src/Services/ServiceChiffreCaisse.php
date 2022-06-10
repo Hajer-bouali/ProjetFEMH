@@ -21,23 +21,24 @@ class ServiceChiffreCaisse {
         }
         return $montant;
     }
-
     public function ChiffreCaisseParMois($datedebut, $datefin, $caisse, $typeoperation = null): ?array{
-        $tab = [];
+        $tab =[];
         $i = 0;
-        $dateencours = $datedebut;
-        while($dateencours < $datefin and $i < 32) {
-            $i++;
-            $tab[$i]['mois'] = $dateencours;
-            $firstday = $dateencours;
-            $lastday = $dateencours;
-            
-            $firstday->modify('first day of this month');
-            $lastday->modify('last day of this month');
-            $montant = $this->afficherChiffreCaisse($firstday, $lastday, $caisse, $typeoperation);
-            $dateencours->modify('+1 month');
-            $tab[$i]['montant'] = $montant;
-        }
+        $dateencours=$datedebut;
+
+            do{
+                $i++;
+                $tab[$i]['mois'] = $dateencours;
+                $firstday=$dateencours;
+                $lastday=$dateencours;
+                
+                $firstday->modify('first day of this month');
+                $lastday->modify('last day of this month');
+                $montant = $this->afficherChiffreCaisse($firstday, $lastday, $caisse, $typeoperation);
+                $dateencours->modify('+1 month');
+                $tab[$i]['montant']= $montant;
+            }
+            while($dateencours < $datefin and $i<32);
 
         return $tab;
     }

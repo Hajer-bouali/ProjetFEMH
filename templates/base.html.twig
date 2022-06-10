@@ -96,13 +96,14 @@
 	    <!-- Theme JS files -->
     <script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
 
-    <script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/lines.js')}}"></script>
     <!-- /theme JS files -->
     <!-- Theme JS files Donut multiples-->
     <script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
 
     <script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/pies_donuts.js')}}"></script>
     <!-- /theme JS files Donut multiples-->
+		{% block javascripts %}{% endblock %}
+
 	</head>
 	<body>
 
@@ -202,7 +203,7 @@
 						    <li class="nav-item ">
 								<a href="{{path('evenement_dashboard')}}" class="nav-link">
 									<i class="icon-home4"></i>
-									<span>Dashboard</span>
+									<span>Accueil Social</span>
 								</a>
 
 								
@@ -223,6 +224,10 @@
 									</li>
 									{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
 									<li class="nav-item">
+										<a href="{{path('app_typeadherent_index')}}" class="nav-link">Liste des dossiers
+										</a>
+									</li>
+									<li class="nav-item">
 										<a href="{{path('adherent_archive')}}" class="nav-link">liste des dossiers archivés</a>
 									</li>
 								{% endif %}
@@ -233,8 +238,12 @@
 						<li class="nav-item ">
 								<a href="{{path('caisse_dashboard')}}" class="nav-link">
 									<i class="icon-home4"></i>
-									<span>Dashboard</span>
-								</a>		
+
+									<span>Accueil Financier</span>
+								</a>
+
+								
+
 							</li>
 						{% endif %}
                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
@@ -468,4 +477,5 @@
 		</div>
 		<!-- /page content -->
 	</body>
-</html></body></html></div>{% block javascript %}{% endblock %}</body></html>
+</html>
+
