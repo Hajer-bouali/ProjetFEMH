@@ -38,7 +38,13 @@
 											<div class="col-md-6">
 
 								            	<h5> <i class="icon-user"></i>Nom et Prénom: {{ app.user.name }}  {{ app.user.firstname }}</h5>  
-												<h5> <i class="icon-vcard mr-2 icon-4x"></i> Rôle :{{ app.user.roles|json_encode() }} </h5>
+												<h5> <i class="icon-vcard mr-2 icon-4x"></i> Rôle :
+													<ul>
+														{% for index, role in app.user.roles %}
+															<li>{{ role }}</li>
+														{% endfor %}
+													</ul>
+												</h5>
 												<h5> <i class="icon-envelop2"></i>  Email : {{ app.user.email }}</h5> 
 						                    </div>
 										    <div class="col-md-6">

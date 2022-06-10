@@ -14,6 +14,7 @@ class ServiceChiffreCaisse {
 
     public function afficherChiffreCaisse($datedebut, $datefin, $caisse, $typeoperation = null): ?float {
         $opertionsFinancieres = $this->RepoOperationFinanciere->findCaisseByDate($datedebut, $datefin, $caisse, $typeoperation);
+ 
         $montant = 0;
         foreach($opertionsFinancieres as $opertionFinanciere) {
             $montant += $opertionFinanciere->getMontant(); 
@@ -24,7 +25,6 @@ class ServiceChiffreCaisse {
         $tab =[];
         $i = 0;
         $dateencours=$datedebut;
-
 
             do{
                 $i++;
@@ -39,6 +39,7 @@ class ServiceChiffreCaisse {
                 $tab[$i]['montant']= $montant;
             }
             while($dateencours < $datefin and $i<32);
+
         return $tab;
     }
 }

@@ -20,7 +20,6 @@ class FinanciereController extends AbstractController
         $date1 = new \DateTime('last year');
         $date2 = new \DateTime('now');
         dump($serviceChiffreciasse->ChiffreCaisseParMois($date1, $date2, 1, 'don'));
-        die();
         return $this->render('financiere/index.html.twig', [
             'controller_name' => 'FinanciereController',
         ]);

@@ -48,10 +48,31 @@ class CaisseController extends AbstractController
     /**
      * @Route("/dashboard", name="caisse_dashboard", methods={"GET" , "POST"})
      */
-    public function dashboard(): Response
+    public function dashboard(OperationFinanciereRepository $OperationFinanciereRepository, EntityManagerInterface $entityManager): Response
     {
+       
+        $operations = $OperationFinanciereRepository->findAll();
+        $operationdonmontant=0;
+        $operationaidemontant=0;
+        $montanttotal=0;
+        $date=(new \DateTime('now'));
+        $date->setTime(0,0);
+        foreach($operations as $operation){
+            $dateoperation=$operation->getDate();
+            if( $operation->getEtat()==='valide'&& $dateoperation==$date){
+                $operation->getTypeoperation()=== 'don' ?
+                    $operationdonmontant+=$operation->getMontant():
+                    $operationaidemontant+=$operation->getMontant();
+                } 
+            if( $operation->getEtat()==='valide'&& $dateoperation==$date){ 
+                $montanttotal +=$operation->getMontant();
+            }          
+            }
+            $entityManager->flush();  
         return $this->render('caisse/dashboard.html.twig', [
-     
+            'operationdonmontant'=>$operationdonmontant,
+            'operationaidemontant'=>$operationaidemontant,
+            'montanttotal'=>$montanttotal,
         ]);
     }
 
@@ -136,4 +157,5 @@ class CaisseController extends AbstractController
 
         return $this->redirectToRoute('caisse_index', [], Response::HTTP_SEE_OTHER);
     }
+    
 }
