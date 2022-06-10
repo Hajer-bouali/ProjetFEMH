@@ -199,7 +199,7 @@
 						
 
 						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
-						<li class="nav-item ">
+						    <li class="nav-item ">
 								<a href="{{path('evenement_dashboard')}}" class="nav-link">
 									<i class="icon-home4"></i>
 									<span>Dashboard</span>
@@ -221,9 +221,11 @@
 									<li class="nav-item">
 										<a href="{{path('adherent_new')}}" class="nav-link">Ajouter dossier</a>
 									</li>
+									{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
 									<li class="nav-item">
 										<a href="{{path('adherent_archive')}}" class="nav-link">liste des dossiers archivés</a>
 									</li>
+								{% endif %}
 								</ul>
 							</li>
 						{% endif %}
@@ -232,11 +234,10 @@
 								<a href="{{path('caisse_dashboard')}}" class="nav-link">
 									<i class="icon-home4"></i>
 									<span>Dashboard</span>
-								</a>
-
-								
+								</a>		
 							</li>
-
+						{% endif %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
 							<li class="nav-item nav-item-submenu">
 								<a href="#" class="nav-link">
 									<i class="icon-cart5"></i>
@@ -341,6 +342,8 @@
 											Ajouter un evenement
 										</a>
 									</li>
+									{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
+
 									<li class="nav-item">
 										<a href="{{ path('type_evenement_index') }}" class="nav-link">
 											Liste des type des evenements
@@ -351,6 +354,7 @@
 											Ajouter un type d'evenement
 										</a>
 									</li>
+								{% endif %}
 								</ul>
 							</li>
 						{% endif %}

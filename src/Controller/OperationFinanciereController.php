@@ -6,7 +6,7 @@ use App\Entity\Caisse;
 use App\Entity\OperationFinanciere;
 use App\Entity\PieceJointeOperation;
 use App\Form\OperationFinanciereAideType;
-use App\Form\OperationFinanciereDonType;
+use App\Form\OperationFinanciereTypeDon;
 use App\Repository\HistoriqueRepository;
 use App\Repository\OperationFinanciereRepository;
 use App\Services\ServiceHistorique;
@@ -55,7 +55,7 @@ class OperationFinanciereController extends AbstractController
     public function newDon(Request $request, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
         $operationFinanciere = new OperationFinanciere();
-        $formDon = $this->createForm(OperationFinanciereDonType::class, $operationFinanciere);
+        $formDon = $this->createForm(OperationFinanciereTypeDon::class, $operationFinanciere);
 
         $formDon->handleRequest($request);
         if ($formDon->isSubmitted() && $formDon->isValid()) {
@@ -221,7 +221,7 @@ class OperationFinanciereController extends AbstractController
      */
     public function editDon(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager, ServiceHistorique $serviceHistorique): Response
     {
-        $formDon = $this->createForm(OperationFinanciereDonType::class, $operationFinanciere);
+        $formDon = $this->createForm(OperationFinanciereTypeDon::class, $operationFinanciere);
         $ancien = $operationFinanciere->toArray();
         $formDon->handleRequest($request);
 

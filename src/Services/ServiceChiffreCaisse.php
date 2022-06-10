@@ -14,6 +14,7 @@ class ServiceChiffreCaisse {
 
     public function afficherChiffreCaisse($datedebut, $datefin, $caisse, $typeoperation = null): ?float {
         $opertionsFinancieres = $this->RepoOperationFinanciere->findCaisseByDate($datedebut, $datefin, $caisse, $typeoperation);
+ 
         $montant = 0;
         foreach($opertionsFinancieres as $opertionFinanciere) {
             $montant += $opertionFinanciere->getMontant(); 
@@ -21,4 +22,23 @@ class ServiceChiffreCaisse {
         return $montant;
     }
 
+    public function ChiffreCaisseParMois($datedebut, $datefin, $caisse, $typeoperation = null): ?array{
+        $tab = [];
+        $i = 0;
+        $dateencours = $datedebut;
+        while($dateencours < $datefin and $i < 32) {
+            $i++;
+            $tab[$i]['mois'] = $dateencours;
+            $firstday = $dateencours;
+            $lastday = $dateencours;
+            
+            $firstday->modify('first day of this month');
+            $lastday->modify('last day of this month');
+            $montant = $this->afficherChiffreCaisse($firstday, $lastday, $caisse, $typeoperation);
+            $dateencours->modify('+1 month');
+            $tab[$i]['montant'] = $montant;
+        }
+
+        return $tab;
+    }
 }
