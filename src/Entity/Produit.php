@@ -18,7 +18,6 @@ class Produit
      * @ORM\Column(type="integer")
      */
     private $id;
-
     /**
      * @ORM\Column(type="integer")
      */

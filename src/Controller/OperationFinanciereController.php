@@ -16,14 +16,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use App\Services\ServiceChiffreCaisse;
 
 
 /**
  * @Route("/operation/financiere")
- * @Security("is_granted('ROLE_FINANCIER') or is_granted('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_FINANCIER') or is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL')")
  */
 class OperationFinanciereController extends AbstractController
-{
+{   
     /**
      * @Route("/don", name="operation_financiere_don_index", methods={"GET"})
      */
@@ -107,7 +108,9 @@ class OperationFinanciereController extends AbstractController
     {
         $operationFinanciere = new OperationFinanciere();
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
-
+        if (!$this->isGranted('ROLE_FINANCIER')) {
+            $formAide->remove('etat');
+        }
         $formAide->handleRequest($request);
         if ($formAide->isSubmitted() && $formAide->isValid()) {
             $piecejointes = $formAide->get('pieceJointeOperations')->getData();
@@ -121,6 +124,7 @@ class OperationFinanciereController extends AbstractController
                 $image->setNom($fichier);
                 $operationFinanciere->addPieceJointeOperation($image);
             }
+            $operationFinanciere->setTypeoperation('aide');
             $operationFinanciere->setTypeoperation('aide');
             $operationFinanciere->setEtat('Demande');
             $operationFinanciere->setDate(new \DateTime('now'));

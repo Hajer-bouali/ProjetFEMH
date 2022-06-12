@@ -50,7 +50,7 @@
                         <th>Id</th>
                         <th>Date</th>
                         <th>Responsable</th>
-                        <th>Etat</th>
+                        <th>Stipulation</th>
                         <th>Nom donataire</th>
                         <th>actions</th>
                     </tr>
@@ -61,7 +61,7 @@
                         <td>{{ operation_stock.id }}</td>
                         <td>{{ operation_stock.date ? operation_stock.date|date('Y-m-d') : '' }}</td>
                         <td>{{ operation_stock.responsable }}</td>
-                        <td>{{ operation_stock.etat }}</td>
+                        <td>{{ operation_stock.stipulation }}</td>
                         <td>{{ operation_stock.nomdonataire }}</td>
                         <td>
 									<a class="list-icons-item text-primary-600" href="{{ path('operation_stock_don_edit', {'id': operation_stock.id}) }}" 

@@ -40,11 +40,6 @@ class OperationStock
     private $responsable;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $etat;
-
-    /**
      * @ORM\OneToMany(targetEntity=Stock::class, mappedBy="operationStock")
      */
     private $stock;
@@ -135,19 +130,6 @@ class OperationStock
 
         return $this;
     }
-
-    public function getEtat(): ?string
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(string $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Stock[]
      */

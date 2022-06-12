@@ -39,7 +39,8 @@
 							<b>
 								<i class="icon-diff-added"></i>
 							</b>
-							Ajouter une nouvelle opération Financière </a>
+							Ajouter une nouvelle opération Financière
+						</a>
 					</div>
 
 				</div>
@@ -50,9 +51,7 @@
 							<th>Id</th>
 							<th>Donataire</th>
 							<th>Montant</th>
-							<th>Evénement</th>
-							<th>Responsable</th>	
-							<th>Etat</th>
+							<th>Responsable</th>
 							<th>actions</th>
 						</tr>
 					</thead>
@@ -62,9 +61,7 @@
 								<td>{{ operation_financiere.id }}</td>
 								<td>{{ operation_financiere.nomdonataire }}</td>
 								<td>{{ operation_financiere.montant }}</td>
-								<td>{{ operation_financiere.evenement }}</td>
 								<td>{{ operation_financiere.Responsable }}</td>
-								<td>{{ operation_financiere.etat }}</td>
 								<td>
 									<a class="list-icons-item text-primary-600" href="{{ path('operation_financiere_don_edit', {'id': operation_financiere.id}) }}">
 										<i class="icon-pencil7" data-popup="tooltip-custom" title="Modifier l'opération financière de don"></i>
@@ -75,6 +72,11 @@
 									<a href="{{ path('operation_financiere_don_show', {'id': operation_financiere.id}) }}" class="list-icons-item text-teal-600">
 										<i class="icon-reading" data-popup="tooltip-custom" title="Afficher l'opération financière de don"></i>
 									</a>
+									<!--bouton historique-->
+									<a href="#" data-target="#modal_affiche_historique_don{{operation_financiere.id}}" data-toggle="modal" data-id={{operation_financiere.id}} data-popup="tooltip-custom" title="l'historique de l'operation financièr de don" class="list-icons-item text-pink-600">
+										<i class="icon-history"></i>
+									</a>
+									<!--/bouton historique-->
 									<div id="modal_delete{{operation_financiere.id}}" class="modal fade" tabindex="-1">
 										<div class="modal-dialog">
 											<div class="modal-content">
@@ -94,7 +96,62 @@
 											</div>
 										</div>
 									</div>
+									<!--modal historique-->
+									<div id="modal_affiche_historique_don{{operation_financiere.id}}" class="modal fade" tabindex="-1">
+										<div class="modal-dialog modal-full">
+											<div class="modal-content">
+												<div class="modal-header bg-slate">
+													<h6 class="modal-title">liste des historiques d'operation {{operation_financiere.id}}</h6>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+
+												<div class="modal-body">
+
+													<table class="table datatable-basic">
+														<thead>
+															<tr>
+																<th>Id</th>
+																<th>User</th>
+																<th>Date</th>
+																<th>Action</th>
+																<th>Les champs modifiere</th>
+															</tr>
+														</thead>
+														<tbody>
+															{% for historiquedon in historiquedons  %}
+																{% if historiquedon.idligne == operation_financiere.id %}
+																	<tr>
+																		{% set ancien = historiquedon.modifications['ancien'] %}
+																		{% set nouveau = historiquedon.modifications['nouveau'] %}
+																		<td>{{ historiquedon.id }}</td>
+																		<td>{{ historiquedon.user }}</td>
+																		<td>{{ historiquedon.datemodif|date('d-m-Y-h:m:s') }}</td>
+																		<td>{{ historiquedon.typeoperation  }}</td>
+
+																		<td>
+																			<button type="button" class="btn bg-warning legitRipple" data-popup="popover" title="Ancien" title="Ancien" data-trigger="hover" data-content=" Montant : {{ ancien ? ancien['montant'] : 0}}">Ancien</button>
+																			<button type="button" class="btn btn-success" data-popup="popover" title="Nouveau" title="Nouveau" data-trigger="hover" data-content=" Montant : {{ nouveau ? nouveau['montant'] : 0}}">Nouveau</button>
+																		</td>
+																		<td class="text-center"></td>
+																	</tr>
+																{% endif %}
+															{% endfor %}
+
+														</tbody>
+													</table>
+
+												</div>
+
+												<div class="modal-footer">
+													<button type="button" class="btn btn-black" data-dismiss="modal">Fermer</button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!--/modal historique-->
 								</td>
+								<td></td>
 							</tr>
 						{% endfor %}
 					</tbody>

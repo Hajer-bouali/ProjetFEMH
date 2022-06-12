@@ -56,10 +56,8 @@ class OperationStockController extends AbstractController
 
         if ($formdon->isSubmitted() && $formdon->isValid()) {
             $operationStock->setTypeoperation('don');
-            $operationStock->setEtat('Demande');
             $operationStock->setResponsable($this->getUser()->getName());
             $operationStock->setDate(new \DateTime('now'));
-            $entityManager->persist($operationStock);
             $entityManager->persist($operationStock);
             $entityManager->flush();
 
@@ -82,7 +80,6 @@ class OperationStockController extends AbstractController
 
         if ($formAide->isSubmitted() && $formAide->isValid()) {
             $operationStock->setTypeoperation('aide');
-            $operationStock->setEtat('Demande');
             $operationStock->setResponsable($this->getUser()->getName());
             $operationStock->setDate(new \DateTime('now'));
             $entityManager->persist($operationStock);

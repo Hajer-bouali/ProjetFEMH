@@ -102,6 +102,7 @@ class EvenementController extends AbstractController
                 }
             }
             $evenement->setNbpanierfinale($nbpanierfinale);
+            $entityManager->getRepository(Produit::class)->updateQuantiteProduit($produit);
             $entityManager->persist($evenement);
             $entityManager->flush();
 
@@ -128,7 +129,7 @@ class EvenementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);          
         }
 
         return $this->renderForm('evenement/edit.html.twig', [

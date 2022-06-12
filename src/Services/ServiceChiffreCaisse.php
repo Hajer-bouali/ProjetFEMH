@@ -12,7 +12,9 @@ class ServiceChiffreCaisse {
         $this->RepoOperationFinanciere = $operationFinanciereRepository;
     }
 
-    public function afficherChiffreCaisse($datedebut, $datefin, $caisse, $typeoperation = null): ?float {
+    public function afficherChiffreCaisse($datedebut, $datefin, $caisse, $typeoperation ): ?float {
+      
+        
         $opertionsFinancieres = $this->RepoOperationFinanciere->findCaisseByDate($datedebut, $datefin, $caisse, $typeoperation);
  
         $montant = 0;
@@ -21,24 +23,23 @@ class ServiceChiffreCaisse {
         }
         return $montant;
     }
-
-    public function ChiffreCaisseParMois($datedebut, $datefin, $caisse, $typeoperation = null): ?array{
-        $tab = [];
+    public function ChiffreCaisseParMois($datedebut, $datefin, $caisse, $typeoperation): ?array{
+        $tab =[];
         $i = 0;
-        $dateencours = $datedebut;
-        while($dateencours < $datefin and $i < 32) {
+        $dateEnCours = clone $datedebut;
+        do {
             $i++;
-            $tab[$i]['mois'] = $dateencours;
-            $firstday = $dateencours;
-            $lastday = $dateencours;
-            
+            $firstday = clone $dateEnCours;
+            $lastday = clone $dateEnCours;
+
             $firstday->modify('first day of this month');
             $lastday->modify('last day of this month');
+            
             $montant = $this->afficherChiffreCaisse($firstday, $lastday, $caisse, $typeoperation);
-            $dateencours->modify('+1 month');
-            $tab[$i]['montant'] = $montant;
+            $dateEnCours->modify('+1 month');
+            $tab[$i] = ['mois' => $firstday, 'montant' => $montant]; 
         }
-
+        while($dateEnCours <= $datefin);
         return $tab;
     }
 }

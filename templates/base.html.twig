@@ -88,21 +88,22 @@
 		<!-- /theme JS files -->
 		<!-- Theme JS files modale historique --><script src="{{ asset('templateAdmin/global_assets/js/demo_pages/components_popups.js')}}"> </script>
 		<!-- /theme JS files modale historique-->
-<!-- Theme JS files -->
-	<script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
+		<!-- Theme JS files -->
+		<script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
 
-	<script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/pies_donuts.js')}}"></script>
-	<!-- /theme JS files -->
-	    <!-- Theme JS files -->
-    <script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
+		<script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/pies_donuts.js')}}"></script>
+		<!-- /theme JS files -->
+		<!-- Theme JS files -->
+		<script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
 
-    <script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/lines.js')}}"></script>
-    <!-- /theme JS files -->
-    <!-- Theme JS files Donut multiples-->
-    <script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
+		<!-- /theme JS files -->
+		<!-- Theme JS files Donut multiples-->
+		<script src="{{asset('templateAdmin/global_assets/js/plugins/visualization/echarts/echarts.min.js')}}"></script>
 
-    <script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/pies_donuts.js')}}"></script>
-    <!-- /theme JS files Donut multiples-->
+		<script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/pies_donuts.js')}}"></script>
+		<!-- /theme JS files Donut multiples-->
+		{% block javascripts %}{% endblock %}
+
 	</head>
 	<body>
 
@@ -195,24 +196,47 @@
 							</div>
 							<i class="icon-menu" title="Menu"></i>
 						</li>
-						
-						
+
+						{% if is_granted('ROLE_ADMIN')%}
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link">
+									<i class="icon-people"></i>
+									<span>
+										Gestion des utilisateurs
+									</span>
+								</a>
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item">
+										<a href="{{ path('user_index') }}" class="nav-link">
+											Liste des utilisateurs
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('user_create') }}" class="nav-link">
+											Ajouter utilisateur
+										</a>
+									</li>
+								</ul>
+							</li>
+						{% endif %}
 
 						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
-						    <li class="nav-item ">
+							<li class="nav-item ">
 								<a href="{{path('evenement_dashboard')}}" class="nav-link">
 									<i class="icon-home4"></i>
-									<span>Dashboard</span>
+									<span>Accueil Social</span>
 								</a>
 
-								
+
 							</li>
+						{% endif %}
+
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
 							<li class="nav-item nav-item-submenu">
 								<a href="#" class="nav-link">
 									<i class="icon-paste"></i>
 									<span>Gestion des dossiers</span>
 								</a>
-
 								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 									<li class="nav-item">
 										<a href="{{path('adherent_index')}}" class="nav-link">Liste des dossiers
@@ -222,22 +246,42 @@
 										<a href="{{path('adherent_new')}}" class="nav-link">Ajouter dossier</a>
 									</li>
 									{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
-									<li class="nav-item">
-										<a href="{{path('adherent_archive')}}" class="nav-link">liste des dossiers archivés</a>
-									</li>
-								{% endif %}
+										<li class="nav-item">
+											<a href="{{path('app_typeadherent_index')}}" class="nav-link">Liste des dossiers
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="{{path('adherent_archive')}}" class="nav-link">liste des dossiers archivés</a>
+										</li>
+									{% endif %}
 								</ul>
 							</li>
 						{% endif %}
-						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
-						<li class="nav-item ">
-								<a href="{{path('caisse_dashboard')}}" class="nav-link">
-									<i class="icon-home4"></i>
-									<span>Dashboard</span>
-								</a>		
+
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link">
+									<i class="icon-stack"></i>
+									<span>
+										Gestion des reunions
+									</span>
+								</a>
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item">
+										<a href="{{ path('reunion_index') }}" class="nav-link">
+											Liste des reunions
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('reunion_create') }}" class="nav-link">
+											Ajouter reunion
+										</a>
+									</li>
+								</ul>
 							</li>
 						{% endif %}
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
+
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
 							<li class="nav-item nav-item-submenu">
 								<a href="#" class="nav-link">
 									<i class="icon-cart5"></i>
@@ -269,34 +313,87 @@
 								</ul>
 							</li>
 						{% endif %}
+
 						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
 							<li class="nav-item nav-item-submenu">
 								<a href="#" class="nav-link">
-									<i class="icon-stack"></i>
+									<i class="icon-calendar3"></i>
 									<span>
-										Gestion des reunions
+										Gestion des événements
 									</span>
 								</a>
 								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 									<li class="nav-item">
-										<a href="{{ path('reunion_index') }}" class="nav-link">
-											Liste des reunions
+										<a href="{{ path('evenement_index') }}" class="nav-link">
+											Liste des événements
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="{{ path('reunion_create') }}" class="nav-link">
-											Ajouter reunion
+										<a href="{{ path('evenement_new') }}" class="nav-link">
+											Ajouter un événement
+										</a>
+									</li>
+									{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
+
+										<li class="nav-item">
+											<a href="{{ path('type_evenement_index') }}" class="nav-link">
+												Liste des type des evenements
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="{{ path('type_evenement_new') }}" class="nav-link">
+												Ajouter un type d'evenement
+											</a>
+										</li>
+									{% endif %}
+								</ul>
+							</li>
+						{% endif %}
+
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link">
+									<i class="icon-tree7"></i>
+									<span>
+										Liste des opérations Stocks
+									</span>
+								</a>
+								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
+									<li class="nav-item">
+										<a href="{{ path('operation_stock_don_index')}}" class="nav-link">
+											<i class="icon-diff-added"></i>
+											<span>
+												Liste des opérations Don
+											</span>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="{{ path('operation_stock_aide_index')}}" class="nav-link">
+											<i class="icon-diff-removed"></i>
+											<span>
+												Liste des opérations Aide
+											</span>
 										</a>
 									</li>
 								</ul>
 							</li>
 						{% endif %}
+
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
+							<li class="nav-item ">
+								<a href="{{path('caisse_dashboard')}}" class="nav-link">
+									<i class="icon-home4"></i>
+									<span>Accueil Financière</span>
+								</a>
+							</li>
+						{% endif %}
+
 						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
 							<li class="nav-item nav-item-submenu">
 								<a href="#" class="nav-link">
 									<i class="icon-cash"></i>
 									<span>
-										Gestion de caisse
+										Gestion des caisses
 									</span>
 								</a>
 								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
@@ -323,120 +420,30 @@
 								</ul>
 							</li>
 						{% endif %}
-						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
+
+						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
 							<li class="nav-item nav-item-submenu">
 								<a href="#" class="nav-link">
-									<i class="icon-calendar3"></i>
+									<i class="icon-tree7"></i>
 									<span>
-										Gestion d'evenement
+										Liste des opérations financière
 									</span>
 								</a>
 								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
 									<li class="nav-item">
-										<a href="{{ path('evenement_index') }}" class="nav-link">
-											Liste des evenements
+										<a href="{{ path('operation_financiere_don_index')}}" class="nav-link">
+											<i class="icon-diff-added"></i>
+											<span>
+												Liste des opérations Don
+											</span>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="{{ path('evenement_new') }}" class="nav-link">
-											Ajouter un evenement
-										</a>
-									</li>
-									{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
-
-									<li class="nav-item">
-										<a href="{{ path('type_evenement_index') }}" class="nav-link">
-											Liste des type des evenements
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="{{ path('type_evenement_new') }}" class="nav-link">
-											Ajouter un type d'evenement
-										</a>
-									</li>
-								{% endif %}
-								</ul>
-							</li>
-						{% endif %}
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link">
-								<i class="icon-tree7"></i>
-								<span>
-									Gestion des operation
-								</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-								{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-
-											Liste des operation financière
-
-										</a>
-										<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-											<li class="nav-item">
-												<a href="{{ path('operation_financiere_don_index')}}" class="nav-link">
-													<i class="icon-diff-added"></i>
-													<span>
-														Liste des operation Don
-													</span>
-												</a>
-											</li>
-											<li class="nav-item">
-												<a href="{{ path('operation_financiere_aide_index')}}" class="nav-link">
-													<i class="icon-diff-removed"></i>
-													<span>
-														Liste des operation Aide
-													</span>
-												</a>
-											</li>
-										</ul>
-									</li>
-								{% endif %}
-								{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
-									<li class="nav-item">
-										<a href="#" class="nav-link">
-											Liste des operation Stocks
-										</a>
-										<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-											<li class="nav-item">
-												<a href="{{ path('operation_stock_don_index')}}" class="nav-link">
-													<i class="icon-diff-added"></i>
-													<span>
-														Liste des operation Don
-													</span>
-												</a>
-											</li>
-											<li class="nav-item">
-												<a href="{{ path('operation_stock_aide_index')}}" class="nav-link">
-													<i class="icon-diff-removed"></i>
-													<span>
-														Liste des operation Aide
-													</span>
-												</a>
-											</li>
-										</ul>
-									</li>
-								{% endif %}
-							</ul>
-						</li>
-						{% if is_granted('ROLE_ADMIN')%}
-							<li class="nav-item nav-item-submenu">
-								<a href="#" class="nav-link">
-									<i class="icon-people"></i>
-									<span>
-										Gestion des utilisateurs
-									</span>
-								</a>
-								<ul class="nav nav-group-sub" data-submenu-title="Starter kit">
-									<li class="nav-item">
-										<a href="{{ path('user_index') }}" class="nav-link">
-											Liste des utilisateurs
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="{{ path('user_create') }}" class="nav-link">
-											Ajouter utilisateur
+										<a href="{{ path('operation_financiere_aide_index')}}" class="nav-link">
+											<i class="icon-diff-removed"></i>
+											<span>
+												Liste des opérations Aide
+											</span>
 										</a>
 									</li>
 								</ul>
@@ -449,23 +456,18 @@
 
 			<script type="text/javascript">
 				{% for type, messages in app.session.flashbag.all() %}
-					{% for message in messages %}
-					swal({
-						text: '{{ message|raw }}',
-						type: '{{type}}',
-						showCancelButton: false,
-						confirmButtonColor: '#3085d6',
-						cancelButtonColor: '#d33'
-						});
-						
-					{% endfor %}
-				{% endfor %}	
+{% for message in messages %}
+swal({
+text: '{{ message|raw }}',
+type: '{{ type }}',
+showCancelButton: false,
+confirmButtonColor: '#3085d6',
+cancelButtonColor: '#d33'
+});{% endfor %}{% endfor %}
 			</script>
 
 			{% block body %}{% endblock %}
 			<!-- /main content -->
-
-		</div>
-		<!-- /page content -->
+		</body>
 	</body>
-</html></body></html></div>{% block javascript %}{% endblock %}</body></html>
+</html></div><!-- /page content --></body></html>
