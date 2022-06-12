@@ -93,7 +93,6 @@ class FicheTechniqueController extends AbstractController
     {
             $entityManager->remove($ficheTechnique);
             $entityManager->flush();
-  
 
             return $this->redirectToRoute('evenement_show', ['id' => $evenement], Response::HTTP_SEE_OTHER);
         }

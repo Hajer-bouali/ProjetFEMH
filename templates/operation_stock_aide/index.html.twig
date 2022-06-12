@@ -47,21 +47,20 @@
 				<table class="table datatable-basic">
                 <thead>
                     <tr>
+						<th></th>
                         <th>Id</th>
                         <th>Date</th>
                         <th>Responsable</th>
-                        <th>Etat</th>
                         <th>actions</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for operation_stock in operation_stocks|reverse  %}
                     <tr>
+						<td></td>
                         <td>{{ operation_stock.id }}</td>
                         <td>{{ operation_stock.date ? operation_stock.date|date('Y-m-d') : '' }}</td>
-                        <td>{{ operation_stock.responsable }}</td>
-                        <td>{{ operation_stock.etat }}</td>
-                        <td>
+                        <td>{{ operation_stock.responsable }}</td>                        <td>
 									<a class="list-icons-item text-primary-600"  href="{{ path('operation_stock_aide_edit', {'id': operation_stock.id}) }}"
 									   data-popup="tooltip-custom" title="Modifier l'operation stock d'aide" >
 										<i class="icon-pencil7"></i>
@@ -93,6 +92,7 @@
 										</div>
 									</div>
 								</td>
+							
 							<td></td>
 							</tr>
 						{% endfor %}

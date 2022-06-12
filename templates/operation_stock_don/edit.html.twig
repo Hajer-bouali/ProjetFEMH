@@ -42,7 +42,7 @@
 											<div class="card">
 												<div class="card-header bg-white header-elements-inline">
 													<h5 class="card-title">
-														Créer une nouvelle opération Stock de don
+														Modifier l'opération Stock de don
 													</h5>
 													<div class="header-elements"></div>
 												</div>
@@ -82,18 +82,6 @@
 
 															</div>
 														</div>
-													</div>
-													<div class="row">
-														{% if is_granted('ROLE_SOCIAL') %}
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>Etat
-																		<span class="text-danger"></span>
-																	</label> {{ form_widget(formDon.etat , {attr:{'class':'form-control ','disabled':'disabled'}}) }}
-																</div>
-															</div>
-														{% endif %}
-
 													</div>
 													<div class="text-right"> {{ form_row(formDon.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
 													</div> {{ form_end(formDon) }}

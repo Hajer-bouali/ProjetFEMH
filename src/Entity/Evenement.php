@@ -57,11 +57,6 @@ class Evenement
     private $datefin;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $montantunitaire;
-
-    /**
      * @ORM\OneToMany(targetEntity=FicheTechnique::class, mappedBy="evenement")
      */
     private $ficheTechniques;
@@ -228,19 +223,6 @@ class Evenement
 
         return $this;
     }
-
-    public function getMontantunitaire(): ?float
-    {
-        return $this->montantunitaire;
-    }
-
-    public function setMontantunitaire(float $montantunitaire): self
-    {
-        $this->montantunitaire = $montantunitaire;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, FicheTechnique>
      */

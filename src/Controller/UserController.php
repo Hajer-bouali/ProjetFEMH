@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\CreateFormType;
-use App\Form\EditFormType;
+use App\Form\User\EditFormType;
 use App\Form\EditPasswordType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
