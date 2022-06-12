@@ -39,9 +39,7 @@ var line_zoom_element = document.getElementById('line_zoom');
 //
 
 // Basic line chart
-if (line_basic_element) {
-
-// Initialize chart
+if (line_basic_element) { // Initialize chart
 var line_basic = echarts.init(line_basic_element);
 
 
@@ -216,9 +214,7 @@ borderWidth: 2
 }
 
 // Stacked lines chart
-if (line_stacked_element) {
-
-// Initialize chart
+if (line_stacked_element) { // Initialize chart
 var line_stacked = echarts.init(line_stacked_element);
 
 
@@ -440,9 +436,7 @@ borderWidth: 2
 }
 
 // Inverted axes
-if (line_inverted_axes_element) {
-
-// Initialize chart
+if (line_inverted_axes_element) { // Initialize chart
 var line_inverted_axes = echarts.init(line_inverted_axes_element);
 
 
@@ -597,9 +591,7 @@ data: [
 }
 
 // Multiple lines
-if (line_multiple_element) {
-
-// Initialize chart
+if (line_multiple_element) { // Initialize chart
 var line_multiple = echarts.init(line_multiple_element);
 
 
@@ -881,9 +873,7 @@ data: [
 }
 
 // Display point values
-if (line_values_element) {
-
-// Initialize chart
+if (line_values_element) { // Initialize chart
 var line_values = echarts.init(line_values_element);
 
 
@@ -1052,9 +1042,7 @@ borderWidth: 2
 }
 
 // Zoom option
-if (line_zoom_element) {
-
-// Initialize chart
+if (line_zoom_element) { // Initialize chart
 var line_zoom = echarts.init(line_zoom_element);
 
 
@@ -1124,13 +1112,10 @@ color: '#999'
 }
 },
 data: [{% set i = 0 %}
-{% for t in tab %}
-{% set i = i +1 %}
-{% if i != 1 %}
-{{ ',' }}{% endif %}'{{ t['date'] }}'{% endfor %}]
-}
+{% for t in tabaide %}{% set i = i +1 %}{% if i != 1 %}{{ ',' }}
+{% endif %}'{{ t['mois']|date('m/Y') }}'{% endfor %}]
+},
 ],
-
 // Vertical axis
 yAxis: [
 {
@@ -1191,39 +1176,9 @@ normal: {
 borderWidth: 2
 }
 },
-data: [
-152,
-156,
-479,
-442,
-654,
-835,
-465,
-704,
-643,
-136,
-791,
-254,
-688,
-119,
-948,
-316,
-612,
-378,
-707,
-404,
-485,
-226,
-754,
-142,
-965,
-364,
-887,
-395,
-838,
-113,
-662
-]
+data: [{% set i = 0 %}
+{% for t in tabdon %}{% set i = i +1 %}{% if i != 1 %}{{ ',' }}
+{% endif %}{{ t['montant'] }}{% endfor %}]
 }, {
 name: 'operation financiere aide',
 type: 'line',
@@ -1234,39 +1189,9 @@ normal: {
 borderWidth: 2
 }
 },
-data: [
-677,
-907,
-663,
-137,
-952,
-408,
-976,
-772,
-514,
-102,
-165,
-343,
-374,
-744,
-237,
-662,
-875,
-462,
-409,
-259,
-396,
-744,
-359,
-618,
-127,
-596,
-161,
-574,
-107,
-914,
-708
-]
+data: [{% set i = 0 %}
+{% for t in tabaide %}{% set i = i +1 %}{% if i != 1 %}{{ ',' }}
+{% endif %}{{ t['montant'] }}{% endfor %}]
 },
 
 ]

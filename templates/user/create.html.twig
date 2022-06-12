@@ -76,7 +76,7 @@
 																				{% if is_granted('ROLE_ADMIN') %}
 
 																					<div class="col-md-8">
-																						<label>Role</label> {{ form_widget(formCreerProfil.roles , {attr:{'class':'form-select2'}}) }}
+																						<label>Role</label> {{ form_widget(formCreerProfil.roles , {attr:{'class':'form-check-input','type':'radio'}}) }}
 																					</div>
 
 																				{% endif %}

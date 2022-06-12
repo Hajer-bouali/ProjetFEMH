@@ -23,10 +23,30 @@
 	<div
 		class="content-wrapper">
 
-		<!-- Page header -->
-		<div class="page-header page-header-light">
-			<div class="page-header-content header-elements-md-inline">
-				<div class="d-flex">
+		<!-- Labeled button -->
+		<div class="mb-3 border-top-1 border-top-primary">
+			<div class="page-header page-header-light" style="border-left: 1px solid #ddd; border-right: 1px solid #ddd;">
+				<div class="page-header-content header-elements-inline">
+					<div class="page-title">
+						<h5>
+							<i class="icon-arrow-left52 mr-2"></i>
+							<span class="font-weight-semibold">Page</span>
+							- Liste des  bénéficiaires
+							<small class="d-block text-muted">pour l'événement : {{ evenement.nom }}</small>
+						</h5>
+					</div>
+
+					<div class="header-elements">
+							<a type="button" class="btn bg-success btn-labeled btn-labeled-left" data-popup="tooltip-custom" title="Liste des  bénéficiaires de ce evenement" href="{{ path('evenement_adherents', {'id': evenement.id}) }}">
+							<b>
+								<i class="icon-three-bars"></i>
+							</b>
+							Liste des  bénéficiaires
+						</a>
+					</div>
+				</div>
+
+				<div class="breadcrumb-line breadcrumb-line-light">
 					<div class="breadcrumb">
 						<a href="{{ path('evenement_index') }}" class="breadcrumb-item">
 							<i class="icon-home2 mr-2"></i>
@@ -39,7 +59,8 @@
 				</div>
 			</div>
 		</div>
-		<!-- /page header -->
+		<!-- /labeled button -->
+		
 
 		<!-- Content area -->
 		<div
@@ -73,6 +94,7 @@
 							<div class="card-body p-0" style="">
 								<div class="nav nav-sidebar my-2">
 
+
 									<li class="nav-item">
 										<h6>
 											<a class="nav-link legitRipple">
@@ -100,15 +122,12 @@
 									</li>
 								</div>
 							</div>
-							<br>
 						</div>
 					</div>
-
 				</div>
 
 
 				<table class="table datatable-basic">
-
 					<thead>
 						<tr>
 							<th>
@@ -153,7 +172,9 @@
 										class="list-icons">
 										<!--bouton trach-->
 
-										<a class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier la fiche technique" href="{{ path('app_fiche_technique_edit', {'id': ficheTechnique.id,'evenement':evenement.id}) }}"> <!--bouton trach-->
+										<a
+											class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier la fiche technique" href="{{ path('app_fiche_technique_edit', {'id': ficheTechnique.id,'evenement':evenement.id}) }}">
+											<!--bouton trach-->
 											<i class="icon-pencil7"></i>
 										</a>
 										<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{ ficheTechnique.id }}" data-toggle="modal">
@@ -172,8 +193,8 @@
 										<div class="modal-header bg-danger">
 											<h4 class="modal-title">
 												Confirmez-vous la suppression du produit 
-																																																																																					de la
-																																																																																					?
+																																																																																																																									de la
+																																																																																																																									?
 											</h4>
 											<button type="button" class="close" data-dismiss="modal">
 												&times;
@@ -254,53 +275,8 @@
 							<!--/modal_ajout_benificiaire-->
 						</div>
 					</tbody>
-
 				</table>
-				<!--<table class="table datatable-basic">
-																								
-																													<thead>
-																														<tr>
-																								
-																															<th>id</th>
-																															<th>Nom et prénom</th>
-																															<th>Adresse</th>
-																															<th>Telephone</th>
-																															<th>Actions</th>
-																														</tr>
-																													</thead>
-																													<tbody>
-																														{% for adherent in adherents|reverse %}
-																															<tr>
-																																<td>{{ adherent.id }}</td>
-																																<td>{{ adherent.nom }}</td>
-																																<td>{{ adherent.adresse }}</td>
-																																<td>{{ adherent.telephone }}</td>
-																								
-																																<td>
-																																	<div class="list-icons">
-																								
-																								
-																																		{% if adherent.statut=="actif"%}
-																																			<a href="#" class="list-icons-item text-danger-600" data-target="#modal_archive{{adherent.id}}" data-toggle="modal"></a>
-																																		{% else %}
-																																			<a href="#" class="list-icons-item text-darck-600" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal"></a>
-																																		{% endif %}
-																																		<a href="{{path("adherent_show" , {id: adherent.id})}}" class="list-icons-item text-teal-600">
-																																			<i class="icon-reading"></i>
-																																		</a>
-																																		<a href="#" class="list-icons-item text-teal-600">
-																																			<i class="icon-checkmark-circle text-green"></i>
-																																		</a>
-																																	</div>
-																																</td>
-																																<td class="text-center"></td>
-																															</tr>
-																														{% endfor %}
-																													</tbody>
-																												</table>-->
-
 			</div>
-
 		</div>
 	</div>
 </div>{% endblock %}

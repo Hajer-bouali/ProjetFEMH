@@ -21,30 +21,10 @@ use App\Services\ServiceChiffreCaisse;
 
 /**
  * @Route("/operation/financiere")
- * @Security("is_granted('ROLE_FINANCIER') or is_granted('ROLE_ADMIN')")
+ * @Security("is_granted('ROLE_FINANCIER') or is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL')")
  */
 class OperationFinanciereController extends AbstractController
-{
-     /**
-     * @Route("/statistique", name="operation_statistique", methods={"GET"})
-     */
-    public function statistique(OperationFinanciereRepository $operationFinanciereRepository,ServiceChiffreCaisse $serviceChiffreciasse): Response
-    {
-        $i=0;
-
-        $tab = [];
-        for( $i=0;$i<10;$i++ ) {
-            $tab[$i]['montant']='300';
-            $tab[$i]['date']='2020/02';
-        }
-      
-       
-        return $this->render('caisse/scriptstatistique.html.twig',[
-            'tab' => $tab,
-        ]);
-
-    }
-   
+{   
     /**
      * @Route("/don", name="operation_financiere_don_index", methods={"GET"})
      */
@@ -128,7 +108,9 @@ class OperationFinanciereController extends AbstractController
     {
         $operationFinanciere = new OperationFinanciere();
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
-
+        if (!$this->isGranted('ROLE_FINANCIER')) {
+            $formAide->remove('etat');
+        }
         $formAide->handleRequest($request);
         if ($formAide->isSubmitted() && $formAide->isValid()) {
             $piecejointes = $formAide->get('pieceJointeOperations')->getData();
@@ -142,6 +124,7 @@ class OperationFinanciereController extends AbstractController
                 $image->setNom($fichier);
                 $operationFinanciere->addPieceJointeOperation($image);
             }
+            $operationFinanciere->setTypeoperation('aide');
             $operationFinanciere->setTypeoperation('aide');
             $operationFinanciere->setEtat('Demande');
             $operationFinanciere->setDate(new \DateTime('now'));

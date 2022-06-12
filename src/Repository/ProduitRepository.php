@@ -20,19 +20,10 @@ class ProduitRepository extends ServiceEntityRepository
     }
 
     public function updateQuantiteProduit($produit) {
-        $quantite = 0;
-        foreach ($produit->getOperationStocks() as $operationstock) {
-            if ($operationstock->getEtat() == 'valide') {
-                $quantite = 
-                $operationstock->getTypeoperation() == 'aide' ?
-                $quantite - $operationstock->getQuantite() :
-                $quantite + $operationstock->getQuantite(); 
-            }
-        }
-        foreach($produit->getFicheTechniques() as $operationstock){
-            if ($operationstock->getEvenement()->getEtat() == 'valide') {
-                $quantite = 
-                $quantite - ($operationstock->getQuantite() * $operationstock->getEvenement()->getNbpanierfinale()) ;
+        $quantite = $produit->getQuantite();
+        foreach($produit->getFicheTechniques() as $ficheTechnique) {
+            if ($ficheTechnique->getEvenement()->getEtat() == 'valide') {
+                $quantite -= ($ficheTechnique->getQuantite() * $ficheTechnique->getEvenement()->getNbpanierfinale());               
             }
         }
         $produit->setQuantite($quantite);

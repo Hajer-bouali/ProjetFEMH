@@ -78,6 +78,9 @@
 									<a class="list-icons-item" data-popup="tooltip-custom" title="Liste des  bénéficiaires de ce evenement" href="{{ path('evenement_adherents', {'id': evenement.id}) }}">
 										<i class="icon-menu8"></i>
 									</a>
+									<a class="list-icons-item" data-popup="tooltip-custom" title="Demande de financement pour l'événement" href="{{ path('operation_financiere_aide_new') }}">
+										<i class="icon-wallet"></i>
+									</a>
 									<div id="modal_delete{{evenement.id}}" class="modal fade" tabindex="-1">
 										<div class="modal-dialog">
 											<div class="modal-content">

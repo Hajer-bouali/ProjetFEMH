@@ -9,10 +9,30 @@
 	<!-- Main content -->
 	<div
 		class="content-wrapper">
-		<!-- Page header -->
-		<div class="page-header page-header-light">
-			<div class="page-header-content header-elements-md-inline">
-				<div class="d-flex">
+		<!-- Labeled button -->
+		<div class="mb-3 border-top-1 border-top-primary">
+			<div class="page-header page-header-light" style="border-left: 1px solid #ddd; border-right: 1px solid #ddd;">
+				<div class="page-header-content header-elements-inline">
+					<div class="page-title">
+						<h5>
+							<i class="icon-arrow-left52 mr-2"></i>
+							<span class="font-weight-semibold">Page</span>
+							- Modifier l'événement
+							<small class="d-block text-muted">pour l'événement</small>
+						</h5>
+					</div>
+
+					<div class="header-elements">
+						<a type="button" class="btn bg-success btn-labeled btn-labeled-left" data-popup="tooltip-custom" title="Validation de l'événement">
+							<b>
+								<i class="icon-task"></i>
+							</b>
+							Validation de l'événement
+						</a>
+					</div>
+				</div>
+
+				<div class="breadcrumb-line breadcrumb-line-light">
 					<div class="breadcrumb">
 						<a href="{{path('evenement_index')}}" class="breadcrumb-item">
 							<i class="icon-home2 mr-2"></i>
@@ -21,16 +41,10 @@
 							Liste des bénéficiaires de l'événement
 						</a>
 					</div>
-
-					<a href="#" class="header-elements-toggle text-default d-md-none">
-						<i class="icon-more"></i>
-					</a>
 				</div>
-
-
 			</div>
 		</div>
-		<!-- /page header -->
+		<!-- /labeled button -->
 
 
 		<!-- Content area -->
@@ -104,7 +118,7 @@
 							</div>
 
 							<div id="question5" class="collapse">
-							
+
 								<div class="card-body ">
 									<table class="table datatable-basic">
 

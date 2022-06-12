@@ -22,15 +22,15 @@ class OperationFinanciereRepository extends ServiceEntityRepository
    /**
      * @return OperationFinanciere[] Returns an array of OperationFinanciere objects
      */
-    public function findCaisseByDate($datedebut , $datefin , $caisse, $typeOperation = null) {
+    public function findCaisseByDate($datedebut , $datefin , $caisse, $typeOperation) {
         $queryBuilder = $this->createQueryBuilder('o')
         ->join('o.caisse', 'c')
         ->where('o.date >= :datedebut')
         //set parameter tched el variable eli 9balha toul eli ahna h3a 3ana datedebut taffecti fiha el valiabel eli ndakhalhali eli ahna hna esmha$datedebut
-        ->setParameter('datedebut', $datedebut)
         ->andwhere('o.date <= :datefin')
-        ->setParameter('datefin', $datefin)
         ->andwhere('c.id = :caisse')
+        ->setParameter('datefin', $datefin)
+        ->setParameter('datedebut', $datedebut)
         ->setParameter('caisse', $caisse);
         
         if ($typeOperation) {
