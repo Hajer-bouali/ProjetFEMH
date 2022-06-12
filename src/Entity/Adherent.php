@@ -166,7 +166,7 @@ class Adherent
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $date;
+    /*private $date;*/
 
     public function __construct()
     {
@@ -631,7 +631,7 @@ class Adherent
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+  /*  public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
@@ -641,7 +641,7 @@ class Adherent
         $this->date = $date;
 
         return $this;
-    }
+    }*/
 
   
    
