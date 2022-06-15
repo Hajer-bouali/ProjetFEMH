@@ -95,8 +95,8 @@ class AdherentType extends AbstractType
            // ->add('installationnondisponible')
             ->add('handicap', ChoiceType::class, [
                 'choices' => [
-                    'Oui'=>'Oui',
-                    'Non'=>'Non'
+                    'Oui'=>'oui',
+                    'Non'=>'non'
                 ],
                 'expanded' => false,
                 'multiple' => false,
@@ -115,8 +115,8 @@ class AdherentType extends AbstractType
             ])*/
             ->add('maladiechronique', ChoiceType::class, [
                 'choices' => [
-                    'Oui'=>'Oui',
-                    'Non'=>'Non' 
+                    'Oui'=>'oui',
+                    'Non'=>'non' 
                 ],
                 'expanded' => false,
                 'multiple' => false,

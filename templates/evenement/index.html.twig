@@ -72,8 +72,8 @@
 									<a href="#" data-target="#modal_delete{{evenement.id}}" data-toggle="modal" data-popup="tooltip-custom" title="Supprimer l'événement" data-id={{evenement.id}} class="list-icons-item text-danger-600">
 										<i class="icon-trash"></i>
 									</a>
-									<a href="{{ path('evenement_show', {'id': evenement.id}) }}" data-popup="tooltip-custom" title="préparer une fiche technique pour l'événement" class="list-icons-item text-teal-600">
-										<i class="icon-reading"></i>
+									<a href="{{ path('evenement_show', {'id': evenement.id}) }}" data-popup="tooltip-custom" title="préparer une fiche technique pour l'événement" class="list-icons-item text-success-600"">
+										<i class="icon-diff "></i>
 									</a>
 									<a class="list-icons-item" data-popup="tooltip-custom" title="Liste des  bénéficiaires de ce evenement" href="{{ path('evenement_adherents', {'id': evenement.id}) }}">
 										<i class="icon-menu8"></i>

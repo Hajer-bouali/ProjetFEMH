@@ -148,12 +148,12 @@ class AdherentController extends AbstractController
                 $file->setNom($fichier);
                 $adherent->addPiecesJointe($file);
             }
-         //   $adherent->setDate(new \DateTime('now'));
+            $adherent->setDate(new \DateTime('now'));
             $adherent->setPrixlocation('0');
             $adherent->setTypehandicap('0');
             $adherent->setStatut('actif');
             $adherent->setTypemaladiechronique('0');
-            $adherent->setEtatreunion("en cour");
+            $adherent->setEtatreunion("Encours");
             $adherent->setResponsable($this->getUser()->getName());
 
             $entityManager->persist($adherent);
