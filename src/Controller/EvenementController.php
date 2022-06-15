@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Adherent;
+use App\Entity\Caisse;
 use App\Entity\Evenement;
 use App\Entity\Produit;
 use App\Entity\FicheTechnique;
+use App\Entity\OperationFinanciere;
 use App\Form\EvenementType;
 use App\Form\FicheTechniqueType;
 use App\Repository\AdherentRepository;
@@ -197,6 +199,20 @@ class EvenementController extends AbstractController
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    
+    /**
+     * @Route("/valider/{id}", name="evenement_valider")
+     */
+    public function valider(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
+    {
+        $evenement->setEtat('valide');
+        $entityManager->persist($evenement);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
     /**
      * @Route("/{id}/adherents", name="evenement_adherents", methods={"GET", "POST"})
      */
@@ -215,18 +231,30 @@ class EvenementController extends AbstractController
                 $evenement->addAdherent($adherent);
 
                 // condition sur le nb max de adherent il ne faut pas depasse nbpanierfinal
-                if ($evenement->getNbpanierfinale() <= count($evenement->getAdherent())) {
+                if (is_null($evenement->getPrixUnitaire()) && $evenement->getNbpanierfinale() <= count($evenement->getAdherent())) {
                     $evenement->setCriteres($request->request->all());
                     $entityManager->persist($evenement);
                     $entityManager->flush();
                     $this->addFlash('warning', 'vous avez dépassé le nombre des bénéficiaires possible ! le stock est insuffisant');
                     return $this->redirectToRoute('evenement_adherents', ['id' => $evenement->getId()]);
                 }
-
             }
 
             //sauvgarde des critères de recherche dans la table evenement
             $evenement->setCriteres($request->request->all());
+            if ($evenement->getPrixUnitaire() > 0) {
+                $operationFinanciere = new OperationFinanciere();
+                $operationFinanciere->setEvenement($evenement);
+                $operationFinanciere->setMontant(count($evenement->getAdherent()) * $evenement->getPrixUnitaire());
+                $operationFinanciere->setResponsable($this->getUser());
+                $operationFinanciere->setDate(new \DateTime('now'));
+                $operationFinanciere->setTypeoperation('aide');
+                $caisse = $entityManager->getRepository(Caisse::class)->find(1);
+                $operationFinanciere->setCaisse($caisse);
+                $operationFinanciere->setModepaiement('espèce');
+                $operationFinanciere->setEtat('demande');
+                $entityManager->persist($operationFinanciere);
+            }
 
             $entityManager->persist($evenement);
             $entityManager->flush();

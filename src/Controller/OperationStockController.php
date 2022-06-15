@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\OperationStock;
-use App\Entity\Produit;
+use App\Entity\Evenement;
 use App\Entity\Stock;
 use App\Form\OperationStockAideType;
 use App\Form\OperationStockDonType;
 use App\Form\StockType;
+use App\Form\EvenementSocialType;
 use App\Repository\OperationStockRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\StockRepository;
@@ -75,8 +76,11 @@ class OperationStockController extends AbstractController
     public function newAide(Request $request, EntityManagerInterface $entityManager): Response
     {
         $operationStock = new OperationStock();
+        $evenement = new Evenement();
         $formAide = $this->createForm(OperationStockAideType::class, $operationStock);
         $formAide->handleRequest($request);
+        $formEvenement = $this->createForm(EvenementSocialType::class, $evenement);
+        $formEvenement->handleRequest($request);
 
         if ($formAide->isSubmitted() && $formAide->isValid()) {
             $operationStock->setTypeoperation('aide');
@@ -87,10 +91,18 @@ class OperationStockController extends AbstractController
 
             return $this->redirectToRoute('operation_stock_aide_index', [], Response::HTTP_SEE_OTHER);
         }
+        if ($formEvenement->isSubmitted() && $formEvenement->isValid()) {
+            $evenement->setEtat('valide');
+            $entityManager->persist($evenement);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('operation_stock_aide_new', [], Response::HTTP_SEE_OTHER);
+        }
 
         return $this->renderForm('operation_stock_aide/new.html.twig', [
             'operation_stock' => $operationStock,
             'formAide' => $formAide,
+            'formEvenement' => $formEvenement,
         ]);
     }
 
@@ -142,14 +154,14 @@ class OperationStockController extends AbstractController
             $produit = $stock->getProduit();
             if ($produit->getQuantite() < $stock->getQuantite()) {
                 $this->addFlash('warning','Désolé mais nous navons pas la quantité démandée en stock!');
-                return $this->redirectToRoute('operation_stock_aide_show', ['id' => $operationStock->getId()]);
+                return $this->redirectToRoute('operation_stock_aide_show', [], Response::HTTP_SEE_OTHER);
             }
             $stock->setOperationStock($operationStock);           
             $produit->setQuantite($produit->getQuantite() - $stock->getQuantite());
             $entityManager->persist($produit);
             $entityManager->persist($stock);
             $entityManager->flush();
-            return $this->redirectToRoute('operation_stock_aide_show', ['id' => $operationStock->getId()]);
+            return $this->redirectToRoute('operation_stock_aide_show', [], Response::HTTP_SEE_OTHER);
         }
         
         return $this->render('operation_stock_aide/show.html.twig', [

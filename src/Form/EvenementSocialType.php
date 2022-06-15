@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class EvenementType extends AbstractType
+class EvenementSocialType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -22,7 +22,7 @@ class EvenementType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('nom')
-            ->add('prixUnitaire')
+            ->add('adherent')
             ->add('typeEvenement')
             ->add('Enregistrer', SubmitType::class)
         ;

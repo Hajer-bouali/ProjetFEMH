@@ -76,6 +76,11 @@ class Evenement
      */
     private $etat;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $prixUnitaire;
+
    
     public function __construct()
     {
@@ -83,6 +88,7 @@ class Evenement
         $this->operationFinancieres = new ArrayCollection();
         $this->operationStocks = new ArrayCollection();
         $this->ficheTechniques = new ArrayCollection();
+        $this->setEtat('demande');
     }
 
     public function getId(): ?int
@@ -285,6 +291,18 @@ class Evenement
     public function setNbpanierfinale(?int $nbpanierfinale): self
     {
         $this->nbpanierfinale = $nbpanierfinale;
+
+        return $this;
+    }
+
+    public function getPrixUnitaire(): ?float
+    {
+        return $this->prixUnitaire;
+    }
+
+    public function setPrixUnitaire(?float $prixUnitaire): self
+    {
+        $this->prixUnitaire = $prixUnitaire;
 
         return $this;
     }
