@@ -126,11 +126,13 @@
 						<td>
 							<div class="list-icons">
 								<a
-									class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier la fiche technique" href="{{ path('stock_edit', {'id': stock.id,'operationstock':operationStock.id}) }}">
+									class="list-icons-item text-primary-600" data-popup="tooltip-custom" title="Modifier la fiche technique" href="{{ path('stock_edit', {'id': stock.id}) }}">
 									<!--bouton trach-->
 									<i class="icon-pencil7"></i>
 								</a>
 								<!--bouton trach-->
+								<!--bouton modif-->
+						<!--bouton modif-->
 								<a href="#" class="list-icons-item text-danger-600" data-target="#modal_delete{{ stock.id }}" data-toggle="modal">
 									<i class="icon-trash"></i>
 								</a>

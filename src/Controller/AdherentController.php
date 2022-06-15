@@ -173,7 +173,6 @@ class AdherentController extends AbstractController
             'formBen' => $formBen,
         ]);
     }
-
     /**
      * @Route("/{id}", name="adherent_show", methods={"GET", "POST"})
      */

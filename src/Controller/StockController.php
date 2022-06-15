@@ -59,9 +59,9 @@ class StockController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit/{operationstock}", name="stock_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit/", name="stock_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Stock $stock, $operationstock, EntityManagerInterface $entityManager, OperationStockRepository $OperationStockRepository): Response
+    public function edit(Request $request, Stock $stock,EntityManagerInterface $entityManager, OperationStockRepository $OperationStockRepository): Response
     {
         $form = $this->createForm(StockType::class, $stock);
         $form->handleRequest($request);
@@ -81,11 +81,12 @@ class StockController extends AbstractController
             }
             $entityManager->flush();
 
-            return $this->redirectToRoute('operation_financiere_don_show', ['id'=> $operationstock], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('stock_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('stock/edit.html.twig', [
             'stock' => $stock,
+            'operations'=>$operations,
             'form' => $form,
         ]);
     }

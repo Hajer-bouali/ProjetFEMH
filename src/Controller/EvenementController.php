@@ -11,6 +11,9 @@ use App\Form\FicheTechniqueType;
 use App\Repository\AdherentRepository;
 use App\Repository\EvenementRepository;
 use App\Repository\FicheTechniqueRepository;
+use App\Repository\CaisseRepository;
+use App\Repository\OperationFinanciereRepository;
+use App\Services\ServiceChiffreEvenement;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,10 +42,55 @@ class EvenementController extends AbstractController
         /**
      * @Route("/dashboard", name="evenement_dashboard", methods={"GET" , "POST"})
      */
-    public function dashboard(): Response
+    public function dashboard(Request $request, AdherentRepository $adherentRepository, EntityManagerInterface $entityManager, OperationFinanciereRepository $OperationFinanciereRepository,ServiceChiffreEvenement $serviceChiffreevenement,EvenementRepository $evenementRepository): Response
     {
+        $adherents = $adherentRepository->findAll();
+        $nbAdherentAccepte = 0;
+        $nbAdherentrefuse= 0;
+        $nbAdherentreporte = 0;
+        $nbAdherentEncour = 0;
+        $date = (new \DateTime('now'));
+        $date->setTime(0, 0);
+        foreach($adherents as $adherent){
+            $dateAdherent = $adherent->getDate();
+            if ($adherent->getEtatreunion() === 'valide' && $dateAdherent == $date) {
+               $nbAdherentAccepte += 1; 
+            }
+            if ($adherent->getEtatreunion() === 'refuse' && $dateAdherent == $date) {
+                $nbAdherentrefuse += 1;
+            }
+            if ($adherent->getEtatreunion() === 'reporte' && $dateAdherent == $date) {
+                $nbAdherentreporte += 1;
+            }
+            if ($adherent->getEtatreunion() === 'Encours' && $dateAdherent == $date) {
+                $nbAdherentEncour += 1;
+            }
+        }
+        $entityManager->flush();
+        $tabaide = [];
+        $tabdon = [];
+
+        if ($request->isMethod('post')) {
+            $datedebut = \DateTime::createFromFormat('Y-m', $request->request->get('datedebut'));
+            $datefin = \DateTime::createFromFormat('Y-m', $request->request->get('datefin'));
+            
+            $datedebut->setDate($datedebut->format('Y'), $datedebut->format('m'), 1);
+            $datefin->setDate($datefin->format('Y'), $datefin->format('m'), 1);
+            $evenement = $request->request->get('evenement', '1'); 
+
+            $tabaide = $serviceChiffreevenement->ChiffreEvenementParMois($datedebut, $datefin, $evenement, 'aide');
+            $tabdon = $serviceChiffreevenement->ChiffreEvenementParMois($datedebut, $datefin, $evenement, 'don');
+        }
+
+        $evenements = $evenementRepository->findAll();
         return $this->render('evenement/dashboard.html.twig', [
-     
+            'nbAdherentEncour'=> $nbAdherentEncour,
+            'nbAdherentreporte'=> $nbAdherentreporte,
+            'nbAdherentrefuse'=> $nbAdherentrefuse,
+            'nbAdherentAccepte'=> $nbAdherentAccepte,
+            'tabaide' => $tabaide,
+            'tabdon' => $tabdon,
+            'evenements' => $evenements,
         ]);
     }
 

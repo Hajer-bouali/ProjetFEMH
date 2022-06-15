@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Evennement;
+use App\Entity\Evenement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
@@ -27,7 +27,7 @@ class EvennementRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Evennement $entity, bool $flush = false): void
+    public function add(Evenement $entity, bool $flush = false): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class EvennementRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Evennement $entity, bool $flush = false): void
+    public function remove(Evenement $entity, bool $flush = false): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,7 +48,7 @@ class EvennementRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Evennement[] Returns an array of Evennement objects
+//     * @return Evenement[] Returns an array of Evenement objects
 //     */
 //    public function findByExampleField($value): array
 //    {
