@@ -147,3 +147,13 @@
 				</div>
 			</div>
 		{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+		$('document').ready(function(){
+			$('#edit_form_roles input').change(function(){
+				$('#edit_form_roles input').prop( "checked", false );
+				$(this).prop( "checked", true );
+			});
+		});
+</script>
+{% endblock %}

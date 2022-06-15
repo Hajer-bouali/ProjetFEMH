@@ -22,7 +22,6 @@ class EditFormType extends AbstractType
                 'choices' => [
                     'Financier' => 'ROLE_FINANCIER',
                     'sociale' => 'ROLE_SOCIAL',
-                    'Administrateur' => 'ROLE_ADMIN',
                 ],
                 'expanded' => true,
                 'multiple' => true,

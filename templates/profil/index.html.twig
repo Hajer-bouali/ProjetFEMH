@@ -41,7 +41,9 @@
 												<h5> <i class="icon-vcard mr-2 icon-4x"></i> Rôle :
 													<ul>
 														{% for index, role in app.user.roles %}
-															<li>{{ role }}</li>
+															{% if role != 'ROLE_USER' %}
+																<li>{{ role }}</li>
+															{% endif %}
 														{% endfor %}
 													</ul>
 												</h5>
