@@ -215,12 +215,14 @@ class OperationStockController extends AbstractController
     /**
      * @Route("/delete/{id}/aide", name="operation_stock_aide_delete")
      */
-    public function deleteaide(OperationStock $operationStock, EntityManagerInterface $entityManager): Response
+    public function deleteaide(Stock $stock, EntityManagerInterface $entityManager): Response
     {
-        $entityManager->remove($operationStock);
+        $entityManager = $entityManager = $this->getDoctrine()->getManager();
+        $idoperationstock = $stock->getOperationstock()->getId();
+        $entityManager->remove($stock);
         $entityManager->flush();
 
-        return $this->redirectToRoute('operation_stock_aide_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('operation_stock_aide_show', ['id' => $idoperationstock]);
     }
 
     protected function calculeStockPossible(OperationStock $operationStock) {

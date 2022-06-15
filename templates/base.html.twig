@@ -102,7 +102,6 @@
 
 		<script src="{{asset('templateAdmin/global_assets/js/demo_pages/charts/echarts/pies_donuts.js')}}"></script>
 		<!-- /theme JS files Donut multiples-->
-		{% block javascripts %}{% endblock %}
 
 	</head>
 	<body>
@@ -257,16 +256,6 @@
 								</ul>
 							</li>
 						{% endif %}
-						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER') %}
-						<li class="nav-item ">
-								<a href="{{path('caisse_dashboard')}}" class="nav-link">
-									<i class="icon-home4"></i>
-
-									<span>Accueil Financier</span>
-								</a>
-
-								
-
 
 						{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SOCIAL') %}
 							<li class="nav-item nav-item-submenu">
@@ -465,19 +454,25 @@
 			<!-- /main sidebar -->
 
 			<script type="text/javascript">
-				{% for type, messages in app.session.flashbag.all() %}
-{% for message in messages %}
-swal({
-text: '{{ message|raw }}',
-type: '{{ type }}',
-showCancelButton: false,
-confirmButtonColor: '#3085d6',
-cancelButtonColor: '#d33'
-});{% endfor %}{% endfor %}
-			</script>
+		{% for type, messages in app.session.flashbag.all() %}
+			{% for message in messages %}
+				swal({
+					text:  '{{ message|raw }}',
+					type: 'warning',
+					showCancelButton: false,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+				})
+			{% endfor %}
+		{% endfor %}
+	</script>
+		
+		{% block body %}{% endblock %}
+		<!-- /main content -->
 
-			{% block body %}{% endblock %}
-			<!-- /main content -->
-		</body>
+		</div>
+		<!-- /page content -->
+	</div>
+		{% block javascript %}{% endblock %}
 	</body>
-</html></div><!-- /page content --></body></html>
+</html>
