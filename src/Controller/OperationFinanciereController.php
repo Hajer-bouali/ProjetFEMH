@@ -108,6 +108,7 @@ class OperationFinanciereController extends AbstractController
     {
         $operationFinanciere = new OperationFinanciere();
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
+
         $formAide->handleRequest($request);
         if ($formAide->isSubmitted() && $formAide->isValid()) {
             $piecejointes = $formAide->get('pieceJointeOperations')->getData();

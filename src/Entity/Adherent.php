@@ -53,7 +53,7 @@ class Adherent
     private $logement;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=0)
+     * @ORM\Column(type="decimal", precision=10, scale=0 , nullable=true)
      */
     private $prixlocation;
 
@@ -78,7 +78,7 @@ class Adherent
     private $handicap;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 , nullable=true)
      */
     private $typehandicap;
     
@@ -88,7 +88,7 @@ class Adherent
     private $maladiechronique;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255 , nullable=true)
      */
     private $typemaladiechronique;
 
