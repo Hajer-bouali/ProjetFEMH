@@ -81,6 +81,9 @@
 										<i class="icon-history"></i>
 									</a>
 									<!--/bouton historique-->
+									<a href="{{ url('aide_pdf', {'operation_financiere': operation_financiere.id}) }}" data-popup="tooltip-custom" title="Imprimer un bon d'aide" class="list-icons-item text-teal-600">
+														<i class="icon-file-pdf"></i>
+														</a>
 
 									<!--modal supprimé-->
 									<div id="modal_delete{{operation_financiere.id}}" class="modal fade" tabindex="-1">

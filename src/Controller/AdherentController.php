@@ -48,9 +48,10 @@ class AdherentController extends AbstractController
     /**
      * @Route("/{adherent}/pdf", name="adherent_pdf", methods={"GET"})
      */
-    public function pdfadherent(Request $request, Adherent $adherent, BenificiaireRepository $benificiaireRepository, RevenufamilialRepository $revenufamilialRepository,EntityManagerInterface $entityManager)
+    public function pdfadherent(Request $request, Adherent $adherent, Revenufamilial $revenufamilial, BenificiaireRepository $benificiaireRepository, RevenufamilialRepository $revenufamilialRepository,EntityManagerInterface $entityManager)
     {
-     
+        $revenufamilials = $revenufamilialRepository->findByAdherent($adherent);
+        $benificiaires = $benificiaireRepository->findByAdherent($adherent);
         // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         //$dompdf = new Dompdf(array('enable_remote' => true));
@@ -66,6 +67,8 @@ class AdherentController extends AbstractController
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('adherent/pdf.html.twig', [
             'adherent' => $adherent,
+            'revenufamilials' =>$revenufamilials,
+            'benificiaires'=>$benificiaires,
         ]);
         
         // Load HTML to Dompdf
@@ -149,10 +152,7 @@ class AdherentController extends AbstractController
                 $adherent->addPiecesJointe($file);
             }
             $adherent->setDate(new \DateTime('now'));
-            $adherent->setPrixlocation('0');
-            $adherent->setTypehandicap('0');
             $adherent->setStatut('actif');
-            $adherent->setTypemaladiechronique('0');
             $adherent->setEtatreunion("Encours");
             $adherent->setResponsable($this->getUser()->getName());
 
