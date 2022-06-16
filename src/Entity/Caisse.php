@@ -40,9 +40,15 @@ class Caisse
      */
     private $operationFinancieres;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="caisse")
+     */
+    private $evenements;
+
     public function __construct()
     {
         $this->operationFinancieres = new ArrayCollection();
+        $this->evenements = new ArrayCollection();
     }
 
     
@@ -117,6 +123,36 @@ class Caisse
             // set the owning side to null (unless already changed)
             if ($operationFinanciere->getCaisse() === $this) {
                 $operationFinanciere->setCaisse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Evenement>
+     */
+    public function getEvenements(): Collection
+    {
+        return $this->evenements;
+    }
+
+    public function addEvenement(Evenement $evenement): self
+    {
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->setCaisse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenement(Evenement $evenement): self
+    {
+        if ($this->evenements->removeElement($evenement)) {
+            // set the owning side to null (unless already changed)
+            if ($evenement->getCaisse() === $this) {
+                $evenement->setCaisse(null);
             }
         }
 

@@ -153,7 +153,7 @@
 		<script type="text/javascript">
 			$(document).ready(function () {
 
-$('#operation_financiere_don_stipulation').on('select2:select', function (e) {
+$('#operation_financiere_don_modepaiement').on('select2:select', function (e) {
 if ($(this).val() === 'Zakat') {
 $('#champ_date').removeClass('d-none');
 } else {
@@ -161,12 +161,12 @@ $('#champ_date').addClass('d-none');
 }
 });
 $('#operation_financiere_don_modepaiement').on('select2:select', function (e) {
-if ($(this).val() === 'cheque') {
-$('#champ_modepaiement').removeClass('d-none');
-} else {
-$('#champ_modepaiement').addClass('d-none');
-}
-});
+		if ($(this).val() === 'cheque') {
+			$('#champ_modepaiement').removeClass('d-none');
+		} else {
+			$('#champ_modepaiement').addClass('d-none');
+		}
+    });
 });
 		</script>
 	{% endblock %}

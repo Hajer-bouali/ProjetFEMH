@@ -108,7 +108,7 @@ class OperationFinanciereController extends AbstractController
     {
         $operationFinanciere = new OperationFinanciere();
         $formAide = $this->createForm(OperationFinanciereAideType::class, $operationFinanciere);
- 
+
         $formAide->handleRequest($request);
         if ($formAide->isSubmitted() && $formAide->isValid()) {
             $piecejointes = $formAide->get('pieceJointeOperations')->getData();
@@ -122,7 +122,6 @@ class OperationFinanciereController extends AbstractController
                 $image->setNom($fichier);
                 $operationFinanciere->addPieceJointeOperation($image);
             }
-            $operationFinanciere->setTypeoperation('aide');
             $operationFinanciere->setTypeoperation('aide');
             $operationFinanciere->setEtat('Demande');
             $operationFinanciere->setDate(new \DateTime('now'));
