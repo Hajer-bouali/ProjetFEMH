@@ -81,6 +81,11 @@ class Evenement
      */
     private $prixUnitaire;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Caisse::class, inversedBy="evenements")
+     */
+    private $caisse;
+
    
     public function __construct()
     {
@@ -303,6 +308,18 @@ class Evenement
     public function setPrixUnitaire(?float $prixUnitaire): self
     {
         $this->prixUnitaire = $prixUnitaire;
+
+        return $this;
+    }
+
+    public function getCaisse(): ?Caisse
+    {
+        return $this->caisse;
+    }
+
+    public function setCaisse(?Caisse $caisse): self
+    {
+        $this->caisse = $caisse;
 
         return $this;
     }

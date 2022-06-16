@@ -87,11 +87,18 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-md-6">
+														<div class="col-md-6" id="champ_caisse">
 															<div class="form-group">
 																<label>Prix unitaire
 																	<span class="text-danger"></span>
 																</label> {{ form_widget(form.prixUnitaire , {attr:{'class':'form-control '}}) }}
+															</div>
+														</div>
+														<div class="col-md-6 d-none" id="champ_caisse">
+															<div class="form-group">
+																<label>Caisse
+																	<span class="text-danger"></span>
+																</label> {{ form_widget(form.caisse , {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
 													</div>
@@ -117,3 +124,17 @@
 		</div>
 	</div>
 </div>{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+	$(document).ready(function () {
+	$('#evenement_prixUnitaire').on('select2:select', function (e) {
+		if ($(this).val() === '') {
+			$('#champ_caisse').removeClass('d-none');
+		}
+		else {
+			$('#champ_caisse').addClass('d-none');
+		}
+		});
+	});
+</script>
+{% endblock %}

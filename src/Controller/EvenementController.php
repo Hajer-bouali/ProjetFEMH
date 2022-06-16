@@ -55,16 +55,16 @@ class EvenementController extends AbstractController
         $date->setTime(0, 0);
         foreach($adherents as $adherent){
             $dateAdherent = $adherent->getDate();
-            if ($adherent->getEtatreunion() === 'valide' && $dateAdherent == $date) {
+            if ($adherent->getEtatreunion() === 'valide') {
                $nbAdherentAccepte += 1; 
             }
-            if ($adherent->getEtatreunion() === 'refuse' && $dateAdherent == $date) {
+            if ($adherent->getEtatreunion() === 'refuse' ) {
                 $nbAdherentrefuse += 1;
             }
-            if ($adherent->getEtatreunion() === 'reporte' && $dateAdherent == $date) {
+            if ($adherent->getEtatreunion() === 'reporte') {
                 $nbAdherentreporte += 1;
             }
-            if ($adherent->getEtatreunion() === 'Encours' && $dateAdherent == $date) {
+            if ($adherent->getEtatreunion() === 'Encours') {
                 $nbAdherentEncour += 1;
             }
         }
@@ -249,8 +249,7 @@ class EvenementController extends AbstractController
                 $operationFinanciere->setResponsable($this->getUser());
                 $operationFinanciere->setDate(new \DateTime('now'));
                 $operationFinanciere->setTypeoperation('aide');
-                $caisse = $entityManager->getRepository(Caisse::class)->find(1);
-                $operationFinanciere->setCaisse($caisse);
+                $operationFinanciere->setCaisse($evenement->getCaisse());
                 $operationFinanciere->setModepaiement('espèce');
                 $operationFinanciere->setEtat('demande');
                 $entityManager->persist($operationFinanciere);
