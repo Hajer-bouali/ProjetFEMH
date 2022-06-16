@@ -20,9 +20,9 @@ class DecisionType extends AbstractType
         ->add('statut', ChoiceType::class, [
             'choices' => [
                 'En cours' => 'Encours',
-                'Valide' => 'Valide',
-                'Refuse' => 'Refuse',
-                'Reporte' => 'Reporte',
+                'Valide' => 'valide',
+                'Refuse' => 'refuse',
+                'Reporte' => 'reporte',
             ],
             'expanded' => true,
         ])

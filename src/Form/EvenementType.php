@@ -23,6 +23,7 @@ class EvenementType extends AbstractType
             ])
             ->add('nom')
             ->add('prixUnitaire')
+            ->add('caisse')
             ->add('typeEvenement')
             ->add('Enregistrer', SubmitType::class)
         ;
