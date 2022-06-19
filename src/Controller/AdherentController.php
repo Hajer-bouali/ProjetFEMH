@@ -187,35 +187,31 @@ class AdherentController extends AbstractController
             $benificiaire->setAdherent($adherent);
             $entityManager->persist($benificiaire);
             $entityManager->flush();
-            return $this->redirectToRoute('adherent_show', ['id' => $adherent->getId()]);
-
+            return $this->redirectToRoute('adherent_show', [
+                'id' => $adherent->getId(),
+            ]);
         }
-
 
         $revenufamilials = $revenufamilialRepository->findByAdherent($adherent);
         $revenufamilial =new Revenufamilial();
         $formRF = $this->createForm(RevenufamilialType::class, $revenufamilial);
         $formRF->handleRequest($request);
 
-
-        
         if ($formRF->isSubmitted() && $formRF->isValid()) {
             $revenufamilial->setAdherent($adherent);
             $entityManager->persist($revenufamilial);
              $entityManager->flush();
              return $this->redirectToRoute('adherent_show', ['id' => $adherent->getId()]);
-
         }
-
-       
-
+        
+        $piecesJointes = $adherent->getPiecesJointes();
         return $this->render('adherent/show.html.twig', [
             'adherent' => $adherent,
             'formBen' => $formBen->createView(),
             'benificiaires' => $benificiaires,
             'formRF' => $formRF->createView(),
             'revenufamilials' =>$revenufamilials,
-            
+            'piecesJointes' => $piecesJointes,
         ]);
     }
     /**
