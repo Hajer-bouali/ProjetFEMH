@@ -24,15 +24,13 @@ class CreateFormType extends AbstractType
             ->add('email')
             ->add('roles', ChoiceType::class, [
                 'choices' => [
+                    'Financier' => 'ROLE_FINANCIER',
                     'sociale' => 'ROLE_SOCIAL',
-                    'Financiere' => 'ROLE_FINANCIERE',
-                    'Administrateur' => 'ROLE_ADMIN'
                 ],
                 'expanded' => true,
                 'multiple' => true,
-                'label' => 'Rôles' 
+                'label' => 'Rôles',
             ])
-
             ->add('plainPassword', RepeatedType::class, [
                 'label' => false,
                 // instead of being set onto the object directly,

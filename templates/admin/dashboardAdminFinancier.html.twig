@@ -1,0 +1,140 @@
+{% extends 'dashboardAdmin.html.twig' %}
+{% block statistique %}
+<div
+class="content"> <!-- Pie and donut -->
+<div class="row">
+
+
+    <div class="col-xl-12">
+
+        <!-- Basic donut -->
+        <!-- Quick stats boxes -->
+            <div class="row"> <div
+                class="col-lg-4">
+                <!-- Members online -->
+                <div class="card bg-teal-400">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h3 class="font-weight-semibold mb-0">{{operationdonmontant}}</h3>
+                            <span class="badge bg-teal-800 badge-pill align-self-center ml-auto">En TND</span>
+                        </div>
+
+                        <div>
+                            Dons reçus aujourd'hui
+                            <!--
+                                                                                                                                                         <div class="font-size-sm opacity-75">en dt</div>-->
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div id="members-online"></div>
+                    </div>
+                </div>
+                <!-- /members online -->
+
+            </div>
+
+            <div
+                class="col-lg-4">
+                <!-- Current server load -->
+                <div class="card bg-pink-400">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h3 class="font-weight-semibold mb-0">{{operationaidemontant}}</h3>
+                            <span class="badge bg-pink-800 badge-pill align-self-center ml-auto">En TND</span>
+                        </div>
+
+                        <div>
+                            Dépense d'aujourd'hui
+                        </div>
+                    </div>
+
+                    <div id="server-load"></div>
+                </div>
+                <!-- /current server load -->
+
+            </div>
+
+            <div
+                class="col-lg-4">
+
+                <!-- Today's revenue -->
+                <div class="card bg-blue-400">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h3 class="font-weight-semibold mb-0">{{montanttotal}}</h3>
+                            <span class="badge bg-info-800 badge-pill align-self-center ml-auto">En TND</span>
+                        </div>
+
+                        <div>
+                            Montant des aides aujourd'hui
+                            <!--
+                                                                            <div class="font-size-sm opacity-75">en dt </div>
+                                                                        -->
+
+                        </div>
+                    </div>
+
+                    <div id="today-revenue"></div>
+                </div>
+                <!-- /today's revenue -->
+
+            </div>
+        </div>
+        <!-- /quick stats boxes -->
+
+        <!-- /basic donut -->
+        <div class="card">
+        <div class="card-header header-elements-inline">
+            <h5 class="card-title">Statisque des operations financieres</h5>
+            <div class="header-elements">
+                <div class="list-icons">
+                    <a class="list-icons-item" data-action="collapse"></a>
+                    <a class="list-icons-item" data-action="reload"></a>
+                    <a class="list-icons-item" data-action="remove"></a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form name="evenement" method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Date début<span class="text-danger">*</span>
+                            </label>
+                            <input type="month" id="datedebut" name="datedebut" value="{{ app.request.request.get('datedebut') }}" required="required" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Date fin
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="month" id="datefin" name="datefin" value="{{ app.request.request.get('datefin') }}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Caisse<span class="text-danger">*</span>
+                            </label>
+                            <select id="caisse" name="caisse" required="required" class="form-control">
+                                {% for caisse in caisses %}
+                                    <option value="{{ caisse.id }}" {% if caisse.id == app.request.request.get('datedebut') %} selected="selected" {% endif %}>{{ caisse.intitule }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="form-group">
+                        <button type="submit" id="Valider" class="btn btn-primary btn">Valider</button>
+                    </div>
+                </div>
+            </form>
+        </div> {{ include('caisse/scriptstatistique.html.twig', {'tabaide': tabaide, 'tabdon': tabdon}) }}
+    </div>
+    <!-- /zoom option -->
+    </div>
+</div>
+{% endblock %}

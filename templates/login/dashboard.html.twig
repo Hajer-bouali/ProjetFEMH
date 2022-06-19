@@ -4,9 +4,10 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Manange Donation </title>
+	<title>Manage Donation</title>
 
-	<!-- Global stylesheets -->
+	<!-- Global
+	 stylesheets -->
 	<link href="{{asset('https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('templateAdmin/global_assets/css/icons/icomoon/styles.css')}}" rel="stylesheet" type="text/css">
 	<link href="{{asset('templateAdmin/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
@@ -41,46 +42,7 @@
 			<!-- Content area -->
 			<div class="content d-flex justify-content-center align-items-center">
 
-				<!-- Login card -->
-				 <form  class="d-flex" action="{{ path('login') }}" method="post">
-					<div class="card mb-0">
-						<div class="card-body">
-							<div class="text-center mb-3">
-								<i class="icon-people icon-2x text-warning-400 border-warning-400 border-3 rounded-round p-3 mb-3 mt-1"></i>
-								<h5 class="mb-0">Connectez-vous à votre compte</h5>
-								<span class="d-block text-muted">Vos identifiants</span>
-							</div>
-
-							<div class="form-group form-group-feedback form-group-feedback-left">
-                                <input class="form-control " type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Email d'utilisateur"/>
-								<div class="form-control-feedback">
-                                    <i class="icon-user text-muted"></i>
-								</div>
-							</div>
-
-							<div class="form-group form-group-feedback form-group-feedback-left">
-                                <input class="form-control " type="password" id="password" name="_password" placeholder="Mot de passe"/>
-								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                <div class="form-control-feedback">
-									<i class="icon-lock2 text-muted"></i>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block">S'identifier <i class="icon-circle-right2 ml-2"></i></button>
-							</div>
-							<div class="form-group text-center text-muted content-divider">
-								<span class="px-2">Vous n'avez pas de compte ?</span>
-							</div>
-
-							<div class="form-group">
-								<a href="{{ path('app_register') }}" class="btn btn-light btn-block">S'inscrire</a>
-							</div>
-
-						</div>
-					</div>
-				</form>
-				<!-- /login card -->
+				<h1>Bienvenue</h1>	
 
 			</div>
 			<!-- /content area -->

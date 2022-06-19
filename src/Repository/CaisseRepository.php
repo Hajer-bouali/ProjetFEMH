@@ -19,16 +19,18 @@ class CaisseRepository extends ServiceEntityRepository
         parent::__construct($registry, Caisse::class);
     }
 
-    public function updateMontant($caisse) {
+    public function updateMontant($caisse)
+    {
         $montant = 0;
-        foreach ($caisse->getOperationFinancieres() as $operationFinanciere) {
-            if ($operationFinanciere->getEtat() == 'valide') {
-                $montant = 
-                $operationFinanciere->getTypeoperation() == 'aide' ?
-                $montant - $operationFinanciere->getMontant() : 
-                $montant + $operationFinanciere->getMontant(); 
+            foreach ($caisse->getOperationFinancieres() as $operationFinanciere) {
+                if ($operationFinanciere->getEtat() == 'valide') {
+                    $montant =
+                    $operationFinanciere->getTypeoperation() == 'aide' ?
+                    $montant - $operationFinanciere->getMontant() :
+                    $montant + $operationFinanciere->getMontant();
+                }
             }
-        }
+      
         $caisse->setMontant($montant);
         $this->_em->persist($caisse);
         $this->_em->flush();

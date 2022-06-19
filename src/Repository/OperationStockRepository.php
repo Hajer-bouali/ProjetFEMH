@@ -19,18 +19,5 @@ class OperationStockRepository extends ServiceEntityRepository
         parent::__construct($registry, OperationStock::class);
     }
 
-    public function updateQuantite($operationStock) {
-        $quantite = 0;
-        foreach ($operationStock->getStocks() as $stock) {
-            if ($stock->getOperationStock()->getEtat() == 'valide') {
-                $quantite = 
-                $stock->getOperationStock()->getTypeoperation() == 'aide' ?
-                $quantite - $stock->getProduit()->getQuantite() : 
-                $quantite + $stock->getProduit()->getQuantite(); 
-            }
-        }
-        $res=$stock->getProduit()->setQuantite($quantite);
-        $this->_em->persist($res);
-        $this->_em->flush();
-    }
+
 }

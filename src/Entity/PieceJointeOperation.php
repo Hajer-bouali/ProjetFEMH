@@ -24,6 +24,7 @@ class PieceJointeOperation
 
     /**
      * @ORM\ManyToOne(targetEntity=OperationFinanciere::class, inversedBy="pieceJointeOperations")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $operationfinanciere;
 
