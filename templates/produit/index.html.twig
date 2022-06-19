@@ -48,7 +48,7 @@
 					<thead>
 						<tr>
 							<th>Id</th>
-							<th>Intitule</th>
+							<th>Intitulé</th>
 							<th>Quantité</th>
 							<th>Référence</th>
 							<th>Date d'expiration</th>
@@ -70,18 +70,14 @@
 										</a>
 										<a href="#" data-target="#modal_delete{{produit.id}}" data-popup="tooltip-custom" title="Supprimer le produit" data-toggle="modal" data-id={{produit.id}} class="list-icons-item text-danger-600">
 											<i class="icon-trash"></i>
-										</a>
-										<a href="{{ path('produit_show', {'id': produit.id}) }}" data-popup="tooltip-custom" title="Afficher le produit" class="list-icons-item text-teal-600">
-											<i class="icon-reading"></i>
-										</a>
-									</div>
+										</a>									</div>
 								</td>
 							</tr>
 							<div id="modal_delete{{produit.id}}" class="modal fade" tabindex="-1">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header bg-danger">
-										<h6 class="modal-title">Supprimer l'utilisateur {{produit.intitule}}</h6>
+										<h6 class="modal-title">Supprimer le produit {{produit.intitule}}</h6>
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 									</div>
 

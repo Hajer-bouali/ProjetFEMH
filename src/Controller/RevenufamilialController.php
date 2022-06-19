@@ -57,11 +57,11 @@ class RevenufamilialController extends AbstractController
     {
         $form = $this->createForm(RevenufamilialType::class, $revenufamilial);
         $form->handleRequest($request);
-
+        $idAdherent = $revenufamilial->getAdherent()->getId();
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('revenufamilial_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('adherent_show', ['id'=>$idAdherent]);
         }
 
         return $this->renderForm('revenufamilial/edit.html.twig', [

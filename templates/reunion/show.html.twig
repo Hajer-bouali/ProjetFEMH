@@ -44,14 +44,14 @@
 			<div class="card">
 				<div class="card-header bg-white header-elements-inline">
 					<h4 class="card-title">
-						Liste des decisions de réunion {{ reunion.id }}
+						Liste des décisions de la réunion {{ reunion.id }}
 					</h4>
 					<div class="card-title-left">
 						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" data-target="#modal_create{{ reunion.id }}" data-toggle="modal" data-id={{reunion.id}}>
 							<b>
 								<i class="icon-reading"></i>
 							</b>
-							Affecter des adherents au réunion {{ reunion.id }}
+							Affecter des adhérents à la réunion {{ reunion.id }}
 						</a>
 					</div>
 
@@ -63,7 +63,7 @@
 					</br>
 				</br>
 				<i class="icon-people"></i>
-				Liste des participants réunion: {{ reunion.listemembre }}
+				Liste des participants à réunion: {{ reunion.listemembre }}
 			</h6>
 		</div>
 
@@ -75,13 +75,13 @@
 						Id
 					</th>
 					<th>
-						Adherent
+						Adhérent
 					</th>
 					<th>
-						Decision
+						Décision
 					</th>
 					<th>
-						Detail
+						Détails
 					</th>
 					<th>
 						Actions
@@ -103,10 +103,10 @@
 						<td> {{ decision.detail }}
 						</td>
 						<td>
-							<a href="#" data-popup="tooltip-custom" title="Decision du réunion" data-target="#modal_decision{{ decision.id }}" data-toggle="modal" data-id={{decision.id}} class="list-icons-item text-primary-600">
+							<a href="#" data-popup="tooltip-custom" title="Decision du commité" data-target="#modal_decision{{ decision.id }}" data-toggle="modal" data-id={{decision.id}} class="list-icons-item text-primary-600">
 								<i class="icon-balance"></i>
 							</a>
-							<a href="#" data-target="#modal_delete{{ decision.id }}" data-popup="tooltip-custom" title="Supprimer le réunion" data-toggle="modal" data-id={{decision.id}} class="list-icons-item text-danger-600">
+							<a href="#" data-target="#modal_delete{{ decision.id }}" data-popup="tooltip-custom" title="Supprimer la réunion" data-toggle="modal" data-id={{decision.id}} class="list-icons-item text-danger-600">
 								<i class="icon-trash"></i>
 							</a>
 						</td>
@@ -120,7 +120,7 @@
 									<div class="modal-header bg-primary">
 										<h6 class="modal-title">
 											<label class="d-block font-weight-semibold">
-												la décision de comité pour la réunion</label>
+												la décision de la comité pour la réunion</label>
 										</h6>
 										<button type="button" class="close" data-dismiss="modal">
 											&times;

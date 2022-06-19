@@ -11,7 +11,7 @@
 					<div class="breadcrumb">
 						<a href="{{path('operation_stock_don_index')}}" class="breadcrumb-item">
 							<i class="icon-home2 mr-2"></i>
-							Liste des opérations stock Don</a>
+							Liste des opérations de stock de Don</a>
 
 					</div>
 
@@ -33,13 +33,13 @@
 			<!-- Basic datatable -->
 			<div class="card">
 				<div class="card-header bg-white header-elements-inline">
-					<h5 class="card-title">Liste des opérations stock Don</h5>
+					<h5 class="card-title">Liste des opérations de stock de Don</h5>
 					<div class="card-title-left">
 						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('operation_stock_don_new')}}">
 							<b>
 								<i class="icon-diff-added"></i>
 							</b>
-							Ajouter une nouvelle opération stock </a>
+						Ajouter une nouvelle opération de stock</a>
 					</div>
 
 				</div>
@@ -49,10 +49,10 @@
                     <tr>
                         <th>Id</th>
                         <th>Date</th>
-                        <th>Responsable</th>
+                        <th>Résponsable</th>
                         <th>Stipulation</th>
                         <th>Nom donataire</th>
-                        <th>actions</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,11 +65,11 @@
                         <td>{{ operation_stock.nomdonataire }}</td>
                         <td>
 									<a class="list-icons-item text-primary-600" href="{{ path('operation_stock_don_edit', {'id': operation_stock.id}) }}" 
-									   data-popup="tooltip-custom" title="Modifier l'operation stock de don" >
+									   data-popup="tooltip-custom" title="Modifier l'operation de stock de don" >
 										<i class="icon-pencil7"></i>
 									</a>
 									<a href="#" data-target="#modal_delete{{operation_stock.id}}" data-toggle="modal" data-id={{operation_stock.id}} class="list-icons-item text-danger-600"
-									   data-popup="tooltip-custom" title="Supprimer l'operation stock de don">
+									   data-popup="tooltip-custom" title="Supprimer l'operation de stock de don">
 										<i class="icon-trash"></i>
 									</a>
 									<a href="{{ path('operation_stock_don_show', {'id': operation_stock.id}) }}" class="list-icons-item text-teal-600"

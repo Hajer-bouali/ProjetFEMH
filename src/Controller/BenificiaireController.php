@@ -63,10 +63,10 @@ class BenificiaireController extends AbstractController
     {
         $form = $this->createForm(BenificiaireType::class, $benificiaire);
         $form->handleRequest($request);
-
+        $idAdherent = $benificiaire->getAdherent()->getId();
         if ($form->isSubmitted() && $form->isValid()) {
             $benificiaireRepository->add($benificiaire);
-            return $this->redirectToRoute('adherent_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('adherent_show', ['id'=>$idAdherent]);
         }
 
         return $this->renderForm('benificiaire/edit.html.twig', [

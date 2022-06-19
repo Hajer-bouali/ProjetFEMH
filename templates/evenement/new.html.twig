@@ -14,7 +14,7 @@
 							Liste des événements
 						</a>
 						<a href="{{ path('evenement_new') }}" class="breadcrumb-item">
-							Créer un nouveau événement
+							Créer un nouvel événement
 						</a>
 
 					</div>
@@ -87,9 +87,9 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-md-6" id="champ_caisse">
+														<div class="col-md-6">
 															<div class="form-group">
-																<label>Prix unitaire
+																<label>le montant pour chaque bénéficiaire
 																	<span class="text-danger"></span>
 																</label> {{ form_widget(form.prixUnitaire , {attr:{'class':'form-control '}}) }}
 															</div>
@@ -123,12 +123,13 @@
 			</div>
 		</div>
 	</div>
-</div>{% endblock %}
+</div>
+{% endblock %}
 {% block javascript %}
 <script type="text/javascript">
 	$(document).ready(function () {
-	$('#evenement_prixUnitaire').on('select2:select', function (e) {
-		if ($(this).val() === '') {
+	$('#evenement_prixUnitaire').on('change', function (e) {
+		if ($(this).val()!= '') {
 			$('#champ_caisse').removeClass('d-none');
 		}
 		else {

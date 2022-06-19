@@ -11,10 +11,10 @@
 					<div class="breadcrumb">
 						<a href="{{ path('operation_stock_aide_index') }}" class="breadcrumb-item">
 							<i class="icon-home2 mr-2"></i>
-							Liste des opérations Stock d'aide
+							Liste des opérations de stock d'aide
 						</a>
 						<a href="{{ path('operation_stock_aide_new') }}" class="breadcrumb-item">
-							Créer une nouvelle opération Stock d'aide
+							Créer une nouvelle opération de stock d'aide
 						</a>
 					</div>
 				</div>
@@ -40,14 +40,14 @@
 											<div class="card">
 												<div class="card-header bg-white header-elements-inline">
 													<h5 class="card-title">
-														Créer une nouvelle opération Stock d'aide
+														Créer une nouvelle opération de stock d'aide
 													</h5>
 													<div class="card-title-left">
 													<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="#" data-target="#modal_ajout_evenement" data-toggle="modal">
 														<b>
 															<i class="icon-calendar3"></i>
 														</b>
-														Ajouter un nouvel événement</a>
+														Ajouter un nouvel évènement</a>
 												</div>
 												</div>
 
@@ -57,7 +57,7 @@
 
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>evenement
+																<label>évènement
 																	<span class="text-danger"></span>
 																</label> {{ form_widget(formAide.evenement, {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
@@ -71,7 +71,7 @@
 														<div class="modal-dialog">
 															<div class="modal-content">
 																<div class="modal-header">
-																	<h5 class="modal-title">Vous allez ajouter un nouvel événement<h5>
+																	<h5 class="modal-title">Vous allez ajouter un nouvel évènement<h5>
 																			<button type="button" class="close" data-dismiss="modal">&times;</button>
 																		</div>
 																		<div class="card-body">{{ form_start(formEvenement) }}
@@ -87,7 +87,7 @@
 
 																				<div class="col-md-6">
 																					<div class="form-group">
-																						<label>Type d'événement
+																						<label>Type d'évènement
 																							<span class="text-danger">*</span>
 																						</label> {{ form_widget(formEvenement.typeEvenement , {attr:{'class':'form-control '}}) }}
 																					</div>
