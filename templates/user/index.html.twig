@@ -56,18 +56,21 @@
 								<td>{{ user.name }}</td>
 								<td>{{ user.firstname }}</td>
 								<td>
-									{% for role in user.roles %}
-										{% if role == 'ROLE_ADMIN' %}
-											Administrateur
-										{% endif %}
-										{% if role == 'ROLE_FINANCIER' %}
-											Financier
-										{% endif %}
-										{% if role == 'ROLE_SOCIAL' %}
-											Sociale
-										{% endif %}
-										<br>
-									{% endfor %}
+									{% if user.roles|length > 1 %}
+										{% for role in user.roles %}
+											{% if role == 'ROLE_ADMIN' %}
+												Administrateur
+											{% elseif role == 'ROLE_FINANCIER' %}
+												Financier
+											{% elseif role == 'ROLE_SOCIAL' %}
+												Sociale
+											{% endif %}
+											<br>
+										{% endfor %}
+									{% else %}
+									<button type="button" class="btn bg-warning">Demande 
+								</button>
+									{% endif %}
 								</td>
 								<td>{{ user.email }}</td>
 								<td>
