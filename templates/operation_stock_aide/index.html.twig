@@ -11,7 +11,7 @@
 					<div class="breadcrumb">
 						<a href="{{path('operation_stock_aide_index')}}" class="breadcrumb-item">
 							<i class="icon-home2 mr-2"></i>
-							Liste des opérations stock Aide</a>
+							Liste des opérations de stock d'aide</a>
 
 					</div>
 
@@ -33,13 +33,13 @@
 			<!-- Basic datatable -->
 			<div class="card">
 				<div class="card-header bg-white header-elements-inline">
-					<h5 class="card-title">Liste des opérations stock Aide</h5>
+					<h5 class="card-title">Liste des opérations de stock d'aide</h5>
 					<div class="card-title-left">
 						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('operation_stock_aide_new')}}">
 							<b>
 								<i class="icon-diff-removed"></i>
 							</b>
-							Ajouter une nouvelle opération stock </a>
+							Ajouter une nouvelle opération de stock d'aide </a>
 					</div>
 
 				</div>
@@ -50,8 +50,8 @@
 						<th></th>
                         <th>Id</th>
                         <th>Date</th>
-                        <th>Responsable</th>
-                        <th>actions</th>
+                        <th>Résponsable</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,7 +69,7 @@
 									   data-popup="tooltip-custom" title="Supprimer l'operation stock d'aide">
 										<i class="icon-trash"></i>
 									</a>
-									<a href="{{ path('operation_stock_aide_show', {'id': operation_stock.id}) }}" class="list-icons-item text-teal-600" data-popup="tooltip-custom" title="Retrait du stock">
+									<a href="{{ path('operation_stock_aide_show', {'id': operation_stock.id}) }}" class="list-icons-item text-teal-600" data-popup="tooltip-custom" title="Retirer du stock">
 										<i class="icon-diff-removed"></i>
 									</a>
 									<div id="modal_delete{{operation_stock.id}}" class="modal fade" tabindex="-1">

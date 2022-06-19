@@ -18,7 +18,7 @@
 					<a href="{{path('adherent_index')}}" class="breadcrumb-item">
 						<i class="icon-home2 mr-2"></i>
 						Liste des dossiers</a>
-					<a href="{{path('adherent_new')}}" class="breadcrumb-item">Créer un nouveau dossiers</a>
+					<a href="{{path('adherent_new')}}" class="breadcrumb-item">Créer un nouveau dossier</a>
 
 				</div>
 
@@ -50,7 +50,7 @@
 												<!-- Wizard with validation -->
 												<div class="card">
 													<div class="card-header bg-white header-elements-inline">
-														<h6 class="card-title">Créer un nouveau dossiers</h6>
+														<h6 class="card-title">Créer un nouveau dossier</h6>
 														<div class="header-elements"></div>
 
 													</div>
@@ -261,6 +261,15 @@
 																</div>
 														</div>
 														<div class="row">
+												
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>La Demande
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.demande , {attr:{'class':' form-control'}}) }}
+																</div>
+															</div>
 															<div class="col-md-6">
 																<div class="form-group">
 																	<label>Resumé
@@ -268,15 +277,6 @@
 																		{{ form_widget(form.resume , {attr:{'class':'form-control '}}) }}
 
 																	</label>
-																</div>
-															</div>
-
-															<div class="col-md-6">
-																<div class="form-group">
-																	<label>La Demande
-																		<span class="text-danger">*</span>
-																	</label>
-																	{{ form_widget(form.demande , {attr:{'class':' form-control'}}) }}
 																</div>
 															</div>
 														</div>

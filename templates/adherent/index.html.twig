@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Adherent index
+{% block title %}Adhérent index
 {% endblock %}
 
 
@@ -44,7 +44,7 @@
 							<b>
 								<i class="icon-reading"></i>
 							</b>
-							Ajouter un nouveau Adherent</a>
+							Ajouter un nouvel Adhérent</a>
 					</div>
 
 				</div>
@@ -57,8 +57,8 @@
 							<th>id</th>
 							<th>Nom et prénom</th>
 							<th>Adresse</th>
-							<th>Telephone</th>
-							<th>Etat Adherent</th>
+							<th>Téléphone</th>
+							<th>Etat Adhérent</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -73,23 +73,23 @@
 
 								<td>
 									<div class="list-icons">
-										<a href="{{ path('adherent_edit', {'id': adherent.id}) }}" data-popup="tooltip-custom" title="Modifier le dossier  " class="list-icons-item text-primary-600">
+										<a href="{{ path('adherent_edit', {'id': adherent.id}) }}" data-popup="tooltip-custom" title="Modifier l'adhérent  " class="list-icons-item text-primary-600">
 											<i class="icon-pencil7"></i>
 										</a>
 
 										{% if adherent.statut=="actif"%}
-											<a href="#" class="list-icons-item text-danger-600" data-popup="tooltip-custom" title="Archiver le dossier" data-target="#modal_archive{{adherent.id}}" data-toggle="modal">
+											<a href="#" class="list-icons-item text-danger-600" data-popup="tooltip-custom" title="Archiver l'adhérent" data-target="#modal_archive{{adherent.id}}" data-toggle="modal">
 												<i class="icon-folder-remove"></i>
 											</a>
 										{% else %}
-											<a href="#" class="list-icons-item text-darck-600" data-popup="tooltip-custom" title="Désarchiver le dossier" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal">
+											<a href="#" class="list-icons-item text-darck-600" data-popup="tooltip-custom" title="Désarchiver l'adhérent" data-target="#modal_desarchive{{adherent.id}}" data-toggle="modal">
 												<i class="icon-folder-remove"></i>
 											</a>
 										{% endif %}
-										<a href="{{path("adherent_show" , {id: adherent.id})}}" data-popup="tooltip-custom" title="Afficher le dossier"  class="list-icons-item text-teal-600">
+										<a href="{{path("adherent_show" , {id: adherent.id})}}" data-popup="tooltip-custom" title="Afficher l'adhérent"  class="list-icons-item text-teal-600">
 											<i class="icon-reading"></i>
 										</a>
-										<a href="{{ url('adherent_pdf', {'adherent': adherent.id}) }}" data-popup="tooltip-custom" title="Imprimer le dossier" class="list-icons-item text-teal-600">
+										<a href="{{ url('adherent_pdf', {'adherent': adherent.id}) }}" data-popup="tooltip-custom" title="Imprimer l'adhérent" class="list-icons-item text-teal-600">
 														<i class="icon-file-pdf"></i>
 														</a>
 										

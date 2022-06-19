@@ -12,7 +12,7 @@
 					<div class="breadcrumb">
 						<a href="{{path('type_produit_index')}}" class="breadcrumb-item">
 							<i class="icon-home2 mr-2"></i>
-							Liste de type de produit</a>
+							Liste des types de produit</a>
 
 					</div>
 
@@ -34,7 +34,7 @@
 			<!-- Basic datatable -->
 			<div class="card">
 				<div class="card-header header-elements-inline">
-					<h5 class="card-title">Liste de type de produit</h5>
+					<h5 class="card-title">Liste des types de produit</h5>
 					<div class="card-title-left">
 						<a type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left" href="{{path('type_produit_new')}}">
 							<b>
@@ -50,7 +50,7 @@
                     <tr class="text-center">
                         <th>Id</th>
                         <th>Nom</th>	
-                        <th>actions</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,9 +66,6 @@
 								</a>
 								<a href="#" data-target="#modal_delete{{type_produit.id}}" data-popup="tooltip-custom" title="Supprimer le type de produit" data-toggle="modal" data-id={{type_produit.id}} class="list-icons-item text-danger-600">
 									<i class="icon-trash"></i>
-								</a>
-								<a href="{{ path('type_produit_show', {'id': type_produit.id}) }}"  data-popup="tooltip-custom" title="Afficher le type de produit" class="list-icons-item text-teal-600">
-									<i class="icon-reading"></i>
 								</a>
 								<div id="modal_delete{{type_produit.id}}" class="modal fade" tabindex="-1">
 									<div class="modal-dialog">

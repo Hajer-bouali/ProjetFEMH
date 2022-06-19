@@ -190,7 +190,13 @@
 														<div class="d-flex align-items-center">
 															<i class="icon-accessibility2 mr-3 icon-4x"></i>
 															<div class="font-weight-black">A-t-il un handicap ? :</div>
-															<samp class="font-size-lg">{{ adherent.handicap }}</samp>
+															<samp class="font-size-lg">
+																{% if adherent.handicap  == '1' %}
+																	Oui
+																{% else %}
+																	Non
+																{% endif %}
+															</samp>
 														</div><br>
 														<div class="d-flex align-items-center">
 															<i class="icon-question4 mr-3 icon-4x"></i>
@@ -205,11 +211,14 @@
 													<div class="form-group">
 														<div class="d-flex align-items-center">
 															<i class="icon-collaboration mr-3 icon-4x"></i>
-															<div class="font-weight-black">maladie chronique ?(lui ou
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											membre
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											de famille) :</div>
-															<samp class="font-size-lg">{{ adherent.maladiechronique
-																}}</samp>
+															<div class="font-weight-black">maladie chronique ?(lui ou de famille) :</div>
+															<samp class="font-size-lg">
+																{% if adherent.handicap  == '1' %}
+																	Oui
+																{% else %}
+																	Non
+																{% endif %}
+															</samp>
 														</div><br>
 														<div class="d-flex align-items-center">
 															<i class="icon-question3 mr-3 icon-4x"></i>
@@ -242,7 +251,8 @@
 													<div class="form-group">
 														<div class="d-flex align-items-center">
 															<i class="icon-clipboard3 mr-3 icon-4x"></i>
-															<div class="font-weight-black">Resumé: </div>
+															<div class="font-weight-black">Resumé:
+															</div>
 															<samp class="font-size-lg">{{ adherent.resume }}</samp>
 														</div>
 														<br>
@@ -479,10 +489,10 @@
 																	<th>id</th>
 																	<th>Relation familiale</th>
 																	<th>Nom et prénom</th>
-																	<th>date de naissance</th>
-																	<th>niveau d'etude</th>
-																	<th>metier</th>
-																	<th>action</th>
+																	<th>Date de naissance</th>
+																	<th>Niveau d'etude</th>
+																	<th>Metier</th>
+																	<th>Action</th>
 																</tr>
 															</thead>
 															<tbody>

@@ -111,3 +111,17 @@
 			</div>
 		</div>
 	{% endblock %}
+	{% block javascript %}
+	<script type="text/javascript">
+		$(document).ready(function () {
+		$('#evenement_prixUnitaire').on('change', function (e) {
+			if ($(this).val()!= '') {
+				$('#champ_caisse').removeClass('d-none');
+			}
+			else {
+				$('#champ_caisse').addClass('d-none');
+			}
+			});
+		});
+	</script>
+	{% endblock %}
