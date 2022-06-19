@@ -122,6 +122,15 @@
 															</div>
 
 														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<div class="form-group">
+																	<label>Telecharger les pieces jointes:
+																		<span class="text-danger">*</span> {{ form_widget(form.piecesjointes , {attr:{'class':'file-input-ajax' }}) }}
+																	</label>
+																</div>
+															</div>
+														</div>
 
 
 													</fieldset>
@@ -182,10 +191,10 @@
 																</div>
 															</div>
 															<!--<div class="col-md-6">
-																																														<div class="form-group">
-																																															<label>Equipement  non disponibles</label>
-																																														</div>
-																																													</div>-->
+																																																													<div class="form-group">
+																																																														<label>Equipement  non disponibles</label>
+																																																													</div>
+																																																												</div>-->
 														</div>
 
 
@@ -240,25 +249,25 @@
 													<h6>Revenu familial et Résumé de la situation sociale</h6>
 													<fieldset>
 														<div class="row">
-																<div class="col-md-6">
-																	<div class="form-group">
-																		<label>Montant du revenu
-																			<span class="text-danger">*</span>
-																		</label>
-																		{{ form_widget(form.montantrevenu , {attr:{'class':' form-control'}}) }}
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>Montant du revenu
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.montantrevenu , {attr:{'class':' form-control'}}) }}
 
-																		
-																	</div>
-																</div>
 
-																<div class="col-md-6">
-																	<div class="form-group">
-																		<label>source revenu
-																			<span class="text-danger">*</span>
-																		</label>
-																		{{ form_widget(form.source , {attr:{'class':' form-control'}}) }}
-																	</div>
 																</div>
+															</div>
+
+															<div class="col-md-6">
+																<div class="form-group">
+																	<label>source revenu
+																		<span class="text-danger">*</span>
+																	</label>
+																	{{ form_widget(form.source , {attr:{'class':' form-control'}}) }}
+																</div>
+															</div>
 														</div>
 														<div class="row">
 												
@@ -290,23 +299,10 @@
 																	</label>
 																</div>
 															</div>
-															
-
-														</div>
-
-														<div class="row">
-															<div class="col-md-12">
-																<div class="form-group">
-																	<label>Telecharger les pieces jointes:
-																		<span class="text-danger">*</span>
-																		{{ form_widget(form.piecesjointes , {attr:{'class':''}}) }}
-
-																	</label>
-																</div>
-															</div>
 
 
 														</div>
+
 														
 
 
@@ -370,3 +366,12 @@ $("#adherent_typemaladiechronique").hide();
 });
 			</script>
 		{% endblock %}
+{% block javascript %}
+	<script>
+		$(document).ready(function () {
+$('.custom-file').removeClass('custom-file')
+$('input[id=adherent_piecesjointes').removeClass('form-control custom-file-input')
+$('label[for=adherent_piecesjointes').remove();
+})
+	</script>
+{% endblock %}

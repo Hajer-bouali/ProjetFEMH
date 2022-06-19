@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}affichage de dossier {{ adherent.nom }}
+{% block title %}affichage de dossier
+	{{ adherent.nom }}
 {% endblock %}
 
 {% block body %}
@@ -17,7 +18,8 @@
 						Liste des dossiers
 					</a>
 					<a href="{{ path('adherent_show', {'id': adherent.id}) }}" class="breadcrumb-item">
-						Affichage de dossier {{adherent.id}}
+						Affichage de dossier
+						{{adherent.id}}
 
 					</a>
 
@@ -211,6 +213,7 @@
 													<div class="form-group">
 														<div class="d-flex align-items-center">
 															<i class="icon-collaboration mr-3 icon-4x"></i>
+
 															<div class="font-weight-black">maladie chronique ?(lui ou de famille) :</div>
 															<samp class="font-size-lg">
 																{% if adherent.handicap  == '1' %}
@@ -219,6 +222,12 @@
 																	Non
 																{% endif %}
 															</samp>
+
+															<div class="font-weight-black">maladie chronique ?(lui ou
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											membre
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											de famille) :</div>
+															<samp class="font-size-lg">{{ adherent.maladiechronique
+																}}</samp>
 														</div><br>
 														<div class="d-flex align-items-center">
 															<i class="icon-question3 mr-3 icon-4x"></i>
@@ -379,7 +388,8 @@
 
 																				<div class="modal-body">
 																					<p>
-																						<h5>Voulez vous supprimer {{revenufamilial.benificiaire}}?</h5>
+																						<h5>Voulez vous supprimer
+																							{{revenufamilial.benificiaire}}?</h5>
 																					</p><br><h6>si vous confirmez, votre membre sera effacé</h6>
 																				</div>
 
@@ -404,19 +414,23 @@
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h5 class="modal-title">Vous allez ajouter un revenu familial au {{adherent.nom}}</h5>
+													<h5 class="modal-title">Vous allez ajouter un revenu familial au
+														{{adherent.nom}}</h5>
 													<button type="button" class="close" data-dismiss="modal">&times;</button>
-												</div> {{ form_start(formRF) }}
+												</div>
+												{{ form_start(formRF) }}
 												<div class="modal-body">
 													<div class="form-group">
 														<div class="row">
 															<div class="col-sm-6">
-																<label>Beneficiaire</label> {{ form_widget(formRF.benificiaire, {attr:{'class':'form-control ','placeholder':'Conjoint , Pére , Mére'}}) }}
+																<label>Beneficiaire</label>
+																{{ form_widget(formRF.benificiaire, {attr:{'class':'form-control ','placeholder':'Conjoint , Pére , Mére'}}) }}
 															</div>
 
 															<div class="col-sm-6">
 																<label>Affaires sociales
-																</label> {{ form_widget(formRF.affairessociales, {attr:{'class':'form-control '}}) }}
+																</label>
+																{{ form_widget(formRF.affairessociales, {attr:{'class':'form-control '}}) }}
 
 															</div>
 														</div>
@@ -425,29 +439,35 @@
 													<div class="form-group">
 														<div class="row">
 															<div class="col-sm-6">
-																<label>Couleur de carnet</label> {{ form_widget(formRF.typecarte, {attr:{'class':'form-control form-control-select2'}}) }}
+																<label>Couleur de carnet</label>
+																{{ form_widget(formRF.typecarte, {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 
 															<div class="col-sm-6">
-																<label>Numero d'inscription</label> {{ form_widget(formRF.numinscription, {attr:{'class':'form-control '}}) }}
+																<label>Numero d'inscription</label>
+																{{ form_widget(formRF.numinscription, {attr:{'class':'form-control '}}) }}
 															</div>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="row">
 															<div class="col-sm-6">
-																<label>Le regime de securite sociale</label> {{ form_widget(formRF.regimesecuritesociale, {attr:{'class':'form-control form-control-select2'}}) }}
+																<label>Le regime de securite sociale</label>
+																{{ form_widget(formRF.regimesecuritesociale, {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 
 															<div class="col-sm-6">
-																<label>Type de regime de securité sociale</label> {{ form_widget(formRF.typeregimesecuritesociale, {attr:{'class':'form-control form-control-select2 '}}) }}
+																<label>Type de regime de securité sociale</label>
+																{{ form_widget(formRF.typeregimesecuritesociale, {attr:{'class':'form-control form-control-select2 '}}) }}
 															</div>
 														</div>
 													</div>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-link" data-dismiss="modal">Close</button> {{ form_row(formRF.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
-												</div> {{ form_end(formRF) }}
+													<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+													{{ form_row(formRF.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+												</div>
+												{{ form_end(formRF) }}
 											</div>
 										</div>
 									</div>
@@ -537,7 +557,8 @@
 
 																				<div class="modal-body">
 																					<p>
-																						<h5>Voulez vous supprimer {{benificiaire.nom}}?</h5>
+																						<h5>Voulez vous supprimer
+																							{{benificiaire.nom}}?</h5>
 																					</p><br><h6>si vous confirmez, votre membre sera effacé</h6>
 																				</div>
 
@@ -567,19 +588,23 @@
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h5 class="modal-title">Vous allez ajouter un membre famille au {{adherent.nom}}</h5>
+													<h5 class="modal-title">Vous allez ajouter un membre famille au
+														{{adherent.nom}}</h5>
 													<button type="button" class="close" data-dismiss="modal">&times;</button>
-												</div> {{ form_start(formBen) }}
+												</div>
+												{{ form_start(formBen) }}
 												<div class="modal-body">
 													<div class="form-group">
 														<div class="row">
 															<div class="col-sm-6">
-																<label>relationfamiliale</label> {{ form_widget(formBen.relationfamiliale, {attr:{'class':'form-control form-control-select2'}}) }}
+																<label>relationfamiliale</label>
+																{{ form_widget(formBen.relationfamiliale, {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 
 															<div class="col-sm-6">
 																<label>nom
-																</label> {{ form_widget(formBen.nom, {attr:{'class':'form-control '}}) }}
+																</label>
+																{{ form_widget(formBen.nom, {attr:{'class':'form-control '}}) }}
 
 															</div>
 														</div>
@@ -588,30 +613,63 @@
 													<div class="form-group">
 														<div class="row">
 															<div class="col-sm-6">
-																<label>date naissance</label> {{ form_widget(formBen.datenaissance, {attr:{'class':'form-control'}}) }}
+																<label>date naissance</label>
+																{{ form_widget(formBen.datenaissance, {attr:{'class':'form-control'}}) }}
 															</div>
 
 															<div class="col-sm-6">
-																<label>niveau etude</label> {{ form_widget(formBen.niveauetude, {attr:{'class':'form-control form-control-select2'}}) }}
+																<label>niveau etude</label>
+																{{ form_widget(formBen.niveauetude, {attr:{'class':'form-control form-control-select2'}}) }}
 															</div>
 														</div>
 													</div>
 													<div class="form-group">
 														<div class="row">
 															<div class="col-sm-6">
-																<label>metier</label> {{ form_widget(formBen.metier, {attr:{'class':'form-control '}}) }}
+																<label>metier</label>
+																{{ form_widget(formBen.metier, {attr:{'class':'form-control '}}) }}
 															</div>
 
 														</div>
 													</div>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-link" data-dismiss="modal">Close</button> {{ form_row(formBen.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
-												</div> {{ form_end(formBen) }}
+													<button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+													{{ form_row(formBen.Enregistrer , {attr:{'class':'btn btn-primary'}}) }}
+												</div>
+												{{ form_end(formBen) }}
 											</div>
 										</div>
 									</div>
 									<!-- /vertical form modal -->
+
+								</div>
+								<div class="row">
+
+
+									<div class="col-lg-12">
+										<div class="card card-body border-top-info">
+											<div class="text-center">
+												<i class="icon-users4 mr-3 icon-2x"></i>
+												<h6 class="font-weight-semibold mb-0">PIECES JOINTES
+												</h6>
+
+												<a href="#collapse-icon8" class="text-default" data-toggle="collapse">
+													<i class="icon-circle-down2"></i>
+												</a>
+											</div>
+
+											<div class="collapse" id="collapse-icon8">
+												<div class="mt-3">
+													<div class="card-body">
+														{{adherent.piecesjointes}}
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
 
 								</div>
 							</div>
