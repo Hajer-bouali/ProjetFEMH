@@ -119,6 +119,7 @@ class Adherent
 
     /**
      * @ORM\OneToMany(targetEntity=PiecesJointes::class, mappedBy="attachement", orphanRemoval=true ,cascade={"persist"})
+     * @ORM\JoinTable(name="")
      */
     private $piecesJointes;
 
