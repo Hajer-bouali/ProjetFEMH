@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
+/*/**
  * @Route("home")
  */
 class AdminController extends AbstractController
@@ -148,5 +148,5 @@ class AdminController extends AbstractController
     public function dashboardAdmin(Request $request): Response
     {
         return $this->render('dashboardAdmin.html.twig');
-    }
+    } 
 }
