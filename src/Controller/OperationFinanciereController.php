@@ -17,7 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Services\ServiceChiffreCaisse;
-
+// Include Dompdf required namespaces
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * @Route("/operation/financiere")
@@ -288,4 +290,45 @@ class OperationFinanciereController extends AbstractController
 
         return $this->redirectToRoute('operation_financiere_don_index', [], Response::HTTP_SEE_OTHER);
     }
+        /**
+     * @Route("/{aide}/pdf", name="aide_pdf", methods={"GET"})
+     */
+    public function pdfaide(Request $request, OperationFinanciere $aide,EntityManagerInterface $entityManager)
+    {
+        
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        //$dompdf = new Dompdf(array('enable_remote' => true));
+
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+        $pdfOptions->set('IsFontSubsettingEnabled', true);
+        $pdfOptions->set('IsHtml5ParserEnabled', true);
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        $dompdf->setOptions($pdfOptions);
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('operation_financiere_aide/pdf.html.twig', [
+            'operationFinanciere' => $aide,
+           
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+        
+        // Render the HTML as PDF
+        $dompdf->render();
+        
+        $dompdf->output(['isRemoteEnabled' => false]);
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("un bon d ". $aide->getTypeoperation() . ".pdf", [
+            "Attachment" => false
+        ]);
+        exit(0);
+    }
+
 }
