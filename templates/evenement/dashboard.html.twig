@@ -1,39 +1,35 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-	<!-- Main content -->
-	<div
-		class="content-wrapper">
+<!-- Main content -->
+<div
+	class="content-wrapper">
 
-		<!-- Page header -->
-		<div class="page-header page-header-light">
-			<div class="page-header-content header-elements-md-inline">
-				<div class="d-flex">
-					<div class="breadcrumb">
-						<a href="{{path('evenement_dashboard')}}" class="breadcrumb-item">
-							<i class="icon-home2 mr-2"></i>
-							Dashboard Social</a>
+	<!-- Page header -->
+	<div class="page-header page-header-light">
+		<div class="page-header-content header-elements-md-inline">
+			<div class="d-flex">
+				<div class="breadcrumb">
+					<a href="{{path('evenement_dashboard')}}" class="breadcrumb-item">
+						<i class="icon-home2 mr-2"></i>
+						Dashboard Social</a>
 
-					</div>
-
-					<a href="#" class="header-elements-toggle text-default d-md-none">
-						<i class="icon-more"></i>
-					</a>
 				</div>
 
-
+				<a href="#" class="header-elements-toggle text-default d-md-none">
+					<i class="icon-more"></i>
+				</a>
 			</div>
+
+
 		</div>
-		<!-- /page header -->
-		<!-- dashboard financier -->
-		<!-- Content area -->
-			<div
-			class="content"> <!-- Pie and donut -->
+	</div>
+	<!-- /page header -->
+	<!-- dashboard financier -->
+	<!-- Content area -->
+			<div class="content"> <!-- Pie and donut -->
 			<div class="row">
-
-
 				<div class="col-xl-12">
-
-					<!-- Basic donut -->
+				<!-- Basic donut -->
 					<!-- Quick stats boxes -->
 						<div class="row"> <div
 							class="col-lg-4">
@@ -47,7 +43,7 @@
 									</div>
 
 									<div>
-										La nombre des dossiers non traité aujourd'hui
+										La nombre des dossiers non traité
 									</div>
 								</div>
 
@@ -67,12 +63,12 @@
 								<div class="card-body">
 									<div class="d-flex">
 										<h3 class="font-weight-semibold mb-0">{{nbAdherentreporte}}</h3>
-                                    <span class="badge bg-pink-800 badge-pill align-self-center ml-auto">Reporté</span>
-                                    <!--<a href="#" class="badge bg-pink-800 badge-pill align-self-center ml-auto"><i class="icon-spinner11"></i></a>-->
+										<span class="badge bg-pink-800 badge-pill align-self-center ml-auto">Reporté</span>
+										<!--<a href="#" class="badge bg-pink-800 badge-pill align-self-center ml-auto"><i class="icon-spinner11"></i></a>-->
 									</div>
 
 									<div>
-										La nombre des dossiers reporté aujourd'hui
+										La nombre des dossiers reporté
 									</div>
 								</div>
 
@@ -90,12 +86,12 @@
 								<div class="card-body">
 									<div class="d-flex">
 										<h3 class="font-weight-semibold mb-0">{{nbAdherentAccepte}}</h3>
-                                    <span class="badge bg-info-800 badge-pill align-self-center ml-auto">Accepté</span>
+										<span class="badge bg-info-800 badge-pill align-self-center ml-auto">Accepté</span>
 
 									</div>
 
 									<div>
-                                        La nombre des dossiers accepté aujourd'hui
+										La nombre des dossiers accepté
 									</div>
 								</div>
 
@@ -164,10 +160,11 @@
 						</div>
 					</form>
 				</div> {{ include('evenement/scriptstatistique.html.twig', {'tabaide': tabaide, 'tabdon': tabdon}) }}
-		
+
 			</div>
 			<!-- /zoom option -->
 		</div>
 		<!-- /content area -->
+		
 	</div>
 {% endblock %}

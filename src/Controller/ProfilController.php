@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Controller;
-
 use App\Form\EditPasswordType;
 use App\Form\EditProfilType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,19 +11,26 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("home")
+ * @Route("profil")
  */
 class ProfilController extends AbstractController
 {
     /**
      * @Route("/", name="profil_index")
      */
-    public function index(): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, OperationFinanciereRepository $OperationFinanciereRepository, ServiceChiffreCaisse $serviceChiffrecaisse): Response
     {
-        return $this->render('profil/index.html.twig', [
-            'controller_name' => 'ProfilController',
-        ]);
+        if ($this->isGranted("ROLE_SOCIAL")) {
+            return $this->redirectToRoute('evenement_dashboard');
+        }
+        if ($this->isGranted("ROLE_FINANCIER")) {
+            return $this->redirectToRoute('caisse_dashboard');
+        }
+        if ($this->isGranted("ROLE_ADMIN")) {
+            return $this->redirectToRoute('dashboard_Admin');
+        }
     }
+
     /**
      * @Route("/profil/modifier", name="user_profil_modifier")
      */
@@ -69,5 +76,13 @@ class ProfilController extends AbstractController
             'user' => $user,
         ]);
     }
-
+    /**
+     * @Route("/Profil", name="profil_non_valide")
+     */
+    public function profilNonValide(): Response
+    {
+        return $this->render('profil/profilNonValide.html.twig', [
+            'controller_name' => 'ProfilController',
+        ]);
+    }
 }

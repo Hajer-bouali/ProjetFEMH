@@ -245,7 +245,6 @@ class OperationFinanciereController extends AbstractController
             $entityManager->flush();
             $entityManager->getRepository(Caisse::class)->updateMontant($operationFinanciere->getCaisse());
 
-
             $serviceHistorique->saveModifications([
 
                 'user' => $this->getUser(),
@@ -280,7 +279,7 @@ class OperationFinanciereController extends AbstractController
     /**
      * @Route("don/delete/{id}", name="operation_financiere_don_delete")
      */
-    public function deleteDon(Request $request, OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
+    public function deleteDon(OperationFinanciere $operationFinanciere, EntityManagerInterface $entityManager): Response
     {
         $caisse = $operationFinanciere->getCaisse();
         $entityManager->remove($operationFinanciere);

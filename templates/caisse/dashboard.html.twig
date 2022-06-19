@@ -26,15 +26,15 @@
 			</div>
 		</div>
 		<!-- /page header -->
-		 <!-- dashboard financier -->
-            <!-- Content area -->
-            <div class="content">
+		<!-- dashboard financier -->
+		<!-- Content area -->
+		{% block statistique %}
+			<div
+			class="content"> <!-- Pie and donut -->
+			<div class="row">
 
-                <!-- Pie and donut -->
-                <div class="row">
 
-
-                    <div class="col-xl-12">
+				<div class="col-xl-12">
 
 					<!-- Basic donut -->
 					<!-- Quick stats boxes -->
@@ -51,17 +51,17 @@
 									<div>
 										Dons reçus aujourd'hui
 										<!--
-																				                                             <div class="font-size-sm opacity-75">en dt</div>-->
+																														                                             <div class="font-size-sm opacity-75">en dt</div>-->
 									</div>
 								</div>
 
-                                    <div class="container-fluid">
-                                        <div id="members-online"></div>
-                                    </div>
-                                </div>
-                                <!-- /members online -->
+								<div class="container-fluid">
+									<div id="members-online"></div>
+								</div>
+							</div>
+							<!-- /members online -->
 
-                            </div>
+						</div>
 
 						<div
 							class="col-lg-4">
@@ -70,53 +70,51 @@
 								<div class="card-body">
 									<div class="d-flex">
 										<h3 class="font-weight-semibold mb-0">{{operationaidemontant}}</h3>
-									<span class="badge bg-pink-800 badge-pill align-self-center ml-auto">En TND</span>
+										<span class="badge bg-pink-800 badge-pill align-self-center ml-auto">En TND</span>
 									</div>
 
 									<div>
 										Dépense d'aujourd'hui
-                                        </div>
-                                    </div>
+									</div>
+								</div>
 
-                                    <div id="server-load"></div>
-                                </div>
-                                <!-- /current server load -->
+								<div id="server-load"></div>
+							</div>
+							<!-- /current server load -->
 
-                            </div>
+						</div>
 
-                            <div class="col-lg-4">
+						<div
+							class="col-lg-4">
 
-                                <!-- Today's revenue -->
-                                <div class="card bg-blue-400">
-                                    <div class="card-body">
-                                        <div class="d-flex">
-                                            <h3 class="font-weight-semibold mb-0">{{montanttotal}}</h3>
+							<!-- Today's revenue -->
+							<div class="card bg-blue-400">
+								<div class="card-body">
+									<div class="d-flex">
+										<h3 class="font-weight-semibold mb-0">{{montanttotal}}</h3>
 										<span class="badge bg-info-800 badge-pill align-self-center ml-auto">En TND</span>
-                                        </div>
+									</div>
 
-                                        <div>
-                                            Montant des aides aujourd'hui
-                                            <!--
-                                                <div class="font-size-sm opacity-75">en dt </div>
-                                            -->
+									<div>
+										Montant Total des opération aujourd'hui
 
-                                        </div>
-                                    </div>
+									</div>
+								</div>
 
-                                    <div id="today-revenue"></div>
-                                </div>
-                                <!-- /today's revenue -->
+								<div id="today-revenue"></div>
+							</div>
+							<!-- /today's revenue -->
 
-                            </div>
-                        </div>
-                        <!-- /quick stats boxes -->
+						</div>
+					</div>
+					<!-- /quick stats boxes -->
 
-                        <!-- /basic donut -->
+					<!-- /basic donut -->
 
-                    </div>
-                </div>
-                <!-- /pie and donut -->
-                
+				</div>
+			</div>
+			<!-- /pie and donut -->
+
 
 			<div class="card">
 				<div class="card-header header-elements-inline">
@@ -168,35 +166,11 @@
 					</form>
 				</div> {{ include('caisse/scriptstatistique.html.twig', {'tabaide': tabaide, 'tabdon': tabdon}) }}
 			</div>
+		{% endblock %}
 			<!-- /zoom option -->
-
-			<!-- Basic pie -->
-			<div class="card">
-				<div class="card-header header-elements-inline">
-					<h5 class="card-title">Basic pie chart</h5>
-					<div class="header-elements">
-						<div class="list-icons">
-							<a class="list-icons-item" data-action="collapse"></a>
-							<a class="list-icons-item" data-action="reload"></a>
-							<a class="list-icons-item" data-action="remove"></a>
-						</div>
-					</div>
-				</div>
-
-				<div class="card-body">
-					<div class="chart-container">
-						<div class="chart has-fixed-height" id="pie_basic"></div>
-					</div>
-				</div>
-			</div>
-			<!-- /basic pie -->
-
-
-
-
-            </div>
-            <!-- /content area -->
-            <!-- /dashboard financier -->
+		</div>
+		<!-- /content area -->
+		<!-- /dashboard financier -->
 
 	</div>
 {% endblock %}

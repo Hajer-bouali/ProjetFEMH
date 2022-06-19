@@ -5,19 +5,34 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
+    /**
+     * @Route("/dashboard", name="dashboard")
+     */
+    public function dashboard(): Response
+    {
+        return $this->render('login/dashboard.html.twig');
+    }
+
     /**
      * @Route("/", name="login")
      */
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('profil_index');
-        }
+            if (count($this->getUser()->getRoles()) > 1) {
+                    return $this->redirectToRoute('profil_index');
+                
 
+            } else {
+                return $this->redirectToRoute('dashboard');
+            }
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

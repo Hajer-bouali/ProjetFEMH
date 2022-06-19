@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Stock;
 use App\Form\StockType;
-use App\Repository\OperationStockRepository;
 use App\Repository\StockRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,44 +60,67 @@ class StockController extends AbstractController
     /**
      * @Route("/{id}/edit/", name="stock_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Stock $stock,EntityManagerInterface $entityManager, OperationStockRepository $OperationStockRepository): Response
+    public function edit(Request $request, Stock $stock, EntityManagerInterface $entityManager): Response
     {
+        
+        $quantiteStockNew = $stock->getQuantite();
         $form = $this->createForm(StockType::class, $stock);
         $form->handleRequest($request);
-        $operations = $OperationStockRepository->findByStock($stock);
+        $operation = $stock->getOperationStock();
+
         if ($form->isSubmitted() && $form->isValid()) {
-            foreach ($operations as $operation) {
-                if ($operation->getTypeoperation() === 'don' && $operation->getEtat() === 'valide') {
-                    $stockquantite = $stock->getProduit()->getQuantite();
-                    $quantiteoperation = $stock->getQuantite();
-                    $stock->getProduit()->setQuantite($quantiteoperation + $stockquantite);
-                }
-                if ($operation->getTypeoperation() === 'aide' && $operation->getEtat() === 'valide') {
-                    $stockquantite = $stock->getProduit()->getQuantite();
-                    $quantiteoperation = $stock->getQuantite();
-                    $stock->setQuantite($stockquantite - $quantiteoperation);
-                }
+            if ($operation->getTypeoperation() === 'don') {
+                $quantiteStockEdit = $stock->getQuantite();
+                $produit = $stock->getProduit();
+                $produit->setQuantite($produit->getQuantite() + ($quantiteStockEdit - $quantiteStockNew));
+                $entityManager->persist($produit);
             }
+    
+            if ($operation->getTypeoperation() === 'aide') {
+                $quantiteStockEdit = $stock->getQuantite();
+                $produit = $stock->getProduit();
+                $produit->setQuantite($produit->getQuantite() - ($quantiteStockEdit - $quantiteStockNew));
+                $entityManager->persist($produit);
+            }
+    
             $entityManager->flush();
-
-            return $this->redirectToRoute('stock_index', [], Response::HTTP_SEE_OTHER);
+    
+            if ($operation->getTypeoperation() === 'don') {
+                return $this->redirectToRoute('operation_stock_don_show', ['id' => $operation->getId()], Response::HTTP_SEE_OTHER);
+            }
+            if ($operation->getTypeoperation() === 'aide') {
+                return $this->redirectToRoute('operation_stock_aide_show', ['id' => $operation->getId()], Response::HTTP_SEE_OTHER);
+            }
         }
-
+       
         return $this->renderForm('stock/edit.html.twig', [
             'stock' => $stock,
-            'operations'=>$operations,
+            'operation' => $operation,
             'form' => $form,
         ]);
     }
 
     /**
-     * @Route("/delete/{id}", name="stock_delete")
+     * @Route("/delete/{id}", name="stock_delete", methods={"GET", "POST"})
      */
     public function delete(Stock $stock, EntityManagerInterface $entityManager): Response
     {
+        $produit = $stock->getProduit();
+        $quantite = $stock->getQuantite();
+        $operationStock=$stock->getOperationStock()->getId();
+        $typeOperation = $stock->getOperationStock()->getTypeoperation(); 
         $entityManager->remove($stock);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('stock_index', [], Response::HTTP_SEE_OTHER);
+        if ($typeOperation === 'don') {
+            $produit->setQuantite($produit->getQuantite() - $quantite);
+            $entityManager->persist($produit);
+            $entityManager->flush();
+            return $this->redirectToRoute('operation_stock_don_show', ['id'=>$operationStock]);
+        }
+        if ($typeOperation === 'aide') {
+            $produit->setQuantite($produit->getQuantite() + $quantite);
+            $entityManager->persist($produit);
+            $entityManager->flush();
+            return $this->redirectToRoute('operation_stock_aide_show', ['id'=>$operationStock]);
+        }
     }
 }
