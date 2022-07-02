@@ -60,12 +60,12 @@ class CaisseController extends AbstractController
 
         foreach ($operations as $operation) {
             $dateoperation = $operation->getDate();
-            if ($operation->getEtat() === 'valide' && $dateoperation == $date) {
+            if ($operation->getEtat() === 'valide' ) {
                 $operation->getTypeoperation() === 'don' ?
                 $operationdonmontant += $operation->getMontant() :
                 $operationaidemontant += $operation->getMontant();
             }
-            if ($operation->getEtat() === 'valide' && $dateoperation == $date) {
+            if ($operation->getEtat() === 'valide') {
                 $montanttotal += $operation->getMontant();
             }
         }

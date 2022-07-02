@@ -3,17 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Adherent;
-use App\Entity\Caisse;
 use App\Entity\Evenement;
-use App\Entity\Produit;
 use App\Entity\FicheTechnique;
 use App\Entity\OperationFinanciere;
+use App\Entity\Produit;
 use App\Form\EvenementType;
 use App\Form\FicheTechniqueType;
 use App\Repository\AdherentRepository;
 use App\Repository\EvenementRepository;
 use App\Repository\FicheTechniqueRepository;
-use App\Repository\CaisseRepository;
 use App\Repository\OperationFinanciereRepository;
 use App\Services\ServiceChiffreEvenement;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,31 +32,30 @@ class EvenementController extends AbstractController
      * @Route("/", name="evenement_index", methods={"GET", " POST"})
      */
     public function index(EvenementRepository $evenementRepository): Response
-    {   
-        
+    {
 
         return $this->render('evenement/index.html.twig', [
             'evenements' => $evenementRepository->findAll(),
         ]);
     }
-        /**
+    /**
      * @Route("/dashboard", name="evenement_dashboard", methods={"GET" , "POST"})
      */
-    public function dashboard(Request $request, AdherentRepository $adherentRepository, EntityManagerInterface $entityManager, OperationFinanciereRepository $OperationFinanciereRepository,ServiceChiffreEvenement $serviceChiffreevenement,EvenementRepository $evenementRepository): Response
+    public function dashboard(Request $request, AdherentRepository $adherentRepository, EntityManagerInterface $entityManager, OperationFinanciereRepository $OperationFinanciereRepository, ServiceChiffreEvenement $serviceChiffreevenement, EvenementRepository $evenementRepository): Response
     {
         $adherents = $adherentRepository->findAll();
         $nbAdherentAccepte = 0;
-        $nbAdherentrefuse= 0;
+        $nbAdherentrefuse = 0;
         $nbAdherentreporte = 0;
         $nbAdherentEncour = 0;
         $date = (new \DateTime('now'));
         $date->setTime(0, 0);
-        foreach($adherents as $adherent){
+        foreach ($adherents as $adherent) {
             $dateAdherent = $adherent->getDate();
             if ($adherent->getEtatreunion() === 'valide') {
-               $nbAdherentAccepte += 1; 
+                $nbAdherentAccepte += 1;
             }
-            if ($adherent->getEtatreunion() === 'refuse' ) {
+            if ($adherent->getEtatreunion() === 'refuse') {
                 $nbAdherentrefuse += 1;
             }
             if ($adherent->getEtatreunion() === 'reporte') {
@@ -75,10 +72,10 @@ class EvenementController extends AbstractController
         if ($request->isMethod('post')) {
             $datedebut = \DateTime::createFromFormat('Y-m', $request->request->get('datedebut'));
             $datefin = \DateTime::createFromFormat('Y-m', $request->request->get('datefin'));
-            
+
             $datedebut->setDate($datedebut->format('Y'), $datedebut->format('m'), 1);
             $datefin->setDate($datefin->format('Y'), $datefin->format('m'), 1);
-            $evenement = $request->request->get('evenement', '1'); 
+            $evenement = $request->request->get('evenement', '1');
 
             $tabaide = $serviceChiffreevenement->ChiffreEvenementParMois($datedebut, $datefin, $evenement, 'aide');
             $tabdon = $serviceChiffreevenement->ChiffreEvenementParMois($datedebut, $datefin, $evenement, 'don');
@@ -86,10 +83,10 @@ class EvenementController extends AbstractController
 
         $evenements = $evenementRepository->findAll();
         return $this->render('evenement/dashboard.html.twig', [
-            'nbAdherentEncour'=> $nbAdherentEncour,
-            'nbAdherentreporte'=> $nbAdherentreporte,
-            'nbAdherentrefuse'=> $nbAdherentrefuse,
-            'nbAdherentAccepte'=> $nbAdherentAccepte,
+            'nbAdherentEncour' => $nbAdherentEncour,
+            'nbAdherentreporte' => $nbAdherentreporte,
+            'nbAdherentrefuse' => $nbAdherentrefuse,
+            'nbAdherentAccepte' => $nbAdherentAccepte,
             'tabaide' => $tabaide,
             'tabdon' => $tabdon,
             'evenements' => $evenements,
@@ -127,14 +124,24 @@ class EvenementController extends AbstractController
         $adherents = $adherentRepository->findAll();
         $ficheTechniques = $fichetechniqueRepository->findByEvenement($evenement);
         $ficheTechnique = new FicheTechnique();
-        $nbpanierfinale = 10000;
+        //recuperer la premier ligne de fich technique de chaue evenement
+
+        $nbpanierfinale = $fichetechniqueRepository->findBy([], null, 1, 0);
+        $nbpanierfinale = count($nbpanierfinale) > 0 ? $nbpanierfinale[0]->getNbstockproduit() : null;
 
         $formfichetechnique = $this->createForm(FicheTechniqueType::class, $ficheTechnique);
         $formfichetechnique->handleRequest($request);
 
         if ($formfichetechnique->isSubmitted() && $formfichetechnique->isValid()) {
             $produit = $ficheTechnique->getProduit();
-            if ($produit->getQuantite() < $ficheTechnique->getQuantite()) {
+            //calcule quantité totale des fiches techniques de produit en cours(quantite fois nombre panier final)
+            $quantiteTotal = 0;
+            foreach($produit->getFicheTechniques() as $ft) {
+                $quantiteTotal += $ft->getQuantite() * $evenement->getNbpanierfinale();
+            }
+            $quantiteTotal += $ficheTechnique->getQuantite() * $evenement->getNbpanierfinale();
+            
+            if ($produit->getQuantite() < $quantiteTotal) {
                 $this->addFlash('warning', 'Désolé mais nous navons pas la quantité démandée en stock!');
                 return $this->redirectToRoute('evenement_show', ['id' => $evenement->getId()]);
             }
@@ -151,8 +158,9 @@ class EvenementController extends AbstractController
                     $nbpanierfinale = $ficheTechnique->getNbstockproduit();
                 }
             }
+
             $evenement->setNbpanierfinale($nbpanierfinale);
-            $entityManager->getRepository(Produit::class)->updateQuantiteProduit($produit);
+            $entityManager->getRepository(Produit::class)->updateQuantiteProduit($evenement);
             $entityManager->persist($evenement);
             $entityManager->flush();
 
@@ -179,7 +187,7 @@ class EvenementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);          
+            return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('evenement/edit.html.twig', [
@@ -199,19 +207,18 @@ class EvenementController extends AbstractController
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    
     /**
      * @Route("/valider/{id}", name="evenement_valider")
      */
     public function valider(Request $request, Evenement $evenement, EntityManagerInterface $entityManager): Response
     {
         $evenement->setEtat('valide');
+        $entityManager->getRepository(Produit::class)->updateQuantiteProduit($evenement);
         $entityManager->persist($evenement);
         $entityManager->flush();
 
         return $this->redirectToRoute('evenement_index', [], Response::HTTP_SEE_OTHER);
     }
-
 
     /**
      * @Route("/{id}/adherents", name="evenement_adherents", methods={"GET", "POST"})

@@ -78,7 +78,7 @@ class OperationFinanciereController extends AbstractController
             $operationFinanciere->setDate(new \DateTime('now'));
             $operationFinanciere->setResponsable($this->getUser()->getName());
             if ($operationFinanciere->getMontant() > 500 && $operationFinanciere->getModepaiement() === 'espece') {
-                $this->addFlash('warning', 'Le mode de paiement espéce de lopération ne peut pas dépasser 500 Dt');
+                $this->addFlash('warning', 'Le mode de paiement espéce de l opération ne peut pas dépasser 500 Dt');
                 return $this->redirectToRoute('operation_financiere_don_new', ['id' => $operationFinanciere->getId()]);
             }
             $entityManager->persist($operationFinanciere);

@@ -57,7 +57,7 @@ class FicheTechniqueController extends AbstractController
         ]);
     }
 
-      /**
+    /**
      * @Route("/{id}", name="app_fiche_technique_show", methods={"GET"})
      */
     public function show(FicheTechnique $ficheTechnique): Response
@@ -72,10 +72,14 @@ class FicheTechniqueController extends AbstractController
      */
     public function edit(Request $request, FicheTechnique $ficheTechnique,$evenement, EntityManagerInterface $entityManager): Response
     {
+        $oldQuantite = $ficheTechnique->getQuantite();
         $form = $this->createForm(FicheTechniqueType::class, $ficheTechnique);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $produit = $ficheTechnique->getProduit();
+            $produit->setQuantite($produit->getQuantite() - (($ficheTechnique->getQuantite() - $oldQuantite) * $evenement->getNbpanierfinale()));
+            $entityManager->persist($produit);
             $entityManager->flush();
 
             return $this->redirectToRoute('evenement_show', ['id' => $evenement], Response::HTTP_SEE_OTHER);
@@ -86,14 +90,18 @@ class FicheTechniqueController extends AbstractController
             'form' => $form,
         ]);
     }
+
     /**
      * @Route("/delete/{id}/{evenement}", name="app_fiche_technique_delete")
      */
-    public function delete(FicheTechnique $ficheTechnique,$evenement, EntityManagerInterface $entityManager): Response
+    public function delete(FicheTechnique $ficheTechnique, $evenement, EntityManagerInterface $entityManager): Response
     {
-            $entityManager->remove($ficheTechnique);
-            $entityManager->flush();
+        $produit = $ficheTechnique->getProduit();
+        $produit->setQuantite($produit->getQuantite() + ($ficheTechnique->getQuantite() * $evenement->getNbpanierfinale()));
+        $entityManager->persist($produit);
+        $entityManager->remove($ficheTechnique);
+        $entityManager->flush();
 
-            return $this->redirectToRoute('evenement_show', ['id' => $evenement], Response::HTTP_SEE_OTHER);
-        }
+        return $this->redirectToRoute('evenement_show', ['id' => $evenement], Response::HTTP_SEE_OTHER);
+    }
 }
