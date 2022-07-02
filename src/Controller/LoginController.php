@@ -26,7 +26,7 @@ class LoginController extends AbstractController
     {
         if ($this->getUser()) {
             if (count($this->getUser()->getRoles()) > 1) {
-                    return $this->redirectToRoute('profil_index');
+                    return $this->redirectToRoute('login_dashboard');
                 
 
             } else {

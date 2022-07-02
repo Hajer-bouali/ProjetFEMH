@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user")
+ * @Route("/home")
  * @Security("is_granted('ROLE_SOCIAL') or is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCIER')")
  */
 class UserController extends AbstractController

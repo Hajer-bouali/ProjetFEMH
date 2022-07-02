@@ -37,7 +37,7 @@ class ReunionController extends AbstractController
      * @Route("/create", name="reunion_create", methods={"GET", "POST"})
      */
     function new (Request $request, EntityManagerInterface $entityManager, AdherentRepository $AdherentRepository): Response {
-        $adherents = $AdherentRepository->findAll();
+        $adherents = $AdherentRepository->findByEtatreunion('Encours');
         $reunion = new Reunion();
 
         $form = $this->createForm(ReunionType::class, $reunion);

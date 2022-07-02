@@ -11,14 +11,14 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("home")
+ * @Route("profil")
  */
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/", name="profil_index")
+     * @Route("/", name="login_dashboard")
      */
-    public function index(): Response
+    public function role(): Response
     {
         if ($this->isGranted("ROLE_SOCIAL")) {
             return $this->redirectToRoute('evenement_dashboard');
@@ -29,6 +29,15 @@ class ProfilController extends AbstractController
         if ($this->isGranted("ROLE_ADMIN")) {
             return $this->redirectToRoute('user_index');
         }
+    }
+    /**
+     * @Route("/", name="profil_index")
+     */
+    public function index(): Response
+    {
+        return $this->render('profil/index.html.twig', [
+            'controller_name' => 'ProfilController',
+        ]);
     }
 
     /**

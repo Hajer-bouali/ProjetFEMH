@@ -15,15 +15,19 @@
 				<div class="page-header-content header-elements-inline">
 					<div class="page-title">
 						<h5>
-							<i class="icon-arrow-left52 mr-2"></i>
+							<a href="{{path('evenement_index')}}" class="breadcrumb-item">
+								<i class="icon-arrow-left52 mr-2" ></i>
+							
 							<span class="font-weight-semibold">Page</span>
 							- Modifier l'événement
 							<small class="d-block text-muted">pour l'événement</small>
+						</a>
+
 						</h5>
 					</div>
 
 					<div class="header-elements">
-						<a type="button" class="btn bg-success btn-labeled btn-labeled-left" data-popup="tooltip-custom" title="Validation de l'événement">
+						<a type="button" class="btn bg-success btn-labeled btn-labeled-left" href="{{ path('evenement_valider', {'id': evenement_id}) }}" data-popup="tooltip-custom" title="Validation de l'événement">
 							<b>
 								<i class="icon-task"></i>
 							</b>

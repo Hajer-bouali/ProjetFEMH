@@ -19,15 +19,16 @@ class ProduitRepository extends ServiceEntityRepository
         parent::__construct($registry, Produit::class);
     }
 
-    public function updateQuantiteProduit($produit) {
-        $quantite = $produit->getQuantite();
-        foreach($produit->getFicheTechniques() as $ficheTechnique) {
-            if ($ficheTechnique->getEvenement()->getEtat() == 'valide') {
-                $quantite -= ($ficheTechnique->getQuantite() * $ficheTechnique->getEvenement()->getNbpanierfinale());               
+    public function updateQuantiteProduit($evenement) {
+        foreach($evenement->getFicheTechniques() as $ficheTechnique) {
+            if ($evenement->getEtat() == 'valide' && !$ficheTechnique->isQuantiteCalculee()) {
+                $produit = $ficheTechnique->getProduit();
+                $produit->setQuantite($produit->getQuantite() - ($ficheTechnique->getQuantite() * $ficheTechnique->getEvenement()->getNbpanierfinale()));
+                $ficheTechnique->setQuantiteCalculee(true);
+                $this->_em->persist($ficheTechnique);
+                $this->_em->persist($produit);
             }
         }
-        $produit->setQuantite($quantite);
-        $this->_em->persist($produit);
         $this->_em->flush();
     }
 }

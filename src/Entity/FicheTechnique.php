@@ -46,9 +46,14 @@ class FicheTechnique
      */
     private $evenement;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $quantiteCalculee;
+
     public function __construct()
     {
-
+        $this->setQuantiteCalculee(false);
     }
 
     public function getId(): ?int
@@ -112,6 +117,18 @@ class FicheTechnique
     public function setEvenement(?Evenement $evenement): self
     {
         $this->evenement = $evenement;
+
+        return $this;
+    }
+
+    public function isQuantiteCalculee(): ?bool
+    {
+        return $this->quantiteCalculee;
+    }
+
+    public function setQuantiteCalculee(bool $quantiteCalculee): self
+    {
+        $this->quantiteCalculee = $quantiteCalculee;
 
         return $this;
     }

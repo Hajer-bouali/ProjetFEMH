@@ -1,366 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>
-			Manage Donation
-		</title>
-		<style>
-			h2 {
-				text-align: center;
-				text-color: "teal";
-			}
-		</style>
-	</head>
-	<body>
-		<!-- Profile info -->
-		<div class="card">
-			<div class="card-header header-elements-inline">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>
+            Manage Donation
+        </title>
+        <style>
+            h2 {
+                text-align: center;
+                text-color: "teal";
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Profile info -->
+        <div class="card">
+            <div class="card-header header-elements-inline">
 
-				<h2 style="color:teal">Recherche sociale
-				</h2>
-				<div class="header-elements"></div>
-			</div>
-			<div class="col-md-6">
-				<label class="text-uppercase">
-					Le dossier numero :
-				</label>
-				{{adherent.id}}
-			</div>
-			<div class="card-body">
-				<label>
-					<strong>
-						<h3 style="color:green-400">INFORMATION PERSONNELLE</h3>
-					</strong>
-				</label>
-			</div><br>
+                <h2 style="color:teal">L'OPERATION FINANCIERE D'AIDE NUMERO
+                    {{operationFinanciere.id}}
+                </h2>
+                <div class="header-elements"></div>
+            </div>
+
+            <div class="card-body">
+                <label>
+                    <strong>
+                        <h3 style="color:green-400"></h3>
+                    </strong>
+                </label>
+            </div><br>
 
 
-			<div class="row">
-				<div class="col-md-6">
-					<label>
-						<strong>Nom et prenom:</strong>
-					</label>
-					{{adherent.nom}}
-				</div>
-				<div class="col-md-6">
-					<label>
-						<strong>Numero de carte d'identité :</strong>
-					</label>
-					{{adherent.cin}}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>
-						<strong>Adresse :</strong>
-					</label>
-					{{adherent.adresse}}
-				</div>
-				<div class="col-md-6">
-					<label>
-						<strong>Numero de telephone :</strong>
-					</label>
-					{{adherent.telephone}}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>
-						<strong>Etat civil :</strong>
-					</label>
-					{{adherent.etatcivil}}
-				</div>
-				<div class="col-md-6">
-					<label>
-						<strong>Nombre membre famille :</strong>
-					</label>
-					{{adherent.nombrefamille}}
-				</div>
-			</div>
-			<div class="card-body">
-				<label>
-					<strong>
-						<h3>STATUT RESIDENTIEL</h3>
-					</strong>
-				</label>
-			</div><br>
-			<div class="row">
-				<div class="col-md-6">
-					<label>
-						<strong>Logement:</strong>
-					</label>
-					{{adherent.logement}}
-				</div>
-				<div class="col-md-6">
-					<label>
-						<strong>Le prix location :</strong>
-					</label>
-					{{adherent.prixlocation}}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>
-						<strong>Y a t-il une instalation d'eau:</strong>
-					</label>
-					{{adherent.eau}}
-				</div>
-				<div class="col-md-6">
-					<label>
-						<strong>Y a t-il une instalation d'electricité :</strong>
-					</label>
-					{{adherent.electricite}}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>
-						<strong>Nombre des chambre:</strong>
-					</label>
-					{{adherent.nombrechambre}}
-				</div>
-
-			</div>
-			<div class="card-body">
-				<label>
-					<strong>
-						<h3>ÉTAT DE SANTÉ</h3>
-					</strong>
-				</label>
-			</div><br>
-			<div class="row">
-				<div class="col-md-6">
-					<label>
-						<strong>Y a t-il un handicape:</strong>
-					</label>
-					{{adherent.handicap}}
-				</div>
-				<div class="col-md-6">
-					<label>
-						<strong>Le type d'handicape :</strong>
-					</label>
-					{{adherent.typehandicap}}
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<label>
-						<strong>Y a t-il une maladie chronique dans la fammile:</strong>
-					</label>
-					{{adherent.handicap}}
-				</div>
-				<div class="col-md-6">
-					<label>
-						<strong>Le type du maladie chronique :</strong>
-					</label>
-					{{adherent.typehandicap}}
-				</div>
-			</div>
-			<div class="card-body">
-				<label>
-					<strong>
-						<h3>RESUME DE LA SITUATION SOCIALE</h3>
-					</strong>
-				</label>
-				<div class="row">
-					<div class="col-md-6">
-						<label>
-							<strong>Résumé:</strong>
-						</label>
-						{{adherent.resume}}
-					</div>
-					<div class="col-md-6">
-						<label>
-							<strong>demande:</strong>
-						</label>
-						{{adherent.demande}}
-					</div>
-				</div>
-			</div><br>
-			<div class="card-body">
-				<label>
-					<strong>
-						<h3>REVENU FAMILIAL
-						</h3>
-					</strong>
-				</label>
-				<div class="row">
-					<div class="col-md-6">
-						<label>
-							<strong>montant de  revenu:</strong>
-						</label>
-						{{adherent.montantrevenu}}
-					</div>
-					<div class="col-md-6">
-						<label>
-							<strong>Source revenu:</strong>
-						</label>
-						{{adherent.source}}
-					</div>
-				</div>
-				<table border="1">
-					<thead>
-						<tr>
-							<th>Benificiaire</th>
-							<th>Les affaires sociales</th>
-							<th>Régime securité sociale</th>
-							<th>Type régime securité sociale</th>
-							<th>Type carte</th>
-							<th>Numero d'inscription</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for revenufamilial in revenufamilials %}
-							<tr>
-								<td>{{ revenufamilial.benificiaire }}</td>
-								<td>{{ revenufamilial.affairessociales }}</td>
-								<td>{{ revenufamilial.regimesecuritesociale}}</td>
-								<td>{{ revenufamilial.typeregimesecuritesociale }}</td>
-								<td>{{ revenufamilial.typecarte }}</td>
-								<td>{{ revenufamilial.numinscription }}</td>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>
+                        <strong>Montant:</strong>
+                    </label>
+                    {{operationFinanciere.montant}}
+                </div>
+                <div class="col-md-6">
+                    <label>
+                        <strong>Le mode de paiement :</strong>
+                    </label>
+                    {{operationFinanciere.modepaiement}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>
+                        <strong>Evènement :</strong>
+                    </label>
+                    {{operationFinanciere.evenement}}
+                </div>
 
 
 
-							</tr>
-
-						{% endfor %}
-					</tbody>
-				</table>
-			</div><br>
-			<div class="card-body">
-				<label>
-					<strong>
-						<h3>Membre famille
-						</h3>
-					</strong>
-				</label>
-
-				<table border="1">
-
-					<thead>
-						<tr>
-
-							<th>Relation familiale</th>
-							<th>Nom et prénom</th>
-							<th>date de naissance</th>
-							<th>niveau d'etude</th>
-							<th>metier</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for benificiaire in benificiaires %}
-							<tr>
-								<td>{{ benificiaire.relationfamiliale }}</td>
-								<td>{{ benificiaire.nom }}</td>
-								<td>{{ benificiaire.datenaissance ? benificiaire.datenaissance|date('Y-m-d') : '' }}</td>
-								<td>{{ benificiaire.niveauetude }}</td>
-								<td>{{ benificiaire.Metier }}</td>
-
-								
-
-							</tr>
-						
-
-						{% endfor %}
-
-					</tbody>
-				</table>
-			</div><br>
-<div class="card-body">
-				
-				
-						<label>
-							<strong>Le responsable :</strong>
-						</label>
-						{{adherent.responsable}}
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong></strong>
-						</label>
-						<label>
-							<strong>date de creation :</strong>
-						</label>
-						
-						{{ adherent.date  ? adherent.date|date('Y-m-d') : '' }}
-				
-			</div><br>
-
-		</div>
-	</body>
+            </div>
+        </body>
+    </body>
 </html></div></div><!-- /profile info --></body></html>

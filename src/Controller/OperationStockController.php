@@ -62,7 +62,7 @@ class OperationStockController extends AbstractController
             $entityManager->persist($operationStock);
             $entityManager->flush();
 
-            return $this->redirectToRoute('operation_stock_don_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('operation_stock_don_index', []);
         }
 
         return $this->renderForm('operation_stock_don/new.html.twig', [
@@ -89,14 +89,14 @@ class OperationStockController extends AbstractController
             $entityManager->persist($operationStock);
             $entityManager->flush();
 
-            return $this->redirectToRoute('operation_stock_aide_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('operation_stock_aide_index', []);
         }
         if ($formEvenement->isSubmitted() && $formEvenement->isValid()) {
             $evenement->setEtat('valide');
             $entityManager->persist($evenement);
             $entityManager->flush();
 
-            return $this->redirectToRoute('operation_stock_aide_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('operation_stock_aide_new', []);
         }
 
         return $this->renderForm('operation_stock_aide/new.html.twig', [
@@ -154,14 +154,16 @@ class OperationStockController extends AbstractController
             $produit = $stock->getProduit();
             if ($produit->getQuantite() < $stock->getQuantite()) {
                 $this->addFlash('warning', 'Désolé mais nous navons pas la quantité démandée en stock!');
-                return $this->redirectToRoute('operation_stock_aide_show', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('operation_stock_aide_show', ['id' => $operationStock->getId()]);
+
             }
             $stock->setOperationStock($operationStock);
             $produit->setQuantite($produit->getQuantite() - $stock->getQuantite());
             $entityManager->persist($produit);
             $entityManager->persist($stock);
             $entityManager->flush();
-            return $this->redirectToRoute('operation_stock_aide_show', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('operation_stock_aide_show', ['id' => $operationStock->getId()]);
+
         }
 
         return $this->render('operation_stock_aide/show.html.twig', [
@@ -183,7 +185,7 @@ class OperationStockController extends AbstractController
         if ($formAide->isSubmitted() && $formAide->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('operation_stock_aide_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('operation_stock_aide_index', []);
         }
 
         return $this->renderForm('operation_stock_aide/edit.html.twig', [
@@ -203,7 +205,7 @@ class OperationStockController extends AbstractController
         if ($formDon->isSubmitted() && $formDon->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('operation_stock_don_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('operation_stock_don_index', []);
         }
 
         return $this->renderForm('operation_stock_don/edit.html.twig', [
@@ -221,7 +223,7 @@ class OperationStockController extends AbstractController
        //$idoperationstock = $stock->getOperationstock()->getId();
         $entityManager->remove($OperationStock);
         $entityManager->flush();
-        return $this->redirectToRoute('operation_stock_don_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('operation_stock_don_index', []);
         // return $this->redirectToRoute('operation_stock_don_show', ['id' => $idoperationstock]);
     }
 
@@ -236,7 +238,7 @@ class OperationStockController extends AbstractController
        // $entityManager->$ProduitRepository->updateQuantiteProduit();
         $entityManager->flush();
 
-        return $this->redirectToRoute('operation_stock_aide_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('operation_stock_aide_index', []);
     }
 
     protected function calculeStockPossible(OperationStock $operationStock)
